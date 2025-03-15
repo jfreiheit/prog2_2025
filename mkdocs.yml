@@ -1,0 +1,97 @@
+# Project information
+site_name: Programmieren II
+site_description: Lehrmaterial, Übungen, Aufgaben und Hilfen für Programmieren II
+site_author: Jörn Freiheit
+site_url: http://freiheit.f4.htw-berlin.de/prog2
+
+# Repository
+repo_name: prog2
+repo_url: https://github.com/jfreiheit/prog2_2023
+
+# Copyright
+copyright: Copyright &copy; 2023 Jörn Freiheit
+
+# Configuration
+theme:
+  name: material
+  language: de
+  palette:
+    primary: grey
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - instant
+    - tabs
+    - navigation.footer
+    - navigation.instant
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+  favicon: img/favicon.png
+  logo: img/fiw.jpg
+
+extra_css:
+  - extra.css
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.tilde
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+
+#Navigation
+nav:
+    - Home: index.md
+    - Wiederholung: wiederholung.md
+    - Aufzählungstypen: enum.md 
+    - Einstieg: einstieg.md
+    - Wrapper-Klassen: wrapper.md 
+    - Exceptions: exceptions.md 
+    - Collections: collections.md 
+    - Maps: maps.md
+    - Abstrakte Klassen: abstrakt.md 
+    - Interfaces: interfaces.md 
+    - GUI Einführung: gui.md 
+    - GUI Ereignisse: ereignisse.md 
+    - Mausereignisse: mausereignisse.md
+    - GUI Graphics: graphics.md 
+    - Mausereignisse (in Graphics): mausereignisse_graphics.md
+    - Klausurvorbereitung: klausurvorbereitung.md 
+    - JUnit: junit.md 
+    - Übungen: uebungen.md
+    - Aufgaben: aufgaben.md
+
