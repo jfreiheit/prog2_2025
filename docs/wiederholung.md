@@ -340,7 +340,7 @@
 	- (default)		Zugriff aus Klasse und Paket
 	- `private` 		Zugriff nur aus Klasse 
 
-## "Kleinigkeiten", die wir nicht betrachtet haben
+## "Kleinigkeiten", die wir (fast) nicht betrachtet haben
 
 ### Das Schlüsselwort `static`
 
@@ -410,3 +410,154 @@ Weitere interessante Methoden dieser Klasse sind `copyOf()`, `binarySearch()` un
 ??? "Übung"
 	Ist die `toString()`-Methode der `Arrays`-Klasse statisch oder handelt es sich um eine Objektmethode?
 
+### Reservierter Typname `var`
+
+Es gibt Programmiersprachen, z.B. JavaScript, in denen wir Variablen nicht mit einem Typ deklarieren, sondern der Typ aus dem Wert der Variablen ermittelt wird. Java ist dagegen eine typsichere Sprache. Seit Java 10 kann aber ein reservierter Typ verwendet werden, der auf lokale Variablen anwendbar ist. Dieser reservierte Typ heißt `var`. Es handelt sich dabei gar nicht um ein reserviertes Schlüsselwort, um bereits existierende Variablennamen `var` oder (noch schlechter) Methodennamen `var` nicht in Konflikt geraten zu lassen. Mögliche Einsätze sind wie folgt:
+
+```java
+int[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+for(var value : intArray)
+{
+    System.out.printf(value + " ");
+}
+System.out.println();
+for(var index = 0; index < intArray.length; index++)
+{
+    intArray[index] = intArray[index] + 1;      // mit Effekt
+}
+```
+
+Auch hier wird der eigentliche Typ der Variablen `value` und `index` aus dem Kontext ermittelt (beides `int`). Man spricht von *Local Variable Type Interference*. Wir werden `var` später bei typisierten Collections häufiger anwenden. Es macht den Code manchmal besser lesbar. Guidelines zur Verwendung von `var` finden sich z.B. [hier](https://openjdk.org/projects/amber/guides/lvti-style-guide). 
+
+### Textblöcke
+
+Wir wissen, dass String-Literale in doppelten Hochkomma gesetzt werden, also z.B. 
+
+```java
+String message = "Hallo FIW!";
+```
+
+Bei längeren Zeichenketten, die über mehrere Zeilen gehen und auch noch Zeichen enthalten, die maskiert werden müssen, kann das sehr umständlich aussehen, z.B.:
+
+```java
+String source = "String message = \"Hello FIW!\";\n" +
+        "System.out.println(message);\n";
+```
+
+Das geht mit Textblöcken einfacher:
+
+```java
+String textblock = """
+        String message = "Hello FIW!";
+        System.out.println(message);
+        """;
+```
+
+Syntaktisch sind die String-Literale alse in dreifache Hochkommata eingeschlossen: `"""`. Achten Sie aber darauf, dass nach den öffnenden Hochkommata nicht gleich das String-Literal kommt, sondern erst ein Zeilenumbrauch:
+
+```java
+// Fehler:
+String message = """Hallo FIW!""";
+```
+
+```java
+// korrekt:
+String message = """
+	Hallo FIW!""";
+```
+
+```java
+// auch korrekt:
+String message = """
+	Hallo FIW!
+	""";
+```
+
+Wichtig ist der Zeilenumbruch nach den ersten drei Hochkommata. Ansonsten können Sie Textblöcke als ganz normale Strings verwenden, d.h. wir können Textblöcke mithilfe von `+` mit anderen String-Literalen verbinden und wir können Textblöcke als Parameterwerte übergeben, wenn Strings erwartet werden.
+
+In Textblöcken klappt sogar der Einzug gut, d.h. 
+
+```java
+String html = """
+<html>
+    <body>
+        <p>Hello FIW!</p>
+    </body>
+</html>
+""";
+System.out.println(html);
+```
+
+gibt 
+
+```bash
+<html>
+    <body>
+        <p>Hello FIW!</p>
+    </body>
+</html>
+```
+
+auf der Konsole aus. Für weitere Informationen zu Textblöcken siehe z.B. [hier](https://docs.oracle.com/en/java/javase/17/text-blocks/index.html).
+
+### Record-Klassen
+
+Record-Klassen sind spezielle Java-Klassen, die eine einfache Bildung neuer Datentypen ermöglichen. Die Grundidee ist, dass man einen Konstruktor angibt, dem als Parameter alle Werte für die Objektvariablen übergeben werden. Die `Getter` (leider ohne `get` davor), die `toString()`-, `equals()`- und `hashCode()`-Methoden werden implizit definiert. Einen *record*  definieren wir mithilfe des Schlüsselwortes `record`:
+
+```java
+public record Rectangle(double length, double height){}
+``` 
+
+Das ist es schon. Diese Klasse kann nun so verwendet werden, wie wir es kennen, z.B.:
+
+```java
+Rectangle r1 = new Rectangle(4.0, 8.0);
+Rectangle r2 = new Rectangle(4.0, 8.0);
+Rectangle r3 = new Rectangle(8.0, 4.0);
+System.out.println(r1.toString());
+System.out.println(r2.toString());
+System.out.println(r3.toString());
+System.out.println("r1 gleich r2 ? " + r1.equals(r2));
+System.out.println("r1 gleich r3 ? " + r1.equals(r3));
+```
+
+ergibt folgende Ausgabe:
+
+```bash
+Rectangle[length=4.0, height=8.0]
+Rectangle[length=4.0, height=8.0]
+Rectangle[length=8.0, height=4.0]
+r1 gleich r2 ? true
+r1 gleich r3 ? false
+```
+
+Die `record`-Definition von `Rectangle` entspricht der folgenden Klassendefinition:
+
+```java
+public final class Rectangle 
+{
+    private final double length;
+    private final double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    double length() { return this.length; }
+    double width()  { return this.width; }
+
+    // Implementation of equals() and hashCode(), which specify
+    // that two record objects are equal if they
+    // are of the same type and contain equal field values.
+    public boolean equals...
+    public int hashCode...
+
+    // An implementation of toString() that returns a string
+    // representation of all the record class's fields,
+    // including their names.
+    public String toString() {...}
+}
+```
+
+Beachten Sie, dass `record`-Klassen automatisch `final` sind und dass man also nicht von ihnen erben kann. Außerdem sind `record`-Klassen stets unveränderlich (die Objektvariablen erhalten genau einmal einen Wert und sind `final`).

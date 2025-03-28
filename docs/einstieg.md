@@ -1,12 +1,13 @@
 # Einstieg
 
+
 Wir haben bis jetzt noch keine Nutzerinnen-Eingaben ermöglicht und verwaltet. Das wollen wir nun ändern. Es gibt die Möglichkeit, Nutzerinnen-Eingaben über die Konsole zu implementieren. Dazu steht z.B. die Klasse [Scanner](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html) aus dem `java.util`-Paket zur Verfügung. Diese Klasse wollen wir hier aber nicht betrachten, sondern öffnen einen *Dialog* (ein Fenster), um Eingaben vorzunehmen. Dazu verwenden wir die Klasse [JOptionPane](https://docs.oracle.com/javase/8/docs/api/javax/swing/JOptionPane.html). 
 
 Diese Klasse bietet einige nützliche statische Methoden, die uns Dialoge erzeugen. Die Klasse `JOptionPane` befindet sich im Paket `javax.swing`. Wenn Sie in Ihrem Java-Projekt eine Datei `module-info.java` haben, dann müssen Sie darin `requires java.desktop;` eintragen, um überhaupt Klassen aus dem `javax.swing`-Paket importieren zu können, das sich das Paket `javax.swing` im Modul `java.desktop` befindet:
 
 === "module-info.java"
 	```java
-	module SoSe23 	// SoSe23 ist der Name des Java-Projektes
+	module SoSe25 	// SoSe25 ist der Name des Java-Projektes
 	{
 		requires java.desktop;
 	}
@@ -27,7 +28,7 @@ Diese Methoden erzeugen jeweils ein Dialogfenster, in dem entweder etwas eingege
 - `JOptionPane.OK_OPTION`,
 - `JOptionPane.CLOSED_OPTION`
 
-## Beispiel `showConfirmDialog()`
+### Beispiel `showConfirmDialog()`
 
 Die `showConfirmDialog()`-Methode ist zwei Mal überladen. Es gibt 
 
@@ -47,7 +48,7 @@ Der `String` `message` erscheint im Dialogfenster als Nachricht. Da dies nicht n
 
 Der `String` `title` erscheint als Titel des Dialogfensters. 
 
-### Beispiel mit `YES_NO_OPTION`
+#### Beispiel mit `YES_NO_OPTION`
 
 ```java
 int auswahl = JOptionPane.showConfirmDialog(
@@ -76,7 +77,7 @@ else if(auswahl == JOptionPane.YES_OPTION)
 }
 ```
 
-### Beispiel mit `YES_NO_CANCEL_OPTION`
+#### Beispiel mit `YES_NO_CANCEL_OPTION`
 
 
 
@@ -102,7 +103,7 @@ erzeugt folgendes Dialogfenster:
 ![einstieg](files/101_einstieg.png)
 
 
-## Beispiel `showInputDialog()`
+### Beispiel `showInputDialog()`
 
 Die Methode `showInputDialog()` öffnet ein Dialogfenster mit einem einzeiligen Textfeld, in das die Nutzerin etwas eingeben kann und diese Eingabe dann mit dem Klick auf einen Button beendet. Die Methode `showInputDialog()` ist sechs Mal überladen, siehe dazu [hier]. Uns interessiert in den meisten Fällen die einfachste Form `showInputDialog(Object message)` oder, wenn wir noch einen `messageType` hinzufügen wollen, `showInputDialog(Component parentComponent, Object message, String title, int messageType)`. 
 
