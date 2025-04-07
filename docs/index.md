@@ -20,13 +20,13 @@ Der Plan zur Durchführung der Veranstaltung ist derzeit wie folgt:
 - Die Veranstaltungen finden in Präsenz statt. Es werden keine Videos erstellt.
 - Das Skript wird für die jeweils kommende Woche freitags hochgeladen. 
 - Mit dem Skript wird sowohl die Übung für die kommende Woche als auch die neue Aufgabe hochgeladen.
-- Die Übung (und die vergangene Aufgabe) werden donnerstags (8 - 9.30 bzw. 14-15.30 Uhr) besprochen. Sie können frei wählen, welche der beiden Übungen Sie besuchen.
+- Sie können frei wählen, welche der beiden Übungen Sie besuchen.
 - Die Veranstaltung wird durch ein Tutorium unterstützt. Der Termin für das Tutorium wird noch bekanntgegeben.
 - Sollten Sie Wünsche haben, diesen Plan zu ändern, kommen Sie gerne auf mich zu
 
-Zur erfolgreichen Durchführung der Veranstaltung sollten Sie die **Aufgaben** lösen und zu den jeweiligen Fristen auf [Moodle](https://moodle.htw-berlin.de/course/view.php?id=42543) hochladen. Es werden insgesamt wahrscheinlich 10 Aufgaben sein, die Sie selbständig lösen und hochladen. Sie können die Aufgaben auch zu zweit lösen. Sollte Ihre Lösung der Lösung entsprechen, die im Tutorium erarbeitet wurde, brauchen Sie diese Lösung **nicht** hochzuladen. Am Ende des Semesters schreiben wir eine **Klausur** (am Rechner). Diese Klausur wird bewertet und entspricht der Note für das gesamte "Programmieren"-Modul. Bitte beachten Sie, dass das Modul erfahrungsgemäß nur dann bestanden werden kann, wenn Sie die Übungen und Aufgaben selbstständig lösen können. Selbst wenn Ihnen zunächst eine eigene Lösung schwerfällt, müssen Sie es irgendwann im Laufe des Semsters - am besten, jeweils so schnell wie möglich - schaffen, diese Aufgaben selbstständig zu implementieren.
+Zur erfolgreichen Durchführung der Veranstaltung *sollten* Sie die **Aufgaben** lösen und zu den jeweiligen Fristen auf [Moodle](https://moodle.htw-berlin.de/course/view.php?id=42543) hochladen. Es werden insgesamt wahrscheinlich 10 Aufgaben sein, die Sie selbständig lösen und hochladen. Sie können die Aufgaben auch zu zweit lösen. Am Ende des Semesters schreiben wir eine **Klausur** (am Rechner). Diese Klausur wird bewertet und entspricht der Note für das gesamte "Programmieren"-Modul. Bitte beachten Sie, dass das Modul erfahrungsgemäß nur dann bestanden werden kann, wenn Sie die Übungen und Aufgaben selbstständig lösen können. Selbst wenn Ihnen zunächst eine eigene Lösung schwerfällt, müssen Sie es irgendwann im Laufe des Semsters - am besten, jeweils so schnell wie möglich - schaffen, diese Aufgaben selbstständig zu implementieren.
 
-Unter [**Aufgaben**](aufgaben.md#aufgaben) sind die Aufgaben beschrieben, die Sie in jeder Woche ausführen sollen. Damit Sie dies erfolgreich erledigen können, ist jeweils angegeben, welche Themen Sie dafür durcharbeiten müssen. Das Durcharbeiten der jeweiligen Themen entspricht jeweils einer Vorlesung. Diese wird also selbständig durchgeführt. 
+Unter [**Aufgaben**](aufgaben.md#aufgaben) sind die Aufgaben beschrieben, die Sie in jeder Woche ausführen sollen. Damit Sie dies erfolgreich erledigen können, ist jeweils angegeben, welche Themen Sie dafür durcharbeiten müssen. Das Durcharbeiten der jeweiligen Themen entspricht jeweils einer Vorlesung.  
 
 Daneben gibt es jede Woche (zu jedem Thema) **Übungen**, die wir in den Übungszeiten besprechen. Diese dienen der Anwendung und der Festigung der erlangten Kenntnisse. Die [**Übungen**](uebungen.md#ubungen) sind kleine Aufgaben, an denen Sie das neue Wissen anwenden sollen. Die Übungen dienen der Befähigung, die (größeren) Aufgaben lösen zu können.  
 
@@ -47,11 +47,11 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 4. | 05.-09.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen)| [Übung 4](uebungen.md#ubung-4-listen-und-mengen) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
 | 5. | 12.-15.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 5](uebungen.md#ubung-5-maps) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
 | 6. | 19.-23.05.2025 | [Lambdas]() | [Übung 6](uebungen.md#ubung-6-interfaces) |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
-| 7. | 26.-30.05.2025 | [Java-Streams]() | [Übung 7](uebungen.md#ubung-7-gui) |[Aufgabe 7](aufgaben.md#aufgabe-7-gui) | 15.06.2025 | 
-| 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 8](uebungen.md#ubung-8-ereignisbehandlung-actionlistener) |[Aufgabe 8](aufgaben.md#aufgabe-8-ereignisbehandlung) | 22.06.2025 | 
-| 9. | 09.-13.06.2025 | [Genererics]() | [Übung 9](uebungen.md#ubung-9-tictactoe) |[Aufgabe 9](aufgaben.md#aufgabe-9-schiebepuzzle) | 29.06.2025 | 
-| 10. | 16.-20.06.2025 | [Git]() | [Übung 10](uebungen.md#ubung-10-zeichnen) | [Aufgabe 10](aufgaben.md#aufgabe-10-zeichnen) | 06.07.2025 |
-| 11. | 23.-27.06.2025 | [Maven]() | [Übung 11](uebungen.md#ubung-11-mausereignisse) | - | - |
+| 7. | 26.-30.05.2025 | [Java-Streams]() | [Übung 7]() |[Aufgabe 7]() | 15.06.2025 | 
+| 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 8]() |[Aufgabe 8]() | 22.06.2025 | 
+| 9. | 09.-13.06.2025 | [Genererics]() | [Übung 9]() |[Aufgabe 9]() | 29.06.2025 | 
+| 10. | 16.-20.06.2025 | [Git]() | [Übung 10]() | [Aufgabe 10]() | 06.07.2025 |
+| 11. | 23.-27.06.2025 | [Maven]() | [Übung 11]() | - | - |
 | 12. | 30.-04.07.2025 | [REST-API mit SpringBoot]() | Übung 12 | - | - |
 | 13. | 07.-11.07.2025 | [JUnit]()| Übung 13 | - | - |
 | 14. | 14.-18.07.2025 | [Test driven development]()| Übung 13 | - | - |
@@ -65,6 +65,5 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 ??? question "Einführung und Organisatorisches + Wiederholung + enum + Einstieg"
 	- siehe [**Organisatorisches**](#organisatorisches)
 	- siehe [**Wiederholung**](wiederholung.md#wiederholung)
-	- siehe [**Aufzählungstypen**](enum.md#aufzahlungstypen-enum)
 	- siehe [**Einstieg**](einstieg.md#einstieg)
 	- siehe [**Aufgabe 1**](aufgaben.md#aufgabe-1-wurfelspiel)
