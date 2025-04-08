@@ -67,3 +67,54 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 	- siehe [**Wiederholung**](wiederholung.md#wiederholung)
 	- siehe [**Einstieg**](einstieg.md#einstieg)
 	- siehe [**Aufgabe 1**](aufgaben.md#aufgabe-1-wurfelspiel)
+
+
+??? "Code aus der Vorlesung 09.04.2025"
+
+	=== "Programmklasse.java"
+		```java
+		import javax.swing.*;
+		import java.util.Arrays;
+
+		public class Main
+		{
+		    public static void main(String[] args)
+		    {
+		         int[] numbers = {1, 2,  3, 4, 5, 6, 7, 8, 9, 10};
+		         for(var values : numbers)
+		         {
+		             System.out.print(values + ", ");
+		         }
+		         System.out.println(Arrays.toString(numbers));
+
+		         String s1 = "Hello FIW! \n " + "Welcome to FIW!";
+		         String s2 = """
+		                 Hello FIW!
+		                 Hello FIW!
+		                 Welcome to FIW!
+		                 <html>
+		                    <h1>Hello FIW!</h1>
+		                    <p>Hello FIW!</p>
+		                        <a href="www."
+		                 </html>""";
+		         System.out.println(s2 + " Hallo ");
+
+		         Rectangle r1  = new Rectangle(5, 6);
+		         Rectangle r2 = new Rectangle(6, 7);
+		         Rectangle r3 = new Rectangle(5, 6);
+		         System.out.println(r1.toString());
+		         System.out.println(r2.toString());
+		         System.out.println(r3.toString());
+		         System.out.println("r1 equals r2 ?  " + r1.equals(r2));
+		         System.out.println("r1 equals r3 ?  " + r1.equals(r3));
+
+		         JOptionPane.showMessageDialog(null, "Hello FIW!", "Titel FIW!", JOptionPane.QUESTION_MESSAGE);
+		         String input = JOptionPane.showInputDialog(null, "Geben Sie eine Zahl ein:");
+		         System.out.println("Sie haben " + input + " eingegeben");
+		    }
+		}
+		```
+	=== "Rectangle.java"
+		```java
+		public record Rectangle(double width, double length){}
+		```
