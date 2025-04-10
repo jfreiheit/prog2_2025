@@ -435,6 +435,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#functional-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Interfaces
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1519,6 +1528,36 @@
 </div>
 </div>
 <p>Wir haben ausgenutzt, dass in der Klasse <code>Shape</code> bereits genügend Informationen vorliegen, um die Methode <code>compareTo()</code> korrekt für alle Klassen zu implementieren, die von <code>Shape</code> erben. Diese Methode muss dann von diesen konkreten Klassen nicht mehr implementiert werden. Wir vermeiden so doppelten Code. Die <code>testklasseShape</code> bleibt unverändert für alle abgeleiteten Klassen aus <code>Shape</code> anwendbar. </p>
+<h2 id="functional-interfaces">Functional Interfaces<a class="headerlink" href="#functional-interfaces" title="Permanent link">&para;</a></h2>
+<p><strong>Zusammenfassung Interfaces:</strong> In <em>Interfaces</em> können wir definieren:</p>
+<ul>
+<li>Konstanten (Variablen, denen nur einmal ein Wert zugewiesen werden kann - globale Variablen in Interfaces sind automatisch deklariert als <code>public static final</code>),</li>
+<li>abstrakte Methoden (Methoden, die nicht impementiert sind, d.h. keinen Methodenkörper haben),</li>
+<li>statische Methoden (implementierte Methoden als <code>static</code> deklariert),</li>
+<li>sogenannte <code>default</code>-Methoden (implementierte Methoden, die mithilfe des Schlüsselwortes <code>default</code> deklariert werden)</li>
+</ul>
+<p>Wir betrachten ein Beispiel <code>Printable</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Interface Printable.java</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-java highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Printable</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="p">{</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="k">default</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Es enthält eine abstrakte Methode und eine <code>default</code>-Methode (nur, um eine solche einmal zu zeigen). Wichtig ist, dass dieses Interface <em>genau eine</em> abstrakte Methode enthält. Prinzipiell ist es guter Stil, dass ein <em>Interface</em> möglichst wenig abstrakte Methoden enthält, denn sobal eine Klasse ein Interface implementiert, muss diese Klasse ja alle abstrakten Methoden des Interfaces implementieren. Für mehrer abstrakte Methoden ist es meist besser, diese auf mehrere Interfaces aufzuteilen, dann müssen nicht eventuell unnötige Methoden implementiert werden. </p>
+<p>Es kommt deshalb häufig vor, dass ein Interface <em>genau eine</em> abstrakte Methode enthält. In einem solchen Fall sprechen wir von sogenannten <em>Functional Interfaces</em>.</p>
+<blockquote>
+<p>Ein <em>Functional Interface</em> enthält genau eine abstrakte Methode.</p>
+</blockquote>
 
 
 

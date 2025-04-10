@@ -1,6 +1,6 @@
 # Lambda-Ausdrücke
 
-*Lambda*-Ausdrücke (*Lambdas*) sind anonyme Funktionen (Methoden), d.h. Funktionen (Methoden) ohne Namen. Im Kontext von *Lambdas* sprechen wir stets eher von Funktionen als von Methoden. Die prinzipielle Syntax von *Lambda*-Ausdrücken ist
+*Lambda*-Ausdrücke (*Lambdas*) sind anonyme Funktionen (Methoden), d.h. Funktionen (Methoden) ohne Namen. *Lambdas* werden im Zusammenhang von *Functional Interfaces* verwendet. Im Kontext von *Lambdas* sprechen wir stets eher von Funktionen als von Methoden. Die prinzipielle Syntax von *Lambda*-Ausdrücken ist
 
 ```java
 (params) -> {body}

@@ -132,6 +132,144 @@
 	())(				// nicht korrekt
 	```
 
+
+??? success "Eine mögliche Lösung für Übung 2"
+	```java
+	package uebungen.uebung2.loesung;
+
+	public class Uebung2 {
+		
+		public static boolean isBinaryNumber(String s)
+		{
+			for(int index=0; index < s.length(); index++)
+			{
+				char c = s.charAt(index);
+				if(!(c=='0' || c=='1'))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		public static int binaryToDecimal(String s)
+		{
+			final int STRING_IS_NOT_A_BINARY_NUMBER = -1;
+	        if(!isBinaryNumber(s))
+	        {
+	           return STRING_IS_NOT_A_BINARY_NUMBER;
+	        }
+	        int positionValue = 1;
+			int decimalNumber = 0;
+			int exp = 0;
+			for(int index = s.length()-1; index >= 0; index--)
+			{
+				char c = s.charAt(index);
+				int digit = c - '0';
+				int value = digit * positionValue;
+				decimalNumber += value;
+				positionValue *= 2;
+			}
+			
+			return decimalNumber;
+		}
+		
+		public static String toLowerCase(String input)
+		{
+			String output = "";
+			final int UPPER_TO_LOWER = 32;
+
+			for(int index=0; index < input.length(); index++)
+			{
+				char c = input.charAt(index);
+				if(c >= 'A' && c<= 'Z')
+				{
+					c += UPPER_TO_LOWER;	// "automatic" type cast c = (char)(c + UPPER_TO_LOWER)
+				}
+				output += c;
+			}
+			return output;
+		}
+			
+		public static boolean isPalindrome(String input)
+		{
+			String s = toLowerCase(input);
+			boolean palindrome = true;
+			while(palindrome && s.length() > 1)
+			{
+				char c1 = s.charAt(0); 
+				char c2 = s.charAt(s.length() - 1);
+				if(c1 == c2)
+				{
+					s = s.substring(1,s.length() - 1);
+				}
+				else 
+				{
+					palindrome = false;
+				}
+			}
+			return palindrome;
+		}
+			
+		public static boolean checkBraces(String input)
+		{
+			int nrOpening = 0;	// man koennte auch fuer jede oeffnende ++ und
+			int nrClosing = 0;	// jede schliessende -- und dann nur eine Variable
+								// dann pruefen, ob nie negativ
+			boolean correct = true;
+			for(int index=0; correct && index < input.length(); index++)
+			{
+				char c = input.charAt(index);
+				if(c== '(') 
+				{
+					nrOpening++;
+				}
+				else if(c== ')') 
+				{
+					nrClosing++;
+				}
+				
+				if(nrClosing > nrOpening)	// dann waere hier < 0
+				{
+					correct = false;
+				}
+			}
+			if(nrOpening != nrClosing) 		// dann waere hier == 0
+			{
+				correct = false;
+			}
+			return correct;
+		}
+
+		public static void main(String[] args) {
+			System.out.println(isBinaryNumber("101101"));	// true
+			System.out.println(isBinaryNumber("0"));		// true
+			System.out.println(isBinaryNumber("101a01"));	// false
+			System.out.println(isBinaryNumber("101201"));	// false
+
+			System.out.println(binaryToDecimal("101101"));	// 45
+			System.out.println(binaryToDecimal("0"));		// 0
+			System.out.println(binaryToDecimal("000001"));	// 1
+			System.out.println(binaryToDecimal("100000"));	// 32
+			System.out.println(binaryToDecimal("101a01"));	// -1
+			System.out.println(binaryToDecimal("101201"));	// -1
+			
+			System.out.println(toLowerCase("abcdEFG"));		// abcdefg
+			System.out.println(toLowerCase("abcd123EFG"));	// abcd123efg
+			System.out.println(toLowerCase("ABC XYZ !%"));	// abc xyz !%
+		
+			System.out.println(isPalindrome("Otto"));		// true
+			System.out.println(isPalindrome("abc_CBA"));	// true
+			System.out.println(isPalindrome("abc_-CBA"));	// false
+			System.out.println(isPalindrome("-"));			// true
+			System.out.println(isPalindrome("Dreh mal am Herd"));	// false
+			// das letzte waere okay, wenn man bei der Pruefung
+			// die Leerzeichen ignorieren wuerde, waere auch moeglich
+		}
+
+	}
+	```
+
 ##### Übung 3 (Exceptions)
 
 ??? "Übung 3"

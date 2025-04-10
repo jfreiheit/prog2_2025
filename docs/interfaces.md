@@ -701,3 +701,35 @@ In abstrakten Klassen müssen nicht, im Gegensatz zu Interfaces, alle Methoden a
 	```
 
 Wir haben ausgenutzt, dass in der Klasse `Shape` bereits genügend Informationen vorliegen, um die Methode `compareTo()` korrekt für alle Klassen zu implementieren, die von `Shape` erben. Diese Methode muss dann von diesen konkreten Klassen nicht mehr implementiert werden. Wir vermeiden so doppelten Code. Die `testklasseShape` bleibt unverändert für alle abgeleiteten Klassen aus `Shape` anwendbar. 
+
+## Functional Interfaces
+
+**Zusammenfassung Interfaces:** In *Interfaces* können wir definieren:
+
+- Konstanten (Variablen, denen nur einmal ein Wert zugewiesen werden kann - globale Variablen in Interfaces sind automatisch deklariert als `public static final`),
+- abstrakte Methoden (Methoden, die nicht impementiert sind, d.h. keinen Methodenkörper haben),
+- statische Methoden (implementierte Methoden als `static` deklariert),
+- sogenannte `default`-Methoden (implementierte Methoden, die mithilfe des Schlüsselwortes `default` deklariert werden)
+
+Wir betrachten ein Beispiel `Printable`:
+
+=== "Interface Printable.java"
+	```java
+	public interface Printable
+	{
+	    void print(String s);
+
+	    default void print()
+	    {
+	        print("default");
+	    }
+	}
+	```
+
+Es enthält eine abstrakte Methode und eine `default`-Methode (nur, um eine solche einmal zu zeigen). Wichtig ist, dass dieses Interface *genau eine* abstrakte Methode enthält. Prinzipiell ist es guter Stil, dass ein *Interface* möglichst wenig abstrakte Methoden enthält, denn sobal eine Klasse ein Interface implementiert, muss diese Klasse ja alle abstrakten Methoden des Interfaces implementieren. Für mehrer abstrakte Methoden ist es meist besser, diese auf mehrere Interfaces aufzuteilen, dann müssen nicht eventuell unnötige Methoden implementiert werden. 
+
+Es kommt deshalb häufig vor, dass ein Interface *genau eine* abstrakte Methode enthält. In einem solchen Fall sprechen wir von sogenannten *Functional Interfaces*.
+
+> Ein *Functional Interface* enthält genau eine abstrakte Methode.
+
+
