@@ -597,9 +597,11 @@
 <div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">String</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MONTAG&quot;</span><span class="w">   </span><span class="c1">// kann auch Werte &quot;Dienstag&quot; usw. annehmen</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">            </span><span class="c1">// Magic Number für &quot;Montag&quot;</span>
 </span></code></pre></div>
-<p>Das Problem: 
-- die Variablen können auch beliebige andere Werte (aus dem jeweiligen Wertebereich) annehmen, z.B. <code>Tag = "hallo"</code> oder <code>Tag=4711</code>,
-- Magic Numbers sollen vermieden werden &rarr; meistens schlechte Lesbarkeit</p>
+<p>Das Problem: </p>
+<ul>
+<li>die Variablen können auch beliebige andere Werte (aus dem jeweiligen Wertebereich) annehmen, z.B. <code>Tag = "hallo"</code> oder <code>Tag=4711</code>,</li>
+<li>Magic Numbers sollen vermieden werden &rarr; meistens schlechte Lesbarkeit</li>
+</ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Beispiel TicTacToe</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -669,15 +671,19 @@
 <li>endliche Anzahl an Zuständen bzw. Werten</li>
 <li>leserliche Bezeichnung der Werte</li>
 </ul>
-<p>Lösung:
-- <em>Enumerations</em> (sog. Aufzählungstypen)
-- Schlüsselwort <code>enum</code></p>
+<p>Lösung:</p>
+<ul>
+<li><em>Enumerations</em> (sog. Aufzählungstypen)</li>
+<li>Schlüsselwort <code>enum</code></li>
+</ul>
 <p>Syntax:
 <div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">    </span><span class="kd">enum</span><span class="w"> </span><span class="n">TypName</span><span class="w"> </span><span class="p">{</span><span class="n">WERT1</span><span class="p">,</span><span class="w"> </span><span class="n">WERT2</span><span class="p">,</span><span class="w"> </span><span class="n">WERT3</span><span class="p">};</span>
 </span></code></pre></div></p>
-<p>Verwendung:
-- <code>TypName</code> nun als Datentyp verwendbar, z.B. <code>TypName[][]</code>
-- Zugriff auf Werte über statische Punktschreibweise, z.B. <code>TypName.WERT1</code></p>
+<p>Verwendung:</p>
+<ul>
+<li><code>TypName</code> nun als Datentyp verwendbar, z.B. <code>TypName[][]</code></li>
+<li>Zugriff auf Werte über statische Punktschreibweise, z.B. <code>TypName.WERT1</code></li>
+</ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Beispiel TicTacToe mit enum</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -737,21 +743,37 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Beispiel enum</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">State</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span><span class="w">  </span><span class="c1">// s = 0 oder s = &quot;rot&quot; oder so geht nicht </span>
+<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">State</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span><span class="w">  </span><span class="c1">// s = 0 oder s = &quot;rot&quot; oder so geht nicht </span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">                        </span><span class="c1">//-&gt; typsicher</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="k">switch</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="p">{</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">EMPTY</span><span class="p">:</span><span class="w">     </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;leeres Feld&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">RED</span><span class="p">:</span><span class="w">   </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;roter Stein&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">RED</span><span class="p">:</span><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;roter Stein&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">BLACK</span><span class="p">:</span><span class="w">     </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;schwarzer Stein Feld&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="p">}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="c1">// neuere Syntax switch ohne break zur Info</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="k">switch</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="p">{</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">EMPTY</span><span class="w">  </span><span class="o">-&gt;</span><span class="w">   </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;leeres Feld&quot;</span><span class="p">);</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">RED</span><span class="w">    </span><span class="o">-&gt;</span><span class="w">   </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;roter Stein&quot;</span><span class="p">);</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">BLACK</span><span class="w">  </span><span class="o">-&gt;</span><span class="w">   </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;schwarzer Stein Feld&quot;</span><span class="p">);</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 </div>

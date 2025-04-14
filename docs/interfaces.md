@@ -732,4 +732,21 @@ Es kommt deshalb häufig vor, dass ein Interface *genau eine* abstrakte Methode 
 
 > Ein *Functional Interface* enthält genau eine abstrakte Methode.
 
+*Functional Interfaces* sind sehr sinnvoll und kommen häufig vor. Um sicherzustellen, dass es sich wirklich um ein *Functional Interface* handelt, verwenden wir die Annotation `@FunctionalInterface`. Dadurch wird es nicht möglich, eine weitere abstrakte Methode hinzuzufügen:
 
+
+=== "Functional Interface Printable.java"
+	```java
+	@FunctionalInterface
+	public interface Printable
+	{
+	    void print(String s);
+
+	    default void print()
+	    {
+	        print("default");
+	    }
+	}
+	```
+
+Typische Vertreter von *Functional Interfaces* in Java sind [Comparable](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Comparable.html), [Predicate](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Predicate.html), [Consumer](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Consumer.html) und [Function](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Function.html). Das erstegenannte haben wir bereits kennengelernt. Mit den letzten dreien beschäftigen wir uns im folgenden Kapitel, in dem es um [Lambda-Ausdrücke](lambdas.md#lambda-ausdrucke) geht. 

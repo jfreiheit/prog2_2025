@@ -40,33 +40,34 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 | | Woche | Themen (Vorlesung) | Übung | Aufgabe | Abgabe Aufgabe bis | 
 |-|-------|--------------------|-------|-----------------|------------------|
-| 1. | 07.-11.04.2025 | [Organisatorisches](#organisatorisches), [Wiederholung](wiederholung.md#datentypen), [Aufzählungstypen](enum.md#aufzahlungstypen-enum), [Einstieg](einstieg.md#einstieg) | - | - | - | 
-| 1. | 14.-18.04.2025 | [Wrapper-Klassen (boxing und unboxing)](wrapper.md#wrapper-klassen)<br/>[Exceptions I](exceptions.md#exceptions)| [Übung 1](uebungen.md#ubung-1-codereview-und-static) |[Aufgabe 1](aufgaben.md#aufgabe-1-wurfelspiel) | 27.04.2025 | 
-| 2. | 21.-25.04.2025 | [Exceptions II](exceptions.md#die-vererbungshierarchie-der-klasse-exception) | [Übung 2](uebungen.md#ubung-2-string-und-algorithmisches-denken) |[Aufgabe 2](aufgaben.md#aufgabe-2-myinteger) | 04.05.2025 | 
-| 3. | 28.-02.05.2025 | [Collections (List und Set)](collections.md#collections) | [Übung 3](uebungen.md#ubung-3-exceptions) |[Aufgabe 3](aufgaben.md#aufgabe-3-solitaire) | 18.05.2025 | 
-| 4. | 05.-09.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen)| [Übung 4](uebungen.md#ubung-4-listen-und-mengen) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
-| 5. | 12.-15.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 5](uebungen.md#ubung-5-maps) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
-| 6. | 19.-23.05.2025 | [Lambdas]() | [Übung 6](uebungen.md#ubung-6-interfaces) |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
-| 7. | 26.-30.05.2025 | [Java-Streams]() | [Übung 7]() |[Aufgabe 7]() | 15.06.2025 | 
-| 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 8]() |[Aufgabe 8]() | 22.06.2025 | 
-| 9. | 09.-13.06.2025 | [Genererics]() | [Übung 9]() |[Aufgabe 9]() | 29.06.2025 | 
-| 10. | 16.-20.06.2025 | [Git]() | [Übung 10]() | [Aufgabe 10]() | 06.07.2025 |
-| 11. | 23.-27.06.2025 | [Maven]() | [Übung 11]() | - | - |
-| 12. | 30.-04.07.2025 | [REST-API mit SpringBoot]() | Übung 12 | - | - |
-| 13. | 07.-11.07.2025 | [JUnit]()| Übung 13 | - | - |
-| 14. | 14.-18.07.2025 | [Test driven development]()| Übung 13 | - | - |
-| 15. | 21.-25.07.2025 | [Klausurvorbereitung]()| Übung 13 | - | - |
+| 1. | 07.-11.04.2025 | [Organisatorisches](#organisatorisches), [Wiederholung](wiederholung.md#datentypen), [Einstieg](einstieg.md#einstieg) | [Übung 2](uebungen.md#ubung-2-string-und-algorithmisches-denken) | - | - | 
+| 1. | 14.-18.04.2025 | [Aufzählungstypen](enum.md#aufzahlungstypen-enum), [Wrapper-Klassen (boxing und unboxing)](wrapper.md#wrapper-klassen)| [Übung 3](uebungen.md#ubung-3-enum-und-zweidimensionale-arrays) |[Aufgabe 1](aufgaben.md#aufgabe-1-wurfelspiel) | 27.04.2025 | 
+| 2. | 21.-25.04.2025 | [Exceptions](exceptions.md#exceptions) | [Übung 4](uebungen.md#ubung-4-exceptions) |[Aufgabe 2](aufgaben.md#aufgabe-2-myinteger) | 04.05.2025 | 
+| 3. | 28.-02.05.2025 | [Collections (List und Set)](collections.md#collections) | [Übung 5](uebungen.md#ubung-5-listen-und-mengen) |[Aufgabe 3](aufgaben.md#aufgabe-3-solitaire) | 18.05.2025 | 
+| 4. | 05.-09.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen)| [Übung 6](uebungen.md#ubung-6-maps) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
+| 5. | 12.-15.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 7](uebungen.md#ubung-7-interfaces) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
+| 6. | 19.-23.05.2025 | [Lambdas]() | [Übung 8]() |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
+| 7. | 26.-30.05.2025 | [Java-Streams]() | [Übung 9]() |[Aufgabe 7]() | 15.06.2025 | 
+| 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 10]() |[Aufgabe 8]() | 22.06.2025 | 
+| 9. | 09.-13.06.2025 | [Genererics]() | [Übung 11]() |[Aufgabe 9]() | 29.06.2025 | 
+| 10. | 16.-20.06.2025 | [Git]() | [Übung 12]() | [Aufgabe 10]() | 06.07.2025 |
+| 11. | 23.-27.06.2025 | [Maven]() | [Übung 13]() | - | - |
+| 12. | 30.-04.07.2025 | [REST-API mit SpringBoot]() | Übung 14 | - | - |
+| 13. | 07.-11.07.2025 | [JUnit]()| Übung 15 | - | - |
+| 14. | 14.-18.07.2025 | [Test driven development]()| Übung 16 | - | - |
+| 15. | 21.-25.07.2025 | [Klausurvorbereitung]()| Übung 17 | - | - |
 |  | 04.08.2025 10:00 Uhr| Klausur 1.PZ | C 635 und C 639| - | - |
 |  | 29.09.2025 10:00 Uhr| Klausur 2.PZ | Labore 6. Etage C-Gebäude| - | - |
 
 ### Inhalte
 
 
-??? question "Einführung und Organisatorisches + Wiederholung + enum + Einstieg"
+??? question "Einführung und Organisatorisches + Wiederholung + Einstieg"
 	- siehe [**Organisatorisches**](#organisatorisches)
 	- siehe [**Wiederholung**](wiederholung.md#wiederholung)
 	- siehe [**Einstieg**](einstieg.md#einstieg)
-	- siehe [**Aufgabe 1**](aufgaben.md#aufgabe-1-wurfelspiel)
+	- siehe [**Übung 2**](uebungen.md#ubung-2-string-und-algorithmisches-denken)
+
 
 
 ??? "Code aus der Vorlesung 09.04.2025"
@@ -118,3 +119,10 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		```java
 		public record Rectangle(double width, double length){}
 		```
+
+??? question "Aufzählungstypen und Wrapper-Klassen"
+	- siehe [**Aufzählungstypen**](enum.md#aufzahlungstypen-enum) 
+	- siehe [**Wrapper-Klassen (boxing und unboxing)**](wrapper.md#wrapper-klassen)
+	- siehe [**Übung 3**](uebungen.md#ubung-3-enum-und-zweidimensionale-arrays)
+	- siehe [**Aufgabe 1**](aufgaben.md#aufgabe-1-wurfelspiel)
+

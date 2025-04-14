@@ -1,6 +1,6 @@
 # Lambda-Ausdrücke
 
-*Lambda*-Ausdrücke (*Lambdas*) sind anonyme Funktionen (Methoden), d.h. Funktionen (Methoden) ohne Namen. *Lambdas* werden im Zusammenhang von *Functional Interfaces* verwendet. Im Kontext von *Lambdas* sprechen wir stets eher von Funktionen als von Methoden. Die prinzipielle Syntax von *Lambda*-Ausdrücken ist
+*Lambda*-Ausdrücke (*Lambdas*) sind anonyme Funktionen (Methoden), d.h. Funktionen (Methoden) ohne Namen. *Lambdas* werden im Zusammenhang von [Functional Interfaces](interfaces.md#functional-interfaces) verwendet. Im Kontext von *Lambdas* sprechen wir stets eher von Funktionen als von Methoden. Die prinzipielle Syntax von *Lambda*-Ausdrücken ist
 
 ```java
 (params) -> {body}
@@ -34,7 +34,7 @@ und wollen jedes einzelne Element aus dieser Liste ausgeben. Das hätten wir bis
 void forEach(Consumer<? super T> action)
 ```
 
-Das Interessante darin ist das [Consumer-Interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html). Dieses stellt die Schnittstelle zu unseren *Lambda*-Ausdrücken dar. Das *Consumer*-interface repräsentiert eine *Funktion*, die einen einzelnen Parameter akzeptiert und keinen Wert zurückliefert. Wir können nun einen *Lambda*-Ausdruck als *Consumer* definieren, z.B.:
+Das Interessante darin ist das [Consumer-Interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html). Dieses stellt die Schnittstelle zu unseren *Lambda*-Ausdrücken dar. Das *Consumer*-Interface repräsentiert eine *Funktion*, die einen einzelnen Parameter akzeptiert und keinen Wert zurückliefert. Wir können nun einen *Lambda*-Ausdruck als *Consumer* definieren, z.B.:
 
 ```java
 staedte.forEach((stadt)  -> System.out.println(stadt));
@@ -69,7 +69,9 @@ staedte.forEach(printStadt);
 
 ## Functional Interfaces
 
-Wir haben nun bereits *Consumer* kennengelernt. 
+Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein *Functional Interface*, d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung:
+
+
 
 ## Methoden-Referenzen
 

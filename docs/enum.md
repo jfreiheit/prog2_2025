@@ -10,6 +10,7 @@ int tag = 0; 			// Magic Number für "Montag"
 ```
 
 Das Problem: 
+
 - die Variablen können auch beliebige andere Werte (aus dem jeweiligen Wertebereich) annehmen, z.B. `Tag = "hallo"` oder `Tag=4711`,
 - Magic Numbers sollen vermieden werden --> meistens schlechte Lesbarkeit
 
@@ -77,6 +78,7 @@ Anforderungen:
 - leserliche Bezeichnung der Werte
 
 Lösung:
+
 - *Enumerations* (sog. Aufzählungstypen)
 - Schlüsselwort `enum`
 
@@ -88,6 +90,7 @@ Syntax:
 
 
 Verwendung:
+
 - `TypName` nun als Datentyp verwendbar, z.B. `TypName[][]`
 - Zugriff auf Werte über statische Punktschreibweise, z.B. `TypName.WERT1`
 
@@ -134,9 +137,17 @@ Verwendung:
 	switch(s)
 	{
 		case EMPTY: 	System.out.println("leeres Feld"); break;
-		case RED: 	System.out.println("roter Stein"); break;
+		case RED: 		System.out.println("roter Stein"); break;
 		case BLACK: 	System.out.println("schwarzer Stein Feld"); break;
 	}
+
+	// neuere Syntax switch ohne break zur Info
+    switch(s)
+    {
+        case EMPTY  ->   System.out.println("leeres Feld");
+        case RED    ->   System.out.println("roter Stein");
+        case BLACK  ->   System.out.println("schwarzer Stein Feld");
+    }
 	```
 
 #### Weiteres: 

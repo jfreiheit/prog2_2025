@@ -270,9 +270,59 @@
 	}
 	```
 
-##### Übung 3 (Exceptions)
+##### Übung 3 (enum und zweidimensionale Arrays)
 
 ??? "Übung 3"
+
+	1. Gegeben ist die folgende Klasse `TicTacToe`:
+
+		```java linenums="1"
+		package uebungen.uebung3;
+
+		public class TicTacToe 
+		{
+			enum State {EMPTY, RED, BLACK};
+			State[][] field;
+
+			public TicTacToe()
+			{
+				field = new State[3][3];
+				for(int i=0; i<field.length; i++)
+				  for(int j=0; j<field[i].length; j++)
+				  	field[i][j]=State.EMPTY;
+			}
+
+			public void makeMove(int i, int j, State player)
+			{
+				if(field[i][j]==State.EMPTY && player!=State.EMPTY)   
+					field[i][j]=player;
+			}
+		}
+		```
+	
+	2. Fügen Sie alle notwendigen Klammern `{ }` ein, so dass die Anweisungsblöcke korrekt geklammert sind. 
+	3. Erweitern Sie die Klasse `TicTacToe` um eine `print()`-Methode, die das Spielfeld auf die Konsole ausgibt (Setzen Sie z.B. für den Player `RED` ein `x` und für den Player `Black` ein `o` und für `EMPTY` ein Leerzeichen oder ein `-`). Die Ausgabe nach jeweils 2 Zügen von `RED` und `BLACK` könnte dann z.B. so aussehen: 
+
+		```bash
+		- o o 
+		- x - 
+		- - x 
+		```
+
+	4. Erweitern Sie die Klasse `TicTacToe` um eine `gewonnen()`-Methode (`true`, wenn ein Spieler drei Felder horizontal, diagonal oder vertikal belegt hat; ansonsten `false`).
+	5. Erweitern Sie die Klasse `TicTacToe` um eine `unentschieden()`-Methode (`true`, wenn alle Felder besetzt sind, aber kein Spieler gewonnen hat; ansonsten `false`).
+	6. Erstellen Sie eine Test-Klasse mit `main()`-Methode. Erstellen sie darin ein Objekt der Klasse `TicTacToe`. Führen Sie Züge aus (`makeMove()`) und prüfen Sie, ob gewonnen wurde oder unentschieden ist (mit entsprechenden Ausgaben). 
+	7. Für 6. müssen Sie in der Testklasse Ihr `enum State` importieren. Warum ist das so? Was könnten Sie machen, damit das nicht notwendig ist?
+
+	8. *Zusatz:* Sie können die Klasse `TicTacToe` beliebig erweitern, z.B.:
+		- um Ausgaben, wenn gewonnen bzw. es unentschieden ist,
+		- um Fehler in den Indizes `i` und `j` bei der `makeMove()`-Methode abzufangen,
+		- eine Methode `spielen()` implementieren, die zufällig für die Spieler die Steine setzt usw.
+
+
+##### Übung 4 (Exceptions)
+
+??? "Übung 4"
 
 	1. Schreiben Sie ein Programm zur Eingabe von zwei Zahlen mithilfe der Klasse `JOptionPane` und deren Division! Fangen Sie folgende Ausnahmen ab:
 		- Falls die Eingabe keiner Zahl entspricht.
@@ -317,11 +367,11 @@
 
 
 
-##### Übung 4 (Listen und Mengen)
+##### Übung 5 (Listen und Mengen)
 
-??? "Übung 4"
+??? "Übung 5"
 
-	1. Erstellen Sie eine Klasse `Uebung4` mit `main()`-Methode.
+	1. Erstellen Sie eine Klasse `Uebung5` mit `main()`-Methode.
 	2. Definieren Sie in der `main()`-Methode eine Variable `words` vom Typ `String[]` und weisen Sie dieser Variablen folgende Werte zu:
 		```java
 		String[] words = {"Linux", "Apple", "Facebook", "Amazon", "IBM", "Lenovo", "Google", "IBM", "Microsoft", "Apple", "Google", "Twitter", "Skype", "Chrome", "Linux", "Firefox"};
@@ -464,9 +514,9 @@
 
 
 
-##### Übung 5 (Maps)
+##### Übung 6 (Maps)
 
-??? "Übung 5"
+??? "Übung 6"
 
 	1. Erstellen Sie eine Klasse `Stadt` mit folgenden Objektvariablen:
 		- `String name;`
@@ -573,11 +623,11 @@
 
 
 
-##### Übung 6 (Interfaces)
+##### Übung 7 (Interfaces)
 
-??? "Übung 6"
+??? "Übung 7"
 
-	1. Wir beschäftigen uns nochmal mit der Übung 5, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben (das haben wir so in Übung 5 erarbeitet - es gibt eine Änderung in `StadtTest`, dort benutzen wir jetzt ): 
+	1. Wir beschäftigen uns nochmal mit der Übung 6, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben (das haben wir so in Übung 6 erarbeitet - es gibt eine Änderung in `StadtTest`, dort benutzen wir jetzt ): 
 
 		=== "Stadt.java" 
 		```java

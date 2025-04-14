@@ -80,7 +80,7 @@ nav:
     - Einstieg: einstieg.md
     - Aufzählungstypen: enum.md 
     - Wrapper-Klassen: wrapper.md 
-#   - Interfaces: interfaces.md
+#    - Interfaces: interfaces.md
 #    - Lambdas: lambdas.md
 #    - Exceptions: exceptions.md 
 #    - Collections: collections.md 
