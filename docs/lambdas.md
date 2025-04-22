@@ -71,6 +71,61 @@ staedte.forEach(printStadt);
 
 Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein *Functional Interface*, d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung:
 
+```java
+@FunctionalInterface
+public interface Printable
+{
+    void print(String s);
+
+    default void print()
+    {
+        print("default");
+    }
+}
+```
+
+`Printable` ist ein funktionales Interface, da es nur genau eine abstrakte Methode, nämlich `print(String)` enthält. Die `print()`-Methode ist eine sogenannte *default*-Methode und bereits implementiert. 
+
+Wir könnten uns nun eine Klasse definieren, die `Printable` implementiert, z.B. 
+
+```java
+public class UseInterface implements Printable
+{
+
+    @Override
+    public void print(String s)
+    {
+        System.out.println(s);
+    }
+}
+```
+
+und wenn wir nun irgendwo eine Methode haben, die ein `Printable` erwartet, kann dieser Methode ein Objekt von `UseInterface` übergeben werden:
+
+```java
+public class Programmklasse
+{
+    public static void printSomething(Printable p, String s)
+    {
+        p.print(s);
+    }
+
+    public static void main(String[] args)
+    {
+        UseInterface useInterface = new UseInterface();
+        printSomething(useInterface, "hallo");
+    }
+}
+```
+
+Das ist natürlich alles sehr aufwändig:
+
+- wir benötigen eine Klasse, die `Printable` implementiert (hier: `UseInterface`),
+- wir benötigen ein Objekt dieser Klasse 
+
+und das alles nur, um `printSomething()` auszuführen. Einfacher wäre es, wir würden direkt in `printSomething()` die `print()`-Methode des Interfaces `Printable` implementieren. Das geht und zwar unter Verwendung von *Lambdas*:
+
+
 
 
 ## Methoden-Referenzen

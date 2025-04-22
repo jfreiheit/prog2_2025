@@ -320,6 +320,236 @@
 		- eine Methode `spielen()` implementieren, die zufällig für die Spieler die Steine setzt usw.
 
 
+??? success "Eine mögliche Lösung für Übung 3"
+	=== "TicTacToe.java"
+		```java
+		package uebungen.uebung3;
+
+		import java.util.Random;
+
+		public class TicTacToe
+		{
+		    //enum State {EMPTY, RED, BLACK};
+		    State[][] field;
+		    State player;
+
+		    public TicTacToe()
+		    {
+		        this.field = new State[3][3];
+		        this.player = State.RED;
+		        for(int row=0; row<this.field.length; row++)
+		        {
+		            for (int col = 0; col < this.field[row].length; col++)
+		            {
+		                this.field[row][col] = State.EMPTY;
+		            }
+		        }
+		    }
+
+		    private void swapPlayer()
+		    {
+		        this.player = (this.player == State.BLACK) ? State.RED : State.BLACK;
+		    }
+
+		    public void makeMove(int row, int col, State player)
+		    {
+		        if(this.field[row][col]==State.EMPTY && player!=State.EMPTY)
+		        {
+		            this.field[row][col] = player;
+		        }
+		    }
+
+		    public void print()
+		    {
+		        for(int row=0; row<this.field.length; row++)
+		        {
+		            for (int col = 0; col < this.field[row].length; col++)
+		            {
+		                /*
+		                if(this.field[row][col] == State.EMPTY)
+		                {
+		                    System.out.print("- ");
+		                }
+		                else if(this.field[row][col] == State.RED)
+		                {
+		                    System.out.print("x ");
+		                }
+		                else if(this.field[row][col] == State.BLACK)
+		                {
+		                    System.out.print("o ");
+		                }
+
+		                 */
+		                /*
+		                switch(this.field[row][col]) {
+		                    case EMPTY: System.out.print("- "); break;
+		                    case RED:   System.out.print("x "); break;
+		                    case BLACK: System.out.print("o "); break;
+		                }
+
+		                 */
+		                switch(this.field[row][col]) {
+		                    case EMPTY -> { System.out.print("- "); }
+		                    case RED -> { System.out.print("x "); }
+		                    case BLACK -> { System.out.print("o "); }
+		                }
+
+		            }
+		            System.out.println();
+		        }
+		        System.out.println();
+		    }
+
+		    private boolean won(State player)
+		    {
+		        // drei in einer Zeile ?
+		        for(int row=0; row<this.field.length; row++)
+		        {
+		            if(this.field[row][0]==player && this.field[row][1]==player && this.field[row][2]==player)
+		            {
+		                return true;
+		            }
+		        }
+
+		        // drei in einer Spalte ?
+		        for(int col=0; col<this.field.length; col++)
+		        {
+		            if(this.field[0][col]==player && this.field[1][col]==player && this.field[2][col]==player)
+		            {
+		                return true;
+		            }
+		        }
+
+		        // Diagonale von links oben nach rechts unten
+		        if(this.field[0][0]==player && this.field[1][1]==player && this.field[2][2]==player)
+		        {
+		            return true;
+		        }
+
+		        // Diagonale von links unten nach rechts oben
+		        if(this.field[2][0]==player && this.field[1][1]==player && this.field[0][2]==player)
+		        {
+		            return true;
+		        }
+
+		        return false;
+		    }
+
+		    public boolean won()
+		    {
+		        return this.won(State.RED) ||this.won(State.BLACK);
+		    }
+
+		    private boolean full()
+		    {
+		        for(int row=0; row<this.field.length; row++)
+		        {
+		            for(int col=0; col<this.field[row].length; col++)
+		            {
+		                if(this.field[row][col]==State.EMPTY)
+		                {
+		                    return false;
+		                }
+		            }
+		        }
+		        return true;
+		    }
+
+		    public boolean draw()
+		    {
+		        return this.full() && !this.won();
+		    }
+
+		    public void printResult()
+		    {
+		        if(this.won(State.RED))
+		        {
+		            System.out.println("Rot hat gewonnen!");
+		        }
+		        else if(this.won(State.BLACK))
+		        {
+		            System.out.println("Schwarz hat gewonnen!");
+		        }
+		        else if(this.draw())
+		        {
+		            System.out.println("Unentschieden!");
+		        }
+		    }
+
+		    private boolean winPossible()
+		    {
+		        for(int row=0; row<this.field.length; row++)
+		        {
+		            for(int col=0; col<this.field[row].length; col++)
+		            {
+		                if(this.field[row][col]==State.EMPTY)
+		                {
+		                    this.field[row][col] = this.player;
+		                    if(this.won(this.player))
+		                    {
+		                        this.field[row][col] = State.EMPTY;
+		                        return true;
+		                    }
+		                    this.field[row][col] = State.EMPTY;
+		                }
+		            }
+		        }
+		        return false;
+		    }
+
+		    public void makeRandomMove()
+		    {
+		        Random r = new Random();
+		        int row = r.nextInt(this.field.length);
+		        int col = r.nextInt(this.field[row].length);
+		        while(this.field[row][col] != State.EMPTY)
+		        {
+		            row = r.nextInt(this.field.length);
+		            col = r.nextInt(this.field[row].length);
+		        }
+		        this.field[row][col] = this.player;
+		        this.swapPlayer();
+		    }
+		}
+
+		```
+	=== "State.java"
+		```java
+		package uebungen.uebung3;
+
+		public enum State
+		{
+		    EMPTY, RED, BLACK
+		}
+		```			
+	=== "Programmklasse.java"
+		```java
+		package uebungen.uebung3;
+
+		public class Programmklasse
+		{
+		    public static void main(String[] args)
+		    {
+		        TicTacToe ttt = new TicTacToe();
+		        /*
+		        ttt.print();
+		        ttt.makeMove(1, 2, State.RED);
+		        ttt.print();
+		        ttt.makeMove(1, 1, State.BLACK);
+		        ttt.print();
+
+		         */
+		        while(!( ttt.won() || ttt.draw() ))
+		        {
+		            ttt.makeRandomMove();
+		            ttt.print();
+		        }
+		        ttt.printResult();
+		    }
+		}
+		```	
+
+
 ##### Übung 4 (Exceptions)
 
 ??? "Übung 4"
@@ -342,6 +572,8 @@
 		- Ergebnis  <br/>
 			![uebung2](./files/27_uebung2.png)
 
+	**Zusatz**
+	
 	3. Lagern Sie eine solche Eingabemöglichkeit in eine wiederverwendbare Methode aus, z.B. `public int inputInt(int min, int max)`, welche die eingegebene Zahl zurückgibt, wobei die eingegebene Zahl im Bereich `[min, max]` liegen muss.
 
 	4. Lesen Sie eine Zahl ein und geben Sie die Zahl umgedreht (rückwärts gelesen) wieder aus (führende Nullen entfallen):

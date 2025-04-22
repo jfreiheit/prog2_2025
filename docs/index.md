@@ -72,7 +72,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 ??? "Code aus der Vorlesung 09.04.2025"
 
-	=== "Programmklasse.java"
+	=== "Main.java"
 		```java
 		import javax.swing.*;
 		import java.util.Arrays;
@@ -126,3 +126,95 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 	- siehe [**Übung 3**](uebungen.md#ubung-3-enum-und-zweidimensionale-arrays)
 	- siehe [**Aufgabe 1**](aufgaben.md#aufgabe-1-wurfelspiel)
 
+
+??? "Code aus der Vorlesung 14.04.2025"
+
+	=== "Vorlesung1404.java"
+		```java
+		package vorlesungen.vorl1404;
+
+		import javax.swing.*;
+
+		public class Vorlesung1404
+		{
+		    enum Ziffern {N0, N1,  }
+		    public static boolean istWochenende(Day tag)
+		    {
+		        return (tag == Day.SAMSTAG || tag == Day.SONNTAG);
+		    }
+
+		    public static boolean istWochentag(Day tag)
+		    {
+		        return !istWochenende(tag);
+		    }
+		    public static void main(String[] args)
+		    {
+		        String tag = "hallo";
+		        int day = 0;    // Montag
+		        Day dayTag = Day.DIENSTAG;
+
+		        System.out.println(istWochentag(dayTag));
+
+		        String eingabe = JOptionPane.showInputDialog(null, "Geben Sie ein Zahl ein : ");
+		        System.out.println("Ihre Eingabe war " + eingabe);
+
+		        Integer io1 = Integer.valueOf(-1234);
+		        Double do1 = Double.valueOf(-1234.0);
+		        Integer io2 = 1234;
+		        Double do2 = 1234.0;
+
+		        int wert1 = io1.intValue();
+		        double wert2 = do1.doubleValue();
+		        int wert3 = io1;
+
+		        String si1 = "1234";
+		        Integer io3 = Integer.valueOf(eingabe);
+		        int wert4 = Integer.parseInt(eingabe);
+		        System.out.println("Eingabe war " + wert4);
+
+		        String s = io3.toString();
+
+		        Integer io5 = 5000;
+		        Integer io6 = 5000;
+		        Integer io7 = 5001;
+		        System.out.println(io5 == io6);
+		        System.out.println(io7 >= io6);
+
+		        Float fo1 = Float.valueOf("-1234.0");
+		        Float fo2 = -1234.0f;
+		        float f3 = fo1.floatValue();
+
+		        int[][] matrix = new int[3][4];
+		        for(int row = 0; row < matrix.length; row++)
+		        {
+		            for(int col = 0; col < matrix[row].length; col++)
+		            {
+		                matrix[row][col] = (row + 1) * (col + 1);
+		                System.out.print(row + "," + col + " ");
+		            }
+		            System.out.println();
+		        }
+
+		        System.out.println();
+		        
+		        for(int row = 0; row < matrix.length; row++)
+		        {
+		            for(int col = 0; col < matrix[row].length; col++)
+		            {
+		                System.out.print(matrix[row][col] + " ");
+		            }
+		            System.out.println();
+		        }
+		    }
+		}
+		```
+
+	=== "Day.java"
+		```java
+		package vorlesungen.vorl1404;
+
+		public enum Day
+		{
+		    MONTAG, DIENSTAG, MITTWOCHE, DONNERSTAG, FREITAG, SAMSTAG, SONNTAG
+		}
+		```
