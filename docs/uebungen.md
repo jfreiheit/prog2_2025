@@ -576,34 +576,157 @@
 	
 	3. Lagern Sie eine solche Eingabemöglichkeit in eine wiederverwendbare Methode aus, z.B. `public int inputInt(int min, int max)`, welche die eingegebene Zahl zurückgibt, wobei die eingegebene Zahl im Bereich `[min, max]` liegen muss.
 
-	4. Lesen Sie eine Zahl ein und geben Sie die Zahl umgedreht (rückwärts gelesen) wieder aus (führende Nullen entfallen):
-		```bash
-		3456789 --> 9876543
-		```
-
-		```bash
-		1000 --> 1
-		```
-
-	5. Lesen Sie eine Zahl ein und geben Sie die Quersumme der Zahl aus.
-
-		```bash
-		123456 --> 21
-		```
-
-		```bash
-		1000 --> 1		
-		```
+	4. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
 
 	**Viel Spaß!**
 
 
 
-##### Übung 5 (Listen und Mengen)
+##### Übung 5 (try-with-resource und eigene Exception-Klassen)
 
 ??? "Übung 5"
 
-	1. Erstellen Sie eine Klasse `Uebung5` mit `main()`-Methode.
+
+	1. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
+
+	2. Erstellen Sie eine Klasse `Uebung5` mit `main`-Methode und kopieren Sie in die Klasse folgende statische Methode:
+
+		```java
+	    public static void printCSVFileUsingFileReader()
+	    {
+	        String filePath = "assets/staedte.csv";
+	        FileReader fileReader = new FileReader(filePath);
+	        BufferedReader bufferedReader = new BufferedReader(fileReader);
+	        String line;
+	        while ((line = bufferedReader.readLine()) != null) {
+	            System.out.println(line);
+	        }
+	    }
+		```
+
+		Die Methode lässt sich so nicht übersetzen. Warum nicht? Ändern Sie die Methode so, dass sie ausführbar ist und rufen Sie sie in der `main`-Methode auf. 
+
+	3. Eine andere Möglichkeit für das Einlesen einer Datei ist die Verwendung von `Scanner`:
+
+		```java
+	    public static void printCSVFileUsingScanner()
+	    {
+	        Scanner scanner = new Scanner(new File("assets/staedte.csv"));
+
+	        while (scanner.hasNextLine()) {
+	            System.out.println(scanner.nextLine());
+	        }
+
+	        scanner.close();
+	    }
+		```
+
+		Auch diese Methode lässt sich so nicht übersetzen. Ändern Sie die Methode so, dass sie ausführbar ist und rufen Sie sie in der `main`-Methode auf. 
+
+	4. (wenn die Zeit knapp ist, dann Zusatz ;-) Ändern Sie die Ausgabe so, dass folgende "Tabelle" auf der Konsole erscheint:
+
+		```bash
+		| Rang | Name                 |       1970 |       1980 |       1990 |       2000 |       2010 |       2020 |       2023 | Bundesland           | 
+		|   1. | Berlin               |  3.208.719 |  3.048.759 |  3.433.695 |  3.382.169 |  3.460.725 |  3.664.088 |  3.662.381 | Berlin               | 
+		|   2. | Hamburg              |  1.793.640 |  1.645.095 |  1.652.363 |  1.715.392 |  1.786.448 |  1.852.478 |  1.851.596 | Hamburg              | 
+		|   3. | München              |  1.311.978 |  1.298.941 |  1.229.026 |  1.210.223 |  1.353.186 |  1.488.202 |  1.488.719 | Bayern               | 
+		|   4. | Köln                 |    849.451 |    976.694 |    953.551 |    962.884 |  1.007.119 |  1.083.498 |  1.024.408 | Nordrhein-Westfalen  | 
+		|   5. | Frankfurt am Main    |    666.179 |    629.375 |    644.865 |    646.550 |    679.664 |    764.104 |    749.596 | Hessen               | 
+		|   6. | Düsseldorf           |    660.963 |    590.479 |    575.794 |    569.364 |    588.735 |    620.523 |    616.319 | Nordrhein-Westfalen  | 
+		|   7. | Stuttgart            |    634.202 |    580.648 |    579.988 |    583.874 |    606.588 |    630.305 |    613.111 | Baden-Württemberg    | 
+		|   8. | Leipzig              |    583.885 |    562.480 |    511.079 |    493.208 |    522.883 |    597.493 |    608.013 | Sachsen              | 
+		|   9. | Dortmund             |    640.642 |    608.297 |    599.055 |    588.994 |    580.444 |    587.696 |    601.343 | Nordrhein-Westfalen  | 
+		|  10. | Bremen               |    592.533 |    555.118 |    551.219 |    539.403 |    547.340 |    566.573 |    584.332 | Bremen               | 
+		|  11. | Essen                |    696.419 |    647.643 |    626.973 |    595.243 |    574.635 |    582.415 |    574.082 | Nordrhein-Westfalen  | 
+		|  12. | Dresden              |    502.432 |    516.225 |    490.571 |    477.807 |    523.058 |    556.227 |    563.019 | Sachsen              | 
+		|  13. | Nürnberg             |    478.181 |    484.405 |    493.692 |    488.400 |    505.664 |    515.543 |    526.606 | Bayern               | 
+		|  14. | Hannover             |    521.003 |    534.623 |    513.010 |    515.001 |    522.686 |    534.049 |    520.290 | Niedersachsen        | 
+		|  15. | Duisburg             |    452.721 |    558.089 |    535.447 |    514.915 |    489.559 |    495.885 |    503.185 | Nordrhein-Westfalen  | 
+		|  16. | Wuppertal            |    417.694 |    393.381 |    383.660 |    366.434 |    349.721 |    355.004 |    358.592 | Nordrhein-Westfalen  | 
+		|  17. | Bochum               |    343.809 |    400.757 |    396.486 |    391.147 |    374.737 |    364.454 |    357.024 | Nordrhein-Westfalen  | 
+		|  18. | Bielefeld            |    168.609 |    312.708 |    319.037 |    321.758 |    323.270 |    333.509 |    331.519 | Nordrhein-Westfalen  | 
+		|  19. | Bonn                 |    275.722 |    288.148 |    292.234 |    302.247 |    324.899 |    330.579 |    321.680 | Nordrhein-Westfalen  | 
+		|  20. | Mannheim             |    332.378 |    304.303 |    310.411 |    306.729 |    313.174 |    309.721 |    316.256 | Baden-Württemberg    | 
+		```
+
+	5. Implementieren Sie die Methode `public static Integer getInteger(Integer[] values, int index)`. Es können 2 Probleme auftreten
+
+		- der `index` passt nicht zum Array,
+		- das Element im Array zeigt auf kein Objekt (Referenz ist `null).
+
+		Definieren Sie die Klassen `MyIndexOutBoundsException` und `MyNullPointerException`. Beide erben von `RuntimeException`. Wenn Sie in der `main`-Methode folgende Aufrufe haben
+
+		```java
+        Integer[] values = new Integer[3];
+        values[0] = Integer.valueOf(0);
+        values[2] = Integer.valueOf(2);
+        for(int index = 0; index <= 3; index++) {
+            try {
+                System.out.println(getInteger(values, index));
+            }
+            catch (MyIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+            catch (MyNullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("Ende");
+		```
+
+		dann soll die Ausgabe wie folgt sein:
+
+		```bash
+		0
+		no object!
+		2
+		index 3 ist out of bounds! length = 3
+		Ende
+		```
+
+		Wie implementieren Sie Ihre Exception-Klassen?
+
+	6. Welchen Unterschied macht es, ob Ihre Exception-Klassen von `RuntimeException` erben oder von `Exception` ?
+
+	**Advanced/Zusatz**
+
+	1. Wir haben die `try-catch()`-Anweisung bisher wie folgt kennengelernt:
+
+		```java
+		try {
+			// kritische Anweisung_en
+		}
+		catch(RuntimeException e) {
+			//Behandlung der Exception
+		}
+		```
+
+		Es gibt eine weitere Möglichkeit, die sogenannte `try-with-resources`-Anweisung:
+
+		```java
+		try ( // Ressource ) {
+			// kritische Anweisung_en
+		}
+		catch(Exception e) {
+			//Behandlung der Exception
+		}
+		```
+
+
+		Hier haben wir nach `try` runde Klammern und darin werden sogenannte *Ressourcen* verwaltet. 
+
+		>> Eine *Ressource* ist eine Objekt, das wieder geschlossen werden mussen, wenn die Nutzung der *Ressource* abgeschlossen ist.
+
+		Typische Vertreter solcher *Ressourcen* sind [FileReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/FileReader.html) und [BufferedReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/BufferedReader.html). *Ressources* sind alle Klassen, die das Java-Interface [Closeable](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/Closeable.html) implementieren - zu *Interfaces* kommen wir später.
+
+	2. Ändern Sie 2. und 3. so, dass Sie die `try-with-resources`-Anweisung verwenden.
+
+
+##### Übung 6 (Listen und Mengen)
+
+??? "Übung 6"
+
+	1. Erstellen Sie eine Klasse `Uebung6` mit `main()`-Methode.
 	2. Definieren Sie in der `main()`-Methode eine Variable `words` vom Typ `String[]` und weisen Sie dieser Variablen folgende Werte zu:
 		```java
 		String[] words = {"Linux", "Apple", "Facebook", "Amazon", "IBM", "Lenovo", "Google", "IBM", "Microsoft", "Apple", "Google", "Twitter", "Skype", "Chrome", "Linux", "Firefox"};
@@ -746,9 +869,9 @@
 
 
 
-##### Übung 6 (Maps)
+##### Übung 7 (Maps)
 
-??? "Übung 6"
+??? "Übung 7"
 
 	1. Erstellen Sie eine Klasse `Stadt` mit folgenden Objektvariablen:
 		- `String name;`
@@ -855,11 +978,11 @@
 
 
 
-##### Übung 7 (Interfaces)
+##### Übung 8 (Interfaces)
 
-??? "Übung 7"
+??? "Übung 8"
 
-	1. Wir beschäftigen uns nochmal mit der Übung 6, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben (das haben wir so in Übung 6 erarbeitet - es gibt eine Änderung in `StadtTest`, dort benutzen wir jetzt ): 
+	1. Wir beschäftigen uns nochmal mit der Übung 7, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben (das haben wir so in Übung 7 erarbeitet - es gibt eine Änderung in `StadtTest`, dort benutzen wir jetzt ): 
 
 		=== "Stadt.java" 
 		```java

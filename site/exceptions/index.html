@@ -18,7 +18,7 @@
         <link rel="prev" href="../wrapper/">
       
       
-        <link rel="next" href="../uebungen/">
+        <link rel="next" href="../collections/">
       
       
       <link rel="icon" href="../img/favicon.png">
@@ -507,6 +507,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collections
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1568,7 +1588,7 @@
 </div>
 </div>
 <p>Beide eigenen Klassen sind ja auch vom Laufzeittyp <code>Exception</code>, da sie von dieser Klasse geerbt haben. Insofern ist der Parametertyp in der <code>catch</code>-Klausel mit <code>Exception</code> (Zeile <code>30</code>) passend. Wenn Sie anstelle der Zeilen <code>27-33</code> nur <code>d = new Triangle(3,4,5);</code> schreiben, stellen Sie fest, dass sich das Programm nicht übersetzen lässt, da es sich um <strong>checked</strong> Exceptions handelt, die in einem <code>try-catch</code>-Block abgefangen werden müssen. Eclipse bietet Ihnen dann aber einen QuickFix an <code>Surround with try/catch</code>. Das sollten Sie einmal ausprobieren. </p>
-<p>Wenn Sie anstelle von <code>Exception</code> von der Klasse <code>RunTimeException</code> erben, dann handelt es sich bei Ihren Exceptions um <strong>unchecked</strong> Exceptions. Es ist aber besseres Programmieren, wenn man <strong>checked</strong> Exceptions erstellt, denn dazu sind die Exceptions ja da, dass sie abgefangen und behandelt werden.</p>
+<p>Wenn Sie anstelle von <code>Exception</code> von der Klasse <code>RunTimeException</code> erben, dann handelt es sich bei Ihren Exceptions um <strong>unchecked</strong> Exceptions. Es ist sehr strittig, ob man lieber <strong>checked</strong> oder <strong>unchecked</strong> Exceptions erstellt. Einerseits sind die Exceptions ja genau dazu da, dass sie abgefangen und behandelt werden. Andererseits erzeugt das Abfangen und Behandeln von Exception viel <em>Boilerplate-Code</em>. Moderne Programmiersprachen, wie z.B. Kotlin haben gar keine checked Exceptions mehr.</p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Wir haben Exceptions kennengelernt. Solche Laufzeitfehler können an verschiedenen Stellen passieren und haben unterschiedliche Typen (siehe Kindklassen von <code>Exception</code>, insb. von <code>RunTimeException</code>). Mithilfe von <code>try-catch-[finally]</code> können wir solche Exceptions abfangen und behandeln. Damit stürzt unser Programm nicht mehr ab. Mithilfe von <code>throws</code> zeigt eine Methode an, dass sie eine Exception erzeugen kann. Das Schlüsselwort <code>throw</code> weist die Laufzeitumgebung an, das angegebene Laufzeitobjekt (eine Exception) zu erzeugen und zu werfen. Checked Exceptions <strong>müssen</strong> behandelt werden (Aufruf der Exception-werfenden Methode in einem <code>try-catch</code>-Block). Unchecked Exceptions <strong>können</strong> behandelt werden, müssen aber nicht, sollten aber. Können wir ja jetzt schließlich...</p>
@@ -1621,13 +1641,13 @@
         
         
           
-          <a href="../uebungen/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Übungen">
+          <a href="../collections/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Collections">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Weiter
               </span>
               <div class="md-ellipsis">
-                Übungen
+                Collections
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -43,11 +43,11 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 1. | 07.-11.04.2025 | [Organisatorisches](#organisatorisches), [Wiederholung](wiederholung.md#datentypen), [Einstieg](einstieg.md#einstieg) | [Übung 2](uebungen.md#ubung-2-string-und-algorithmisches-denken) | - | - | 
 | 1. | 14.-18.04.2025 | [Aufzählungstypen](enum.md#aufzahlungstypen-enum), [Wrapper-Klassen (boxing und unboxing)](wrapper.md#wrapper-klassen)| [Übung 3](uebungen.md#ubung-3-enum-und-zweidimensionale-arrays) |[Aufgabe 1](aufgaben.md#aufgabe-1-wurfelspiel) | 27.04.2025 | 
 | 2. | 21.-25.04.2025 | [Exceptions](exceptions.md#exceptions) | [Übung 4](uebungen.md#ubung-4-exceptions) |[Aufgabe 2](aufgaben.md#aufgabe-2-myinteger) | 04.05.2025 | 
-| 3. | 28.-02.05.2025 | [Collections (List und Set)](collections.md#collections) | [Übung 5](uebungen.md#ubung-5-listen-und-mengen) |[Aufgabe 3](aufgaben.md#aufgabe-3-solitaire) | 18.05.2025 | 
-| 4. | 05.-09.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen)| [Übung 6](uebungen.md#ubung-6-maps) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
-| 5. | 12.-15.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 7](uebungen.md#ubung-7-interfaces) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
-| 6. | 19.-23.05.2025 | [Lambdas]() | [Übung 8]() |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
-| 7. | 26.-30.05.2025 | [Java-Streams]() | [Übung 9]() |[Aufgabe 7]() | 15.06.2025 | 
+| 3. | 28.-02.05.2025 | [eigene Exceptions](exceptions.md#throw-eigene-exceptions-erzeugen) | [Übung 5](uebungen.md#ubung-5-try-with-resource-und-eigene-exception-klassen) |[Aufgabe 3](aufgaben.md#aufgabe-3-solitaire) | 18.05.2025 | 
+| 4. | 05.-09.05.2025 | [Collections (List und Set)](collections.md#collections)| [Übung 6](uebungen.md#ubung-6-listen-und-mengen) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
+| 5. | 12.-15.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen) | [Übung 7](uebungen.md#ubung-7-maps) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
+| 6. | 19.-23.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 8](uebungen.md#ubung-8-interfaces) |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
+| 7. | 26.-30.05.2025 | [Lambdas]() | [Übung 9]() |[Aufgabe 7]() | 15.06.2025 | 
 | 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 10]() |[Aufgabe 8]() | 22.06.2025 | 
 | 9. | 09.-13.06.2025 | [Genererics]() | [Übung 11]() |[Aufgabe 9]() | 29.06.2025 | 
 | 10. | 16.-20.06.2025 | [Git]() | [Übung 12]() | [Aufgabe 10]() | 06.07.2025 |
@@ -218,3 +218,100 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		    MONTAG, DIENSTAG, MITTWOCHE, DONNERSTAG, FREITAG, SAMSTAG, SONNTAG
 		}
 		```
+
+
+??? question "Exceptions"
+	- siehe [**Exceptions**](exceptions.md#exceptions) 
+	- siehe [**Übung 4**](uebungen.md#ubung-4-exceptions)
+	- siehe [**Aufgabe 2**](aufgaben.md#aufgabe-2-myinteger)
+
+
+??? "Code aus der Vorlesung 23.04.2025"
+
+	```java
+	package vorlesungen.vorl1423;
+
+	import javax.swing.*;
+
+	public class Ausnahmen
+	{
+	    static char charAt(String s, int index) throws Exception
+	    {
+	        char c = ' ';
+	        c = s.charAt(index);
+	        return c;
+	    }
+
+	    static int divide(int divident, int divisor) throws ArithmeticException
+	    {
+	        int result = 0;
+	        result = divident / divisor; // kritisch, wenn divisor 0
+	        return result;
+	    }
+
+	    static int inputInt()
+	    {
+	        boolean validInput = false;
+	        int number = 0;
+	        String message = "Geben Sie eine Zahl ein!";
+	        while(!validInput)
+	        {
+	            String input = JOptionPane.
+	                    showInputDialog(null,message
+	                            );
+
+	            try {
+	                number = Integer.parseInt(input);
+	                validInput = true;      // nur ausgefuehrt, wenn keine
+	                                        // Exception geworfen wurde
+	            } catch (RuntimeException e) {
+	                message = "Das war keine Zahl! Bitte Zahl!";
+	            }
+	        }
+	        return number;
+	    }
+
+	    public static void main(String[] args)
+	    {
+	        char c = ' ';
+	        try {
+	            c = charAt("Hallo", 7);
+	        } catch(Exception e)
+	        {
+	            e.printStackTrace();
+	        }
+	        System.out.println(c);
+
+	        int result = 0;
+	        try {
+	            result = divide(10, 0);
+	        } catch(ArithmeticException e) {
+	            e.printStackTrace();
+	            System.out.println(e.getMessage());
+	        }
+
+	        System.out.println(result);
+
+	        System.out.println(inputInt());
+
+	        String[] basen = {"2", "8", "10", "Hi"};
+	        for(int index = 0; index <= 4; index++)
+	        {
+	            try {
+	                String wert = basen[index];
+
+	                int number = Integer.parseInt(wert);
+	            }
+	            catch(NumberFormatException e) {
+	                System.err.println("keine Zahl!");
+	            }
+	            catch(ArrayIndexOutOfBoundsException e) {
+	                System.err.println("kein passender Index!");
+	            }
+	        }
+	        System.out.println("Ende");
+	    }
+	}
+	```
+
+
