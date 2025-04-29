@@ -220,7 +220,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		```
 
 
-??? question "Exceptions"
+??? question "Exceptions behandeln (`try-catch`, `throws`)"
 	- siehe [**Exceptions**](exceptions.md#exceptions) 
 	- siehe [**Übung 4**](uebungen.md#ubung-4-exceptions)
 	- siehe [**Aufgabe 2**](aufgaben.md#aufgabe-2-myinteger)
@@ -315,3 +315,177 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 	```
 
 
+??? question "eigene Exceptions werfen (`throw`)"
+	- siehe [**Exceptions**](exceptions.md#exceptions) 
+	- siehe [**Übung 5**](uebungen.md#ubung-5-try-with-resource-und-eigene-exception-klassen)
+	- siehe [**Aufgabe 3**](aufgaben.md#aufgabe-3-solitaire)
+
+
+??? "Code aus der Vorlesung 28.04.2025"
+
+	=== "Programmklasse.java"
+		```java
+		package vorlesungen.vorl0428;
+
+		import java.util.HashSet;
+		import java.util.Set;
+
+		public class Programmklasse
+		{
+		    public static void mehrereExceptions()
+		    {
+		        String[] basen = {"2", "8", "10", "Hi"};
+		        int base = 0;
+		        double result= 0;
+		        boolean ok = true;
+
+		        for(int index = 0; index<=4; index++)
+		        {
+		            try {
+		                base = Integer.parseInt(basen[index]);
+		                ok = true;
+		            }
+		            catch(NumberFormatException nfe) {
+		                System.out.println("Keine Zahl!");
+		                ok = false;
+		            }
+		            catch(IndexOutOfBoundsException ioobe) {
+		                System.out.println("Ausserhalb des Arrays");
+		                ok = false;
+		            }
+		            for(int exp = 0; exp<6 && ok; exp++) {
+		                result = Math.pow(base, exp);
+		                System.out.printf("%d ^ %d = %.0f %n", base, exp, result);
+		            }
+		        }
+		    }
+
+		    static int getValueAtIndex(int[] field, int index) throws ArrayIndexOutOfBoundsException
+		    {
+		        return field[index];
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        mehrereExceptions();
+
+		        int value = 0;
+		        boolean ok = true;
+		        int[] field = {8, 3,-4, 2, -9};
+		        try
+		        {
+		            value = getValueAtIndex(field,-3);
+		        }
+		        catch(ArrayIndexOutOfBoundsException e)
+		        {
+		            System.out.println("Index ausserhalb des Arrays!");
+		            ok = false;
+		        }
+		        if(ok)
+		        {
+		            System.out.println("value : " + value);
+		        }
+
+		        Triangle t = null;
+		        try {
+		            t = new Triangle(3, 0, 5);
+		        }
+		        catch(IllegalSideLengthException e) {
+		            System.out.println(e.getMessage());
+		        }
+		        catch(IllegalTriangleException e) {
+		            System.out.println(e.getMessage());
+		        }
+		        if(t == null) {
+		            System.out.println("kein Objekt!");
+		        }
+
+		        /*
+		        try {
+		            Triangle t2 = new Triangle(3, 1, 5);
+		        } catch (IllegalSideLengthException e) {
+		            throw new RuntimeException(e);
+		        } catch (IllegalTriangleException e) {
+		            throw new RuntimeException(e);
+		        }
+
+		         */
+
+		        int[] arr = { 1, 2, 3 };
+		        for(int el : arr)
+		        {
+		            System.out.println("element : " + el);
+		        }
+
+		        Set<String> s1 = new HashSet<>();     // Menge erzeugen
+		        s1.add("eins");
+		        s1.add("zwei");
+		        s1.add("drei");
+		        //s1.add(Integer.valueOf(4));     // prinzipiell moeglich, aber schlecht
+
+		        for(String element : s1)
+		        {
+		            System.out.println("element : " + element);
+		        }
+		    }
+		}
+		```
+
+	=== "Triangle.java"
+		```java
+		package vorlesungen.vorl0428;
+
+		public class Triangle
+		{
+		    private int a,b,c;
+
+		    public Triangle(int a, int b, int c) throws IllegalSideLengthException, IllegalTriangleException
+		    {
+		        if (a <= 0 || b <= 0 || c <= 0) {
+		            throw new IllegalSideLengthException("sides must be greater than zero! is: ("+a+","+b+","+c+")");
+		        }
+		        else if (a >= (b + c) || b >= (c + a) || c >= (a + b)) {
+		            throw new IllegalTriangleException();
+		        }
+		        else {
+		            this.a = a;
+		            this.b = b;
+		            this.c = c;
+		        }
+		    }
+		}
+		```	
+
+	=== "IllegalSideLengthException.java"
+		```java
+		package vorlesungen.vorl0428;
+
+		public class IllegalSideLengthException extends Exception
+		{
+		    public IllegalSideLengthException(String message) {
+		        super(message);
+		    }
+
+		    public IllegalSideLengthException() {
+		        super("sides must be greater than zero!");
+		    }
+		}
+		```	
+
+	=== "IllegalTriangleException.java"
+		```java
+		package vorlesungen.vorl0428;
+
+		public class IllegalTriangleException extends Exception
+		{
+		    public IllegalTriangleException(String message)
+		    {
+		        super(message);
+		    }
+
+		    public IllegalTriangleException()
+		    {
+		        super("Illegal triangle!");
+		    }
+		}
+		```	
