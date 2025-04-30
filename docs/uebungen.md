@@ -576,7 +576,6 @@
 	
 	3. Lagern Sie eine solche Eingabemöglichkeit in eine wiederverwendbare Methode aus, z.B. `public int inputInt(int min, int max)`, welche die eingegebene Zahl zurückgibt, wobei die eingegebene Zahl im Bereich `[min, max]` liegen muss.
 
-	4. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
 
 	**Viel Spaß!**
 
@@ -587,7 +586,7 @@
 ??? "Übung 5"
 
 
-	1. Laden Sie sich folgende Datei herunter: <a href="./files/staedte.csv" download="download">**staedte.csv**</a>, erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
+	1. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
 
 	2. Erstellen Sie eine Klasse `Uebung5` mit `main`-Methode und kopieren Sie in die Klasse folgende statische Methode:
 
