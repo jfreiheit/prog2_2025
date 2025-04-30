@@ -69,7 +69,7 @@ staedte.forEach(printStadt);
 
 ## Functional Interfaces
 
-Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein *Functional Interface*, d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung:
+Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein [Functional Interface](interfaces.md#functional-interfaces), d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung:
 
 ```java
 @FunctionalInterface
@@ -125,7 +125,84 @@ Das ist natürlich alles sehr aufwändig:
 
 und das alles nur, um `printSomething()` auszuführen. Einfacher wäre es, wir würden direkt in `printSomething()` die `print()`-Methode des Interfaces `Printable` implementieren. Das geht und zwar unter Verwendung von *Lambdas*:
 
+```java
+public class Programmklasse
+{
+    public static void printSomething(Printable p, String s)
+    {
+        p.print(s);
+    }
 
+    public static void main(String[] args)
+    {
+        // UseInterface useInterface = new UseInterface();
+        // printSomething(useInterface, "hallo");
+        printSomething((s) -> System.out.println(s), "hallo" );
+    }
+}
+```
+
+
+Mithilfe von `(s) -> System.out.println(s)` wird also die abstrakte `print(s)`-Methode aus dem (Functional) Interface `Printable` implementiert. Wir benötigen keine extra Klasse, die `Printable` implementiert und somit auch kein Objekt dieser Klasse. 
+
+Das `Printable`-Interface aus unserem Beispiel ist vergleichbar mit dem [Consumer](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html)-Interface, da eine Methode implementiert wird, die keinen Wert zurückgibt. Die funktionale Methode heißt `accept(T)`. Es folgt ein kurzer Überblick über die wesentlichen *Functional Interfaces*  aus dem Paket `java.util.function`.
+
+
+
+## java.util.function.Consumer<T>
+
+Das Functional Interface [Consumer](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html) repräsentiert eine *Funktion* (Methode), die einen Parameter vom Typ `T`akzeptiert, die Methode ausführt und keine Wert zurückgibt. Die funktionale Methode heißt `void accept(T)`. 
+
+Einfaches `Consumer`-Beispiel:
+
+```java
+Consumer<String> print = message -> System.out.println(message);
+print.accept("Hallo FIW!");
+```
+
+## java.util.function.Function<T, R>
+
+Das Functional Interface [Function](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html) repräsentiert eine *Funktion* (Methode), die einen Parameter vom Typ `T`akzeptiert und durch Ausführung der Methode ein Resultat vom Typ `R` zurückgibt. Die funktionale Methode heißt `R apply(T)`. 
+
+Einfaches `Function`-Beispiel:
+
+```java
+Function<String, Integer> stringLength = str -> str.length();
+System.out.println(stringLength.apply("Hallo FIW!"));           // Output: 10
+```
+
+
+Für den Fall, dass zwei Parameter erwartet werden, gibt es das Functional Interface [BiFunction](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/BiFunction.html). 
+
+
+Einfaches `BiFunction`-Beispiel:
+
+```java
+BiFunction<Integer, Integer> add = (a, b) -> a + b;
+System.out.println(add.apply(3,4));                             // Output: 7
+```
+
+
+## java.util.function.Predicate<T>
+
+Das Functional Interface [Predicate](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Predicate.html) repräsentiert eine *Funktion* (Methode), die einen Parameter vom Typ `T`akzeptiert und durch Ausführung der Methode ein Resultat vom Typ `boolean` zurückgibt. Die funktionale Methode heißt `boolean test(T)`. 
+
+Einfaches `Predicate`-Beispiel:
+
+```java
+Predicate<Integer> isEven = number -> number % 2 == 0;
+System.out.println(isEven.test(4));                             // Output: true
+```
+
+Für den Fall, dass zwei Parameter erwartet werden, gibt es das Functional Interface [BiPredicate](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/BiPredicate.html). 
+
+
+Einfaches `BiPredicate`-Beispiel:
+
+```java
+BiPredicate<String, String> equalsIgnoreCases = (str1, str2) -> str1.toLowerCase().equals(str2.toLowerCase());
+System.out.println(equalsIgnoreCases.test("Hallo FIW!", "HALLO fiw!"));                             // Output: true
+```
 
 
 ## Methoden-Referenzen

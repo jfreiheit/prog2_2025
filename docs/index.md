@@ -489,3 +489,10 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		    }
 		}
 		```	
+
+
+??? question "Collections (Listen und Mengen)"
+	- siehe [**Collections**](collections.md#collections) 
+	- siehe [**Übung 6**](uebungen.md#ubung-6-listen-und-mengen)
+	- siehe [**Aufgabe 4**](aufgaben.md#aufgabe-4-operationen-uber-mengen)
+
