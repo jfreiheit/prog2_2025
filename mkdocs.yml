@@ -80,13 +80,13 @@ nav:
     - Einstieg: einstieg.md
     - Aufzählungstypen: enum.md 
     - Wrapper-Klassen: wrapper.md 
-#    - Interfaces: interfaces.md
-#    - Lambdas: lambdas.md
     - Exceptions: exceptions.md 
     - Collections: collections.md 
     - Maps: maps.md
-#    - Abstrakte Klassen: abstrakt.md 
-#    - Interfaces: interfaces.md 
+    - Abstrakte Klassen: abstrakt.md 
+    - Interfaces: interfaces.md
+    - Lambdas: lambdas.md
+    - Streams: streams.md
 #    - GUI Einführung: gui.md 
 #    - GUI Ereignisse: ereignisse.md 
 #    - Mausereignisse: mausereignisse.md

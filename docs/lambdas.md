@@ -205,6 +205,11 @@ System.out.println(equalsIgnoreCases.test("Hallo FIW!", "HALLO fiw!"));         
 ```
 
 
+## java.util.function.Supplier<T>
+
+Das Functional Interface [Supplier](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Supplier.html) repräsentiert eine *Funktion* (Methode), die durch Ausführung der Methode ein Resultat vom Typ `T` zurückgibt. Die funktionale Methode heißt `T get()`. `Supplier` wird z.B. benutzt, um sogenannte *Fabrik-Methoden* zu definieren. *Fabrik-Methoden* erzeugen neue Objekte. Dafür schauen wir uns den folgenden Abschnitt [Methode-Referenzen](#methoden-referenzen) genauer an:
+
+
 ## Methoden-Referenzen
 
 Methoden-Referenzen sind eine syntaktische Abkürzung, um Methoden aufzurufen. Methoden-Referenzen sind somit ein spezieller Fall für Lambda-Ausdrücke. Methoden-Referenzen erkennen wir an folgender Syntax 
@@ -214,8 +219,16 @@ Methoden-Referenzen sind eine syntaktische Abkürzung, um Methoden aufzurufen. M
 ```
 
 Handelt es sich um eine statische Methode, steht vor dem `::` der Name der Klasse, bei einer Objektmethode steht die Referenzvariable des Objektes davor. 
-Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer:
+Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer (siehe `staedte`-Beispiel oben):
 
 ```java
 staedte.forEach(System.out::println);
 ```
+
+Einfaches Beispiel für `Supplier`:
+
+```java
+Supplier<List<String>> listSupplier = ArrayList::new;
+List<String> list = listSupplier.get();
+```
+

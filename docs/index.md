@@ -496,3 +496,134 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 	- siehe [**Übung 6**](uebungen.md#ubung-6-listen-und-mengen)
 	- siehe [**Aufgabe 4**](aufgaben.md#aufgabe-4-operationen-uber-mengen)
 
+
+??? "Code aus der Vorlesung 05.05.2025"
+
+	```java
+	package vorlesungen.vorl0505;
+
+	import java.util.*;
+
+	public class Vorlesung0505
+	{
+	    public static void main(String[] args)
+	    {
+	        System.out.printf("%n%n----------- Listen ------------------%n%n");
+	        List<String> list1 = new ArrayList<>();
+	        list1.add("eins");
+	        //list1.add(2);       // Integer
+	        list1.add("zwei");
+	        for(String str : list1)
+	        {
+	            System.out.println(str);
+	        }
+	        System.out.println(list1.size());
+	        list1.remove("eins");
+	        list1.remove(0);
+
+	        List<Integer> list2 = new ArrayList<>();
+	        list2.add(1);
+	        list2.add(2);
+	        list2.add(3);
+	        list2.add(4);
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");          // 1 2 3 4
+	        }
+	        Integer v1 = list2.get(0);  // Index 0
+	        System.out.println(v1);     // 1
+
+	        System.out.println();
+	        list2.remove(0);
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");          // 2 3 4
+	        }
+	        // v1 = 1
+	        v1 = list2.get(0);              // Index 0
+	        // v1 = 2
+	        System.out.println(v1);         // 2
+	        list2.remove(Integer.valueOf(3));   // Objekt geloescht
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");      // 2 4
+	        }
+	        System.out.println();
+	        list2.add(2);
+	        list2.add(4);
+	        list2.add(2);
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");      // 2 4 2 4 2
+	        }
+	        System.out.println();
+	        System.out.println(list2.remove(Integer.valueOf(2)));
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");      // 4 2 4 2
+	        }
+	        System.out.println();
+	        List<Integer> list3 = new ArrayList<>();
+	        list3.add(2);
+	        list3.add(3);
+	        list3.add(4);
+	        list2.removeAll(list3);             // false
+	        if(list2.size() == 0) System.out.println("list2 is empty");
+	        for(Integer i : list2)
+	        {
+	            System.out.print(i + " ");      // 4 2 4 2
+	        }
+	        System.out.println();
+	        list2.add(1);
+	        list2.add(2);
+	        list2.add(1);
+	        list2.add(1);
+	        list2.add(2);
+	        list2.add(1);
+	        Integer v3 = Integer.valueOf(1);
+	        while(list2.contains(v3))
+	        {
+	            list2.remove(v3);
+	        }
+
+	        System.out.printf("%n%n----------- Mengen ------------------%n%n");
+	        Set<String> set1 = new HashSet<>();
+	        System.out.println(set1.add("vier"));       // true
+	        System.out.println(set1.add("eins"));       // true
+	        System.out.println(set1.add("zwei"));       // true
+	        System.out.println(set1.add("zwei"));       // false
+	        System.out.println(set1.add("drei"));       // true
+	        for(String str : set1)
+	        {
+	            System.out.print(str + " ");        // eins vier zwei drei
+	        }
+
+	        System.out.printf("%n%n----------- Maps ------------------%n%n");
+	        Map<String, Double> map1 = new HashMap<>();
+	        map1.put("s05123456", 1.0);     // true
+	        map1.put("s05654321", 1.3);     // true
+	        map1.put("s05111111", 1.7);     // true
+	        map1.put("s05654321", 2.3);     // false
+
+	        Set<String> allKeys = map1.keySet();
+	        for(String key : allKeys)
+	        {
+	            System.out.print(key + " ");
+	        }
+	        System.out.println();
+	        Collection<Double> allValues = map1.values();
+	        for(Double val : allValues)
+	        {
+	            System.out.print(val + " ");
+	        }
+	        System.out.println();
+	        Set<Map.Entry<String, Double>> entries = map1.entrySet();
+	        for(Map.Entry<String, Double> entry : entries)
+	        {
+	            
+	        }
+
+	    }
+	}
+	```
+

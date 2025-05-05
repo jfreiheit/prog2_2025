@@ -15,6 +15,10 @@
         <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/prog2/lambdas/">
       
       
+        <link rel="prev" href="../interfaces/">
+      
+      
+        <link rel="next" href="../streams/">
       
       
       <link rel="icon" href="../img/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Lambda-Ausdrücke - Programmieren II</title>
+        <title>Lambdas - Programmieren II</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lambda-Ausdrücke
+              Lambdas
             
           </span>
         </div>
@@ -385,6 +389,189 @@
   
   
     <li class="md-nav__item">
+      <a href="../abstrakt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Abstrakte Klassen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interfaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Lambdas
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Lambdas
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Inhaltsverzeichnis
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#erstes-beispiel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erstes Beispiel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Interfaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javautilfunctionconsumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      java.util.function.Consumer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javautilfunctionfunction" class="md-nav__link">
+    <span class="md-ellipsis">
+      java.util.function.Function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javautilfunctionpredicate" class="md-nav__link">
+    <span class="md-ellipsis">
+      java.util.function.Predicate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javautilfunctionsupplier" class="md-nav__link">
+    <span class="md-ellipsis">
+      java.util.function.Supplier
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methoden-referenzen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methoden-Referenzen
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../uebungen/" class="md-nav__link">
         
   
@@ -484,6 +671,15 @@
   <a href="#javautilfunctionpredicate" class="md-nav__link">
     <span class="md-ellipsis">
       java.util.function.Predicate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javautilfunctionsupplier" class="md-nav__link">
+    <span class="md-ellipsis">
+      java.util.function.Supplier
     </span>
   </a>
   
@@ -662,13 +858,19 @@
 <div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">BiPredicate</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">equalsIgnoreCases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">str1</span><span class="p">,</span><span class="w"> </span><span class="n">str2</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">str1</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">str2</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">());</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">equalsIgnoreCases</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="s">&quot;Hallo FIW!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;HALLO fiw!&quot;</span><span class="p">));</span><span class="w">                             </span><span class="c1">// Output: true</span>
 </span></code></pre></div>
+<h2 id="javautilfunctionsupplier">java.util.function.Supplier<T><a class="headerlink" href="#javautilfunctionsupplier" title="Permanent link">&para;</a></h2>
+<p>Das Functional Interface <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Supplier.html">Supplier</a> repräsentiert eine <em>Funktion</em> (Methode), die durch Ausführung der Methode ein Resultat vom Typ <code>T</code> zurückgibt. Die funktionale Methode heißt <code>T get()</code>. <code>Supplier</code> wird z.B. benutzt, um sogenannte <em>Fabrik-Methoden</em> zu definieren. <em>Fabrik-Methoden</em> erzeugen neue Objekte. Dafür schauen wir uns den folgenden Abschnitt <a href="#methoden-referenzen">Methode-Referenzen</a> genauer an:</p>
 <h2 id="methoden-referenzen">Methoden-Referenzen<a class="headerlink" href="#methoden-referenzen" title="Permanent link">&para;</a></h2>
 <p>Methoden-Referenzen sind eine syntaktische Abkürzung, um Methoden aufzurufen. Methoden-Referenzen sind somit ein spezieller Fall für Lambda-Ausdrücke. Methoden-Referenzen erkennen wir an folgender Syntax </p>
 <div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">::</span><span class="n">methode</span>
 </span></code></pre></div>
 <p>Handelt es sich um eine statische Methode, steht vor dem <code>::</code> der Name der Klasse, bei einer Objektmethode steht die Referenzvariable des Objektes davor. 
-Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer:</p>
+Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer (siehe <code>staedte</code>-Beispiel oben):</p>
 <div class="language-java highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">staedte</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Einfaches Beispiel für <code>Supplier</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">listSupplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">::</span><span class="k">new</span><span class="p">;</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listSupplier</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 </span></code></pre></div>
 
 
@@ -696,6 +898,44 @@ Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
+        
+          
+          <a href="../interfaces/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Interfaces">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Zurück
+              </span>
+              <div class="md-ellipsis">
+                Interfaces
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../streams/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Streams">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Weiter
+              </span>
+              <div class="md-ellipsis">
+                Streams
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
