@@ -513,7 +513,7 @@ List<int> l = new ArrayList<>(); 	// Fehler !!
 // Verwendung der Wrapper-Klassen + Auto-Boxing
 List<Integer> l = new ArrayList<>();
 
-l.add(100);        // sogenanntes Auto-Boxing
+l.add(100);        // Auto-Boxing
 ```
 
-Das obere beispiel zeigt in Zeile `3`, wie es **nicht** geht. Die `List l` kann nicht mit `int` typisiert werden. Stattdessen muss die *Wrapper*-Klasse `Integer` verwendet werden. Wir betrachten *Wrapper*-Klassen im nächsten Abschnitt.
+Das obere beispiel zeigt in Zeile `3`, wie es **nicht** geht. Die `List l` kann nicht mit `int` typisiert werden. Stattdessen muss die *Wrapper*-Klasse `Integer` verwendet werden. Siehe [**Wrapper-Klassen**](wrapper.md#wrapper-klassen).

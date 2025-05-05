@@ -84,7 +84,7 @@ nav:
 #    - Lambdas: lambdas.md
     - Exceptions: exceptions.md 
     - Collections: collections.md 
-#    - Maps: maps.md
+    - Maps: maps.md
 #    - Abstrakte Klassen: abstrakt.md 
 #    - Interfaces: interfaces.md 
 #    - GUI Einführung: gui.md 

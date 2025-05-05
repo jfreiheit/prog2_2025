@@ -580,6 +580,109 @@
 	**Viel Spaß!**
 
 
+??? success "Eine mögliche Lösung für Übung 4"
+	```java
+	package uebungen.uebung4;
+
+	import javax.swing.*;
+
+	public class Uebung4
+	{
+	    public static int inputInt(String message)
+	    {
+	        boolean inputOk = false;
+	        int number = 0;
+	        while(!inputOk)
+	        {
+	            String input = JOptionPane.showInputDialog(message);
+
+	            try {
+	                number = Integer.parseInt(input);
+	                inputOk = true;
+	            }
+	            catch(NumberFormatException e) {
+	                message = "Es war keine Zahl! Bitte Zahl eingeben!";
+	            }
+	        }
+	        return number;
+	    }
+
+	    public static int inputInt(int min, int max)
+	    {
+	        String message = "Zahl im Bereich zwischen " + min + " und " + max + ": ";
+	        boolean inputOk = false;
+	        int number = 0;
+	        while(!inputOk)
+	        {
+	            String input = JOptionPane.showInputDialog(message);
+
+	            try {
+	                number = Integer.parseInt(input);
+	                if(number >= min && number <= max) {
+	                    inputOk = true;
+	                }
+	                else {
+	                    message = "Zahl muss im Bereich zwischen " + min + " und " + max + " sein !";
+	                }
+	            }
+	            catch(NumberFormatException e) {
+	                message = "Es war keine Zahl! Bitte Zahl eingeben!";
+	            }
+	        }
+	        return number;
+	    }
+
+	    public static int reverseNumber(int number)
+	    {
+	        int result = 0;
+	        int copy = number;
+	        while(copy != 0)
+	        {
+	            result = result * 10 + copy % 10;
+	            copy /= 10;
+	        }
+	        return result;
+	    }
+
+	    public static int crossSum(int number)
+	    {
+	        int crossSum = 0;
+	        int copy = number;
+	        while(copy != 0)
+	        {
+	            crossSum += copy % 10;
+	            copy /= 10;
+	        }
+	        return crossSum;
+	    }
+
+
+
+	    public static void main(String[] args)
+	    {
+	        int zahl1 = inputInt("Zahl 1");
+
+	        boolean number2Valid = false;
+	        String message = "Zahl 2";
+	        int zahl2 = 0;
+	        int divisor = 0;
+	        while (!number2Valid) {
+	            zahl2 = inputInt(message);
+	            try {
+	                divisor = zahl1 / zahl2;
+	                number2Valid = true;
+	            } catch (ArithmeticException e) {
+	                message = "Zahl darf nicht 0 sein!";
+	            }
+	        }
+	        message = zahl1 + " / " + zahl2 + " = " + divisor;
+	        JOptionPane.showMessageDialog(null, message, "ERGEBNIS", JOptionPane.PLAIN_MESSAGE);
+
+	        System.out.println(inputInt(1,6));
+	    }
+	}
+	```
+
 
 ##### Übung 5 (try-with-resource und eigene Exception-Klassen)
 
@@ -653,7 +756,7 @@
 		- der `index` passt nicht zum Array,
 		- das Element im Array zeigt auf kein Objekt (Referenz ist `null).
 
-		Definieren Sie die Klassen `MyIndexOutBoundsException` und `MyNullPointerException`. Beide erben von `RuntimeException`. Wenn Sie in der `main`-Methode folgende Aufrufe haben
+		Definieren Sie die Klassen `MyIndexOutOfBoundsException` und `MyNullPointerException`. Beide erben von `RuntimeException`. Wenn Sie in der `main`-Methode folgende Aufrufe haben
 
 		```java
         Integer[] values = new Integer[3];
@@ -719,6 +822,133 @@
 		Typische Vertreter solcher *Ressourcen* sind [FileReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/FileReader.html) und [BufferedReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/BufferedReader.html). *Ressources* sind alle Klassen, die das Java-Interface [Closeable](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/Closeable.html) implementieren - zu *Interfaces* kommen wir später.
 
 	2. Ändern Sie 2. und 3. so, dass Sie die `try-with-resources`-Anweisung verwenden.
+
+
+
+??? success "Eine mögliche Lösung für Übung 5"
+	=== "Uebung5.java"
+		```java
+		package uebungen.uebung5;
+
+		import java.io.*;
+		import java.util.Scanner;
+
+		public class Uebung5
+		{
+		    public static void printCSVFileUsingFileReader()
+		    {
+		        String filePath = "assets/staedte.csv";
+		        try {
+		            FileReader fileReader = new FileReader(filePath);
+		            BufferedReader bufferedReader = new BufferedReader(fileReader);
+		            String line;
+		            while ((line = bufferedReader.readLine()) != null) {
+		                String[] data = line.split(";");
+		                //System.out.println(data[0]);
+		                System.out.printf("| %4s | %-20s | %10s | %10s | %10s | %10s | %10s | %10s | %10s | %-20s |%n",
+		                        data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]);
+		                //System.out.println(line);
+		            }
+		        }
+		        catch (FileNotFoundException e)
+		        {
+		            System.out.println(e.getMessage());
+		        }
+		        catch(IOException e)
+		        {
+		            System.out.println(e.getMessage());
+		        }
+		    }
+
+		    public static void printCSVFileUsingScanner()
+		    {
+		        try {
+		            Scanner scanner = new Scanner(new File("assets/staedte.csv"));
+		            while (scanner.hasNextLine()) {
+		                System.out.println(scanner.nextLine());
+		            }
+		            scanner.close();
+		        }
+		        catch (FileNotFoundException e) {
+		            System.out.println(e.getMessage());
+		        }
+		    }
+
+		    public static Integer getInteger(Integer[] values, int index) throws MyIndexOutOfBoundsException
+		    {
+		        if (index < 0 || index >= values.length) {
+		            throw new MyIndexOutOfBoundsException(index, values.length);
+		        }
+		        Integer value =  values[index];
+		        if(value == null) {
+		            throw new MyNullPointerException();
+		        }
+		        return value;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        printCSVFileUsingFileReader();
+		        //printCSVFileUsingScanner();
+
+		        Integer[] values = new Integer[3];
+		        values[0] = Integer.valueOf(0);
+		        values[2] = Integer.valueOf(2);
+		        for(int index = 0; index <= 3; index++) {
+		            try {
+		                System.out.println(getInteger(values, index));
+		            }
+		            catch (MyIndexOutOfBoundsException e) {
+		                System.out.println(e.getMessage());
+		            }
+		            catch (MyNullPointerException e) {
+		                System.out.println(e.getMessage());
+		            }
+		        }
+		        System.out.println("Ende");
+		    }
+		}
+		```
+	=== "MyIndexOutOfBoundsException.java"
+		```java
+		package uebungen.uebung5;
+
+		public class MyIndexOutOfBoundsException extends RuntimeException
+		{
+		    public MyIndexOutOfBoundsException(String message)
+		    {
+		        super(message);
+		    }
+
+		    public MyIndexOutOfBoundsException()
+		    {
+		        super("index out of bounds");
+		    }
+
+		    public MyIndexOutOfBoundsException(int index, int length)
+		    {
+		        super("index " + index + " ist out of bounds! length = " + length);
+		    }
+		}
+		```
+	=== "MyNullPointerException.java"
+		```java
+		package uebungen.uebung5;
+
+		public class MyNullPointerException extends RuntimeException
+		{
+		    public MyNullPointerException(String message)
+		    {
+		        super(message);
+		    }
+
+		    public MyNullPointerException()
+		    {
+		        super("no object!");
+		    }
+		}
+		```
+
 
 
 ##### Übung 6 (Listen und Mengen)
