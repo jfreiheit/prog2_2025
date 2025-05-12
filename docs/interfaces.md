@@ -6,7 +6,6 @@ Interfaces sind automatisch `abstract`, d.h. das Schlüsselwort `abstract` muss 
 
 | Abtrakte Klasse | Interface |
 |-----------------|-----------|
-|können abstrakte und nicht-abstrakte (also implementierte) Methoden haben |können nur abstrakte Methoden beinhalten |
 |es kann nur von einer (abstrakten) Klasse geerbt werden (Schlüsselwort `extends`) |es können beliebig viele Interfaces implementiert werden (Schlüsselwort `implements`), mehrere Interfaces durch Komma getrennt |
 |abstrakte Klassen können selbst Interfaces implementieren |Interfaces können keine abstrakten Klassen implementieren (alle Methoden müssen ja abstrakt sein) |
 |das Schlüsselwort `abstract` deklariert eine abstrakte Klasse (und eine abstrakte Methode) |das Schlüsselwort `interface` deklariert ein Interface |

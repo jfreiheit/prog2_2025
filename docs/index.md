@@ -627,3 +627,173 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 	}
 	```
 
+
+
+??? "Code aus der Vorlesung 12.05.2025"
+
+	=== "Vorlesung0512.java"
+		```java
+		package vorlesungen.vorl0512;
+
+		import java.util.Collection;
+		import java.util.HashMap;
+		import java.util.Map;
+		import java.util.Set;
+
+		public class Vorlesung0512
+		{
+		    public static void printPerimeter(Shape shape)
+		    {
+		        System.out.println("Umfang ist " + shape.perimeter());
+		    }
+
+		    public static void printArea(Shape shape)
+		    {
+		        System.out.println("Flaecheninhalt ist " + shape.area());
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        Map<String, String> accounts = new HashMap();
+		        accounts.put("anton", "anton@email.de");
+		        accounts.put("berta", "berta@email.de");
+		        accounts.put("cesar", "cesar@email.de");
+		        accounts.put("anton", "anton2@email.de");
+
+		        String valueAnton = accounts.remove("anton");
+		        System.out.println(valueAnton);
+		        /* alle Schluessel */
+		        Set<String> allKeys = accounts.keySet();
+		        for(String key : allKeys)
+		        {
+		            System.out.print(key + " ");    // ceaser berta anton
+		        }
+		        System.out.println();
+
+		        /* alle Werte */
+		        Collection<String> allValues = accounts.values();
+		        for(String value : allValues)
+		        {
+		            System.out.print(value + " ");
+		        }
+		        System.out.println();
+
+		        /* alle Schluessel-Werte-Paare */
+		        Set<Map.Entry<String, String>> allEntries = accounts.entrySet();
+		        for(Map.Entry<String, String> entry : allEntries)
+		        {
+		            System.out.println("key : " + entry.getKey() + " , value : " + entry.getValue());
+		        }
+
+		        Shape s1 = new Circle(3.0);
+		        Shape s2 = new Rectangle(3,4);
+		        printPerimeter(s1);
+		        printArea(s1);
+		        printPerimeter(s2);
+		        printArea(s2);
+		        Circle c1 = new Circle(1.0);
+		        System.out.println(c1.perimeter());
+		        System.out.println(c1.area());
+		        System.out.println(c1.getDiameter());
+		        System.out.println(s1.perimeter());
+		        System.out.println(s1.area());
+		        //System.out.println(s1.getDiameter());     // keine Eigenschaft von Shape
+		        printPerimeter(c1);
+		        printArea(c1);
+
+		        Shape[] shapes = new Shape[4];
+		        shapes[0] = s1;
+		        shapes[1] = s2;
+		        shapes[2] = c1;
+		        shapes[3] = new Rectangle(4,2);
+		        for(Shape s : shapes)
+		        {
+		            printPerimeter(s);
+		            printArea(s);
+		            System.out.println(s.toString());
+		        }
+		    }
+		}
+		```
+	=== "Shape.java"
+		```java
+		package vorlesungen.vorl0512;
+
+		public abstract class Shape
+		{
+		    public abstract double perimeter();
+		    public abstract double area();
+
+		}
+		```
+	=== "Rectangle.java"
+		```java
+		package vorlesungen.vorl0512;
+
+		public class Rectangle extends Shape
+		{
+		    int width;
+		    int height;
+
+		    public Rectangle(int width, int height)
+		    {
+		        this.width = width;
+		        this.height = height;
+		    }
+
+		    @Override
+		    public double perimeter()
+		    {
+		        return 2 * (this.width + this.height);
+		    }
+
+		    @Override
+		    public double area()
+		    {
+		        return this.width * this.height;
+		    }
+
+		    @Override
+		    public String toString()
+		    {
+		        return "Rectangle [width=" + this.width + ", height=" + this.height + "]";
+		    }
+		}
+		```
+	=== "Circle.java"
+		```java
+		package vorlesungen.vorl0512;
+
+		public class Circle extends Shape
+		{
+		    double radius;
+
+		    public Circle(double radius)
+		    {
+		        this.radius = radius;
+		    }
+		    public double getDiameter()
+		    {
+		        return 2 * this.radius;
+		    }
+
+		    @Override
+		    public double perimeter()
+		    {
+		        return Math.PI * this.getDiameter();
+		    }
+
+		    @Override
+		    public double area()
+		    {
+		        return Math.PI * this.radius * this.radius;
+		    }
+
+		    @Override
+		    public String toString()
+		    {
+		        return "Circle [radius=" + this.radius + "]";
+		    }
+		}
+
+		```

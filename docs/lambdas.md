@@ -182,6 +182,50 @@ BiFunction<Integer, Integer> add = (a, b) -> a + b;
 System.out.println(add.apply(3,4));                             // Output: 7
 ```
 
+Auf diese Weise können Sie sich auch eigene Functional Interfaces bauen (siehe z.B. [hier](https://medium.com/@malvin.lok/5-lambda-skills-every-java-developer-should-master-java-11-bc3e04dce912)), z.B.:
+
+```java
+@FunctionalInterface
+interface TriFunction<T, U, V, R> {
+    R apply(T t, U u, V v);
+}
+```
+
+und dann
+
+```java
+// Using custom TriFunction
+TriFunction<String, String, String, String> concat = 
+    (a, b, c) -> a + b + c;
+
+String result = concat.apply("Hello", " ", "World");
+System.out.println(result); // Output: Hello World
+
+// More practical example
+TriFunction<Double, Double, Double, Double> calculateVolume = 
+    (length, width, height) -> length * width * height;
+
+Double volume = calculateVolume.apply(2.0, 3.0, 4.0);
+System.out.println("Volume: " + volume); // Output: Volume: 24.0
+```
+
+
+
+Das Functional Interface `Function` besitzt neben der *SAM* (*single abstract method*) `apply(T t)` auch noch die *default*-Methoden `andThen(Function after)` und `compose(Function before)`. Damit lassen sich Funktionen "zusammenbauen" (siehe z.B. [hier](https://medium.com/@malvin.lok/5-lambda-skills-every-java-developer-should-master-java-11-bc3e04dce912)):
+
+```java
+Function<Integer, Integer> multiply = x -> x * 2;
+Function<Integer, Integer> add = x -> x + 3;
+
+// Using andThen (first multiply, then add)
+Function<Integer, Integer> multiplyThenAdd = multiply.andThen(add);
+System.out.println(multiplyThenAdd.apply(5)); // Output: 13
+
+// Using compose (first add, then multiply)
+Function<Integer, Integer> addThenMultiply = multiply.compose(add);
+System.out.println(addThenMultiply.apply(5)); // Output: 16
+```
+
 
 ## java.util.function.Predicate<T>
 
@@ -202,6 +246,20 @@ Einfaches `BiPredicate`-Beispiel:
 ```java
 BiPredicate<String, String> equalsIgnoreCases = (str1, str2) -> str1.toLowerCase().equals(str2.toLowerCase());
 System.out.println(equalsIgnoreCases.test("Hallo FIW!", "HALLO fiw!"));                             // Output: true
+```
+
+
+Das Functional Interface `Predicate` besitzt neben der *SAM* (*single abstract method*) `test(T t)` auch noch die *default*-Methoden `and(Predicate other)`, `not(Predicate target)` und `or(Predicate other)`. Damit lassen sich Bedingungen "zusammenbauen" (siehe z.B. [hier](https://medium.com/@malvin.lok/5-lambda-skills-every-java-developer-should-master-java-11-bc3e04dce912)):
+
+```java
+Predicate<Person> isAdult = person -> person.getAge() >= 18;
+Predicate<Person> isFromGermany = person -> "GER".equals(person.getCountry());
+Predicate<Person> isNameStartsWithJ = person -> person.getName().startsWith("J");
+
+// Combining predicates
+Predicate<Person> isAdultFromGermanyWithJName = isAdult
+    .and(isFromUGermany)
+    .and(isNameStartsWithJ);
 ```
 
 
@@ -231,4 +289,8 @@ Einfaches Beispiel für `Supplier`:
 Supplier<List<String>> listSupplier = ArrayList::new;
 List<String> list = listSupplier.get();
 ```
+
+Zu weiteren Informationen über Methodenreferenzen siehe z.B. [hier](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html).
+
+
 

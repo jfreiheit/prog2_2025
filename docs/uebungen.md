@@ -1097,6 +1097,180 @@
 		```
 
 
+??? success "Eine mögliche Lösung für Übung 6"
+	=== "Uebung6.java"
+		```java
+		package uebungen.uebung6;
+
+		import java.util.*;
+
+		public class Uebung6
+		{
+		    public static List<String> createArrayList(String[] words)
+		    {
+		        List<String> list = new ArrayList<>();
+		        for(String word : words)
+		        {
+		            list.add(word);
+		        }
+		        return list;
+		    }
+
+		    public static void printList(List<String> list)
+		    {
+		        System.out.printf("Liste mit %d Elementen : %n", list.size());
+		        System.out.println("--------------------------");
+		        for(String s : list)
+		        {
+		            System.out.println(s);
+		        }
+		        System.out.println();
+		    }
+
+		    public static Set<String> createHashSet(String[] words)
+		    {
+		        Set<String> set = new HashSet<>();
+		        for(String word : words)
+		        {
+		            set.add(word);
+		        }
+		        return set;
+		    }
+
+
+		    public static Set<String> createTreeSet(String[] words)
+		    {
+		        Set<String> set = new TreeSet<>();
+		        for(String word : words)
+		        {
+		            set.add(word);
+		        }
+		        return set;
+		    }
+
+
+		    public static Set<Integer> createIntegerSet(int from, int to)
+		    {
+		        Set<Integer> set = new HashSet<>();
+		        for(Integer i = from; i <= to; i++)
+		        {
+		            set.add(i);
+		        }
+		        return set;
+		    }
+
+		    public static void printSet(Set<String> set)
+		    {
+		        System.out.printf("Menge mit %d Elementen : %n", set.size());
+		        System.out.println("--------------------------");
+		        for(String s : set)
+		        {
+		            System.out.println(s);
+		        }
+		        System.out.println();
+		    }
+
+		    public static void printIntegerSet(Set<Integer> set)
+		    {
+		        for(Integer i : set)
+		        {
+		            System.out.print(i + " ");
+		        }
+		        System.out.println();
+		    }
+
+		    public static List<String> findDoubletsTwice(List<String> list)
+		    {
+		        List<String> doublets = new ArrayList<>();
+		        for(String currentValue : list)
+		        {
+		            if(list.indexOf(currentValue) != list.lastIndexOf(currentValue))
+		            {
+		                doublets.add(currentValue);
+		            }
+		        }
+		        return doublets;
+		    }
+
+		    public static List<String> findDoubletsOnce(List<String> list)
+		    {
+		        List<String> doublets = new ArrayList<>();
+		        for(int index = 0; index < list.size(); index++)
+		        {
+		            String currentValue = list.get(index);
+		            if(contains(list, currentValue, index+1))
+		            {
+		                doublets.add(currentValue);
+		            }
+		        }
+		        return doublets;
+		    }
+
+		    public static boolean contains(List<String> list, String currentValue, int index)
+		    {
+		        for(int i = index; i < list.size(); i++)
+		        {
+		            if(list.get(i).equals(currentValue))
+		            {
+		                return true;
+		            }
+		        }
+		        return false;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n%n------- Uebung6 -------%n%n");
+		        String[] words = {"Linux", "Apple", "Facebook", "Amazon",
+		                "IBM", "Lenovo", "Google", "IBM", "Microsoft",
+		                "Apple", "Google", "Twitter", "Skype", "Chrome",
+		                "Linux", "Firefox"};
+
+		        System.out.printf("%n%n------- List -------%n%n");
+		        List<String> wordsList = createArrayList(words);
+		        printList(wordsList);
+		        int indexFirst = wordsList.indexOf("Apple");
+		        int indexLast = wordsList.lastIndexOf("Apple");
+		        String firstWord = wordsList.get(0);
+		        String lastWord = wordsList.get(wordsList.size() - 1);
+		        System.out.println("Index des ersten Auftretens von Apple : " + indexFirst);
+		        System.out.println("Index des letzten Auftretens von Apple : " + indexLast);
+		        System.out.println("erstes Element der Liste : " + firstWord);
+		        System.out.println("letztes Element der Liste : " + lastWord);
+		        System.out.println("Loeschen von Apple : " + wordsList.remove("Apple"));
+		        System.out.println("Loeschen von Google : " + wordsList.remove("Google"));
+		        System.out.println("Loeschen von Facebook : " + wordsList.remove("Facebook"));
+		        printList(wordsList);
+
+		        System.out.printf("%n%n------- Set -------%n%n");
+		        Set<String> wordsHashSet = createHashSet(words);
+		        printSet(wordsHashSet);
+		        Set<String> wordsTreeSet = createTreeSet(words);
+		        printSet(wordsTreeSet);
+
+		        System.out.printf("%n%n------- Zusatz -------%n%n");
+		        printList(findDoubletsTwice(wordsList));
+		        printList(findDoubletsOnce(wordsList));
+
+		        System.out.printf("%n%n------- Operationen ueber Mengen -------%n%n");
+
+		        Set<Integer> s2 = Set.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);    // immutable set
+
+		        Set<Integer> s1 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s1.addAll(s2);          // Vereinigung
+		        printIntegerSet(s1);       // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+
+		        Set<Integer> s3 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s3.removeAll(s2);       // Differenz
+		        printIntegerSet(s3);       // 1, 2, 3, 4
+
+		        Set<Integer> s4 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s4.retainAll(s2);       // Schnitt
+		        printIntegerSet(s4);       // 5, 6, 7, 8, 9, 10
+		    }
+		}
+		```
+
 
 ##### Übung 7 (Maps)
 
@@ -1175,7 +1349,7 @@
 
 	**Maps**
 
-	5. Erstellen Sie in der `main()`-Methode eine `Map<Integer, Stadt> staedteMap = new HashMap<>();`. Fügen Sie der `staedteMap` einen fortlaufenden, eindeutigen `Integer`-Wert beginnend mit `1` als *Key* sowie alle alle Städte aus dem durch Aufruf der `staedte()`-Methode erzeugtem Array als *Value* hinzu.
+	5. Erstellen Sie in der `main()`-Methode eine `Map<Integer, Stadt> staedteMap = new HashMap<>();`. Fügen Sie der `staedteMap` einen fortlaufenden, eindeutigen `Integer`-Wert beginnend mit `1` als *Key* sowie alle Städte aus dem durch Aufruf der `staedte()`-Methode erzeugtem Array als *Value* hinzu.
 	6. Geben Sie alle Informationen über alle Städte aus der Liste unter Verwendung der `print()`-Methode aus der Klasse `Stadt` aus. Beginnen Sie die Zeile jeweils mit der Ausgabe des *Keys*.
 
 	**Ausgaben**
@@ -1211,133 +1385,133 @@
 
 ??? "Übung 8"
 
-	1. Wir beschäftigen uns nochmal mit der Übung 7, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben (das haben wir so in Übung 7 erarbeitet - es gibt eine Änderung in `StadtTest`, dort benutzen wir jetzt ): 
+	1. Wir beschäftigen uns nochmal mit der Übung 7, d.h. mit `Stadt` und `StadtTest`. Dieses Mal geht es uns aber mehr um die Verwendung des Interfaces `Comparable`. Zunächst sind die beiden Klassen `Stadt` und `StadtTest` wie folgt gegeben: (das haben wir so in Übung 7 erarbeitet - es gibt eine Änderung in `StadtTest`: dort benutzen wir jetzt in der `Map` `MyInteger` anstatt `Integer` - siehe 2.): 
 
 		=== "Stadt.java" 
-		```java
-		import java.util.*;
+			```java
+			import java.util.*;
 
-		public class Stadt
-		{
-			String name;
-			List<Integer> bevoelkerung;
-			float flaeche;
-			
-			public Stadt(String name, List<Integer> bevoelkerung, float flaeche)
+			public class Stadt
 			{
-				super();
-				this.name = name;
-				this.bevoelkerung = bevoelkerung;
-				this.flaeche = flaeche;
-			}
-			
-			void print()
-			{
-				System.out.printf("%-18s %.2f km%c", this.name, this.flaeche, '\u00B2');
-				for(Integer anzahl : this.bevoelkerung)
-				{
-					System.out.printf("%,14d", anzahl);
-				}
-				System.out.println();
-			}
-			
-			@Override
-			public boolean equals(Object o)
-			{
-				if(o==null) return false;
-				if(o==this) return true;
-				if(this.getClass()!=o.getClass()) return false;
+				String name;
+				List<Integer> bevoelkerung;
+				float flaeche;
 				
-				Stadt other = (Stadt)o;
-				return (this.name.equals(other.name));
-			}
-			
-			@Override
-			public int hashCode()
-			{
-				return this.name.hashCode();
-			}
+				public Stadt(String name, List<Integer> bevoelkerung, float flaeche)
+				{
+					super();
+					this.name = name;
+					this.bevoelkerung = bevoelkerung;
+					this.flaeche = flaeche;
+				}
+				
+				void print()
+				{
+					System.out.printf("%-18s %.2f km%c", this.name, this.flaeche, '\u00B2');
+					for(Integer anzahl : this.bevoelkerung)
+					{
+						System.out.printf("%,14d", anzahl);
+					}
+					System.out.println();
+				}
+				
+				@Override
+				public boolean equals(Object o)
+				{
+					if(o==null) return false;
+					if(o==this) return true;
+					if(this.getClass()!=o.getClass()) return false;
+					
+					Stadt other = (Stadt)o;
+					return (this.name.equals(other.name));
+				}
+				
+				@Override
+				public int hashCode()
+				{
+					return this.name.hashCode();
+				}
 
-		}
-		```
+			}
+			```
 
 		=== "StadtTest.java" 
-		```java
-		import java.util.*;
-		
-		public class StadtTest
-		{
-			public static Stadt[] staedte()
-			{
-				Stadt[] staedte = new Stadt[6];
-				List<Integer> berlinBevoelkerung = new ArrayList<>();
-				berlinBevoelkerung.add(3382169);	
-				berlinBevoelkerung.add(3460725);	
-				berlinBevoelkerung.add(3574830);
-				staedte[0] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
-				
-				List<Integer> hamburgBevoelkerung = new ArrayList<>();
-				hamburgBevoelkerung.add(1715392);	
-				hamburgBevoelkerung.add(1786448);	
-				hamburgBevoelkerung.add(1810438);	
-				staedte[1] = new Stadt("Hamburg", hamburgBevoelkerung, 755.22f);
-				
-				List<Integer> muenchenBevoelkerung = new ArrayList<>();
-				muenchenBevoelkerung.add(1210223);	
-				muenchenBevoelkerung.add(1353186);	
-				muenchenBevoelkerung.add(1464301);
-				staedte[2] = new Stadt("Muenchen", muenchenBevoelkerung, 310.70f);
-				
-				List<Integer> koelnBevoelkerung = new ArrayList<>();
-				koelnBevoelkerung.add(962884);	
-				koelnBevoelkerung.add(1007119);	
-				koelnBevoelkerung.add(1075935);	
-				staedte[3] = new Stadt("Koeln", koelnBevoelkerung, 405.02f);
-				
-				List<Integer> frankfurtBevoelkerung = new ArrayList<>();
-				frankfurtBevoelkerung.add(648550);	
-				frankfurtBevoelkerung.add(679664);	
-				frankfurtBevoelkerung.add(736414);
-				staedte[4] = new Stadt("Frankfurt/Main", frankfurtBevoelkerung, 248.31f);
-				
-				berlinBevoelkerung = new ArrayList<>();
-				berlinBevoelkerung.add(3382169);	
-				berlinBevoelkerung.add(3460725);	
-				berlinBevoelkerung.add(3574830);
-				staedte[5] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
-				
-				return staedte;
-			}
+			```java
+			import java.util.*;
 			
-			public static void main(String[] args)
+			public class StadtTest
 			{
-				System.out.printf("%n------------ Menge --------------%n");
-				Set<Stadt> staedteMenge = new HashSet<>();
-				for(Stadt s : staedte())
+				public static Stadt[] staedte()
 				{
-					staedteMenge.add(s);
-				}
-				for(Stadt s : staedteMenge)
-				{
-					s.print();
+					Stadt[] staedte = new Stadt[6];
+					List<Integer> berlinBevoelkerung = new ArrayList<>();
+					berlinBevoelkerung.add(3382169);	
+					berlinBevoelkerung.add(3460725);	
+					berlinBevoelkerung.add(3574830);
+					staedte[0] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+					
+					List<Integer> hamburgBevoelkerung = new ArrayList<>();
+					hamburgBevoelkerung.add(1715392);	
+					hamburgBevoelkerung.add(1786448);	
+					hamburgBevoelkerung.add(1810438);	
+					staedte[1] = new Stadt("Hamburg", hamburgBevoelkerung, 755.22f);
+					
+					List<Integer> muenchenBevoelkerung = new ArrayList<>();
+					muenchenBevoelkerung.add(1210223);	
+					muenchenBevoelkerung.add(1353186);	
+					muenchenBevoelkerung.add(1464301);
+					staedte[2] = new Stadt("Muenchen", muenchenBevoelkerung, 310.70f);
+					
+					List<Integer> koelnBevoelkerung = new ArrayList<>();
+					koelnBevoelkerung.add(962884);	
+					koelnBevoelkerung.add(1007119);	
+					koelnBevoelkerung.add(1075935);	
+					staedte[3] = new Stadt("Koeln", koelnBevoelkerung, 405.02f);
+					
+					List<Integer> frankfurtBevoelkerung = new ArrayList<>();
+					frankfurtBevoelkerung.add(648550);	
+					frankfurtBevoelkerung.add(679664);	
+					frankfurtBevoelkerung.add(736414);
+					staedte[4] = new Stadt("Frankfurt/Main", frankfurtBevoelkerung, 248.31f);
+					
+					berlinBevoelkerung = new ArrayList<>();
+					berlinBevoelkerung.add(3382169);	
+					berlinBevoelkerung.add(3460725);	
+					berlinBevoelkerung.add(3574830);
+					staedte[5] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+					
+					return staedte;
 				}
 				
-				System.out.printf("%n------------ Maps --------------%n");
-				Map<MyInteger, Stadt> staedteMap = new HashMap<>();
-				int i = 1;
-				for(Stadt s : staedte())
+				public static void main(String[] args)
 				{
-					staedteMap.put(new MyInteger(i++), s);
-				}
-				for(Map.Entry<MyInteger, Stadt> entry : staedteMap.entrySet())
-				{
-					MyInteger key = entry.getKey();
-					System.out.printf("%-3d",key.intValue());
-					entry.getValue().print();
+					System.out.printf("%n------------ Menge --------------%n");
+					Set<Stadt> staedteMenge = new HashSet<>();
+					for(Stadt s : staedte())
+					{
+						staedteMenge.add(s);
+					}
+					for(Stadt s : staedteMenge)
+					{
+						s.print();
+					}
+					
+					System.out.printf("%n------------ Maps --------------%n");
+					Map<MyInteger, Stadt> staedteMap = new HashMap<>();
+					int i = 1;
+					for(Stadt s : staedte())
+					{
+						staedteMap.put(new MyInteger(i++), s);
+					}
+					for(Map.Entry<MyInteger, Stadt> entry : staedteMap.entrySet())
+					{
+						MyInteger key = entry.getKey();
+						System.out.printf("%-3d",key.intValue());
+						entry.getValue().print();
+					}
 				}
 			}
-		}
-		```
+			```
 
 	2. Für die Schlüssel in der `Map` benutzen wir die selbstgeschriebne Klasse `MyInteger`:
 
