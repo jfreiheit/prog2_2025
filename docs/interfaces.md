@@ -7,10 +7,8 @@ Interfaces sind automatisch `abstract`, d.h. das Schlüsselwort `abstract` muss 
 | Abtrakte Klasse | Interface |
 |-----------------|-----------|
 |es kann nur von einer (abstrakten) Klasse geerbt werden (Schlüsselwort `extends`) |es können beliebig viele Interfaces implementiert werden (Schlüsselwort `implements`), mehrere Interfaces durch Komma getrennt |
-|abstrakte Klassen können selbst Interfaces implementieren |Interfaces können keine abstrakten Klassen implementieren (alle Methoden müssen ja abstrakt sein) |
 |das Schlüsselwort `abstract` deklariert eine abstrakte Klasse (und eine abstrakte Methode) |das Schlüsselwort `interface` deklariert ein Interface |
 |eine abstrakte Klasse kann von einer anderen abstrakten Klasse erben und mehrere Interfaces implementieren |ein Interface kann nur von *einem* anderen Interface erben |
-|abtrakte Klassen können `final` Variablen (Konstanten), nicht-finale Variablen, statische und nicht-statische Variablen als Eigenschaften beinhalten |Interfaces können nur statische Konstanten (`static final`) als Eigenschaften beinhalten |
 |die Eigenschaften einer abstrakten Klasse können `private`, `protected`, *default* und `public` sein |in Interfaces sind alle Eigenschaften `public` |
 |Bsp.: `public abstract class Shape{ public abstract void draw(); }` |Bsp.: `public interface Drawable{ void draw(); }` | 
 

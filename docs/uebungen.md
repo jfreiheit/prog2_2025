@@ -1380,6 +1380,148 @@
 	``` 
 
 
+??? success "Eine mögliche Lösung für Übung 7"
+	=== "Stadt.java"
+		```java
+		package uebungen.uebung7;
+
+		import java.util.List;
+
+		public class Stadt
+		{
+		    private String name;
+		    private List<Integer> bevoelkerung;
+		    private float flaeche;
+
+		    public Stadt(String name, List<Integer> bevoelkerung, float flaeche)
+		    {
+		        this.name = name;
+		        this.bevoelkerung = bevoelkerung;
+		        this.flaeche = flaeche;
+		    }
+
+		    @Override
+		    public String toString()
+		    {
+		        String s = String.format("%-15s %8.2f km%c", this.name, this.flaeche, '\u00B2');
+		        for(Integer bevoelkerung : bevoelkerung)
+		        {
+		            s+=String.format(" %,10d", bevoelkerung);
+		        }
+		        return s;
+		    }
+
+		    public void print()
+		    {
+		        System.out.println(this.toString());
+		    }
+
+		    @Override
+		    public boolean equals(Object o)
+		    {
+		        if (this == o) return true;
+		        if (o == null || getClass() != o.getClass()) return false;
+		        Stadt stadt = (Stadt) o;
+		        return this.name.equals(stadt.name) && this.flaeche == stadt.flaeche;
+		    }
+
+		    @Override
+		    public int hashCode()
+		    {
+		        return this.name.hashCode() + Float.valueOf(this.flaeche).hashCode();
+		    }
+		}
+
+		```
+	=== "StadtTest.java"
+		```java
+		package uebungen.uebung7;
+
+		import java.util.*;
+
+		public class StadtTest
+		{
+		    public static Stadt[] staedte()
+		    {
+		        Stadt[] staedte = new Stadt[6];
+		        List<Integer> berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);
+		        berlinBevoelkerung.add(3460725);
+		        berlinBevoelkerung.add(3574830);
+		        staedte[0] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        List<Integer> hamburgBevoelkerung = new ArrayList<>();
+		        hamburgBevoelkerung.add(1715392);
+		        hamburgBevoelkerung.add(1786448);
+		        hamburgBevoelkerung.add(1810438);
+		        staedte[1] = new Stadt("Hamburg", hamburgBevoelkerung, 755.22f);
+
+		        List<Integer> muenchenBevoelkerung = new ArrayList<>();
+		        muenchenBevoelkerung.add(1210223);
+		        muenchenBevoelkerung.add(1353186);
+		        muenchenBevoelkerung.add(1464301);
+		        staedte[2] = new Stadt("Muenchen", muenchenBevoelkerung, 310.70f);
+
+		        List<Integer> koelnBevoelkerung = new ArrayList<>();
+		        koelnBevoelkerung.add(962884);
+		        koelnBevoelkerung.add(1007119);
+		        koelnBevoelkerung.add(1075935);
+		        staedte[3] = new Stadt("Koeln", koelnBevoelkerung, 405.02f);
+
+		        List<Integer> frankfurtBevoelkerung = new ArrayList<>();
+		        frankfurtBevoelkerung.add(648550);
+		        frankfurtBevoelkerung.add(679664);
+		        frankfurtBevoelkerung.add(736414);
+		        staedte[4] = new Stadt("Frankfurt/Main", frankfurtBevoelkerung, 248.31f);
+
+		        berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);
+		        berlinBevoelkerung.add(3460725);
+		        berlinBevoelkerung.add(3574830);
+		        staedte[5] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        return staedte;
+		    }
+
+		    public static void print(Collection<Stadt> staedte)
+		    {
+		        for(Stadt staedt : staedte)
+		        {
+		            System.out.println(staedt);
+		        }
+		        System.out.println();
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        Stadt[] staedte = staedte();
+		        System.out.printf("%n%n-------------- List ---------------------%n%n");
+		        List<Stadt> staedteListe = Arrays.asList(staedte);
+		        print(staedteListe);
+
+		        System.out.printf("%n%n-------------- Set ---------------------%n%n");
+		        Set<Stadt> staedteSet = new HashSet<>(Arrays.asList(staedte));
+		        print(staedteSet);
+
+		        System.out.printf("%n%n-------------- Map ---------------------%n%n");
+		        Map<Integer, Stadt> staedteMap = new HashMap<>();
+		        Integer key = 1;    // auto-boxing
+		        for(Stadt stadt : staedte)
+		        {
+		            staedteMap.put(key, stadt);
+		            key++;
+		        }
+		        for(Map.Entry<Integer, Stadt> entry : staedteMap.entrySet())        // all key-value-pairs
+		        {
+		            Integer entryKey = entry.getKey();          // the key of the pair
+		            Stadt entryValue = entry.getValue();        // the value of the pair
+		            System.out.println(entryKey + " " + entryValue);
+		        }
+		    }
+		}
+
+		```
+
 
 ##### Übung 8 (Interfaces)
 
