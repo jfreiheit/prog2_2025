@@ -1749,164 +1749,98 @@
 		```
 
 
+##### Übung 9 (Lambdas + Functional Interface Comparator)
 
+??? "Übung 9"
 
-##### Übung SWT (JUnit)
+	**Vorbereitung**
 
-??? "Übung SWT (JUnit)"
-	- Probieren Sie sich mit `JUnit` aus! Schreiben Sie Unit-Tests für Ihre `MyInteger`-Klasse aus [Aufgabe 2](aufgaben.md#aufgabe-2-myinteger).  
-	- Testen Sie z.B. für `parseInt()`:
-		```
-			"1234" 			-> 1234
-			"+1234"  		-> 1234
-			"01234"  		-> 1234
-			"-1234" 		-> -1234
-			"-01234"  		-> -1234
-			null			-> Exception (IAE) kein String
-			""				-> Exception (IAE) leerer String
-			"+"				-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
-			"-"				-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
-			"-00000000"		-> 0
-			"+00000000"		-> 0
-			"-00000001"		-> -1
-			"+00000001"		->	1
-			"123456a"		-> Exception (IAE) keine Zahl!
-			"-123456a"		-> Exception (IAE) keine Zahl!
-			"+123456a"		-> Exception (IAE) keine Zahl!
-			"2147483648"	-> Exception (IAE) Zahl zu gross!
-			"-2147483649"	-> Exception (IAE) Zahl zu klein!
+	1. Kopieren Sie folgende Klassen in Ihr Package `uebungen.uebung9` (oder `package anpassen):
 
-		```
+		=== "Student.java"
+			```java
+			package uebungen.uebung9;
 
-
-??? question "MyInteger.java"
-	
-	=== "MyInteger.java"
-		```java linenums="1"
-		package testen;
-
-		public class MyInteger
-		{
-			public static final int MAX_VALUE = 2147483647;
-			public static final int MIN_VALUE = -2147483648;
-
-			private int value;
-
-			public MyInteger(int value)
+			public record Student(String name, String registrationNumber, int age, double gradePointAverage, int semester)
 			{
-				this.value=value;
-			}
+			    // record besitzt automatisch alle Getter (aber ohne get :-( )
+			    // record besitzt automatisch equals(), hashCode() und toString()
+			    // toString() ueberschreiben wir aber lieber selbst:
+			    @Override
+			    public String toString()
+			    {
+			        return String.format("(%-8s, %s, %2d Jahre, %d. Semester, %c%.1f)",
+			                this.name, this.registrationNumber, this.age, this.semester, '\u2300', this.gradePointAverage);
+			    }
 
-			public MyInteger(String s) throws IllegalArgumentException
+			    public void print()
+			    {
+			        System.out.println(this.toString());
+			    }
+			}
+			```
+
+		=== "Uebung9.java"
+			```java
+			package uebungen.uebung9;
+
+			import java.util.*;
+
+			public class Uebung9
 			{
-				this.value = parseInt(s);
-			}
+			    private static List<Student> generateMockupData(int length) {
+			        List<Student> studentsList = new ArrayList<>();
+			        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+			                "Riley", "Casey", "Drew", "Reese", "Quinn",
+			                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+			                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+			                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+			                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+			        Random random = new Random();
 
-			private static boolean isDigit(char c)
-			{
-				return (c=='0' || c=='1' || c=='2' || c=='3' || c=='4' || c=='5' ||
-						c=='6' || c=='7' || c=='8' || c=='9');
-			}
+			        for (int i = 0; i < length; i++) {
+			            String name = names[random.nextInt(names.length)];
+			            int number = 10000 + random.nextInt(90000);
+			            String registrationNumber = "s05" + number;
+			            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+			            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+			            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+			            
+			            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+			        }
+			        return studentsList;
+			    }
 
-			private static int charToInt(char c)
-			{
-				int asciivalue = c;
-				int intvalue = asciivalue-48; // 0 ist 48 bis 9 ist 57
-				return intvalue;
-			}
+			    public static void printStudents(List<Student> students)
+			    {
+			        for(Student student : students)
+			        {
+			            student.print();
+			        }
+			    }
 
-			public static int parseInt(String s) throws IllegalArgumentException
-			{
-				if(s == null) throw new IllegalArgumentException("kein String");
-				if(s.length()==0) throw new IllegalArgumentException("leerer String");
-				// pruefe, ob erstes Zeichen + oder -
-				// merken und weiter mit Rest
-				boolean negativ = false;
-				if(s.charAt(0)=='+') s = s.substring(1);
-				else if(s.charAt(0)=='-')
-				{
-					s = s.substring(1);
-					negativ = true;
-				}
-				if(s.length()==0) throw new IllegalArgumentException("nur '+' bzw. '-' --> keine Zahl");
-				// entferne fuehrende Nullen
-				while(s.length() > 0 && s.charAt(0)=='0')
-				{
-					s = s.substring(1);
-				}
-				if(s.length()==0) return 0;		// String bestand nur aus Nullen --> 0
-				for(int i=0; i<s.length(); i++)
-				{
-					if(!isDigit(s.charAt(i))) throw new IllegalArgumentException("keine Zahl!");
-				}
-				
-				int zahl = 0;
-				for(int i = 0; i < s.length(); i++)
-				{
-					int ziffer = charToInt(s.charAt(i));
-					if((!negativ && (MyInteger.MAX_VALUE - ziffer) / 10 < zahl) || (negativ && (MyInteger.MAX_VALUE+1 - ziffer) / 10 < zahl))
-					{
-						if(negativ) throw new IllegalArgumentException("Zahl zu klein!");
-						else throw new IllegalArgumentException("Zahl zu gross!");
-					}
-					zahl = zahl * 10 + ziffer;
-				}
-				if(negativ) return -zahl;
-				else return zahl;
-			}
+			    public static void main(String[] args)
+			    {
+			        List<Student> students = generateMockupData(15);
+			        printStudents(students);
 
-			public int intValue()
-			{
-				return this.value;
-			}
+			        System.out.printf("%n%n----------- Namen aufsteigend --------------%n%n");
 
-			public double doubleValue()
-			{
-				return this.value;
+			    }
 			}
+			```
 
-			public static MyInteger valueOf(String s) throws IllegalArgumentException
-			{
-				return new MyInteger(s);
-			}
 
-			public static MyInteger valueOf(int value)
-			{
-				return new MyInteger(value);
-			}
+	**Vorbetrachtungen**
 
-			@Override
-			public boolean equals(Object other)
-			{
-				if(other == null) return false;
-				if(this == other) return true; 
-				if(this.getClass() != other.getClass()) return false;   
+	2. In dem Interface [List](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html) gibt es die Sortiermethode `sort(Comparator<T> c)`. Diese erwartet ein [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html)-Objekt.
+	3. [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) ist ein *Functional Interface* mit der *single abstract method (SAM)* `compare(T o1, T o2)`. Überall, wo ein `Comparator` erwartet wird (siehe [hier](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/class-use/Comparator.html)), kann also z.B. ein *Lambda* mit 2 Parametern, z.B. `(o1, o2) -> o1.compareTo(o2)` übergeben werden. 
+	4. [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) besitzt außerdem eine statische erzeugende `default`-Methode `comparing(Function keyExtractor, Comparator keyComparator)`. Diese gibt ein `Comparator`-Objekt zurück. Eine [Function](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Function.html) wendet eine *Funktion* (Methode) auf ein Argument an, z.B. `o1 -> o1.name()` wendet den *getter* `name()` auf das `o1`-Objekt an. Hier bietet sich jedoch [Methodenreferenz](lambdas.md#methoden-referenzen) an, z.B. `Student::name`. Mit der `Function` kann definiert (extrahiert) werden, welche Schlüssel zum Vergleich verwendet werden. 
 
-				MyInteger otherInt = (MyInteger)other;  
-				return (this.value == otherInt.value); 
-			}
 
-			@Override
-			public int hashCode()
-			{
-				return this.value;
-			}
+	**Aufgabe**
 
-			@Override
-			public String toString()
-			{
-				return value+"";
-			}
-
-			public static int compare(int x, int y)
-			{
-				return (x < y) ? -1 : ((x == y) ? 0 : 1);
-			}
-
-			public int compareTo(MyInteger otherMyInteger)
-			{
-				return compare(this.value, otherMyInteger.value);
-			}
-		}
-		```
-	
+	1. Ändern Sie die `printStudents()` so, dass die `forEach(Consumer action)`-Methode für Listen angewendet wird (kommt aus [Iterable](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Iterable.html) - einem Interface, das Listen implementiert haben). Ein [Consumer](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Consumer.html) ist ähnlich einer `Function` (erwartet ein Argument), gibt aber nichts zurück. Es bieten sich also die `System.out.println()`-Methode oder die `print()`-Methode aus `Student` an. 
+	2. Sortieren Sie die `studentsList` nach jeweils Matrikelnummer und Namen, jeweils auf- und absteigend (4 Sortierungen). 
+	3. Schauen Sie sich die `comparingDouble(ToDoubleFunction keyExtractor)`-Methode in [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) an. Wie kann sie verwendet werden, um nach den Noten zu sortieren? Finden Sie in [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) eine Möglichkeit, um nach Noten absteigend zu sortieren? 
+	4. Die statische erzeugende Methode `naturalOrder()` erzeugt ein `Comparator`-Objekt, das verwendet werden kann, um Objekte in ihrer *"natürlichen Ordnung"* zu sortieren. Wenn wir jedoch `Comparator<Student> naturalOrder = Comparator.naturalOrder();` eingeben, erhalten wir einen Fehler. Warum und wie lässt er sich beheben? 

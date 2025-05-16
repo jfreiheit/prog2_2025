@@ -587,9 +587,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ubung-swt-junit" class="md-nav__link">
+  <a href="#ubung-9-lambdas-functional-interface-comparator" class="md-nav__link">
     <span class="md-ellipsis">
-      Übung SWT (JUnit)
+      Übung 9 (Lambdas + Functional Interface Comparator)
     </span>
   </a>
   
@@ -722,9 +722,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ubung-swt-junit" class="md-nav__link">
+  <a href="#ubung-9-lambdas-functional-interface-comparator" class="md-nav__link">
     <span class="md-ellipsis">
-      Übung SWT (JUnit)
+      Übung 9 (Lambdas + Functional Interface Comparator)
     </span>
   </a>
   
@@ -2550,291 +2550,103 @@
 </li>
 </ol>
 </details>
-<h5 id="ubung-swt-junit">Übung SWT (JUnit)<a class="headerlink" href="#ubung-swt-junit" title="Permanent link">&para;</a></h5>
+<h5 id="ubung-9-lambdas-functional-interface-comparator">Übung 9 (Lambdas + Functional Interface Comparator)<a class="headerlink" href="#ubung-9-lambdas-functional-interface-comparator" title="Permanent link">&para;</a></h5>
 <details>
-<summary>Übung SWT (JUnit)</summary>
-<ul>
-<li>Probieren Sie sich mit <code>JUnit</code> aus! Schreiben Sie Unit-Tests für Ihre <code>MyInteger</code>-Klasse aus <a href="../aufgaben/#aufgabe-2-myinteger">Aufgabe 2</a>.  </li>
-<li>Testen Sie z.B. für <code>parseInt()</code>:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>    &quot;1234&quot;          -&gt; 1234
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>    &quot;+1234&quot;         -&gt; 1234
-</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>    &quot;01234&quot;         -&gt; 1234
-</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>    &quot;-1234&quot;         -&gt; -1234
-</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>    &quot;-01234&quot;        -&gt; -1234
-</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>    null            -&gt; Exception (IAE) kein String
-</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>    &quot;&quot;              -&gt; Exception (IAE) leerer String
-</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>    &quot;+&quot;             -&gt; Exception (IAE) nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl
-</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>    &quot;-&quot;             -&gt; Exception (IAE) nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl
-</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>    &quot;-00000000&quot;     -&gt; 0
-</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>    &quot;+00000000&quot;     -&gt; 0
-</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>    &quot;-00000001&quot;     -&gt; -1
-</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>    &quot;+00000001&quot;     -&gt;  1
-</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>    &quot;123456a&quot;       -&gt; Exception (IAE) keine Zahl!
-</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>    &quot;-123456a&quot;      -&gt; Exception (IAE) keine Zahl!
-</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>    &quot;+123456a&quot;      -&gt; Exception (IAE) keine Zahl!
-</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>    &quot;2147483648&quot;    -&gt; Exception (IAE) Zahl zu gross!
-</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>    &quot;-2147483649&quot;   -&gt; Exception (IAE) Zahl zu klein!
-</span></code></pre></div></li>
-</ul>
-</details>
-<details class="question">
-<summary>MyInteger.java</summary>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">MyInteger.java</label></div>
+<summary>Übung 9</summary>
+<p><strong>Vorbereitung</strong></p>
+<ol>
+<li>
+<p>Kopieren Sie folgende Klassen in Ihr Package <code>uebungen.uebung9</code> (oder `package anpassen):</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Student.java</label><label for="__tabbed_7_2">Uebung9.java</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">  1</a></span>
-<span class="normal"><a href="#__codelineno-46-2">  2</a></span>
-<span class="normal"><a href="#__codelineno-46-3">  3</a></span>
-<span class="normal"><a href="#__codelineno-46-4">  4</a></span>
-<span class="normal"><a href="#__codelineno-46-5">  5</a></span>
-<span class="normal"><a href="#__codelineno-46-6">  6</a></span>
-<span class="normal"><a href="#__codelineno-46-7">  7</a></span>
-<span class="normal"><a href="#__codelineno-46-8">  8</a></span>
-<span class="normal"><a href="#__codelineno-46-9">  9</a></span>
-<span class="normal"><a href="#__codelineno-46-10"> 10</a></span>
-<span class="normal"><a href="#__codelineno-46-11"> 11</a></span>
-<span class="normal"><a href="#__codelineno-46-12"> 12</a></span>
-<span class="normal"><a href="#__codelineno-46-13"> 13</a></span>
-<span class="normal"><a href="#__codelineno-46-14"> 14</a></span>
-<span class="normal"><a href="#__codelineno-46-15"> 15</a></span>
-<span class="normal"><a href="#__codelineno-46-16"> 16</a></span>
-<span class="normal"><a href="#__codelineno-46-17"> 17</a></span>
-<span class="normal"><a href="#__codelineno-46-18"> 18</a></span>
-<span class="normal"><a href="#__codelineno-46-19"> 19</a></span>
-<span class="normal"><a href="#__codelineno-46-20"> 20</a></span>
-<span class="normal"><a href="#__codelineno-46-21"> 21</a></span>
-<span class="normal"><a href="#__codelineno-46-22"> 22</a></span>
-<span class="normal"><a href="#__codelineno-46-23"> 23</a></span>
-<span class="normal"><a href="#__codelineno-46-24"> 24</a></span>
-<span class="normal"><a href="#__codelineno-46-25"> 25</a></span>
-<span class="normal"><a href="#__codelineno-46-26"> 26</a></span>
-<span class="normal"><a href="#__codelineno-46-27"> 27</a></span>
-<span class="normal"><a href="#__codelineno-46-28"> 28</a></span>
-<span class="normal"><a href="#__codelineno-46-29"> 29</a></span>
-<span class="normal"><a href="#__codelineno-46-30"> 30</a></span>
-<span class="normal"><a href="#__codelineno-46-31"> 31</a></span>
-<span class="normal"><a href="#__codelineno-46-32"> 32</a></span>
-<span class="normal"><a href="#__codelineno-46-33"> 33</a></span>
-<span class="normal"><a href="#__codelineno-46-34"> 34</a></span>
-<span class="normal"><a href="#__codelineno-46-35"> 35</a></span>
-<span class="normal"><a href="#__codelineno-46-36"> 36</a></span>
-<span class="normal"><a href="#__codelineno-46-37"> 37</a></span>
-<span class="normal"><a href="#__codelineno-46-38"> 38</a></span>
-<span class="normal"><a href="#__codelineno-46-39"> 39</a></span>
-<span class="normal"><a href="#__codelineno-46-40"> 40</a></span>
-<span class="normal"><a href="#__codelineno-46-41"> 41</a></span>
-<span class="normal"><a href="#__codelineno-46-42"> 42</a></span>
-<span class="normal"><a href="#__codelineno-46-43"> 43</a></span>
-<span class="normal"><a href="#__codelineno-46-44"> 44</a></span>
-<span class="normal"><a href="#__codelineno-46-45"> 45</a></span>
-<span class="normal"><a href="#__codelineno-46-46"> 46</a></span>
-<span class="normal"><a href="#__codelineno-46-47"> 47</a></span>
-<span class="normal"><a href="#__codelineno-46-48"> 48</a></span>
-<span class="normal"><a href="#__codelineno-46-49"> 49</a></span>
-<span class="normal"><a href="#__codelineno-46-50"> 50</a></span>
-<span class="normal"><a href="#__codelineno-46-51"> 51</a></span>
-<span class="normal"><a href="#__codelineno-46-52"> 52</a></span>
-<span class="normal"><a href="#__codelineno-46-53"> 53</a></span>
-<span class="normal"><a href="#__codelineno-46-54"> 54</a></span>
-<span class="normal"><a href="#__codelineno-46-55"> 55</a></span>
-<span class="normal"><a href="#__codelineno-46-56"> 56</a></span>
-<span class="normal"><a href="#__codelineno-46-57"> 57</a></span>
-<span class="normal"><a href="#__codelineno-46-58"> 58</a></span>
-<span class="normal"><a href="#__codelineno-46-59"> 59</a></span>
-<span class="normal"><a href="#__codelineno-46-60"> 60</a></span>
-<span class="normal"><a href="#__codelineno-46-61"> 61</a></span>
-<span class="normal"><a href="#__codelineno-46-62"> 62</a></span>
-<span class="normal"><a href="#__codelineno-46-63"> 63</a></span>
-<span class="normal"><a href="#__codelineno-46-64"> 64</a></span>
-<span class="normal"><a href="#__codelineno-46-65"> 65</a></span>
-<span class="normal"><a href="#__codelineno-46-66"> 66</a></span>
-<span class="normal"><a href="#__codelineno-46-67"> 67</a></span>
-<span class="normal"><a href="#__codelineno-46-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-46-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-46-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-46-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-46-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-46-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-46-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-46-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-46-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-46-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-46-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-46-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-46-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-46-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-46-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-46-83"> 83</a></span>
-<span class="normal"><a href="#__codelineno-46-84"> 84</a></span>
-<span class="normal"><a href="#__codelineno-46-85"> 85</a></span>
-<span class="normal"><a href="#__codelineno-46-86"> 86</a></span>
-<span class="normal"><a href="#__codelineno-46-87"> 87</a></span>
-<span class="normal"><a href="#__codelineno-46-88"> 88</a></span>
-<span class="normal"><a href="#__codelineno-46-89"> 89</a></span>
-<span class="normal"><a href="#__codelineno-46-90"> 90</a></span>
-<span class="normal"><a href="#__codelineno-46-91"> 91</a></span>
-<span class="normal"><a href="#__codelineno-46-92"> 92</a></span>
-<span class="normal"><a href="#__codelineno-46-93"> 93</a></span>
-<span class="normal"><a href="#__codelineno-46-94"> 94</a></span>
-<span class="normal"><a href="#__codelineno-46-95"> 95</a></span>
-<span class="normal"><a href="#__codelineno-46-96"> 96</a></span>
-<span class="normal"><a href="#__codelineno-46-97"> 97</a></span>
-<span class="normal"><a href="#__codelineno-46-98"> 98</a></span>
-<span class="normal"><a href="#__codelineno-46-99"> 99</a></span>
-<span class="normal"><a href="#__codelineno-46-100">100</a></span>
-<span class="normal"><a href="#__codelineno-46-101">101</a></span>
-<span class="normal"><a href="#__codelineno-46-102">102</a></span>
-<span class="normal"><a href="#__codelineno-46-103">103</a></span>
-<span class="normal"><a href="#__codelineno-46-104">104</a></span>
-<span class="normal"><a href="#__codelineno-46-105">105</a></span>
-<span class="normal"><a href="#__codelineno-46-106">106</a></span>
-<span class="normal"><a href="#__codelineno-46-107">107</a></span>
-<span class="normal"><a href="#__codelineno-46-108">108</a></span>
-<span class="normal"><a href="#__codelineno-46-109">109</a></span>
-<span class="normal"><a href="#__codelineno-46-110">110</a></span>
-<span class="normal"><a href="#__codelineno-46-111">111</a></span>
-<span class="normal"><a href="#__codelineno-46-112">112</a></span>
-<span class="normal"><a href="#__codelineno-46-113">113</a></span>
-<span class="normal"><a href="#__codelineno-46-114">114</a></span>
-<span class="normal"><a href="#__codelineno-46-115">115</a></span>
-<span class="normal"><a href="#__codelineno-46-116">116</a></span>
-<span class="normal"><a href="#__codelineno-46-117">117</a></span>
-<span class="normal"><a href="#__codelineno-46-118">118</a></span>
-<span class="normal"><a href="#__codelineno-46-119">119</a></span>
-<span class="normal"><a href="#__codelineno-46-120">120</a></span>
-<span class="normal"><a href="#__codelineno-46-121">121</a></span>
-<span class="normal"><a href="#__codelineno-46-122">122</a></span>
-<span class="normal"><a href="#__codelineno-46-123">123</a></span>
-<span class="normal"><a href="#__codelineno-46-124">124</a></span>
-<span class="normal"><a href="#__codelineno-46-125">125</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">testen</span><span class="p">;</span>
-</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2"></a>
-</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyInteger</span>
-</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4"></a><span class="p">{</span>
-</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2147483647</span><span class="p">;</span>
-</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MIN_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">2147483648</span><span class="p">;</span>
-</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7"></a>
-</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9"></a>
-</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyInteger</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
-</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="o">=</span><span class="n">value</span><span class="p">;</span>
-</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14"></a>
-</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyInteger</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
-</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parseInt</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19"></a>
-</span><span id="__span-46-20"><a id="__codelineno-46-20" name="__codelineno-46-20"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isDigit</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
-</span><span id="__span-46-21"><a id="__codelineno-46-21" name="__codelineno-46-21"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-22"><a id="__codelineno-46-22" name="__codelineno-46-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;2&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;3&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;4&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;5&#39;</span><span class="w"> </span><span class="o">||</span>
-</span><span id="__span-46-23"><a id="__codelineno-46-23" name="__codelineno-46-23"></a><span class="w">                </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;6&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;7&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;8&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;9&#39;</span><span class="p">);</span>
-</span><span id="__span-46-24"><a id="__codelineno-46-24" name="__codelineno-46-24"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-25"><a id="__codelineno-46-25" name="__codelineno-46-25"></a>
-</span><span id="__span-46-26"><a id="__codelineno-46-26" name="__codelineno-46-26"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">charToInt</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
-</span><span id="__span-46-27"><a id="__codelineno-46-27" name="__codelineno-46-27"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-28"><a id="__codelineno-46-28" name="__codelineno-46-28"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">asciivalue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-</span><span id="__span-46-29"><a id="__codelineno-46-29" name="__codelineno-46-29"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">intvalue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asciivalue</span><span class="o">-</span><span class="mi">48</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 ist 48 bis 9 ist 57</span>
-</span><span id="__span-46-30"><a id="__codelineno-46-30" name="__codelineno-46-30"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">intvalue</span><span class="p">;</span>
-</span><span id="__span-46-31"><a id="__codelineno-46-31" name="__codelineno-46-31"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-32"><a id="__codelineno-46-32" name="__codelineno-46-32"></a>
-</span><span id="__span-46-33"><a id="__codelineno-46-33" name="__codelineno-46-33"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">parseInt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
-</span><span id="__span-46-34"><a id="__codelineno-46-34" name="__codelineno-46-34"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-35"><a id="__codelineno-46-35" name="__codelineno-46-35"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;kein String&quot;</span><span class="p">);</span>
-</span><span id="__span-46-36"><a id="__codelineno-46-36" name="__codelineno-46-36"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;leerer String&quot;</span><span class="p">);</span>
-</span><span id="__span-46-37"><a id="__codelineno-46-37" name="__codelineno-46-37"></a><span class="w">        </span><span class="c1">// pruefe, ob erstes Zeichen + oder -</span>
-</span><span id="__span-46-38"><a id="__codelineno-46-38" name="__codelineno-46-38"></a><span class="w">        </span><span class="c1">// merken und weiter mit Rest</span>
-</span><span id="__span-46-39"><a id="__codelineno-46-39" name="__codelineno-46-39"></a><span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">negativ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
-</span><span id="__span-46-40"><a id="__codelineno-46-40" name="__codelineno-46-40"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span><span id="__span-46-41"><a id="__codelineno-46-41" name="__codelineno-46-41"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;-&#39;</span><span class="p">)</span>
-</span><span id="__span-46-42"><a id="__codelineno-46-42" name="__codelineno-46-42"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-46-43"><a id="__codelineno-46-43" name="__codelineno-46-43"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span><span id="__span-46-44"><a id="__codelineno-46-44" name="__codelineno-46-44"></a><span class="w">            </span><span class="n">negativ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
-</span><span id="__span-46-45"><a id="__codelineno-46-45" name="__codelineno-46-45"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-46-46"><a id="__codelineno-46-46" name="__codelineno-46-46"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl&quot;</span><span class="p">);</span>
-</span><span id="__span-46-47"><a id="__codelineno-46-47" name="__codelineno-46-47"></a><span class="w">        </span><span class="c1">// entferne fuehrende Nullen</span>
-</span><span id="__span-46-48"><a id="__codelineno-46-48" name="__codelineno-46-48"></a><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">)</span>
-</span><span id="__span-46-49"><a id="__codelineno-46-49" name="__codelineno-46-49"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-46-50"><a id="__codelineno-46-50" name="__codelineno-46-50"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span><span id="__span-46-51"><a id="__codelineno-46-51" name="__codelineno-46-51"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-46-52"><a id="__codelineno-46-52" name="__codelineno-46-52"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">     </span><span class="c1">// String bestand nur aus Nullen --&gt; 0</span>
-</span><span id="__span-46-53"><a id="__codelineno-46-53" name="__codelineno-46-53"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span id="__span-46-54"><a id="__codelineno-46-54" name="__codelineno-46-54"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-46-55"><a id="__codelineno-46-55" name="__codelineno-46-55"></a><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isDigit</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;keine Zahl!&quot;</span><span class="p">);</span>
-</span><span id="__span-46-56"><a id="__codelineno-46-56" name="__codelineno-46-56"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-46-57"><a id="__codelineno-46-57" name="__codelineno-46-57"></a>
-</span><span id="__span-46-58"><a id="__codelineno-46-58" name="__codelineno-46-58"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">zahl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-</span><span id="__span-46-59"><a id="__codelineno-46-59" name="__codelineno-46-59"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span id="__span-46-60"><a id="__codelineno-46-60" name="__codelineno-46-60"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-46-61"><a id="__codelineno-46-61" name="__codelineno-46-61"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">ziffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charToInt</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
-</span><span id="__span-46-62"><a id="__codelineno-46-62" name="__codelineno-46-62"></a><span class="w">            </span><span class="k">if</span><span class="p">((</span><span class="o">!</span><span class="n">negativ</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ziffer</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">zahl</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">negativ</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ziffer</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">zahl</span><span class="p">))</span>
-</span><span id="__span-46-63"><a id="__codelineno-46-63" name="__codelineno-46-63"></a><span class="w">            </span><span class="p">{</span>
-</span><span id="__span-46-64"><a id="__codelineno-46-64" name="__codelineno-46-64"></a><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">negativ</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Zahl zu klein!&quot;</span><span class="p">);</span>
-</span><span id="__span-46-65"><a id="__codelineno-46-65" name="__codelineno-46-65"></a><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Zahl zu gross!&quot;</span><span class="p">);</span>
-</span><span id="__span-46-66"><a id="__codelineno-46-66" name="__codelineno-46-66"></a><span class="w">            </span><span class="p">}</span>
-</span><span id="__span-46-67"><a id="__codelineno-46-67" name="__codelineno-46-67"></a><span class="w">            </span><span class="n">zahl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zahl</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ziffer</span><span class="p">;</span>
-</span><span id="__span-46-68"><a id="__codelineno-46-68" name="__codelineno-46-68"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-46-69"><a id="__codelineno-46-69" name="__codelineno-46-69"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">negativ</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">zahl</span><span class="p">;</span>
-</span><span id="__span-46-70"><a id="__codelineno-46-70" name="__codelineno-46-70"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">zahl</span><span class="p">;</span>
-</span><span id="__span-46-71"><a id="__codelineno-46-71" name="__codelineno-46-71"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-72"><a id="__codelineno-46-72" name="__codelineno-46-72"></a>
-</span><span id="__span-46-73"><a id="__codelineno-46-73" name="__codelineno-46-73"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">intValue</span><span class="p">()</span>
-</span><span id="__span-46-74"><a id="__codelineno-46-74" name="__codelineno-46-74"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-75"><a id="__codelineno-46-75" name="__codelineno-46-75"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
-</span><span id="__span-46-76"><a id="__codelineno-46-76" name="__codelineno-46-76"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-77"><a id="__codelineno-46-77" name="__codelineno-46-77"></a>
-</span><span id="__span-46-78"><a id="__codelineno-46-78" name="__codelineno-46-78"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">doubleValue</span><span class="p">()</span>
-</span><span id="__span-46-79"><a id="__codelineno-46-79" name="__codelineno-46-79"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-80"><a id="__codelineno-46-80" name="__codelineno-46-80"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
-</span><span id="__span-46-81"><a id="__codelineno-46-81" name="__codelineno-46-81"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-82"><a id="__codelineno-46-82" name="__codelineno-46-82"></a>
-</span><span id="__span-46-83"><a id="__codelineno-46-83" name="__codelineno-46-83"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyInteger</span><span class="w"> </span><span class="nf">valueOf</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
-</span><span id="__span-46-84"><a id="__codelineno-46-84" name="__codelineno-46-84"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-85"><a id="__codelineno-46-85" name="__codelineno-46-85"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyInteger</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span><span id="__span-46-86"><a id="__codelineno-46-86" name="__codelineno-46-86"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-87"><a id="__codelineno-46-87" name="__codelineno-46-87"></a>
-</span><span id="__span-46-88"><a id="__codelineno-46-88" name="__codelineno-46-88"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyInteger</span><span class="w"> </span><span class="nf">valueOf</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
-</span><span id="__span-46-89"><a id="__codelineno-46-89" name="__codelineno-46-89"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-90"><a id="__codelineno-46-90" name="__codelineno-46-90"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyInteger</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
-</span><span id="__span-46-91"><a id="__codelineno-46-91" name="__codelineno-46-91"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-92"><a id="__codelineno-46-92" name="__codelineno-46-92"></a>
-</span><span id="__span-46-93"><a id="__codelineno-46-93" name="__codelineno-46-93"></a><span class="w">    </span><span class="nd">@Override</span>
-</span><span id="__span-46-94"><a id="__codelineno-46-94" name="__codelineno-46-94"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">equals</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
-</span><span id="__span-46-95"><a id="__codelineno-46-95" name="__codelineno-46-95"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-96"><a id="__codelineno-46-96" name="__codelineno-46-96"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
-</span><span id="__span-46-97"><a id="__codelineno-46-97" name="__codelineno-46-97"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span>
-</span><span id="__span-46-98"><a id="__codelineno-46-98" name="__codelineno-46-98"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="na">getClass</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">   </span>
-</span><span id="__span-46-99"><a id="__codelineno-46-99" name="__codelineno-46-99"></a>
-</span><span id="__span-46-100"><a id="__codelineno-46-100" name="__codelineno-46-100"></a><span class="w">        </span><span class="n">MyInteger</span><span class="w"> </span><span class="n">otherInt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">)</span><span class="n">other</span><span class="p">;</span><span class="w">  </span>
-</span><span id="__span-46-101"><a id="__codelineno-46-101" name="__codelineno-46-101"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">otherInt</span><span class="p">.</span><span class="na">value</span><span class="p">);</span><span class="w"> </span>
-</span><span id="__span-46-102"><a id="__codelineno-46-102" name="__codelineno-46-102"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-103"><a id="__codelineno-46-103" name="__codelineno-46-103"></a>
-</span><span id="__span-46-104"><a id="__codelineno-46-104" name="__codelineno-46-104"></a><span class="w">    </span><span class="nd">@Override</span>
-</span><span id="__span-46-105"><a id="__codelineno-46-105" name="__codelineno-46-105"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">hashCode</span><span class="p">()</span>
-</span><span id="__span-46-106"><a id="__codelineno-46-106" name="__codelineno-46-106"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-107"><a id="__codelineno-46-107" name="__codelineno-46-107"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
-</span><span id="__span-46-108"><a id="__codelineno-46-108" name="__codelineno-46-108"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-109"><a id="__codelineno-46-109" name="__codelineno-46-109"></a>
-</span><span id="__span-46-110"><a id="__codelineno-46-110" name="__codelineno-46-110"></a><span class="w">    </span><span class="nd">@Override</span>
-</span><span id="__span-46-111"><a id="__codelineno-46-111" name="__codelineno-46-111"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span>
-</span><span id="__span-46-112"><a id="__codelineno-46-112" name="__codelineno-46-112"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-113"><a id="__codelineno-46-113" name="__codelineno-46-113"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="o">+</span><span class="s">&quot;&quot;</span><span class="p">;</span>
-</span><span id="__span-46-114"><a id="__codelineno-46-114" name="__codelineno-46-114"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-115"><a id="__codelineno-46-115" name="__codelineno-46-115"></a>
-</span><span id="__span-46-116"><a id="__codelineno-46-116" name="__codelineno-46-116"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
-</span><span id="__span-46-117"><a id="__codelineno-46-117" name="__codelineno-46-117"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-118"><a id="__codelineno-46-118" name="__codelineno-46-118"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-</span><span id="__span-46-119"><a id="__codelineno-46-119" name="__codelineno-46-119"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-120"><a id="__codelineno-46-120" name="__codelineno-46-120"></a>
-</span><span id="__span-46-121"><a id="__codelineno-46-121" name="__codelineno-46-121"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compareTo</span><span class="p">(</span><span class="n">MyInteger</span><span class="w"> </span><span class="n">otherMyInteger</span><span class="p">)</span>
-</span><span id="__span-46-122"><a id="__codelineno-46-122" name="__codelineno-46-122"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-46-123"><a id="__codelineno-46-123" name="__codelineno-46-123"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">compare</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">,</span><span class="w"> </span><span class="n">otherMyInteger</span><span class="p">.</span><span class="na">value</span><span class="p">);</span>
-</span><span id="__span-46-124"><a id="__codelineno-46-124" name="__codelineno-46-124"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-46-125"><a id="__codelineno-46-125" name="__codelineno-46-125"></a><span class="p">}</span>
-</span></code></pre></div></td></tr></table></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">uebungen.uebung9</span><span class="p">;</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">Student</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">registrationNumber</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">gradePointAverage</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">semester</span><span class="p">)</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="p">{</span>
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="w">    </span><span class="c1">// record besitzt automatisch alle Getter (aber ohne get :-( )</span>
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="w">    </span><span class="c1">// record besitzt automatisch equals(), hashCode() und toString()</span>
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w">    </span><span class="c1">// toString() ueberschreiben wir aber lieber selbst:</span>
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span>
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%-8s, %s, %2d Jahre, %d. Semester, %c%.1f)&quot;</span><span class="p">,</span>
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="w">                </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">registrationNumber</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">semester</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\u2300&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">gradePointAverage</span><span class="p">);</span>
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span>
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-java highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">uebungen.uebung9</span><span class="p">;</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.*</span><span class="p">;</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Uebung9</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="p">{</span>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">generateMockupData</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span><span class="w"> </span><span class="n">studentsList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Alex&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jamie&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jordan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Taylor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Morgan&quot;</span><span class="p">,</span>
+</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="w">                </span><span class="s">&quot;Riley&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Casey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Drew&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Reese&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Quinn&quot;</span><span class="p">,</span>
+</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="w">                </span><span class="s">&quot;Sydney&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dakota&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Avery&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blake&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Cameron&quot;</span><span class="p">,</span>
+</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="w">                </span><span class="s">&quot;Harper&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hayden&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Charlie&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Bailey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Peyton&quot;</span><span class="p">,</span>
+</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a><span class="w">                </span><span class="s">&quot;Skyler&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jesse&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Kendall&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Logan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Parker&quot;</span><span class="p">,</span>
+</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14" href="#__codelineno-46-14"></a><span class="w">                </span><span class="s">&quot;Rowan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sawyer&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Finley&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Skylar&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Emerson&quot;</span><span class="p">};</span><span class="w">  </span><span class="c1">// hat ChatGPT gemacht</span>
+</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15" href="#__codelineno-46-15"></a><span class="w">        </span><span class="n">Random</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Random</span><span class="p">();</span>
+</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16" href="#__codelineno-46-16"></a>
+</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17" href="#__codelineno-46-17"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18" href="#__codelineno-46-18"></a><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">names</span><span class="o">[</span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="n">names</span><span class="p">.</span><span class="na">length</span><span class="p">)</span><span class="o">]</span><span class="p">;</span>
+</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19" href="#__codelineno-46-19"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">90000</span><span class="p">);</span>
+</span><span id="__span-46-20"><a id="__codelineno-46-20" name="__codelineno-46-20" href="#__codelineno-46-20"></a><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">registrationNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s05&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">number</span><span class="p">;</span>
+</span><span id="__span-46-21"><a id="__codelineno-46-21" name="__codelineno-46-21" href="#__codelineno-46-21"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span><span class="w">                    </span><span class="c1">// Alter zwischen 18 und 37</span>
+</span><span id="__span-46-22"><a id="__codelineno-46-22" name="__codelineno-46-22" href="#__codelineno-46-22"></a><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">gradePointAverage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextDouble</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// GPA zwischen 1.0 und 4.0</span>
+</span><span id="__span-46-23"><a id="__codelineno-46-23" name="__codelineno-46-23" href="#__codelineno-46-23"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">semester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span><span class="w">                 </span><span class="c1">// Semester zwischen 1 and 9</span>
+</span><span id="__span-46-24"><a id="__codelineno-46-24" name="__codelineno-46-24" href="#__codelineno-46-24"></a>
+</span><span id="__span-46-25"><a id="__codelineno-46-25" name="__codelineno-46-25" href="#__codelineno-46-25"></a><span class="w">            </span><span class="n">studentsList</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">registrationNumber</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">gradePointAverage</span><span class="p">,</span><span class="w"> </span><span class="n">semester</span><span class="p">));</span>
+</span><span id="__span-46-26"><a id="__codelineno-46-26" name="__codelineno-46-26" href="#__codelineno-46-26"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-46-27"><a id="__codelineno-46-27" name="__codelineno-46-27" href="#__codelineno-46-27"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">studentsList</span><span class="p">;</span>
+</span><span id="__span-46-28"><a id="__codelineno-46-28" name="__codelineno-46-28" href="#__codelineno-46-28"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-46-29"><a id="__codelineno-46-29" name="__codelineno-46-29" href="#__codelineno-46-29"></a>
+</span><span id="__span-46-30"><a id="__codelineno-46-30" name="__codelineno-46-30" href="#__codelineno-46-30"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printStudents</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span><span class="w"> </span><span class="n">students</span><span class="p">)</span>
+</span><span id="__span-46-31"><a id="__codelineno-46-31" name="__codelineno-46-31" href="#__codelineno-46-31"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-46-32"><a id="__codelineno-46-32" name="__codelineno-46-32" href="#__codelineno-46-32"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">students</span><span class="p">)</span>
+</span><span id="__span-46-33"><a id="__codelineno-46-33" name="__codelineno-46-33" href="#__codelineno-46-33"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-46-34"><a id="__codelineno-46-34" name="__codelineno-46-34" href="#__codelineno-46-34"></a><span class="w">            </span><span class="n">student</span><span class="p">.</span><span class="na">print</span><span class="p">();</span>
+</span><span id="__span-46-35"><a id="__codelineno-46-35" name="__codelineno-46-35" href="#__codelineno-46-35"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-46-36"><a id="__codelineno-46-36" name="__codelineno-46-36" href="#__codelineno-46-36"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-46-37"><a id="__codelineno-46-37" name="__codelineno-46-37" href="#__codelineno-46-37"></a>
+</span><span id="__span-46-38"><a id="__codelineno-46-38" name="__codelineno-46-38" href="#__codelineno-46-38"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+</span><span id="__span-46-39"><a id="__codelineno-46-39" name="__codelineno-46-39" href="#__codelineno-46-39"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-46-40"><a id="__codelineno-46-40" name="__codelineno-46-40" href="#__codelineno-46-40"></a><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generateMockupData</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+</span><span id="__span-46-41"><a id="__codelineno-46-41" name="__codelineno-46-41" href="#__codelineno-46-41"></a><span class="w">        </span><span class="n">printStudents</span><span class="p">(</span><span class="n">students</span><span class="p">);</span>
+</span><span id="__span-46-42"><a id="__codelineno-46-42" name="__codelineno-46-42" href="#__codelineno-46-42"></a>
+</span><span id="__span-46-43"><a id="__codelineno-46-43" name="__codelineno-46-43" href="#__codelineno-46-43"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%n%n----------- Namen aufsteigend --------------%n%n&quot;</span><span class="p">);</span>
+</span><span id="__span-46-44"><a id="__codelineno-46-44" name="__codelineno-46-44" href="#__codelineno-46-44"></a>
+</span><span id="__span-46-45"><a id="__codelineno-46-45" name="__codelineno-46-45" href="#__codelineno-46-45"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-46-46"><a id="__codelineno-46-46" name="__codelineno-46-46" href="#__codelineno-46-46"></a><span class="p">}</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
+</li>
+</ol>
+<p><strong>Vorbetrachtungen</strong></p>
+<ol>
+<li>In dem Interface <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a> gibt es die Sortiermethode <code>sort(Comparator&lt;T&gt; c)</code>. Diese erwartet ein <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html">Comparator</a>-Objekt.</li>
+<li><a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html">Comparator</a> ist ein <em>Functional Interface</em> mit der <em>single abstract method (SAM)</em> <code>compare(T o1, T o2)</code>. Überall, wo ein <code>Comparator</code> erwartet wird (siehe <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/class-use/Comparator.html">hier</a>), kann also z.B. ein <em>Lambda</em> mit 2 Parametern, z.B. <code>(o1, o2) -&gt; o1.compareTo(o2)</code> übergeben werden. </li>
+<li><a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html">Comparator</a> besitzt außerdem eine statische erzeugende <code>default</code>-Methode <code>comparing(Function keyExtractor, Comparator keyComparator)</code>. Diese gibt ein <code>Comparator</code>-Objekt zurück. Eine <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Function.html">Function</a> wendet eine <em>Funktion</em> (Methode) auf ein Argument an, z.B. <code>o1 -&gt; o1.name()</code> wendet den <em>getter</em> <code>name()</code> auf das <code>o1</code>-Objekt an. Hier bietet sich jedoch <a href="../lambdas/#methoden-referenzen">Methodenreferenz</a> an, z.B. <code>Student::name</code>. Mit der <code>Function</code> kann definiert (extrahiert) werden, welche Schlüssel zum Vergleich verwendet werden. </li>
+</ol>
+<p><strong>Aufgabe</strong></p>
+<ol>
+<li>Ändern Sie die <code>printStudents()</code> so, dass die <code>forEach(Consumer action)</code>-Methode für Listen angewendet wird (kommt aus <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Iterable.html">Iterable</a> - einem Interface, das Listen implementiert haben). Ein <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/Consumer.html">Consumer</a> ist ähnlich einer <code>Function</code> (erwartet ein Argument), gibt aber nichts zurück. Es bieten sich also die <code>System.out.println()</code>-Methode oder die <code>print()</code>-Methode aus <code>Student</code> an. </li>
+<li>Sortieren Sie die <code>studentsList</code> nach jeweils Matrikelnummer und Namen, jeweils auf- und absteigend (4 Sortierungen). </li>
+<li>Schauen Sie sich die <code>comparingDouble(ToDoubleFunction keyExtractor)</code>-Methode in <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html">Comparator</a> an. Wie kann sie verwendet werden, um nach den Noten zu sortieren? Finden Sie in <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html">Comparator</a> eine Möglichkeit, um nach Noten absteigend zu sortieren? </li>
+<li>Die statische erzeugende Methode <code>naturalOrder()</code> erzeugt ein <code>Comparator</code>-Objekt, das verwendet werden kann, um Objekte in ihrer <em>"natürlichen Ordnung"</em> zu sortieren. Wenn wir jedoch <code>Comparator&lt;Student&gt; naturalOrder = Comparator.naturalOrder();</code> eingeben, erhalten wir einen Fehler. Warum und wie lässt er sich beheben? </li>
+</ol>
 </details>
 
 

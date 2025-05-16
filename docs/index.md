@@ -629,16 +629,21 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 
 
+??? question "Collections (Maps, Abstrakte Klassen und Interfaces)"
+	- siehe [**Abstrakte Klassen**](abstrakt.md#abstrakte-klassen) 
+	- siehe [**Interfaces**](interfaces.md#interfaces) 
+	- siehe [**Übung 7**](uebungen.md#ubung-7-maps)
+	- siehe [**Übung 8**](uebungen.md#ubung-8-interfaces)
+	- siehe [**Aufgabe 5**](aufgaben.md#aufgabe-5-maps)
+
+
 ??? "Code aus der Vorlesung 12.05.2025"
 
 	=== "Vorlesung0512.java"
 		```java
 		package vorlesungen.vorl0512;
 
-		import java.util.Collection;
-		import java.util.HashMap;
-		import java.util.Map;
-		import java.util.Set;
+		import java.util.*;
 
 		public class Vorlesung0512
 		{
@@ -650,6 +655,22 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		    public static void printArea(Shape shape)
 		    {
 		        System.out.println("Flaecheninhalt ist " + shape.area());
+		    }
+
+		    public static void sortieren(Comparable[] unsorted)
+		    {
+		        for(int bubble = 1; bubble < unsorted.length; bubble++)
+		        {
+		            for(int index = 0; index < unsorted.length - bubble; index++)
+		            {
+		                if(unsorted[index].compareTo(unsorted[index + 1]) > 0)
+		                {
+		                    Comparable temp = unsorted[index];
+		                    unsorted[index] = unsorted[index + 1];
+		                    unsorted[index + 1] = temp;
+		                }
+		            }
+		        }
 		    }
 
 		    public static void main(String[] args)
@@ -712,8 +733,48 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		            printArea(s);
 		            System.out.println(s.toString());
 		        }
+
+		        String str1 = "Anton";
+		        String str2 = "Berta";
+		        System.out.println(str1.compareTo(str2));
+
+		        Rectangle[] rectArr = new Rectangle[7];
+		        rectArr[0] = new Rectangle(9, 13);  // 117
+		        rectArr[1] = new Rectangle(4, 17);  // 68
+		        rectArr[2] = new Rectangle(12, 5);  // 60
+		        rectArr[3] = new Rectangle(8, 9);   // 72
+		        rectArr[4] = new Rectangle(10, 11); // 110
+		        rectArr[5] = new Rectangle(5, 15);  // 75
+		        rectArr[6] = new Rectangle(5, 10);  // 50
+		        System.out.printf("%n%n------------------------ unsortiert --------------------------%n%n");
+		        for(Rectangle r : rectArr)
+		        {
+		            System.out.println(r.toString());
+		        }
+		                /*
+		        System.out.printf("%n%n------------------------- sortiert ---------------------------%n%n");
+
+		        sortieren(rectArr);
+		        for(Rectangle r : rectArr)
+		        {
+		            System.out.println(r.toString());
+		        }
+
+		         */
+
+		        System.out.printf("%n%n------------------------- treeSet ---------------------------%n%n");
+		        Set<Rectangle> treeSet = new TreeSet<Rectangle>();
+		        for(Rectangle r : rectArr)
+		        {
+		            treeSet.add(r);
+		        }
+		        for(Rectangle r : treeSet)
+		        {
+		            System.out.println(r.toString());
+		        }
 		    }
 		}
+
 		```
 	=== "Shape.java"
 		```java
