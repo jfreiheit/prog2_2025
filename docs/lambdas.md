@@ -31,7 +31,7 @@ List<String> staedte = List.of("Berlin", "Hamburg", "München", "Köln", "Frankf
 und wollen jedes einzelne Element aus dieser Liste ausgeben. Das hätten wir bis jetzt mit einer `for`-Schleife erledigt. Für Collections steht uns die `forEach()`-Methode aus dem [Iterable-Interface](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html) zur Verfügung. Die `forEach()`-Methode ist wie folgt deklariert:
 
 ```java
-void forEach(Consumer<? super T> action)
+void forEach(Consumer<T> action)
 ```
 
 Das Interessante darin ist das [Consumer-Interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html). Dieses stellt die Schnittstelle zu unseren *Lambda*-Ausdrücken dar. Das *Consumer*-Interface repräsentiert eine *Funktion*, die einen einzelnen Parameter akzeptiert und keinen Wert zurückliefert. Wir können nun einen *Lambda*-Ausdruck als *Consumer* definieren, z.B.:
@@ -69,7 +69,7 @@ staedte.forEach(printStadt);
 
 ## Functional Interfaces
 
-Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein [Functional Interface](interfaces.md#functional-interfaces), d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung:
+Wir haben nun bereits *Consumer* kennengelernt. *Consumer* ist ein [Functional Interface](interfaces.md#functional-interfaces), d.h. es besitzt genau eine abstrakte Methode (`accept()`). *Lambdas* lassen sich nur in Verbindung mit *Functional Interfaces* verwenden, denn nur dann ist eindeutig, welche Methode durch den *Lambda-Ausdruck* implementiert wird. Wir betrachten folgendes Beispiel zur Klärung (siehe [Functional Interfaces](interfaces.md#functional-interfaces)):
 
 ```java
 @FunctionalInterface
@@ -151,7 +151,7 @@ Das `Printable`-Interface aus unserem Beispiel ist vergleichbar mit dem [Consume
 
 ## java.util.function.Consumer<T>
 
-Das Functional Interface [Consumer](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html) repräsentiert eine *Funktion* (Methode), die einen Parameter vom Typ `T`akzeptiert, die Methode ausführt und keine Wert zurückgibt. Die funktionale Methode heißt `void accept(T)`. 
+Das Functional Interface [Consumer](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html) repräsentiert eine *Funktion* (Methode), die einen Parameter vom Typ `T` akzeptiert, die Methode ausführt und keinen Wert zurückgibt. Die funktionale Methode heißt `void accept(T)`. 
 
 Einfaches `Consumer`-Beispiel:
 
