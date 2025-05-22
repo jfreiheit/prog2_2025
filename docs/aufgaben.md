@@ -1004,7 +1004,7 @@
 
 			- Überlegen Sie sich, wie Sie am besten alle möglichen Kombinationen aus 4-stelligen Zahlen als String erzeugen können (also `"0000", "0001", "0002", ... "9999"`).  
 
-			- Schreiben Sie sich eine Methode `int nrOfOccurences(String sub, String str)`, die die Anzahl des Vorkommens von `sub` in `str` zählt. Sie können diese Methode z.B. testen, indem Sie `sub="0000"` setzen und `str=pi` --> `"0000"` kommt 9 Mal in `pi` vor. Testen Sie auch `sub="2541"` und `str=pi`, denn `"2541"` ist der allerletzte `substring` in unserem `pi` und kommt 8 Mal vor. 
+			- Schreiben Sie sich eine Methode `int nrOfOccurrences(String sub, String str)`, die die Anzahl des Vorkommens von `sub` in `str` zählt. Sie können diese Methode z.B. testen, indem Sie `sub="0000"` setzen und `str=pi` --> `"0000"` kommt 9 Mal in `pi` vor. Testen Sie auch `sub="2541"` und `str=pi`, denn `"2541"` ist der allerletzte `substring` in unserem `pi` und kommt 8 Mal vor. 
 
 			
 
@@ -1014,9 +1014,9 @@
 
 ??? "Aufgabe 6"
 
-	1. Das [*Observer*-Entwurfsmuster](https://de.wikipedia.org/wiki/Beobachter_(Entwurfsmuster)) gehört zu den am meisten verwendeten *Designmustern/Designpattern/Pattern* in der Programmierung. Es wird auch *Beobachter*-Muster oder *Publisher*-Pattern genannt. Wir werden dieses Muster in Kürze sehr häufig anwenden, wenn wir *Nutzerereignisse*  in grafischen Oberflächen behandeln. Man kann sich dieses Pattern so vorstellen, dass der *Publisher* eine Zeitung oder auch Slack ist und dass *Listener* diese Zeitung (oder Slack) "abonnieren". Immer, wenn eine Nachricht veröffentlicht wird, dann erfahren alle Abonnenten davon. Wir werden eine (einfache) Implementierung dieses Entwurfsmusters durchführen.
+	1. Das [*Observer*-Entwurfsmuster](https://de.wikipedia.org/wiki/Beobachter_(Entwurfsmuster)) gehört zu den am meisten verwendeten *Designmustern/Designpattern/Pattern* in der Programmierung. Es wird auch *Beobachter*-Muster oder *Publisher*-Pattern genannt. Man kann sich dieses Pattern so vorstellen, dass der *Publisher* eine Zeitung oder auch Slack ist und dass *Listener* diese Zeitung (oder Slack) "abonnieren". Immer, wenn eine Nachricht veröffentlicht wird, dann erfahren alle Abonnenten davon. Wir werden eine (einfache) Implementierung dieses Entwurfsmusters durchführen.
 
-	2. Erstellen Sie ein Interface `Publisher` mit folgenden (abstrakten) Methoden:
+	2. Erstellen Sie ein Interface `Publisher` mit folgenden (abstrakten) Methoden (ist also kein *functional interface*):
 
 		- `public boolean register(Listener listener);`
 		- `public boolean unregister(Listener listener);`
@@ -1036,7 +1036,7 @@
 
 		- Im parameterlosen Konstruktor werden die Menge (oder Liste) erzeugt und die `nrOfMessages` auf `0` gesetzt. 
 
-		- In der Methode `register(Listener listener)` wird der `listener` in die Set `listeners` eingefügt. Geben Sie ein `true` zurück, wenn `listener` tatsächlich eingefügt wurde und `false` sonst (falls er schon in der Menge (oder Liste) war.
+		- In der Methode `register(Listener listener)` wird der `listener` in die Set `listeners` eingefügt. Geben Sie ein `true` zurück, wenn `listener` tatsächlich eingefügt wurde und `false` sonst (falls er schon in der Menge (oder Liste) war).
 
 		- In der Methode `unregister(Listener listener)` wird der `listener` wieder aus der Set `listeners` gelöscht. Geben Sie ein `true` zurück, wenn `listener` tatsächlich gelöscht wurde und `false` sonst (falls er nicht in der Menge (oder Liste) war.
 
@@ -1050,13 +1050,14 @@
 	5. Erstellen Sie eine Klasse `Student`, die das `Listener`-Interface implementiert. Objektvariablen der Klasse sind
 
 		- `private String name;` (speichert den Namen von `Student`)
+
 		- `private Publisher publisher;` (speichert den `Publisher`, an den sich `Student` anmeldet) 
 
 		- Im parametrisierten Konstruktor `public Student(String name)` wird der Name initalisiert. 
 
 		- In der Methode `setPublisher(Publisher publisher)` wird die `register()`-Methode des `publisher` aufgerufen und der Wert der Objektvariable `publisher` gesetzt. Geben Sie bei erfolgreicher Anmeldung an den `publisher` auf die Konsole `this.name + " registered!"` aus. 
 
-		- In der Methode `removePublisher(Publisher publisher)` meldet sich `Student` wieder vom `publisher` ab (Aufruf von `unregister()` und Ausgabe auf die Konsole `this.name + " deregistered!"`.
+		- In der Methode `removePublisher(Publisher publisher)` meldet sich `Student` wieder vom `publisher` ab (Aufruf von `unregister()`) und Ausgabe auf die Konsole `this.name + " deregistered!"`.
 
 		- In der Methode `update()` wird die `getUpdate()`-Methode des `publisher` aufgerufen und die zurückgegebene Nachricht `msg` wie folgt auf die Konsole ausgegben: `this.name + " received " + msg`. 
 
@@ -1141,3 +1142,355 @@
 		D received Breaking News 4
 		```
 
+
+
+##### Aufgabe 7 (Lambdas und Streams)
+
+??? "Aufgabe 7"
+
+	1. Die Aufgabe kommt aus dem ersten Semster (siehe [Probeklausuren - Studentin](https://freiheit.f4.htw-berlin.de/prog1/probeklausuren/#probeklausuren)). Jetzt wollen wir diese Aufgabe mithilfe von [Streams](streams.md#streams) und [Lambdas](lambdas.md#lambda-ausdrucke) lösen. Gegeben Sie die folgenden Klassen ([download aufgabe7.zip](files/aufgabe7.zip)):
+
+		??? success "Name.java"
+			```java
+			package aufgaben.aufgabe7;
+
+			import java.util.Arrays;
+
+			public class Name {
+
+			    private char[] name;
+
+			    public Name(String name) {
+			        this.name = name.toCharArray();
+			    }
+
+			    @Override
+			    public String toString() {
+			        String s = "";
+			        for(char c : this.name) {
+			            s += c;
+			        }
+			        return s;
+			    }
+
+			    @Override
+			    public boolean equals(Object o) {
+			        if (this == o) return true;
+			        if (o == null || getClass() != o.getClass()) return false;
+			        Name other = (Name) o;
+
+			        return Arrays.equals(this.name, ((Name) o).name);
+			    }
+
+			    public boolean isBigger(Name n) {
+			        int length = this.name.length < n.name.length ? this.name.length : n.name.length;
+			        for (int index = 0; index < length; index++) {
+			            if (this.name[index] > n.name[index]) return true;
+			            else if (this.name[index] < n.name[index]) return false;
+			        }
+			        return this.name.length > n.name.length;
+			    }
+
+			}
+			```
+
+		??? success "Studentin.java"
+			```java
+			package aufgaben.aufgabe7;
+
+			import java.util.Random;
+
+			class Studentin {
+			    private String matrNr;
+			    private int jahr;
+			    private double note;
+			    private int lp;
+			    private Name sg;
+
+			    public Studentin(String sg) {
+			        this.sg = new Name(sg);
+			        Random rand = new Random();
+			        int num = rand.nextInt(10000);
+			        this.matrNr = String.format("s095%04d", num);
+			        this.jahr = rand.nextInt(16) + 2009;
+			        if (this.jahr < 2019) {
+			            this.lp = 180;
+			        } else {
+			            this.lp = (rand.nextInt(36)) * 5;
+			        }
+			        this.note = 1.0 + (rand.nextInt(30) * 0.1);
+			    }
+
+			    public String getMatrNr() { return this.matrNr; }
+			    public double getNote() { return this.note; }
+			    public int getLp() { return this.lp; }
+			    public Name getSg() { return this.sg; }
+			    public int getSemester() {
+			        return (2025 - this.jahr) * 2 - 1;
+			    }
+			    @Override
+			    public String toString() {
+			        if (this.lp == 180) {
+			            return String.format("%8s Absolventin (%d) aus %3s mit 180 LPs. Notendurchschnitt: %.2f",
+			                    this.matrNr, this.jahr, this.sg, this.note);
+			        }
+			        return String.format("%8s %2d.Semester (%d) aus %3s mit %3d LPs. Notendurchschnitt: %.2f",
+			                this.matrNr, this.getSemester(), this.jahr, this.sg, this.lp, this.note);
+			    }
+			}
+			```
+
+		??? success "Main.java"
+			```java
+			package aufgaben.aufgabe7;
+
+			import java.util.Random;
+
+			public class Main
+			{
+
+			    public static void main(String[] args)
+			    {
+			        System.out.printf("%n%n---------------- Name-Objekte --------------%n%n");
+			        Name n1 = new Name("FIW");
+			        Name n2 = new Name("AI");
+			        Name n3 = new Name("IMI");
+
+			        System.out.println(n1.toString());
+			        System.out.println(n2.toString());
+			        System.out.println(n3.toString());
+			        System.out.println();
+			        System.out.println("FIW > AI  ? (true  == " + n1.isBigger(n2) + ")");
+			        System.out.println("FIW > IMI ? (false == " + n1.isBigger(n3) + ")");
+
+			        System.out.printf("%n%n---------------- Studentin --------------%n%n");
+			        Studentin[] studis = new Studentin[40];
+			        Random r = new Random();
+			        for (int index = 0; index < 40; index++) {
+			            studis[index] = switch(r.nextInt(5)) {
+			                case 0 -> new Studentin("FIW");
+			                case 1,2 -> new Studentin("AI");
+			                case 3,4 -> new Studentin("IMI");
+			                default -> throw new IllegalStateException("Unexpected value: " + r.nextInt(5));
+			            };
+			            System.out.println(studis[index].toString());
+			        }
+
+			        System.out.printf("%n%n---------------- Studiengaenge --------------%n%n");
+			        SG fiw = new SG(studis, "FIW");
+			        System.out.println(fiw.toString());
+			        fiw.sort(true);
+			        System.out.println(fiw.toString());
+			        fiw.sort(false);
+			        System.out.println(fiw.toString());
+
+			        SG ai = new SG(studis, "AI");
+			        System.out.println(ai.toString());
+			        ai.sort(true);
+			        System.out.println(ai.toString());
+			        ai.sort(false);
+			        System.out.println(ai.toString());
+
+			        SG imi = new SG(studis, "IMI");
+			        System.out.println(imi.toString());
+			        imi.sort(true);
+			        System.out.println(imi.toString());
+			        imi.sort(false);
+			        System.out.println(imi.toString());
+
+			        System.out.printf("%n------------ Studiengaenge (FIW) ---------------%n%n");
+			        Studentin fiwBesterAbschluss = fiw.besterAbschluss();
+			        if(fiwBesterAbschluss != null) System.out.println(fiwBesterAbschluss.toString());
+			        System.out.printf("durchschnittliche Abschlussnote : %.4f", fiw.durchschnittlicheAbschlussnote());
+			        Studentin[] nochStudierend = fiw.nochStudierend();
+			        System.out.printf("%n%n");
+			        System.out.println("Folgende Studentinnen studieren noch in FIW : ");
+			        for(int index = 0; index < nochStudierend.length; index++)
+			        {
+			            System.out.println("  " + nochStudierend[index].toString());
+			        }
+
+			        System.out.printf("%n------------------- HTW ------------------%n%n");
+			        HTW htw = new HTW(studis);
+			        System.out.println(htw.toString());
+
+			        Studentin[] nochHTW = htw.nochStudierend();
+			        System.out.println("aktuell studieren " + nochHTW.length + " Studierende an der HTW : ");
+			        for (int index = 0; index < nochHTW.length; index++)
+			        {
+			            System.out.println(nochHTW[index].toString());
+			        }
+			    }
+			}
+
+			```
+
+		!!! failure "SG.java"
+			```java
+			package aufgaben.aufgabe7;
+
+
+			public class SG
+			{
+			    private Studentin[] studis;
+			    private Name sg;
+
+			    public SG(Studentin[] studis, String sg) {
+			        this.sg = new Name(sg);
+			        /*
+			        Das studis-Array des Parameters enthält Studentin-Objekte aus verschiedenen
+			        Studiengängen. Ermitteln Sie, wie viele Studentin-Objekte es für den
+			        Studiengang sg enthält und erzeugen Sie das studis-Array der Objektvariablen
+			        entsprechend.
+
+			        Befüllen Sie das studis-Array der Objektvariablen mit allen Studentin-Objekten
+			        aus dem studis-Array des Parameters, die zum Studiengang sg gehören.
+
+			        Nutzen Sie dazu Streams!
+			         */
+			        this.studis = new Studentin[0]; // TODO
+			    }
+
+			    public int anzahlStudis() {
+			        return this.studis.length;
+			    }
+
+			    public void sort(boolean note) {
+			        /*
+			        Sortieren Sie das studis-Array.
+
+			        Ist der Parameterwert von note true, wird das Array nach dem Notendurchschnitt
+			        sortiert (beste Note zuerst).
+			        Ist der Parameterwert von note false, wird das Array nach der Anzahl der Semester
+			        sortiert (wenigsten Semester zuerst).
+
+			        Nutzen Sie dazu die Sortier-Methode sort(T[] a, Comparator c) aus der Klasse Arrays
+			        Schauen Sie sich für einen passenden Comparator die compare()-Methoden der Klassen
+			        Double und Integer an!
+
+			        Verwenden Sie Lambdas!
+			         */
+			    }
+
+			    @Override
+			    public String toString()
+			    {
+			        String s = String.format("%s mit %d Studis : %n", this.sg, this.studis.length);
+			        for(int index = 0; index < this.studis.length; index++)
+			        {
+			            s += String.format("   %s %n", this.studis[index].toString());
+			        }
+			        s += "\n";
+			        return s;
+			    }
+
+			    public Studentin besterAbschluss() {
+			        /*
+			        Geben Sie die Studentin zurück, die den besten Notendurchschnitt von allen
+			        Absolventinnen (mit 180 Leistungspunkten) des Studiengangs hat.
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - filter()  // um alle Absolventinnen zu filtern
+			        - min()     // um diejenige mit der besten Note zu ermitteln
+			         */
+			        return null;    // TODO
+			    }
+
+			    public double durchschnittlicheAbschlussnote() {
+			        /*
+			        Geben Sie den durchschnittlichen Notenwert (als double) aller Absolventinnen
+			        (mit 180 Leistungspunkten) des Studiengangs zurück.
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - filter()          // um alle Absolventinnen zu filtern
+			        - mapToDouble()     // oder map() - um den Studentinnen-Stream in einen Noten-Stream zu wandeln
+			        - average()
+			         */
+			        return 0.0; //TODO
+			    }
+
+			    public Studentin[] nochStudierend() {
+			        /*
+			        Geben Sie ein Studentin[] zurück, das alle Studentinnen aus dem Studiengang enthält,
+			        die noch keine 180 Leistungspunkte haben.
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - filter()          // um alle Studentinnen mit weniger als 180 LP zu filtern
+			        - toArray()         // um ein Studentin-Array zu erzeugen
+			         */
+			        return new Studentin[0]; // TODO
+			    }
+			}
+			```
+
+		!!! failure "HTW.java"
+			```java
+			package aufgaben.aufgabe7;
+
+			public class HTW
+			{
+			    private SG[] htw;
+
+			    public HTW(Studentin[] studis) {
+			        /*
+			        Erstellen Sie eine Name[] sgs, das alle Namen der Studiengänge enthält, in denen
+			        die Studentinnen aus dem studis-Array studieren
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - map()             // um aus dem Studentinnen-Stream einen Studiengangs-Stream zu machen
+			        - distinct()        // um alle Doppelungen heraus zu filtern
+			        - toArray()         // um ein Name-Array zu erzeugen
+			         */
+			        Name[] sgs = new Name[0]; // TODO
+
+			        this.htw = new SG[sgs.length];
+			        for (int i = 0; i < sgs.length; i++) {
+			            htw[i] = new SG(studis, sgs[i].toString());
+			        }
+			    }
+			    public int anzahlStudis() {
+			        /*
+			        Ermitteln Sie die Summe aller Studentinnen aus dem htw-Array.
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - mapToInt()        // um die anzahlStudis (siehe SG) pro SG zu ermitteln
+			        - sum()             // um die Summe der Anzahlen zu ermitteln
+			         */
+			        return 0;   // TODO
+			    }
+
+			    @Override
+			    public String toString()
+			    {
+			        String s = String.format("HTW mit %d Studierenden in %d Studiengaengen : %n%n",
+			                this.anzahlStudis(), this.htw.length);
+			        for (int index = 0; index < this.htw.length; index++)
+			        {
+			            s += this.htw[index].toString();
+			        }
+			        s += "\n";
+			        return s;
+			    }
+
+			    public Studentin[] nochStudierend()
+			    {
+			        /*
+			        Erzeugen Sie ein Studentin[] aller noch Studierenden aus dem htw-Array.
+
+			        Verwenden Sie Streams. Schauen Sie sich folgende Methoden an
+			        - stream() aus der Klasse Arrays
+			        - flatMap()        // um alle nochStudierend (siehe SG) pro SG zu ermitteln
+			        - toArray()        // um das Studentin[] zu erzeugen (und mit dem Stream zu befuellen)
+			         */
+			        return new Studentin[0];
+			    }
+			}
+
+			```
+
+	2. Die Klassen `Name.java`, `Studentin.java` und `Main.java` sind fertig. Aber in `SG.java` und `HTW.java` gibt es einige `//TODO`s. Ersetzen Sie diese unter Beachtung der jeweils darüber befindlichen Kommentare. Eine Lösung ohne [Streams](streams.md#streams) und [Lambdas](lambdas.md#lambda-ausdrucke) finden Sie unter [Probeklausuren - Studentin](https://freiheit.f4.htw-berlin.de/prog1/probeklausuren/#probeklausuren), falls Sie an manchen Stellen nicht weiterkommen. 

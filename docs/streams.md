@@ -298,36 +298,7 @@ Es gibt verschiedene Möglichkeiten, [Comparator](https://docs.oracle.com/en/jav
 
 ## Terminal Operations
 
-*Terminal Operations* beenden die *Stream-Pipeline* (und triggern die Ausführung der gesamten *Stream-Pipeline*). *Terminal Operations* liefern den Wert der Berechnung. Zu einer *Stream-Pipeline*  gehört genau eine terminal Operation (am Ende). Wir betrachten Beispiele einiger terminaler Operationen:
-
-### `reduce(T identity, BinaryOperator<T> accumulator)`
-
-Die Methode [reduce()](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Stream.html#reduce(java.util.function.BinaryOperator)) gehört zu den *reduction operations* (auch *fold* genannt). *reduction operations* erwarten eine Sequenz von Input-Elementen (einen *Stream*) und kombinieren diese zu einem einzigen Wert. Der `reduce()`-Methode wird eine Funktion ([BinaryOperator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/BinaryOperator.html)) übergeben. Diese Funktion wird auf jedes einzelne Element angewendet und zu einem Result akkumuliert. Das Prinzip ist wie folgt:
-
-```java
-     T result = identity;
-     for (T element : this stream)
-         result = accumulator.apply(result, element)
-     return result;
-```
-
-!!! question "Was wird ausgegeben?"
-    ```java
-        int[] numbers = {1, 2, 3, 4};
-        int result = Arrays.stream(numbers1).reduce(0, (x, y) -> (x + y));
-        System.out.println("result = " + result);
-    ```
-
-!!! question "Was wird ausgegeben?"
-    ```java
-        int[] numbers = {1, 2, 3, 4};
-        int result = Arrays.stream(numbers1).reduce(1, (x, y) -> (x * y));
-        System.out.println("result = " + result);
-    ```
-
-### `collect(Collector<> collector)`
-
-Die Methode `collect()` gehört ebenfalls zu den *reduction operations*. Das Ergebnis von `collect()` ist typischerweise eine Collection. Für die folgenden Beispiele nehmen wir an, wir hätten folgende Klasse (`record`) `Person`:
+*Terminal Operations* beenden die *Stream-Pipeline* (und triggern die Ausführung der gesamten *Stream-Pipeline*). *Terminal Operations* liefern den Wert der Berechnung. Zu einer *Stream-Pipeline*  gehört genau eine terminale Operation (am Ende). Für die folgenden Beispiele nehmen wir an, wir hätten folgende Klasse (`record`) `Person`:
 
 ```java
 public record Person(String name, String stadt){
@@ -361,7 +332,74 @@ List<Person> personen = List.of(
         );
 ```
 
-Nun können wir mithilfe von `collect()` z.B. eine einfache Liste der Namen erstellen:
+Wir betrachten Beispiele einiger terminaler Operationen:
+
+### `forEach(Consumer action)`
+
+Die `forEach()`-Methode kommt im [Interface Stream<T>](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-), aber auch im [Interface Iterable](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html) vor, welches von Listen und Mengen implementiert ist. `forEach()` erwartet einen [Consumer](https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html), also eine *Funktion*, die ein Parameter erwartet und nichts zurückgibt (also z.B. `System.out::println`).
+
+Da es sich bei `personen` um eine Liste handelt, können wir `forEach()` direkt für die Liste aufrufen, das hat dann aber nichts mit *Streams* zu tun (sondern mit `Iterable`):
+
+```java
+personen.forEach(System.out::println);
+personen.forEach(p -> System.out.println(p.name()));
+```
+
+Für `Stream` erhalten wir aber genau die gleiche Ausgabe:
+
+```java
+personen.stream().forEach(System.out::println);
+personen.stream().forEach(p -> System.out.println(p.name()));
+```
+
+Mit *Streams*  sind wir dann aber flexibler für *intermediate operations*, z.B. um doppelte Namen herauszufiltern:
+
+
+```java
+personen.stream()
+        .map(p -> p.name())
+        .distinct()
+        .forEach(System.out::println);
+```
+
+
+!!! question "Werden doppelte Namen ausgegeben (J/N)?"
+    ```java
+    personen.stream()
+            .distinct()
+            .forEach(p -> System.out.println(p.name()));
+    ```
+
+
+### `reduce(T identity, BinaryOperator<T> accumulator)`
+
+Die Methode [reduce()](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Stream.html#reduce(java.util.function.BinaryOperator)) gehört zu den *reduction operations* (auch *fold* genannt). *reduction operations* erwarten eine Sequenz von Input-Elementen (einen *Stream*) und kombinieren diese zu einem einzigen Wert. Der `reduce()`-Methode wird eine Funktion ([BinaryOperator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/BinaryOperator.html)) übergeben. Diese Funktion wird auf jedes einzelne Element angewendet und zu einem Result akkumuliert. Das Prinzip ist wie folgt:
+
+```java
+     T result = identity;
+     for (T element : this stream)
+         result = accumulator.apply(result, element)
+     return result;
+```
+
+!!! question "Was wird ausgegeben?"
+    ```java
+        int[] numbers = {1, 2, 3, 4};
+        int result = Arrays.stream(numbers1).reduce(0, (x, y) -> (x + y));
+        System.out.println("result = " + result);
+    ```
+
+!!! question "Was wird ausgegeben?"
+    ```java
+        int[] numbers = {1, 2, 3, 4};
+        int result = Arrays.stream(numbers1).reduce(1, (x, y) -> (x * y));
+        System.out.println("result = " + result);
+    ```
+
+### `collect(Collector<> collector)`
+
+Die Methode `collect()` gehört ebenfalls zu den *reduction operations*. Das Ergebnis von `collect()` ist typischerweise eine Collection. 
+Wir können mithilfe von `collect()` z.B. eine einfache Liste der Namen der Personen (siehe oben) erstellen:
 
 ```java
 List<String> namensListe = personen.stream()
@@ -393,7 +431,11 @@ Unter Verwendung von `Collector.groupingBy()` kann eine `Map` erstellt werden, d
 ```java
 Map<String, List<Person>> personenStadt
         = personen.stream()
-        .collect(Collectors.groupingBy(Person::stadt));
+        .collect(
+            Collectors.groupingBy(
+                Person::stadt
+            )
+        );
 personenStadt.entrySet().stream().forEach(System.out::println);
 ```
 
@@ -407,6 +449,154 @@ Hanoi=[Hannah aus Hanoi, Jana aus Hanoi]
 Islamabad=[Ina aus Islamabad]
 Damaskus=[Barbara aus Damaskus, Daniela aus Damaskus]
 ```
+
+Das kann dann sogar nochmal beliebig verschachtelt werden, z.B.:
+
+
+```java
+Map<String, Map<String, List<Person>>> personenStadtName
+        = personen.stream()
+        .collect(
+            Collectors.groupingBy(
+                Person::name,
+                Collectors.groupingBy(
+                    Person::stadt
+                )
+            )
+        );
+personenStadtName.entrySet().stream().forEach(System.out::println);
+```
+
+Ausgabe: 
+
+```bash
+Barbara={Bern=[Barbara aus Bern], Damaskus=[Barbara aus Damaskus]}
+Alice={Caracas=[Alice aus Caracas], Ankara=[Alice aus Ankara]}
+Hannah={Hanoi=[Hannah aus Hanoi]}
+Jana={Hanoi=[Jana aus Hanoi]}
+Gerda={Ankara=[Gerda aus Ankara]}
+Conny={Bern=[Conny aus Bern], Caracas=[Conny aus Caracas]}
+Ina={Islamabad=[Ina aus Islamabad]}
+Elvira={Bern=[Elvira aus Bern], Ankara=[Elvira aus Ankara]}
+Frieda={Caracas=[Frieda aus Caracas]}
+Daniela={Caracas=[Daniela aus Caracas], Damaskus=[Daniela aus Damaskus]}
+```
+
+Es wird also nach `name` gruppiert und in jeder Namensgruppe dann nochmal nach `stadt`. Um nur die Namen nach Städten zu gruppieren, kann bspw. 
+
+
+```java
+Map<String, List<String>> personenNameStaedte
+        = personen.stream()
+        .collect(Collectors.groupingBy(
+                Person::name,
+                Collectors.mapping(
+                        Person::stadt,
+                        Collectors.toList())));
+personenNameStaedte.entrySet().stream().forEach(System.out::println);
+```
+
+Ausgabe: 
+
+```bash
+Barbara=[Bern, Damaskus]
+Alice=[Ankara, Caracas]
+Hannah=[Hanoi]
+Jana=[Hanoi]
+Gerda=[Ankara]
+Conny=[Caracas, Bern]
+Ina=[Islamabad]
+Elvira=[Bern, Ankara]
+Frieda=[Caracas]
+Daniela=[Damaskus, Caracas]
+```
+
+verwendet werden. `Collector.groupingBy()` erwartet also entweder 
+
+- 1 Parameter (`Function classifier`), um in einer `Function` anzugeben, wonach gruppiert werden soll (z.B. `Person::stadt`) oder
+- 2 Parameter (`Function classifier` und `Collector downstream`), um einerseits in einer `Function` anzugeben, wonach gruppiert werden soll und andererseits einen weiteren kaskadierenden `Collector` für eine "innere" Gruppierung anzugeben. 
+
+Es gibt noch eine Implementierung mit 3 Parametern (siehe [Collectors](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-)), aber 1-2 genügen uns bereits :sweat:.
+
+
+### `allMatch(Predicate<T> p)`, `anyMatch(Predicate<T> p)`
+
+Den Methoden `allMatch(Predicate p)` und `anyMatch(Predicate p)` wird ein [Predicate](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html) übergeben und sie geben ein `boolean` zurück. Ein `Predicate` ist eine Funktion über **einen** Parameter, die ein `boolean` zurückgibt.
+
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 6, 12, 20);
+    boolean answer = list.stream().allMatch(n-> n % 3 ==0);
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 6, 12, 21);
+    boolean answer = list.stream().allMatch(n-> n % 3 ==0);
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 6, 12, 20);
+    boolean answer = list.stream().anyMatch(n-> n % 3 ==0);
+    ```
+
+
+### `min(Comparator<T> c)`, `max(Comparator<T> c)`
+
+Den Methoden `min(Comparator<T> c)` und `max(Comparator<T> c)` wird ein [Comparator](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) übergeben und sie geben das "kleinste" bzw. "größte" Element aus dem Stream zurück. Ein `Comparator` ist eine Funktion über **zwei** Parameter, die ein `int` zurückgibt. Die *SAM* des Interfaces `Comparator` ist `compare(T o1, T o2)` und hat die gleiche Bedeutung, wie `compareTo()` aus `Comparable`, d.h. wenn `o1` "größer" ist als `o2`, dann ist der Rückgabewert von `compare() > 0`.
+
+Beachten Sie, dass `min()` und `max()` tatsächlich ein [Optional<T>](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html) zurückgeben, d.h. der Wert könnte auch `null` sein. Wir müssen deshalb stets noch z.B. `get()` für das zurückgegebene `Optional` aufrufen. Diese Funktion gibt den Wert zurück, wenn er existiert (ansonsten wird eine `NoSuchElementException` geworfen).
+
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 6, 12, 20);
+    int answer = list.stream().min((a,b) -> a - b).get();
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    Person answer = personen.stream().min((a,b) -> a.name().compareTo(b.name())).get();
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    Person answer = personen.stream().max((a,b) -> a.stadt().length() - b.stadt().length()).get();
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 6, 12, 20);
+    int answer = list.stream().max((a,b) -> a % 4 - b % 4).get();
+
+
+### `sum()`, `average()`, `count()`
+
+Die Methoden `sum()`, `average()`, `count()` sind Methoden aus dem Interface [IntStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/IntStream.html). Die Methode `count()` gibt es aber auch bereits in `Stream`. Neben `IntStream` gibt es auch `DoubleStream` und `LongStream`. In allen drei Stream-Arten kommen die hier diskutierten Methoden vor. Wir zeigen aber alles am Beispiel von `IntStream`.
+
+Aus einem Stream können wir mithilfe von `mapToInt()` oder `flatMapToInt()` einen `IntStream` erzeugen. Beide Methoden erwarten als Parameter eine [ToIntFunction](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/function/ToIntFunction.html). Diese besitzt als *SAM* die Methode `applyAsInt(T value)` und gibt einen `int` zurück. 
+
+Die Methode `sum()` gibt ein `int` zurück, `count()` ein `long` und `average()` ein [OptionalDouble](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalDouble.html), dessen `double`-Wert wir durch `getAsDouble()` erhalten können. 
+
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    List<Integer> list = Arrays.asList(3, 4, 5, 6);
+    int answer = list.stream().mapToInt(p -> p).sum();      // int
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    long answer = list.stream().count();                    // long
+    ```
+
+!!! question "Welchen Wert hat `answer`?"
+    ```java
+    double answer = list.stream().mapToInt(p -> p).average().getAsDouble();  // double
+    ```
+
 
 
 ## Typische Fehler mit Streams

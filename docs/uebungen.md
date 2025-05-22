@@ -1748,6 +1748,216 @@
 		1  Berlin             891,68 km2    3.382.169   3.460.725   3.574.830
 		```
 
+??? question "mögliche Lösung für Übung 8"
+	
+	=== "Stadt.java"
+		```java linenums="1"
+		package uebungen.uebung8;
+
+		import java.util.*;
+
+		public class Stadt implements Comparable<Stadt>
+		{
+		    String name;
+		    List<Integer> bevoelkerung;
+		    float flaeche;
+
+		    public Stadt(String name, List<Integer> bevoelkerung, float flaeche)
+		    {
+		        super();
+		        this.name = name;
+		        this.bevoelkerung = bevoelkerung;
+		        this.flaeche = flaeche;
+		    }
+
+		    void print()
+		    {
+		        System.out.printf("%-18s %.2f km%c", this.name, this.flaeche, '\u00B2');
+		        for(Integer anzahl : this.bevoelkerung)
+		        {
+		            System.out.printf("%,14d", anzahl);
+		        }
+		        System.out.println();
+		    }
+
+		    @Override
+		    public boolean equals(Object o)
+		    {
+		        if(o==null) return false;
+		        if(o==this) return true;
+		        if(this.getClass()!=o.getClass()) return false;
+
+		        Stadt other = (Stadt)o;
+		        return (this.name.equals(other.name));
+		    }
+
+		    @Override
+		    public int hashCode()
+		    {
+		        return this.name.hashCode();
+		    }
+
+			@Override
+			public int compareTo(Stadt o) 
+			{
+				//return o.name.compareTo(this.name);
+				if(this.flaeche > o.flaeche) return 1;
+				else if(this.flaeche < o.flaeche) return -1;
+				else return 0;
+			}
+
+		}
+
+		```
+
+	=== "MyInteger.java"
+		```java linenums="1"
+		package uebungen.uebung8;
+
+		public class MyInteger implements Comparable<MyInteger>
+		{
+		    private int value;
+
+		    public MyInteger(int value)
+		    {
+		        this.value = value;
+		    }
+
+		    public int intValue()
+		    {
+		        return this.value;
+		    }
+
+		    public static MyInteger valueOf(int value)
+		    {
+		        return new MyInteger(value);
+		    }
+
+			@Override
+			public int compareTo(MyInteger o) 
+			{
+				return (this.value - o.value);
+			}
+
+		}
+
+		```
+
+	=== "StadtTest.java"
+		```java linenums="1"
+		package uebungen.uebung8;
+
+		import java.util.*;
+
+		public class StadtTest
+		{
+		    public static Stadt[] staedte()
+		    {
+		        Stadt[] staedte = new Stadt[6];
+		        List<Integer> berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);    
+		        berlinBevoelkerung.add(3460725);    
+		        berlinBevoelkerung.add(3574830);
+		        staedte[0] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        List<Integer> hamburgBevoelkerung = new ArrayList<>();
+		        hamburgBevoelkerung.add(1715392);   
+		        hamburgBevoelkerung.add(1786448);   
+		        hamburgBevoelkerung.add(1810438);   
+		        staedte[1] = new Stadt("Hamburg", hamburgBevoelkerung, 755.22f);
+
+		        List<Integer> muenchenBevoelkerung = new ArrayList<>();
+		        muenchenBevoelkerung.add(1210223);  
+		        muenchenBevoelkerung.add(1353186);  
+		        muenchenBevoelkerung.add(1464301);
+		        staedte[2] = new Stadt("Muenchen", muenchenBevoelkerung, 310.70f);
+
+		        List<Integer> koelnBevoelkerung = new ArrayList<>();
+		        koelnBevoelkerung.add(962884);  
+		        koelnBevoelkerung.add(1007119); 
+		        koelnBevoelkerung.add(1075935); 
+		        staedte[3] = new Stadt("Koeln", koelnBevoelkerung, 405.02f);
+
+		        List<Integer> frankfurtBevoelkerung = new ArrayList<>();
+		        frankfurtBevoelkerung.add(648550);  
+		        frankfurtBevoelkerung.add(679664);  
+		        frankfurtBevoelkerung.add(736414);
+		        staedte[4] = new Stadt("Frankfurt/Main", frankfurtBevoelkerung, 248.31f);
+
+		        berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);    
+		        berlinBevoelkerung.add(3460725);    
+		        berlinBevoelkerung.add(3574830);
+		        staedte[5] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        return staedte;
+		    }
+		    
+		    public static boolean contains(Map<MyInteger, Stadt> staedteMap, Stadt stadt)
+		    {
+		    	/*
+		    	// ueber alle Values
+		    	Collection<Stadt> alleStaedte = staedteMap.values();
+		    	for(Stadt s : alleStaedte)
+		    	{
+		    		if(s.equals(stadt)) return true;
+		    	}
+		    	return false;
+		    	*/
+		    	
+		    	/*
+		    	// ueber alle Keys
+		    	Set<MyInteger> alleSchluessel = staedteMap.keySet();
+		    	for(MyInteger schluessel : alleSchluessel)
+		    	{
+		    		Stadt s = staedteMap.get(schluessel);
+		    		if(s.equals(stadt)) return true;
+		    	}
+		    	return false;
+		    	*/
+		    	
+		    	// uber alle Schluessel-Werte-Paare
+		    	Set<Map.Entry<MyInteger, Stadt>> alleEintraege = staedteMap.entrySet();
+		    	for(Map.Entry<MyInteger, Stadt> eintrag : alleEintraege)
+		    	{
+		    		Stadt s = eintrag.getValue();
+		    		if(s.equals(stadt)) return true;
+		    	}
+		    	return false;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n------------ Menge --------------%n");
+		        Set<Stadt> staedteMenge = new TreeSet<>();
+		        for(Stadt s : staedte())
+		        {
+		            staedteMenge.add(s);
+		        }
+		        for(Stadt s : staedteMenge)
+		        {
+		            s.print();
+		        }
+
+		        System.out.printf("%n------------ Maps --------------%n");
+		        Map<MyInteger, Stadt> staedteMap = new TreeMap<>();
+		        int i = 1;
+		        for(Stadt s : staedte())
+		        {
+		        	if(!contains(staedteMap, s)) {
+		        		staedteMap.put(new MyInteger(i++), s);
+		        	}
+		        }
+		        for(Map.Entry<MyInteger, Stadt> entry : staedteMap.entrySet())
+		        {
+		            MyInteger key = entry.getKey();
+		            System.out.printf("%-3d",key.intValue());
+		            entry.getValue().print();
+		        }
+		    }
+		}
+
+		```
 
 ##### Übung 9 (Lambdas + Functional Interface Comparator)
 
@@ -1755,7 +1965,7 @@
 
 	**Vorbereitung**
 
-	1. Kopieren Sie folgende Klassen in Ihr Package `uebungen.uebung9` (oder `package anpassen):
+	1. Kopieren Sie folgende Klassen in Ihr Package `uebungen.uebung9` (oder `package` anpassen):
 
 		=== "Student.java"
 			```java
@@ -1763,7 +1973,7 @@
 
 			public record Student(String name, String registrationNumber, int age, double gradePointAverage, int semester)
 			{
-			    // record besitzt automatisch alle Getter (aber ohne get :-( )
+			    // record besitzt automatisch alle Getter (aber ohne get im Namen :-( )
 			    // record besitzt automatisch equals(), hashCode() und toString()
 			    // toString() ueberschreiben wir aber lieber selbst:
 			    @Override
@@ -1844,3 +2054,104 @@
 	2. Sortieren Sie die `studentsList` nach jeweils Matrikelnummer und Namen, jeweils auf- und absteigend (4 Sortierungen). 
 	3. Schauen Sie sich die `comparingDouble(ToDoubleFunction keyExtractor)`-Methode in [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) an. Wie kann sie verwendet werden, um nach den Noten zu sortieren? Finden Sie in [Comparator](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Comparator.html) eine Möglichkeit, um nach Noten absteigend zu sortieren? 
 	4. Die statische erzeugende Methode `naturalOrder()` erzeugt ein `Comparator`-Objekt, das verwendet werden kann, um Objekte in ihrer *"natürlichen Ordnung"* zu sortieren. Wenn wir jedoch `Comparator<Student> naturalOrder = Comparator.naturalOrder();` eingeben, erhalten wir einen Fehler. Warum und wie lässt er sich beheben? 
+
+
+
+##### Übung 10 (Streams)
+
+??? "Übung 10"
+
+	**Vorbereitung**
+
+	1. Wir nehmen wieder exakt die gleichen Klassen, wie in [Übung 9](uebungen.md#ubung-9-lambdas-functional-interface-comparator). Entweder Sie machen einfach in Übung 9 weiter oder Sie kopieren folgende Klassen in Ihr Package `uebungen.uebung10` (oder `package` anpassen):
+
+		=== "Student.java"
+			```java
+			package uebungen.uebung10;
+
+			public record Student(String name, String registrationNumber, int age, double gradePointAverage, int semester)
+			{
+			    // record besitzt automatisch alle Getter (aber ohne get im Namen :-( )
+			    // record besitzt automatisch equals(), hashCode() und toString()
+			    // toString() ueberschreiben wir aber lieber selbst:
+			    @Override
+			    public String toString()
+			    {
+			        return String.format("(%-8s, %s, %2d Jahre, %d. Semester, %c%.1f)",
+			                this.name, this.registrationNumber, this.age, this.semester, '\u2300', this.gradePointAverage);
+			    }
+
+			    public void print()
+			    {
+			        System.out.println(this.toString());
+			    }
+			}
+			```
+
+		=== "Uebung10.java"
+			```java
+			package uebungen.uebung9;
+
+			import java.util.*;
+
+			public class Uebung9
+			{
+			    private static List<Student> generateMockupData(int length) {
+			        List<Student> studentsList = new ArrayList<>();
+			        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+			                "Riley", "Casey", "Drew", "Reese", "Quinn",
+			                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+			                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+			                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+			                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+			        Random random = new Random();
+
+			        for (int i = 0; i < length; i++) {
+			            String name = names[random.nextInt(names.length)];
+			            int number = 10000 + random.nextInt(90000);
+			            String registrationNumber = "s05" + number;
+			            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+			            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+			            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+			            
+			            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+			        }
+			        return studentsList;
+			    }
+
+			    public static void printStudents(List<Student> students)
+			    {
+			        for(Student student : students)
+			        {
+			            student.print();
+			        }
+			    }
+
+			    public static void main(String[] args)
+			    {
+			        List<Student> students = generateMockupData(15);
+			        printStudents(students);
+
+			        System.out.printf("%n%n----------- Liste von Namen erzeugen --------------%n%n");
+
+			    }
+			}
+			```
+
+
+	**Aufgabe**
+
+	1. Erzeugen Sie eine Liste aller Namen aus `students`. Achten Sie darauf, dass kein Name doppelt vorkommt. 
+
+	2. Erzeugen Sie eine Liste aller Studierenden aus `students`, die älter als 23 Jahre alt sind. 
+
+	3. Ermitteln Sie die Studierende mit dem besten Notendurchschnitt. 
+
+	4. Ermitteln Sie die Studierende mit dem besten Notendurchschnitt, die mindestens im 6. Semester ist. 
+
+	5. Berechnen Sie den Altersdurchschnitt aller Studierenden aus `students`. 
+
+	6. Erzeugen Sie eine `Map`, die alle Studierende aus `students` nach Semestern gruppiert.
+
+	7. Wir denken uns noch weitere solcher Aufgaben aus, falls noch Zeit ist ...
+
