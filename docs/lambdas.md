@@ -178,7 +178,7 @@ Für den Fall, dass zwei Parameter erwartet werden, gibt es das Functional Inter
 Einfaches `BiFunction`-Beispiel:
 
 ```java
-BiFunction<Integer, Integer> add = (a, b) -> a + b;
+BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
 System.out.println(add.apply(3,4));                             // Output: 7
 ```
 
@@ -224,6 +224,8 @@ System.out.println(multiplyThenAdd.apply(5)); // Output: 13
 // Using compose (first add, then multiply)
 Function<Integer, Integer> addThenMultiply = multiply.compose(add);
 System.out.println(addThenMultiply.apply(5)); // Output: 16
+
+// andThen() and compose() are default-methods in Function
 ```
 
 
@@ -260,6 +262,8 @@ Predicate<Person> isNameStartsWithJ = person -> person.getName().startsWith("J")
 Predicate<Person> isAdultFromGermanyWithJName = isAdult
     .and(isFromUGermany)
     .and(isNameStartsWithJ);
+
+// and() ist default-method in Predicate (or(), negate())
 ```
 
 

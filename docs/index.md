@@ -47,17 +47,15 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 4. | 05.-09.05.2025 | [Collections (List und Set)](collections.md#collections)| [Übung 6](uebungen.md#ubung-6-listen-und-mengen) |[Aufgabe 4](aufgaben.md#aufgabe-4-operationen-uber-mengen) | 25.05.2025 | 
 | 5. | 12.-15.05.2025 | [Collections (Map)](maps.md#maps) und [Abstrakte Klassen](abstrakt.md#abstrakte-klassen) | [Übung 7](uebungen.md#ubung-7-maps) |[Aufgabe 5](aufgaben.md#aufgabe-5-maps) | 01.06.2025 | 
 | 6. | 19.-23.05.2025 | [Interfaces](interfaces.md#interfaces) | [Übung 8](uebungen.md#ubung-8-interfaces) |[Aufgabe 6](aufgaben.md#aufgabe-6-interfaces) | 08.06.2025 | 
-| 7. | 26.-30.05.2025 | [Lambdas]() | [Übung 9]() |[Aufgabe 7]() | 15.06.2025 | 
-| 8. | 02.-06.06.2025 | [Java-Streams]()  | [Übung 10]() |[Aufgabe 8]() | 22.06.2025 | 
+| 7. | 26.-30.05.2025 | [Lambdas](lambdas.md#lambda-ausdrucke) | [Übung 9]() |[Aufgabe 7]() | 15.06.2025 | 
+| 8. | 02.-06.06.2025 | [Java-Streams](http://127.0.0.1:8000/prog2/streams/#streams)  | [Übung 10]() |[Aufgabe 8]() | 22.06.2025 | 
 | 9. | 09.-13.06.2025 | [Genererics]() | [Übung 11]() |[Aufgabe 9]() | 29.06.2025 | 
-| 10. | 16.-20.06.2025 | [Git]() | [Übung 12]() | [Aufgabe 10]() | 06.07.2025 |
-| 11. | 23.-27.06.2025 | [Maven]() | [Übung 13]() | - | - |
-| 12. | 30.-04.07.2025 | [REST-API mit SpringBoot]() | Übung 14 | - | - |
-| 13. | 07.-11.07.2025 | [JUnit]()| Übung 15 | - | - |
-| 14. | 14.-18.07.2025 | [Test driven development]()| Übung 16 | - | - |
-| 15. | 21.-25.07.2025 | [Klausurvorbereitung]()| Übung 17 | - | - |
-|  | 04.08.2025 10:00 Uhr| Klausur 1.PZ | C 635 und C 639| - | - |
-|  | 29.09.2025 10:00 Uhr| Klausur 2.PZ | Labore 6. Etage C-Gebäude| - | - |
+| 10. | 16.-20.06.2025 | [JUnit]() | [Übung 12]() | [Aufgabe 10]() | 06.07.2025 |
+| 11. | 23.-27.06.2025 | [Test driven development]()| [Übung 13]() | - | - |
+| 12. | 30.-04.07.2025 | [Klausurvorbereitung]() | Übung 14 | - | - |
+| 13. | 07.-11.07.2025 | [Klausurvorbereitung]()| Übung 15 | - | - |
+|  | 14.07.2025 09:45 Uhr| Klausur 1.PZ | C 635 und C 639| - | - |
+|  | 29.09.2025 09:45 Uhr| Klausur 2.PZ | Labore 6. Etage C-Gebäude| - | - |
 
 ### Inhalte
 
@@ -858,3 +856,111 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		}
 
 		```
+
+
+
+??? question "Functional Interfaces und Lambdas"
+	- siehe [**Functional Interfaces**](interfaces.md#functional-interfaces) 
+	- siehe [**Lambda-Ausdrücke**](lambdas.md#lambda-ausdrucke) 
+	- siehe [**Übung 9**](uebungen.md#ubung-9-lambdas-functional-interface-comparator)
+	- siehe [**Aufgabe 6**](aufgaben.md#aufgabe-6-interfaces)
+
+
+??? "Code aus der Vorlesung 26.05.2025"
+
+	=== "Main.java"
+		```java
+		package vorlesungen.vorl0526;
+
+		import java.util.List;
+		import java.util.function.BiFunction;
+		import java.util.function.Consumer;
+		import java.util.function.Function;
+
+		public class Main
+		{
+		    public static void printValue(Printable printable, String s)
+		    {
+		        printable.print(s);
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        /*
+		        UseInterface useInterface = new UseInterface();
+		        printValue(useInterface, "Hallo FIW!");
+		         */
+
+		        /*
+		        printValue(new Printable(){
+
+		            @Override
+		            public void print(String s)
+		            {
+		                System.out.println(s);
+		            }
+		        }, "Hallo anonyme Klasse");
+		        */
+
+
+		        printValue(p1 -> System.out.println(p1), "Hallo!");
+
+		        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+		        numbers.forEach(n -> System.out.println(n));
+		        numbers.forEach(System.out::println);
+
+		        numbers.forEach(Integer::valueOf);
+
+		        List<String> staedte = List.of("Berlin", "Hamburg", "München", "Köln", "Frankfurt am Main", "Düsseldorf",
+		                "Stuttgart", "Leipzig", "Dortmund", "Bremen", "Essen" ,"Dresden");
+
+		        staedte.forEach(stadt -> {
+		            System.out.print(stadt + " ");
+		            stadt = stadt.toUpperCase();
+		            System.out.println(stadt);
+		        });
+
+		        Consumer<String> printConsumer = message -> System.out.println(message);
+		        staedte.forEach(printConsumer);
+
+		        Function<String, Integer> lengthOfString = str -> str.length();
+		        BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+
+		    }
+		}
+		```
+
+		=== "Printable.java"
+			```java
+			package vorlesungen.vorl0526;
+
+			@FunctionalInterface
+			public interface Printable
+			{
+			    // abstrakte Methode - Single Abstract Method (SAM)
+			    public void print(String s);
+
+			    // public void print(String s, int i);
+			    // in Functional Interfaces genau eine abtrakte Methode
+
+			    default void print()
+			    {
+			        print("default");
+			    }
+			}
+			```
+
+		=== "UseInterface.java"
+			```java
+			package vorlesungen.vorl0526;
+
+			public class UseInterface implements Printable
+			{
+
+			    @Override
+			    public void print(String s)
+			    {
+			        System.out.println("UseInterface : " + s);
+			    }
+			}
+			```
