@@ -2056,6 +2056,104 @@
 	4. Die statische erzeugende Methode `naturalOrder()` erzeugt ein `Comparator`-Objekt, das verwendet werden kann, um Objekte in ihrer *"natürlichen Ordnung"* zu sortieren. Wenn wir jedoch `Comparator<Student> naturalOrder = Comparator.naturalOrder();` eingeben, erhalten wir einen Fehler. Warum und wie lässt er sich beheben? 
 
 
+??? success "mögliche Lösung für Übung 9"
+	
+	=== "Uebung9.java"
+		```java
+		package uebungen.uebung9;
+
+		import java.util.ArrayList;
+		import java.util.Comparator;
+		import java.util.List;
+		import java.util.Random;
+
+		public class Uebung9
+		{
+		    private static List<Student> generateMockupData(int length) {
+		        List<Student> studentsList = new ArrayList<>();
+
+		        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+		                "Riley", "Casey", "Drew", "Reese", "Quinn",
+		                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+		                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+		                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+		                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+
+		        Random random = new Random();
+
+		        for (int i = 0; i < length; i++) {
+		            String name = names[random.nextInt(names.length)];
+		            int number = 10000 + random.nextInt(90000);
+		            String registrationNumber = "s05" + number;
+		            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+		            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+		            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+
+		            // Liste befuellen
+		            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+		        }
+		        return studentsList;
+		    }
+
+		    public static void printStudents(List<Student> students)
+		    {
+		        /*
+		        for(Student student : students)
+		        {
+		            student.print();
+		        }
+		        */
+		         students.forEach( s -> s.print() );
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        List<Student> students = generateMockupData(15);
+		        printStudents(students);
+
+		        // das geht
+		        Comparator<Student> nachNamenAufsteigend = (s1, s2) -> s1.name().compareTo(s2.name());
+
+		        // oder das
+		        nachNamenAufsteigend = new Comparator<Student>() {
+		            @Override
+		            public int compare(Student o1, Student o2)
+		            {
+		                return o1.name().compareTo(o2.name());
+		            }
+		        };
+
+		        // oder das
+		        nachNamenAufsteigend = Comparator.comparing( s -> s.name() );
+
+
+		        System.out.printf("%n%n----------- Namen aufsteigend --------------%n%n");
+		        students.sort( nachNamenAufsteigend );
+		        printStudents(students);
+
+		        System.out.printf("%n%n----------- Namen absteigend --------------%n%n");
+		        //students.sort( (s1, s2) -> -s1.name().compareTo(s2.name()) );
+		        students.sort( nachNamenAufsteigend.reversed() );
+		        printStudents(students);
+
+		        System.out.printf("%n%n----------- Noten aufsteigend --------------%n%n");
+		        students.sort( (s1, s2) -> {
+		            if (s1.gradePointAverage() > s2.gradePointAverage()) return 1;
+		            else if (s1.gradePointAverage() < s2.gradePointAverage()) return -1;
+		            else return 0;
+		        } );
+
+		        Comparator<Student> nachNotenAufsteigend = Comparator.comparingDouble( s -> s.gradePointAverage() );
+
+		        System.out.printf("%n%n----------- Natural order --------------%n%n");
+		        Comparator<Student> naturalOrder = Comparator.naturalOrder();
+		        students.sort( naturalOrder );
+		        printStudents(students);
+		    }
+		}
+		```
+
+
 
 ##### Übung 10 (Streams)
 
