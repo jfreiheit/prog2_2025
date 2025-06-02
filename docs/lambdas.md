@@ -280,7 +280,16 @@ Methoden-Referenzen sind eine syntaktische Abkürzung, um Methoden aufzurufen. M
 ::methode
 ```
 
-Handelt es sich um eine statische Methode, steht vor dem `::` der Name der Klasse, bei einer Objektmethode steht die Referenzvariable des Objektes davor. 
+Es gelten folgende Regeln in Abhängigkeit davon, um es sich um eine statische Methode oder um eine Objektmethode handelt. Im letzteren Fall gibt es noch eine Unterscheidung, ob die Methode für alle (jedes beliebige) oder für ein ganz konkretes Objekt handelt:
+
+| Art | Syntax | Beispiel |
+|----------|-------------|---------------|
+| Referenz auf eine <br> statische Methode | `Class::staticMethod` | `Integer::valueOf` |
+| Referenz auf eine <br> Objektmethode <br> eines spezifischen <br> Objektes | `referenceVariable::objectMethod` | `myNumber::getValue` |
+| Referenz auf eine <br> Objektmethode <br> eines beliebigen <br> Objektes | `Type::objectMethod` | `Integer::getValue` | 
+| Referenz auf einen <br> Konstruktor | `Type::new` | `Integer[]::new` | 
+
+
 Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer (siehe `staedte`-Beispiel oben):
 
 ```java

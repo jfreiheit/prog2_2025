@@ -1748,7 +1748,7 @@
 		1  Berlin             891,68 km2    3.382.169   3.460.725   3.574.830
 		```
 
-??? question "mögliche Lösung für Übung 8"
+??? success "mögliche Lösung für Übung 8"
 	
 	=== "Stadt.java"
 		```java linenums="1"
@@ -2155,3 +2155,163 @@
 
 	7. Wir denken uns noch weitere solcher Aufgaben aus, falls noch Zeit ist ...
 
+
+##### Übung 11 (JUnit)
+
+??? "Übung 11 (JUnit)"
+	- Probieren Sie sich mit `JUnit` aus! Schreiben Sie Unit-Tests für Ihre `MyInteger`-Klasse aus [Aufgabe 2](aufgaben.md#aufgabe-2-myinteger).  
+	- Testen Sie z.B. für `parseInt()`:
+		```
+			"1234" 			-> 1234
+			"+1234"  		-> 1234
+			"01234"  		-> 1234
+			"-1234" 		-> -1234
+			"-01234"  		-> -1234
+			null			-> Exception (IAE) kein String
+			""				-> Exception (IAE) leerer String
+			"+"				-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			"-"				-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			"-00000000"		-> 0
+			"+00000000"		-> 0
+			"-00000001"		-> -1
+			"+00000001"		->	1
+			"123456a"		-> Exception (IAE) keine Zahl!
+			"-123456a"		-> Exception (IAE) keine Zahl!
+			"+123456a"		-> Exception (IAE) keine Zahl!
+			"2147483648"	-> Exception (IAE) Zahl zu gross!
+			"-2147483649"	-> Exception (IAE) Zahl zu klein!
+
+		```
+
+
+??? question "MyInteger.java"
+	
+	=== "MyInteger.java"
+		```java linenums="1"
+		package testen;
+
+		public class MyInteger
+		{
+			public static final int MAX_VALUE = 2147483647;
+			public static final int MIN_VALUE = -2147483648;
+
+			private int value;
+
+			public MyInteger(int value)
+			{
+				this.value=value;
+			}
+
+			public MyInteger(String s) throws IllegalArgumentException
+			{
+				this.value = parseInt(s);
+			}
+
+			private static boolean isDigit(char c)
+			{
+				return (c=='0' || c=='1' || c=='2' || c=='3' || c=='4' || c=='5' ||
+						c=='6' || c=='7' || c=='8' || c=='9');
+			}
+
+			private static int charToInt(char c)
+			{
+				int asciivalue = c;
+				int intvalue = asciivalue-48; // 0 ist 48 bis 9 ist 57
+				return intvalue;
+			}
+
+			public static int parseInt(String s) throws IllegalArgumentException
+			{
+				if(s == null) throw new IllegalArgumentException("kein String");
+				if(s.length()==0) throw new IllegalArgumentException("leerer String");
+				// pruefe, ob erstes Zeichen + oder -
+				// merken und weiter mit Rest
+				boolean negativ = false;
+				if(s.charAt(0)=='+') s = s.substring(1);
+				else if(s.charAt(0)=='-')
+				{
+					s = s.substring(1);
+					negativ = true;
+				}
+				if(s.length()==0) throw new IllegalArgumentException("nur '+' bzw. '-' --> keine Zahl");
+				// entferne fuehrende Nullen
+				while(s.length() > 0 && s.charAt(0)=='0')
+				{
+					s = s.substring(1);
+				}
+				if(s.length()==0) return 0;		// String bestand nur aus Nullen --> 0
+				for(int i=0; i<s.length(); i++)
+				{
+					if(!isDigit(s.charAt(i))) throw new IllegalArgumentException("keine Zahl!");
+				}
+				
+				int zahl = 0;
+				for(int i = 0; i < s.length(); i++)
+				{
+					int ziffer = charToInt(s.charAt(i));
+					if((!negativ && (MyInteger.MAX_VALUE - ziffer) / 10 < zahl) || (negativ && (MyInteger.MAX_VALUE+1 - ziffer) / 10 < zahl))
+					{
+						if(negativ) throw new IllegalArgumentException("Zahl zu klein!");
+						else throw new IllegalArgumentException("Zahl zu gross!");
+					}
+					zahl = zahl * 10 + ziffer;
+				}
+				if(negativ) return -zahl;
+				else return zahl;
+			}
+
+			public int intValue()
+			{
+				return this.value;
+			}
+
+			public double doubleValue()
+			{
+				return this.value;
+			}
+
+			public static MyInteger valueOf(String s) throws IllegalArgumentException
+			{
+				return new MyInteger(s);
+			}
+
+			public static MyInteger valueOf(int value)
+			{
+				return new MyInteger(value);
+			}
+
+			@Override
+			public boolean equals(Object other)
+			{
+				if(other == null) return false;
+				if(this == other) return true; 
+				if(this.getClass() != other.getClass()) return false;   
+
+				MyInteger otherInt = (MyInteger)other;  
+				return (this.value == otherInt.value); 
+			}
+
+			@Override
+			public int hashCode()
+			{
+				return this.value;
+			}
+
+			@Override
+			public String toString()
+			{
+				return value+"";
+			}
+
+			public static int compare(int x, int y)
+			{
+				return (x < y) ? -1 : ((x == y) ? 0 : 1);
+			}
+
+			public int compareTo(MyInteger otherMyInteger)
+			{
+				return compare(this.value, otherMyInteger.value);
+			}
+		}
+		```
+	

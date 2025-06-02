@@ -15,7 +15,7 @@
         <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/prog2/uebungen/">
       
       
-        <link rel="prev" href="../streams/">
+        <link rel="prev" href="../junit/">
       
       
         <link rel="next" href="../aufgaben/">
@@ -466,6 +466,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../optionals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optionals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../junit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JUnit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -599,6 +639,15 @@
   <a href="#ubung-10-streams" class="md-nav__link">
     <span class="md-ellipsis">
       Übung 10 (Streams)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubung-11-junit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Übung 11 (JUnit)
     </span>
   </a>
   
@@ -743,6 +792,15 @@
   <a href="#ubung-10-streams" class="md-nav__link">
     <span class="md-ellipsis">
       Übung 10 (Streams)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubung-11-junit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Übung 11 (JUnit)
     </span>
   </a>
   
@@ -2568,7 +2626,7 @@
 </li>
 </ol>
 </details>
-<details class="question">
+<details class="success">
 <summary>mögliche Lösung für Übung 8</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Stadt.java</label><label for="__tabbed_7_2">MyInteger.java</label><label for="__tabbed_7_3">StadtTest.java</label></div>
 <div class="tabbed-content">
@@ -3176,6 +3234,292 @@
 </li>
 </ol>
 </details>
+<h5 id="ubung-11-junit">Übung 11 (JUnit)<a class="headerlink" href="#ubung-11-junit" title="Permanent link">&para;</a></h5>
+<details>
+<summary>Übung 11 (JUnit)</summary>
+<ul>
+<li>Probieren Sie sich mit <code>JUnit</code> aus! Schreiben Sie Unit-Tests für Ihre <code>MyInteger</code>-Klasse aus <a href="../aufgaben/#aufgabe-2-myinteger">Aufgabe 2</a>.  </li>
+<li>Testen Sie z.B. für <code>parseInt()</code>:
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>    &quot;1234&quot;          -&gt; 1234
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>    &quot;+1234&quot;         -&gt; 1234
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>    &quot;01234&quot;         -&gt; 1234
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>    &quot;-1234&quot;         -&gt; -1234
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>    &quot;-01234&quot;        -&gt; -1234
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>    null            -&gt; Exception (IAE) kein String
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>    &quot;&quot;              -&gt; Exception (IAE) leerer String
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>    &quot;+&quot;             -&gt; Exception (IAE) nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>    &quot;-&quot;             -&gt; Exception (IAE) nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>    &quot;-00000000&quot;     -&gt; 0
+</span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>    &quot;+00000000&quot;     -&gt; 0
+</span><span id="__span-52-12"><a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a>    &quot;-00000001&quot;     -&gt; -1
+</span><span id="__span-52-13"><a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a>    &quot;+00000001&quot;     -&gt;  1
+</span><span id="__span-52-14"><a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a>    &quot;123456a&quot;       -&gt; Exception (IAE) keine Zahl!
+</span><span id="__span-52-15"><a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a>    &quot;-123456a&quot;      -&gt; Exception (IAE) keine Zahl!
+</span><span id="__span-52-16"><a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a>    &quot;+123456a&quot;      -&gt; Exception (IAE) keine Zahl!
+</span><span id="__span-52-17"><a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a>    &quot;2147483648&quot;    -&gt; Exception (IAE) Zahl zu gross!
+</span><span id="__span-52-18"><a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a>    &quot;-2147483649&quot;   -&gt; Exception (IAE) Zahl zu klein!
+</span></code></pre></div></li>
+</ul>
+</details>
+<details class="question">
+<summary>MyInteger.java</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">MyInteger.java</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-53-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-53-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-53-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-53-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-53-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-53-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-53-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-53-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-53-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-53-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-53-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-53-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-53-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-53-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-53-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-53-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-53-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-53-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-53-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-53-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-53-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-53-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-53-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-53-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-53-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-53-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-53-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-53-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-53-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-53-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-53-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-53-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-53-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-53-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-53-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-53-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-53-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-53-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-53-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-53-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-53-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-53-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-53-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-53-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-53-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-53-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-53-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-53-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-53-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-53-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-53-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-53-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-53-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-53-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-53-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-53-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-53-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-53-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-53-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-53-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-53-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-53-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-53-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-53-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-53-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-53-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-53-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-53-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-53-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-53-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-53-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-53-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-53-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-53-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-53-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-53-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-53-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-53-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-53-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-53-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-53-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-53-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-53-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-53-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-53-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-53-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-53-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-53-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-53-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-53-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-53-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-53-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-53-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-53-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-53-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-53-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-53-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-53-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-53-100">100</a></span>
+<span class="normal"><a href="#__codelineno-53-101">101</a></span>
+<span class="normal"><a href="#__codelineno-53-102">102</a></span>
+<span class="normal"><a href="#__codelineno-53-103">103</a></span>
+<span class="normal"><a href="#__codelineno-53-104">104</a></span>
+<span class="normal"><a href="#__codelineno-53-105">105</a></span>
+<span class="normal"><a href="#__codelineno-53-106">106</a></span>
+<span class="normal"><a href="#__codelineno-53-107">107</a></span>
+<span class="normal"><a href="#__codelineno-53-108">108</a></span>
+<span class="normal"><a href="#__codelineno-53-109">109</a></span>
+<span class="normal"><a href="#__codelineno-53-110">110</a></span>
+<span class="normal"><a href="#__codelineno-53-111">111</a></span>
+<span class="normal"><a href="#__codelineno-53-112">112</a></span>
+<span class="normal"><a href="#__codelineno-53-113">113</a></span>
+<span class="normal"><a href="#__codelineno-53-114">114</a></span>
+<span class="normal"><a href="#__codelineno-53-115">115</a></span>
+<span class="normal"><a href="#__codelineno-53-116">116</a></span>
+<span class="normal"><a href="#__codelineno-53-117">117</a></span>
+<span class="normal"><a href="#__codelineno-53-118">118</a></span>
+<span class="normal"><a href="#__codelineno-53-119">119</a></span>
+<span class="normal"><a href="#__codelineno-53-120">120</a></span>
+<span class="normal"><a href="#__codelineno-53-121">121</a></span>
+<span class="normal"><a href="#__codelineno-53-122">122</a></span>
+<span class="normal"><a href="#__codelineno-53-123">123</a></span>
+<span class="normal"><a href="#__codelineno-53-124">124</a></span>
+<span class="normal"><a href="#__codelineno-53-125">125</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">testen</span><span class="p">;</span>
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2"></a>
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyInteger</span>
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4"></a><span class="p">{</span>
+</span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2147483647</span><span class="p">;</span>
+</span><span id="__span-53-6"><a id="__codelineno-53-6" name="__codelineno-53-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MIN_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">2147483648</span><span class="p">;</span>
+</span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7"></a>
+</span><span id="__span-53-8"><a id="__codelineno-53-8" name="__codelineno-53-8"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+</span><span id="__span-53-9"><a id="__codelineno-53-9" name="__codelineno-53-9"></a>
+</span><span id="__span-53-10"><a id="__codelineno-53-10" name="__codelineno-53-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyInteger</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-53-11"><a id="__codelineno-53-11" name="__codelineno-53-11"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-12"><a id="__codelineno-53-12" name="__codelineno-53-12"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="o">=</span><span class="n">value</span><span class="p">;</span>
+</span><span id="__span-53-13"><a id="__codelineno-53-13" name="__codelineno-53-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-14"><a id="__codelineno-53-14" name="__codelineno-53-14"></a>
+</span><span id="__span-53-15"><a id="__codelineno-53-15" name="__codelineno-53-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyInteger</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
+</span><span id="__span-53-16"><a id="__codelineno-53-16" name="__codelineno-53-16"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-17"><a id="__codelineno-53-17" name="__codelineno-53-17"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parseInt</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span><span id="__span-53-18"><a id="__codelineno-53-18" name="__codelineno-53-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-19"><a id="__codelineno-53-19" name="__codelineno-53-19"></a>
+</span><span id="__span-53-20"><a id="__codelineno-53-20" name="__codelineno-53-20"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isDigit</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-53-21"><a id="__codelineno-53-21" name="__codelineno-53-21"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-22"><a id="__codelineno-53-22" name="__codelineno-53-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;2&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;3&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;4&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;5&#39;</span><span class="w"> </span><span class="o">||</span>
+</span><span id="__span-53-23"><a id="__codelineno-53-23" name="__codelineno-53-23"></a><span class="w">                </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;6&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;7&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;8&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="o">==</span><span class="sc">&#39;9&#39;</span><span class="p">);</span>
+</span><span id="__span-53-24"><a id="__codelineno-53-24" name="__codelineno-53-24"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-25"><a id="__codelineno-53-25" name="__codelineno-53-25"></a>
+</span><span id="__span-53-26"><a id="__codelineno-53-26" name="__codelineno-53-26"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">charToInt</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-53-27"><a id="__codelineno-53-27" name="__codelineno-53-27"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-28"><a id="__codelineno-53-28" name="__codelineno-53-28"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">asciivalue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-53-29"><a id="__codelineno-53-29" name="__codelineno-53-29"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">intvalue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asciivalue</span><span class="o">-</span><span class="mi">48</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 ist 48 bis 9 ist 57</span>
+</span><span id="__span-53-30"><a id="__codelineno-53-30" name="__codelineno-53-30"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">intvalue</span><span class="p">;</span>
+</span><span id="__span-53-31"><a id="__codelineno-53-31" name="__codelineno-53-31"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-32"><a id="__codelineno-53-32" name="__codelineno-53-32"></a>
+</span><span id="__span-53-33"><a id="__codelineno-53-33" name="__codelineno-53-33"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">parseInt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
+</span><span id="__span-53-34"><a id="__codelineno-53-34" name="__codelineno-53-34"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-35"><a id="__codelineno-53-35" name="__codelineno-53-35"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;kein String&quot;</span><span class="p">);</span>
+</span><span id="__span-53-36"><a id="__codelineno-53-36" name="__codelineno-53-36"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;leerer String&quot;</span><span class="p">);</span>
+</span><span id="__span-53-37"><a id="__codelineno-53-37" name="__codelineno-53-37"></a><span class="w">        </span><span class="c1">// pruefe, ob erstes Zeichen + oder -</span>
+</span><span id="__span-53-38"><a id="__codelineno-53-38" name="__codelineno-53-38"></a><span class="w">        </span><span class="c1">// merken und weiter mit Rest</span>
+</span><span id="__span-53-39"><a id="__codelineno-53-39" name="__codelineno-53-39"></a><span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">negativ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-53-40"><a id="__codelineno-53-40" name="__codelineno-53-40"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-53-41"><a id="__codelineno-53-41" name="__codelineno-53-41"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;-&#39;</span><span class="p">)</span>
+</span><span id="__span-53-42"><a id="__codelineno-53-42" name="__codelineno-53-42"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-53-43"><a id="__codelineno-53-43" name="__codelineno-53-43"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-53-44"><a id="__codelineno-53-44" name="__codelineno-53-44"></a><span class="w">            </span><span class="n">negativ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-53-45"><a id="__codelineno-53-45" name="__codelineno-53-45"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-53-46"><a id="__codelineno-53-46" name="__codelineno-53-46"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;nur &#39;+&#39; bzw. &#39;-&#39; --&gt; keine Zahl&quot;</span><span class="p">);</span>
+</span><span id="__span-53-47"><a id="__codelineno-53-47" name="__codelineno-53-47"></a><span class="w">        </span><span class="c1">// entferne fuehrende Nullen</span>
+</span><span id="__span-53-48"><a id="__codelineno-53-48" name="__codelineno-53-48"></a><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">)</span>
+</span><span id="__span-53-49"><a id="__codelineno-53-49" name="__codelineno-53-49"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-53-50"><a id="__codelineno-53-50" name="__codelineno-53-50"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-53-51"><a id="__codelineno-53-51" name="__codelineno-53-51"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-53-52"><a id="__codelineno-53-52" name="__codelineno-53-52"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">     </span><span class="c1">// String bestand nur aus Nullen --&gt; 0</span>
+</span><span id="__span-53-53"><a id="__codelineno-53-53" name="__codelineno-53-53"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-53-54"><a id="__codelineno-53-54" name="__codelineno-53-54"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-53-55"><a id="__codelineno-53-55" name="__codelineno-53-55"></a><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isDigit</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;keine Zahl!&quot;</span><span class="p">);</span>
+</span><span id="__span-53-56"><a id="__codelineno-53-56" name="__codelineno-53-56"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-53-57"><a id="__codelineno-53-57" name="__codelineno-53-57"></a>
+</span><span id="__span-53-58"><a id="__codelineno-53-58" name="__codelineno-53-58"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">zahl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-53-59"><a id="__codelineno-53-59" name="__codelineno-53-59"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-53-60"><a id="__codelineno-53-60" name="__codelineno-53-60"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-53-61"><a id="__codelineno-53-61" name="__codelineno-53-61"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">ziffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charToInt</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+</span><span id="__span-53-62"><a id="__codelineno-53-62" name="__codelineno-53-62"></a><span class="w">            </span><span class="k">if</span><span class="p">((</span><span class="o">!</span><span class="n">negativ</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ziffer</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">zahl</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">negativ</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ziffer</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">zahl</span><span class="p">))</span>
+</span><span id="__span-53-63"><a id="__codelineno-53-63" name="__codelineno-53-63"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-53-64"><a id="__codelineno-53-64" name="__codelineno-53-64"></a><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">negativ</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Zahl zu klein!&quot;</span><span class="p">);</span>
+</span><span id="__span-53-65"><a id="__codelineno-53-65" name="__codelineno-53-65"></a><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Zahl zu gross!&quot;</span><span class="p">);</span>
+</span><span id="__span-53-66"><a id="__codelineno-53-66" name="__codelineno-53-66"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-53-67"><a id="__codelineno-53-67" name="__codelineno-53-67"></a><span class="w">            </span><span class="n">zahl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zahl</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ziffer</span><span class="p">;</span>
+</span><span id="__span-53-68"><a id="__codelineno-53-68" name="__codelineno-53-68"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-53-69"><a id="__codelineno-53-69" name="__codelineno-53-69"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">negativ</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">zahl</span><span class="p">;</span>
+</span><span id="__span-53-70"><a id="__codelineno-53-70" name="__codelineno-53-70"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">zahl</span><span class="p">;</span>
+</span><span id="__span-53-71"><a id="__codelineno-53-71" name="__codelineno-53-71"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-72"><a id="__codelineno-53-72" name="__codelineno-53-72"></a>
+</span><span id="__span-53-73"><a id="__codelineno-53-73" name="__codelineno-53-73"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">intValue</span><span class="p">()</span>
+</span><span id="__span-53-74"><a id="__codelineno-53-74" name="__codelineno-53-74"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-75"><a id="__codelineno-53-75" name="__codelineno-53-75"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+</span><span id="__span-53-76"><a id="__codelineno-53-76" name="__codelineno-53-76"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-77"><a id="__codelineno-53-77" name="__codelineno-53-77"></a>
+</span><span id="__span-53-78"><a id="__codelineno-53-78" name="__codelineno-53-78"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">doubleValue</span><span class="p">()</span>
+</span><span id="__span-53-79"><a id="__codelineno-53-79" name="__codelineno-53-79"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-80"><a id="__codelineno-53-80" name="__codelineno-53-80"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+</span><span id="__span-53-81"><a id="__codelineno-53-81" name="__codelineno-53-81"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-82"><a id="__codelineno-53-82" name="__codelineno-53-82"></a>
+</span><span id="__span-53-83"><a id="__codelineno-53-83" name="__codelineno-53-83"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyInteger</span><span class="w"> </span><span class="nf">valueOf</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IllegalArgumentException</span>
+</span><span id="__span-53-84"><a id="__codelineno-53-84" name="__codelineno-53-84"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-85"><a id="__codelineno-53-85" name="__codelineno-53-85"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyInteger</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span><span id="__span-53-86"><a id="__codelineno-53-86" name="__codelineno-53-86"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-87"><a id="__codelineno-53-87" name="__codelineno-53-87"></a>
+</span><span id="__span-53-88"><a id="__codelineno-53-88" name="__codelineno-53-88"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyInteger</span><span class="w"> </span><span class="nf">valueOf</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-53-89"><a id="__codelineno-53-89" name="__codelineno-53-89"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-90"><a id="__codelineno-53-90" name="__codelineno-53-90"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyInteger</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span><span id="__span-53-91"><a id="__codelineno-53-91" name="__codelineno-53-91"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-92"><a id="__codelineno-53-92" name="__codelineno-53-92"></a>
+</span><span id="__span-53-93"><a id="__codelineno-53-93" name="__codelineno-53-93"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-53-94"><a id="__codelineno-53-94" name="__codelineno-53-94"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">equals</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+</span><span id="__span-53-95"><a id="__codelineno-53-95" name="__codelineno-53-95"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-96"><a id="__codelineno-53-96" name="__codelineno-53-96"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-53-97"><a id="__codelineno-53-97" name="__codelineno-53-97"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-53-98"><a id="__codelineno-53-98" name="__codelineno-53-98"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="na">getClass</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">   </span>
+</span><span id="__span-53-99"><a id="__codelineno-53-99" name="__codelineno-53-99"></a>
+</span><span id="__span-53-100"><a id="__codelineno-53-100" name="__codelineno-53-100"></a><span class="w">        </span><span class="n">MyInteger</span><span class="w"> </span><span class="n">otherInt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MyInteger</span><span class="p">)</span><span class="n">other</span><span class="p">;</span><span class="w">  </span>
+</span><span id="__span-53-101"><a id="__codelineno-53-101" name="__codelineno-53-101"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">otherInt</span><span class="p">.</span><span class="na">value</span><span class="p">);</span><span class="w"> </span>
+</span><span id="__span-53-102"><a id="__codelineno-53-102" name="__codelineno-53-102"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-103"><a id="__codelineno-53-103" name="__codelineno-53-103"></a>
+</span><span id="__span-53-104"><a id="__codelineno-53-104" name="__codelineno-53-104"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-53-105"><a id="__codelineno-53-105" name="__codelineno-53-105"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">hashCode</span><span class="p">()</span>
+</span><span id="__span-53-106"><a id="__codelineno-53-106" name="__codelineno-53-106"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-107"><a id="__codelineno-53-107" name="__codelineno-53-107"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+</span><span id="__span-53-108"><a id="__codelineno-53-108" name="__codelineno-53-108"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-109"><a id="__codelineno-53-109" name="__codelineno-53-109"></a>
+</span><span id="__span-53-110"><a id="__codelineno-53-110" name="__codelineno-53-110"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-53-111"><a id="__codelineno-53-111" name="__codelineno-53-111"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span>
+</span><span id="__span-53-112"><a id="__codelineno-53-112" name="__codelineno-53-112"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-113"><a id="__codelineno-53-113" name="__codelineno-53-113"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="o">+</span><span class="s">&quot;&quot;</span><span class="p">;</span>
+</span><span id="__span-53-114"><a id="__codelineno-53-114" name="__codelineno-53-114"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-115"><a id="__codelineno-53-115" name="__codelineno-53-115"></a>
+</span><span id="__span-53-116"><a id="__codelineno-53-116" name="__codelineno-53-116"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+</span><span id="__span-53-117"><a id="__codelineno-53-117" name="__codelineno-53-117"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-118"><a id="__codelineno-53-118" name="__codelineno-53-118"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-53-119"><a id="__codelineno-53-119" name="__codelineno-53-119"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-120"><a id="__codelineno-53-120" name="__codelineno-53-120"></a>
+</span><span id="__span-53-121"><a id="__codelineno-53-121" name="__codelineno-53-121"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compareTo</span><span class="p">(</span><span class="n">MyInteger</span><span class="w"> </span><span class="n">otherMyInteger</span><span class="p">)</span>
+</span><span id="__span-53-122"><a id="__codelineno-53-122" name="__codelineno-53-122"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-53-123"><a id="__codelineno-53-123" name="__codelineno-53-123"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">compare</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="p">,</span><span class="w"> </span><span class="n">otherMyInteger</span><span class="p">.</span><span class="na">value</span><span class="p">);</span>
+</span><span id="__span-53-124"><a id="__codelineno-53-124" name="__codelineno-53-124"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-53-125"><a id="__codelineno-53-125" name="__codelineno-53-125"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+</details>
 
 
 
@@ -3207,7 +3551,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
         
           
-          <a href="../streams/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Streams">
+          <a href="../junit/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: JUnit">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3217,7 +3561,7 @@
                 Zurück
               </span>
               <div class="md-ellipsis">
-                Streams
+                JUnit
               </div>
             </div>
           </a>

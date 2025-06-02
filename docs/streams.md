@@ -570,6 +570,7 @@ Beachten Sie, dass `min()` und `max()` tatsächlich ein [Optional<T>](https://do
     ```java
     List<Integer> list = Arrays.asList(3, 4, 6, 12, 20);
     int answer = list.stream().max((a,b) -> a % 4 - b % 4).get();
+    ```
 
 
 ### `sum()`, `average()`, `count()`

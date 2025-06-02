@@ -14,7 +14,7 @@ Es gibt verschiedene Arten von Tests:
 
 ![testen](./files/28_testen.png)
 
-In der Abbildung erkennen wir, dass die Unit-tests, die wir hier kennenlernen wollen, am besten automatisierbar, am häufigsten und am einfachsten sind. Mit Unit-Tests können wir Methoden und Klassen testen, wobei wir die Tests implementieren. Die Idee ist, dass wir funktionale Einzelteile eines Programms separat und isoliert vom Rest auf ihre Korrektheit hin überprüfen. Wir versuchen extra, so wenig wie möglich die Effekte anderer Funktionalitäten bzw. Komponenten in die Tests einfließen zu lassen. Das erfolgt dann in den Komponenten- bzw. Integrationstests. Das hat zwei Vorteile: einerseits ist der zu prüfende Funktionsumfang überschaubar und andererseits können diese Unit-Tests leicht automatisiert ausgeführt werden. Es gibt, wie bereits eingangs erwähnt, keine Garantie von Fehlerfreiheit. Ein Nachteil der Unit-Tests besteht darin, dass sie schwierig für Methoden zu gestalten sind, in denen es Abhängigkeiten von der Laufzeitumgebung oder anderen Komponenten gibt.    
+In der Abbildung erkennen wir, dass die Unit-Tests, die wir hier kennenlernen wollen, am besten automatisierbar, am häufigsten und am einfachsten sind. Mit Unit-Tests können wir Methoden und Klassen testen, wobei wir die Tests implementieren. Die Idee ist, dass wir funktionale Einzelteile eines Programms separat und isoliert vom Rest auf ihre Korrektheit hin überprüfen. Wir versuchen extra, so wenig wie möglich die Effekte anderer Funktionalitäten bzw. Komponenten in die Tests einfließen zu lassen. Das erfolgt dann in den Komponenten- bzw. Integrationstests. Das hat zwei Vorteile: einerseits ist der zu prüfende Funktionsumfang überschaubar und andererseits können diese Unit-Tests leicht automatisiert ausgeführt werden. Es gibt, wie bereits eingangs erwähnt, keine Garantie von Fehlerfreiheit. Ein Nachteil der Unit-Tests besteht darin, dass sie schwierig für Methoden zu gestalten sind, in denen es Abhängigkeiten von der Laufzeitumgebung oder anderen Komponenten gibt.    
 
 ## JUnit
 
@@ -97,6 +97,42 @@ number = 0 : Zahl muss größer gleich 1 sein!
 number = 21 : Overflow!
 ```
 
+### IntelliJ
+
+Klicken Sie im Editor in der Klasse `Fakultaet` auf den Klassennamen `Fakultaet`, wählen die Tastenkombination ++option+enter++ (Windows/Linux ++alt+enter++) und wählen `Create Test`. Es erscheint ein Dialog:
+
+![junit](./files/199_junit.png)
+
+Als `Testing library` wählen wir `JUnit5`. Sollten Sie diese noch nicht haben, wird sie zum Download angeboten und mithilfe von `Fix` können Sie diese herunterladen. Den vorgeschlagenen Namen `FakulatetTest` für die Testklasse akzeptieren wir und klicken unter Member alle Methoden an, für die wir Tests schreiben wollen (beide, sowohl `fakultaet()` als auch `print()`). 
+
+Sie müssen eventuell noch einmalig die `junit`-Bibliothek zum Klassenpfad hinzufügen. Dann wird eine Klasse `FakultaetTest` erzeugt:
+
+```java
+package vorbereitungen.testen;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class FakultaetTest
+{
+
+    @Test
+    void fakultaet()
+    {
+    }
+
+    @Test
+    void print()
+    {
+    }
+}
+```
+
+Sie können die Klasse `FakultaetTest` auch wie gewohnt per `New -> Java Class` erstellen. 
+
+### Eclipse
+
 Wir wollen diese Klasse `Fakultaet` nun mithilfe von `JUnit` testen. Dazu wählen wir `File --> New --> JUnit Test Case`:
 
 ![junit](./files/104_junit.png)
@@ -135,9 +171,11 @@ Sollte es bei Ihnen Probleme bei der Erstellung der JUnit-Testklasse geben, dann
 2. In der `module-info.java` muss `requires org.junit.jupiter.api;` eingetragen sein. 
 
 
+## Tests implementieren
+
 Eine JUnit-Testklasse enthält keine `main()`-Methode, ist aber ausführbar. Sie enthält stattdessen Methoden, die mit `@Test` annotiert sind. Diese `@Test`-Methoden enthalten **Zusicherungen** (sogenannte **Assertions**). Mit diesen Assertions geben Sie das erwartete Ergebnis des Testfalls an. 
 
-#### Assertions
+### Assertions
 
 Es gibt unterschiedliche Möglichkeiten, das *tatsächliche Ergebnis* der Ausführung mit dem *erwarteten Ergebnis* zu vergleichen:
 
@@ -221,7 +259,7 @@ Neben den Assertions gibt es auch noch *Annotationen*, die beim Testen eine Roll
 	</tbody>
 </table>
 
-### Methode `fakultaet()` testen
+## Methode `fakultaet()` testen
 
 Wir schreiben unsere erste Testmethode und wollen darin die Methode `fakultaet()` testen:
 
@@ -254,6 +292,38 @@ Wir hätten hier auch die *Assertion* `assertTrue(720==result, "6! should be 720
 
 ### Test ausführen
 
+#### IntelliJ
+
+Zur Ausführung der Testklasse wählen wir `Run FakultaetTest with Coverage`.
+
+![junit](./files/201_junit.png){width="350px;"}
+
+Im unteren Teil von IntelliJ finden wir die Ausgabe über den erfolgreichen Test:
+
+![junit](./files/202_junit.png){width="500px;"}
+
+Wenn wir uns nun die Klasse `Fakulatet` anschauen, dann sehen wir am linekn Rand die Farben Rot, Grün, gelb in den einzelnen Zeilen. 
+
+![junit](./files/203_junit.png)
+
+Grün zeigt an, dass diese Zeile im Test ausgeführt wurde und Rot nicht. Gelb haben wir typischerweise an Bedingungen und zeigt an, dass nur ein mögliches Ergebnis (`true` oder `false`) ausgewertet wurde. Ziel ist es, eine 100%ige testabdeckung zu erreichen (alle Code-Zeilen sollen grün sein). Die Prozentangaben der Abdeckung sehen Sie auch in dem Fenster neben dem Editor. 
+
+![junit](./files/204_junit.png)
+
+Nur, um mal zu zeigen, wie ein Test aussieht, der fehlschlägt, geben wir einfach an, dass `721` das erwartete Resultat sein soll:
+
+```java
+assertEquals(721, result, "6! should be 720"); 	// 721 ist natuerlich falsch - nur zum zeigen
+```
+
+Dann sieht das Resultat so aus:
+
+![junit](./files/205_junit.png)
+
+
+
+#### Eclipse
+
 Unter `Run` wählen Sie nun `Coverage` (`Strg-Umschalt-F11`). Die Ansicht von Eclipse wechselt. Sie können unter `Run` auch `Coverage As --> JUnit Test` wählen. Das ist gleich. Auf der linken Seite in Eclipse erscheint ein grüner Balken als Zeichen dafür, dass alle Tests (derzeit nur einer) erfolgreich durchlaufen wurden. Darunter sind die Tests aufgeführt mit einem kleinen grünen Check am Icon. Der Test war erfolgreich. 
 
 Wenn wir uns nun unsere `Fakultaet`-Klasse anschauen, dann sehen wir folgendes Bild:
@@ -262,7 +332,7 @@ Wenn wir uns nun unsere `Fakultaet`-Klasse anschauen, dann sehen wir folgendes B
 
 Hier wird die Testabdeckung angezeigt. Die grün markierten Zeilen wurden durch den Test ausgeführt. Die gelb markierten Zeilen sind Bedingungen, die `false` ergaben und für die es (noch) keinen Test gibt, der `true` für diese Bedingungen ergibt. Die roten Zeilen wurden in noch keinem Test ausgeführt. Wir erstellen deshalb weitere Tests, um eine vollständige Testabdeckung zu erzielen. 
 
-### Exceptions testen
+## Exceptions testen
 
 Um das Werfen einer Exception zu testen, bietet sich die *Assertion* `assertThrows()` an (siehe [hier](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html#assertThrows(java.lang.Class,org.junit.jupiter.api.function.Executable)). Diese *Assertion*  erwartet als ersten Parameter die erwartete `Exception`, in unserem Fall also `IllegalArgumentException`. Beachten Sie, dass der Typ `Class` (siehe [hier](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html)) erwartet wird. Diesen erhalten wir, indem wir `.class` an den Klasennamen (also hier `IllegalArgumentException` anhängen). Der Unterschied zwischen `.class` und `.getClass()` ist der, dass bei `getClass()` bereits ein Objekt der Klasse existieren muss (wird auf ein Objekt der Klasse angewendet), während `.class` auf die Klasse angewendet werden kann, ohne dass ein Objekt der Klasse existieren muss. 
 
@@ -302,7 +372,14 @@ Nach dem gleichen Prinzip können wir auch den Wertebereichsüberlauf testen:
 	}
 ```
 
-Betrachten wir die Testabdeckung der Klasse `Fakultaet`, dann ist diese bereits sehr gut:
+
+Betrachten wir die Testabdeckung der Klasse `Fakultaet`, dann ist diese bereits sehr gut. Die Methode `fakulataet()` hat eine 100%ige Testabdeckung. Nur die Methode `print()` fehlt noch. 
+
+#### IntelliJ
+
+![junit](./files/206_junit.png)
+
+#### Eclipse
 
 ![junit](./files/108_junit.png)
 
@@ -332,7 +409,14 @@ Es ist nicht üblich, Konsolenausgaben zu testen. Normalerweise werden die Ausge
 
 Beachten Sie sowohl die Leerzeichen im Ausgabestring als auch den Zeilenumbruch. Nun haben wir eine vollständige Testabdeckung unserer `Fakultaet`-Klasse:
 
+#### IntelliJ
+
+![junit](./files/207_junit.png)
+
+#### Eclipse
+
 ![junit](./files/109_junit.png)
+
 
 
 !!! success
@@ -443,7 +527,7 @@ Nach Umbenennung der Methode `test()` in `TestUmrechnungTimeZeit.java` in `testC
 			String zeit = utz.convert("1:00 am");
 					
 			// verification --> then
-			assertEquals(zeit, "1:00");				
+			assertEquals("1:00", zeit);				
 		}
 
 	}
@@ -491,7 +575,7 @@ Die neue Testmethode sieht so aus:
 			String zeit = utz.convert("1:00 am");
 					
 			// verification --> then
-			assertEquals(zeit, "1:00");				
+			assertEquals("1:00", zeit);				
 		}
 			
 		@Test
@@ -503,7 +587,7 @@ Die neue Testmethode sieht so aus:
 			String zeit = utz.convert("2:00 am");
 					
 			// verification --> then
-			assertEquals(zeit, "2:00");				
+			assertEquals("2:00", zeit);				
 		}
 
 	}
@@ -628,7 +712,7 @@ Im Video über JUnit wurde folgender Quellcode erzeugt:
 			String zeit = utz.convert("1:00 am");
 
 			// than (verification)
-			assertEquals(zeit, "1:00", "1:00 am to 1:00 not working");
+			assertEquals("1:00", zeit, "1:00 am to 1:00 not working");
 		}
 
 		@Test
@@ -641,7 +725,7 @@ Im Video über JUnit wurde folgender Quellcode erzeugt:
 			String zeit = utz.convert("2:00 am");
 
 			// than (verification)
-			assertEquals(zeit, "2:00", "2:00 am to 2:00 not working");
+			assertEquals("2:00", zeit, "2:00 am to 2:00 not working");
 		}
 
 

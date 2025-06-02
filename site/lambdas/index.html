@@ -572,6 +572,46 @@
   
   
     <li class="md-nav__item">
+      <a href="../optionals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optionals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../junit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JUnit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../uebungen/" class="md-nav__link">
         
   
@@ -911,8 +951,39 @@
 <p>Methoden-Referenzen sind eine syntaktische Abkürzung, um Methoden aufzurufen. Methoden-Referenzen sind somit ein spezieller Fall für Lambda-Ausdrücke. Methoden-Referenzen erkennen wir an folgender Syntax </p>
 <div class="language-java highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">::</span><span class="n">methode</span>
 </span></code></pre></div>
-<p>Handelt es sich um eine statische Methode, steht vor dem <code>::</code> der Name der Klasse, bei einer Objektmethode steht die Referenzvariable des Objektes davor. 
-Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer (siehe <code>staedte</code>-Beispiel oben):</p>
+<p>Es gelten folgende Regeln in Abhängigkeit davon, um es sich um eine statische Methode oder um eine Objektmethode handelt. Im letzteren Fall gibt es noch eine Unterscheidung, ob die Methode für alle (jedes beliebige) oder für ein ganz konkretes Objekt handelt:</p>
+<table>
+<thead>
+<tr>
+<th> Art</th>
+<th> Syntax</th>
+<th> Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Referenz auf eine <br> statische Methode</td>
+<td> <code>Class::staticMethod</code></td>
+<td> <code>Integer::valueOf</code></td>
+</tr>
+<tr>
+<td> Referenz auf eine <br> Objektmethode <br> eines spezifischen <br> Objektes</td>
+<td> <code>referenceVariable::objectMethod</code></td>
+<td> <code>myNumber::getValue</code></td>
+</tr>
+<tr>
+<td> Referenz auf eine <br> Objektmethode <br> eines beliebigen <br> Objektes</td>
+<td> <code>Type::objectMethod</code></td>
+<td> <code>Integer::getValue</code></td>
+</tr>
+<tr>
+<td> Referenz auf einen <br> Konstruktor</td>
+<td> <code>Type::new</code></td>
+<td> <code>Integer[]::new</code></td>
+</tr>
+</tbody>
+</table>
+<p>Bei der Verwendung von Methoden-Referenzen können wir in Lambdas sogar ganz auf die Verwendung der Parameter verzichten. Der Code wird dadurch lesbarer (siehe <code>staedte</code>-Beispiel oben):</p>
 <div class="language-java highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">staedte</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span>
 </span></code></pre></div>
 <p>Einfaches Beispiel für <code>Supplier</code>:</p>
