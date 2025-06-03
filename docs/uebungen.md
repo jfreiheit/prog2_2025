@@ -2188,11 +2188,11 @@
 
 		=== "Uebung10.java"
 			```java
-			package uebungen.uebung9;
+			package uebungen.uebung10;
 
 			import java.util.*;
 
-			public class Uebung9
+			public class Uebung10
 			{
 			    private static List<Student> generateMockupData(int length) {
 			        List<Student> studentsList = new ArrayList<>();

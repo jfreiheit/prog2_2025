@@ -82,3 +82,19 @@ Einen Überblick über alle Methoden von `Optional<T>` erhalten Sie [hier](https
 !!! tip "Beachte"
 	Die Verwendung von `Optional<T>` ist einzig dafür gedacht, als Rückgabe einer Methode verwendet zu werden. Damit wird signalisiert, dass nicht zwingend ein Wert zurückgegeben wird, sondern eventuell auch `null`. Wir sollten jedoch keinesfalls `null` zurückgeben, sondern stattdessen `Optional<T>` verwenden. Als Parametertyp oder als Typ von Obejktvariablen ist `Optional` jedoch nicht geeignet. 
 
+## `OptionalInt`, `OptionalDouble`, `OptionalLong`
+
+So, wie es für [Stream<T>](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Stream.html) noch die speziellen Streams 
+
+    - [IntStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/IntStream.html), 
+    - [DoubleStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/DoubleStream.html) und 
+    - [LongStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/LongStream.html) 
+
+gibt, gibt es auch für [Optinal<T>](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Optional.html) noch die speziellen Optionals 
+
+    - [OptionalInt](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalInt.html), 
+    - [OptionalDouble](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalDouble.html) und
+    - [OptionalLong](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalLong.html). 
+
+Anstelle der `get()`-Methode aus `Stream<T>` existiert für diese speziellen Klassen die Methode `getAsInt()` bzw. `getAsDouble()` bzw. `getAsLong()`. 
+
