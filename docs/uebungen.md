@@ -2147,7 +2147,7 @@
 
 		        System.out.printf("%n%n----------- Natural order --------------%n%n");
 		        Comparator<Student> naturalOrder = Comparator.naturalOrder();
-		        students.sort( naturalOrder );
+		        students.sort( naturalOrder );		// dazu muss Comparable>Student> in Student implementiert werden!!!
 		        printStudents(students);
 		    }
 		}
@@ -2252,6 +2252,126 @@
 	6. Erzeugen Sie eine `Map`, die alle Studierende aus `students` nach Semestern gruppiert.
 
 	7. Wir denken uns noch weitere solcher Aufgaben aus, falls noch Zeit ist ...
+
+
+??? success "mögliche Lösung für Übung 9"
+	
+	=== "Uebung10.java"
+		```java
+		package uebungen.uebung10b;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+
+		public class Uebung10
+		{
+		    private static List<Student> generateMockupData(int length) {
+		        List<Student> studentsList = new ArrayList<>();
+		        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+		                "Riley", "Casey", "Drew", "Reese", "Quinn",
+		                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+		                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+		                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+		                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+		        Random random = new Random();
+
+		        for (int i = 0; i < length; i++) {
+		            String name = names[random.nextInt(names.length)];
+		            int number = 10000 + random.nextInt(90000);
+		            String registrationNumber = "s05" + number;
+		            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+		            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+		            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+
+		            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+		        }
+		        return studentsList;
+		    }
+
+		    public static void printStudents(List<Student> students) {
+		        for(Student student : students)
+		        {
+		            student.print();
+		        }
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        List<Student> students = generateMockupData(15);
+		        printStudents(students);
+
+		        System.out.printf("%n%n----------- Liste von Namen erzeugen --------------%n%n");
+		        List<String> namensListe = students.stream()
+		                .map( s -> s.name() )  // Student-Stream nach String-Stream
+		                .distinct()                     // doppelte Namen entfernen
+		                .collect(Collectors.toList());
+		        namensListe.forEach( s -> System.out.println(s) );
+
+		        System.out.printf("%n%n----------- Liste von Namen erzeugen mit Doppelungen--------------%n%n");
+		        students.stream()
+		                .map( s -> s.name() )  // Student-Stream nach String-Stream
+		                //.distinct()
+		                .forEach( s -> System.out.println(s) );
+
+
+		        System.out.printf("%n%n----------- Liste von Students älter als 23 --------------%n%n");
+		        List<Student> studentsAelter23 = students.stream()
+		                .filter( s -> s.age() > 23 )
+		                .collect(Collectors.toList());
+		        studentsAelter23.forEach( s -> System.out.println(s) );
+
+		        System.out.printf("%n%n----------- Beste Studentin --------------%n%n");
+		        Student beste = students.stream()
+		                .min( Comparator.comparingDouble( s -> s.gradePointAverage() ) )
+		                .get();
+		        System.out.println(beste.toString());
+
+
+		        System.out.printf("%n%n----------- Beste Studentin mind. 6 Semester--------------%n%n");
+		        Student besteMind6Sem = students.stream()
+		                .filter( s -> s.semester() >= 6 )
+		                .min( Comparator.comparingDouble( s -> s.gradePointAverage() ) )
+		                .get();
+		        System.out.println(besteMind6Sem.toString());
+
+		        System.out.printf("%n%n----------- Notendurchschnitt --------------%n%n");
+		        double notendurchschnitt = students.stream()
+		                .mapToDouble( s -> s.gradePointAverage() )
+		                .average()
+		                .getAsDouble();
+		        System.out.println(notendurchschnitt);
+
+		        System.out.printf("%n%n----------- Altersdurchschnitt --------------%n%n");
+		        double altersdurchschnitt = students.stream()
+		                .mapToInt( s -> s.age() )
+		                .average()
+		                .getAsDouble();
+		        System.out.println(altersdurchschnitt);
+
+		        System.out.printf("%n%n----------- gruppiert nach Semestern --------------%n%n");
+		        Map<Integer, List<Student>> gruppiertNachSemester = students.stream()
+		                .collect(Collectors.groupingBy(s -> s.semester()));
+
+		        gruppiertNachSemester.entrySet()
+		                .forEach( gruppiert -> System.out.println(
+		                                gruppiert.getKey()
+		                                + " : "
+		                                + gruppiert.getValue()));
+
+		        System.out.printf("%n%n----------- andere Ausgabe --------------%n%n");
+		        for(Map.Entry<Integer, List<Student>> entry : gruppiertNachSemester.entrySet())
+		        {
+		            Integer key = entry.getKey();
+		            List<Student> value = entry.getValue();
+		            System.out.println("------- " + key + ". Semester -------------");
+		            value.forEach( student -> System.out.println(student));
+		            System.out.println();
+		        }
+		    }
+		}
+
+		```
+		
 
 
 ##### Übung 11 (JUnit)
