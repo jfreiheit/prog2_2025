@@ -665,9 +665,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ubung-11-junit" class="md-nav__link">
+  <a href="#ubung-11-streams" class="md-nav__link">
     <span class="md-ellipsis">
-      Übung 11 (JUnit)
+      Übung 11 (Streams)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubung-12-junit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Übung 12 (JUnit)
     </span>
   </a>
   
@@ -818,9 +827,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ubung-11-junit" class="md-nav__link">
+  <a href="#ubung-11-streams" class="md-nav__link">
     <span class="md-ellipsis">
-      Übung 11 (JUnit)
+      Übung 11 (Streams)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubung-12-junit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Übung 12 (JUnit)
     </span>
   </a>
   
@@ -3476,9 +3494,29 @@
 </div>
 </div>
 </details>
-<h5 id="ubung-11-junit">Übung 11 (JUnit)<a class="headerlink" href="#ubung-11-junit" title="Permanent link">&para;</a></h5>
+<h5 id="ubung-11-streams">Übung 11 (Streams)<a class="headerlink" href="#ubung-11-streams" title="Permanent link">&para;</a></h5>
 <details>
-<summary>Übung 11 (JUnit)</summary>
+<summary>Übung 11 (Streams)</summary>
+<ul>
+<li>Wir betrachten die Klasse <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Random.html">Random</a> aus dem <code>java.util</code>-Paket. </li>
+<li>Wie würden Sie vorgehen, um mithilfe dieser Klasse eine Liste mit <code>10</code> Zufallszahlen aus dem Bereich <code>[1 ... 99]</code> (beides inklusive) zu erzeugen? <ul>
+<li>Geht es mit allen drei Varianten der <code>ints()</code>-Methode?</li>
+<li>Für <code>IntStream</code> gibt es kein <code>collect(Collector c)</code>. Was tun?</li>
+</ul>
+</li>
+<li>Wenn wir mithilfe von <code>Random r = new Random();</code> ein <code>Random</code>-Objekt erzeugen, können wir die Methode <code>r.nextInt(int lowerBound, int upperBound)</code> anwenden. Diese Methode kommt aber in der Beschreibung von <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Random.html">Random</a> gar nicht vor. Woher kommt sie?</li>
+<li>Während <code>groupingBy()</code> in <a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Collectors.html">Collectors</a> eine <code>Function</code> erwartet, kann <code>partitioningBy()</code> ein <code>Predicate</code> übergeben werden. Erzeugen Sie mithilfe einer der <code>ints()</code>-Methoden einen <code>IntStream</code> von <code>20</code> Zufallszahlen aus dem Bereich <code>[1 ... 99]</code> (beides inklusive) und partitionieren Sie diesen in gerade und ungerade Zahlen mithilfe von <code>collect(Collectors.partitioningBy(Predicate p))</code>. Wie ist die entstehende <code>Map</code> typisiert? </li>
+<li>Für <code>Map</code> gibt es keine <code>stream()</code>-Methode, für <code>Set</code> aber schon. Erzeugen Sie aus der obigen <code>Map</code> wieder einen <code>Stream</code>. Wir erhalten einen Stream aus Listen. Mithilfe der Methode <code>flatMap(Function mapper)</code> kann ein solcher Stream wieder zu einem Stream aus Elementen "flachgedrückt" werden. Wie würde das aussehen? <ul>
+<li>Speichern Sie den so erhaltenen Stream in eine <code>List&lt;Integer&gt;</code>.</li>
+<li>Sorgen Sie dafür, dass in der Liste sowohl die ungeraden als auch die geraden Zahlen jeweils sortiert sind.</li>
+<li>Sorgen Sie dafür, dass in der Liste erst alle geraden und dann erst alle ungeraden Zahlen aufgeführt sind. </li>
+</ul>
+</li>
+</ul>
+</details>
+<h5 id="ubung-12-junit">Übung 12 (JUnit)<a class="headerlink" href="#ubung-12-junit" title="Permanent link">&para;</a></h5>
+<details>
+<summary>Übung 12 (JUnit)</summary>
 <ul>
 <li>Probieren Sie sich mit <code>JUnit</code> aus! Schreiben Sie Unit-Tests für Ihre <code>MyInteger</code>-Klasse aus <a href="../aufgaben/#aufgabe-2-myinteger">Aufgabe 2</a>.  </li>
 <li>Testen Sie z.B. für <code>parseInt()</code>:

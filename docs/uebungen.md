@@ -2374,9 +2374,25 @@
 		
 
 
-##### Übung 11 (JUnit)
+##### Übung 11 (Streams)
 
-??? "Übung 11 (JUnit)"
+??? "Übung 11 (Streams)"
+	- Wir betrachten die Klasse [Random](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Random.html) aus dem `java.util`-Paket. 
+	- Wie würden Sie vorgehen, um mithilfe dieser Klasse eine Liste mit `10` Zufallszahlen aus dem Bereich `[1 ... 99]` (beides inklusive) zu erzeugen? 
+		- Geht es mit allen drei Varianten der `ints()`-Methode?
+		- Für `IntStream` gibt es kein `collect(Collector c)`. Was tun?
+	- Wenn wir mithilfe von `Random r = new Random();` ein `Random`-Objekt erzeugen, können wir die Methode `r.nextInt(int lowerBound, int upperBound)` anwenden. Diese Methode kommt aber in der Beschreibung von [Random](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Random.html) gar nicht vor. Woher kommt sie?
+	- Während `groupingBy()` in [Collectors](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Collectors.html) eine `Function` erwartet, kann `partitioningBy()` ein `Predicate` übergeben werden. Erzeugen Sie mithilfe einer der `ints()`-Methoden einen `IntStream` von `20` Zufallszahlen aus dem Bereich `[1 ... 99]` (beides inklusive) und partitionieren Sie diesen in gerade und ungerade Zahlen mithilfe von `collect(Collectors.partitioningBy(Predicate p))`. Wie ist die entstehende `Map` typisiert? 
+	- Für `Map` gibt es keine `stream()`-Methode, für `Set` aber schon. Erzeugen Sie aus der obigen `Map` wieder einen `Stream`. Wir erhalten einen Stream aus Listen. Mithilfe der Methode `flatMap(Function mapper)` kann ein solcher Stream wieder zu einem Stream aus Elementen "flachgedrückt" werden. Wie würde das aussehen? 
+		- Speichern Sie den so erhaltenen Stream in eine `List<Integer>`.
+		- Sorgen Sie dafür, dass in der Liste sowohl die ungeraden als auch die geraden Zahlen jeweils sortiert sind.
+		- Sorgen Sie dafür, dass in der Liste erst alle geraden und dann erst alle ungeraden Zahlen aufgeführt sind. 
+
+
+
+##### Übung 12 (JUnit)
+
+??? "Übung 12 (JUnit)"
 	- Probieren Sie sich mit `JUnit` aus! Schreiben Sie Unit-Tests für Ihre `MyInteger`-Klasse aus [Aufgabe 2](aufgaben.md#aufgabe-2-myinteger).  
 	- Testen Sie z.B. für `parseInt()`:
 		```
