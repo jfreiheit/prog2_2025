@@ -2254,7 +2254,7 @@
 	7. Wir denken uns noch weitere solcher Aufgaben aus, falls noch Zeit ist ...
 
 
-??? success "mögliche Lösung für Übung 9"
+??? success "mögliche Lösung für Übung 10"
 	
 	=== "Uebung10.java"
 		```java

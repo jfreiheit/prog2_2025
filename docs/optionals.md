@@ -86,15 +86,15 @@ Einen Überblick über alle Methoden von `Optional<T>` erhalten Sie [hier](https
 
 So, wie es für [Stream<T>](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/Stream.html) noch die speziellen Streams 
 
-    - [IntStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/IntStream.html), 
-    - [DoubleStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/DoubleStream.html) und 
-    - [LongStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/LongStream.html) 
+- [IntStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/IntStream.html), 
+- [DoubleStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/DoubleStream.html) und 
+- [LongStream](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/stream/LongStream.html) 
 
-gibt, gibt es auch für [Optinal<T>](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Optional.html) noch die speziellen Optionals 
+gibt, gibt es auch für [Optional<T>](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Optional.html) noch die speziellen Optionals 
 
-    - [OptionalInt](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalInt.html), 
-    - [OptionalDouble](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalDouble.html) und
-    - [OptionalLong](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalLong.html). 
+- [OptionalInt](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalInt.html), 
+- [OptionalDouble](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalDouble.html) und
+- [OptionalLong](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/OptionalLong.html). 
 
 Anstelle der `get()`-Methode aus `Stream<T>` existiert für diese speziellen Klassen die Methode `getAsInt()` bzw. `getAsDouble()` bzw. `getAsLong()`. 
 
