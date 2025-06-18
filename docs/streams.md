@@ -873,3 +873,451 @@ false=[apple, apple]
 true=[banana, cherry, banana]
 
 ```
+
+
+## Beispiele Streams und Lambdas
+
+Die folgenden Beispiele sind [Medium: 50 Java 8 Lambda Snippets Every Developer Should Know](https://medium.com/@gaddamnaveen192/50-java-8-lambda-snippets-every-developer-should-know-00c4bf90e367) entnommen. Da es ein `member-only article` ist, poste ich den Inhalt (hoffentlich legaler Weise :smile:) hier. 
+
+#### Iterating List using Lambda
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+list.forEach(item -> System.out.println(item));
+```
+
+#### Filtering a List with Lambda
+
+```java
+List<String> list = Arrays.asList("Java", "JavaScript", "Python");
+List<String> filteredList = list.stream()
+    .filter(s -> s.startsWith("J"))
+    .collect(Collectors.toList());
+filteredList.forEach(System.out::println);
+```
+
+#### Sorting a List using Lambda
+
+```java
+List<String> list = Arrays.asList("Java", "Lambda", "Kafka");
+list.sort((s1, s2) -> s1.compareTo(s2));
+list.forEach(System.out::println);
+```
+
+#### Using a Custom Functional Interface
+
+```java
+@FunctionalInterface
+interface Calculator {
+    int calculate(int a, int b);
+}
+
+public static void main(String[] args) {
+    Calculator add = (a, b) -> a + b;
+    Calculator multiply = (a, b) -> a * b;
+    System.out.println("Addition: " + add.calculate(5, 3));
+    System.out.println("Multiplication: " + multiply.calculate(5, 3));
+}
+```
+
+#### Lambda with Map Iteration
+
+```java
+Map<String, Integer> map = new HashMap<>();
+map.put("Java", 8);
+map.put("Spring", 5);
+map.put("Lambda", 1);
+map.forEach((key, value) -> System.out.println(key + ": " + value));
+```
+
+#### Lambda in Comparator
+
+```java
+List<String> list = Arrays.asList("Java", "Lambda", "Kafka");
+list.sort(Comparator.comparingInt(String::length));
+list.forEach(System.out::println);
+```
+
+#### Method Reference with Lambda
+
+```java
+List<String> list = Arrays.asList("Java", "Lambda", "Kafka");
+list.forEach(System.out::println);
+```
+
+#### Lambda with Optional
+
+```java
+Optional<String> optional = Optional.of("Java");
+optional.ifPresent(s -> System.out.println("Value is present: " + s));
+```
+
+#### Lambda with Predicate
+
+```java
+Predicate<String> isEmpty = s -> s.isEmpty();
+System.out.println(isEmpty.test(""));       // true
+System.out.println(isEmpty.test("Java"));   // false
+```
+
+#### Lambda with BiFunction
+
+```java
+BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+System.out.println(add.apply(2, 3)); // 5
+```
+
+#### Lambda with Consumer
+
+```java
+Consumer<String> print = s -> System.out.println(s);
+print.accept("Hello, World!"); // Hello, World!
+```
+
+#### Lambda with Supplier
+
+```java
+Supplier<String> supplier = () -> "Java";
+System.out.println(supplier.get()); // Java
+```
+
+#### Lambda with Stream Sorted
+
+```java
+List<String> list = Arrays.asList("Banana", "Pear", "Grapes");
+list.stream()
+    .sorted()
+    .forEach(System.out::println);
+```
+
+#### Lambda with Stream Count
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+long count = numbers.stream()
+    .count();
+System.out.println("Count: " + count); // Count: 5
+```
+
+#### Lambda with Stream AnyMatch
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+boolean containsJava = list.stream()
+    .anyMatch(s -> s.equals("Java"));
+System.out.println("Contains 'Java': " + containsJava); // true
+```
+
+#### Lambda with Stream AllMatch
+
+```java
+List<Integer> numbers = Arrays.asList(2, 4, 6, 8, 10);
+boolean allEven = numbers.stream()
+    .allMatch(n -> n % 2 == 0);
+System.out.println("All even: " + allEven); // true
+```
+
+#### Lambda with Stream NoneMatch
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+boolean nonePython = list.stream()
+    .noneMatch(s -> s.equals("Python"));
+System.out.println("Contains no 'Python': " + nonePython); // true
+```
+
+#### Lambda with Stream FindFirst
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+Optional<String> first = list.stream()
+    .findFirst();
+first.ifPresent(System.out::println); // Java
+```
+
+#### Lambda with Stream FindAny
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+Optional<String> any = list.stream()
+    .findAny();
+any.ifPresent(System.out::println);
+```
+
+#### Lambda for Summing Integers
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+int sum = numbers.stream()
+    .mapToInt(Integer::intValue)
+    .sum();
+System.out.println("Sum: " + sum); // Sum: 15
+```
+
+#### Lambda for Max Integer
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+int max = numbers.stream()
+    .mapToInt(Integer::intValue)
+    .max()
+    .orElse(Integer.MIN_VALUE);
+System.out.println("Max: " + max); // Max: 5
+```
+
+#### Lambda for Min Integer
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+int min = numbers.stream()
+    .mapToInt(Integer::intValue)
+    .min()
+    .orElse(Integer.MAX_VALUE);
+System.out.println("Min: " + min); // Min: 1
+```
+
+#### Lambda for Joining Strings
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+String joined = list.stream()
+    .collect(Collectors.joining(", "));
+System.out.println(joined); // Java, Spring, Lambda
+```
+
+#### Lambda for Joining Without Delimiter
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+String joined = list.stream()
+    .collect(Collectors.joining());
+System.out.println(joined); // JavaSpringLambda
+```
+
+#### Lambda with Stream MapToInt
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+list.stream()
+    .mapToInt(String::length)
+    .forEach(System.out::println); // 4, 6, 6
+```
+
+#### Lambda with Stream Collect to Set
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda", "Spring");
+Set<String> set = list.stream()
+    .collect(Collectors.toSet());
+set.forEach(System.out::println); // Java, Spring, Lambda
+```
+
+#### Lambda with Stream GroupingBy
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda", "Java");
+Map<String, Long> frequency = list.stream()
+    .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+frequency.forEach((k, v) -> System.out.println(k + ": " + v));
+// Java: 2, Spring: 1, Lambda: 1
+```
+
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+Map<Integer, List<String>> map = list.stream()
+    .collect(Collectors.groupingBy(String::length));
+map.forEach((k, v) -> System.out.println(k + ": " + v));
+// 4: [Java], 6: [Spring, Lambda]
+```
+
+#### Lambda with Stream PartitioningBy
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+Map<Boolean, List<Integer>> partitioned = numbers.stream()
+    .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+partitioned.forEach((k, v) -> System.out.println(k + ": " + v));
+// true: [2, 4, 6, 8, 10], false: [1, 3, 5, 7, 9]List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+Map<Boolean, List<Integer>> partitioned = numbers.stream()
+    .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+partitioned.forEach((k, v) -> System.out.println(k + ": " + v));
+// true: [2, 4, 6, 8, 10], false: [1, 3, 5, 7, 9]
+```
+
+#### Lambda with Stream Counting
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+long count = list.stream()
+    .collect(Collectors.counting());
+System.out.println("Count: " + count); // Count: 3
+```
+
+#### Lambda with Stream SummarizingInt
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+IntSummaryStatistics stats = numbers.stream()
+    .collect(Collectors.summarizingInt(Integer::intValue));
+System.out.println("Sum: " + stats.getSum());
+System.out.println("Average: " + stats.getAverage());
+System.out.println("Max: " + stats.getMax());
+System.out.println("Min: " + stats.getMin());
+```
+
+#### Lambda with Stream ToMap
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+Map<String, Integer> map = list.stream()
+    .collect(Collectors.toMap(s -> s, String::length));
+map.forEach((k, v) -> System.out.println(k + ": " + v));
+// Java: 4, Spring: 6, Lambda: 6
+```
+
+#### Lambda for Creating a Stream
+
+```java
+Stream<String> stream = Stream.of("Java", "Spring", "Lambda");
+stream.forEach(System.out::println);
+```
+
+#### Lambda with Stream Limit
+
+```java
+Stream<String> stream = Stream.of("Java", "Spring", "Lambda", "Kafka");
+stream.limit(2)
+    .forEach(System.out::println); // Java, Spring
+```
+
+#### Lambda with Stream Peek
+
+```java
+Stream<String> stream = Stream.of("Java", "Spring", "Lambda", "Kafka");
+stream.peek(System.out::println)
+    .collect(Collectors.toList());
+```
+
+#### Lambda with Stream Distinct
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Java", "Lambda");
+list.stream()
+    .distinct()
+    .forEach(System.out::println);
+// Java, Spring, Lambda
+```
+
+#### Lambda with Stream FlatMap
+
+```java
+List<List<String>> listOfLists = Arrays.asList(
+    Arrays.asList("Java", "Spring"),
+    Arrays.asList("Lambda", "Kafka")
+);
+listOfLists.stream()
+    .flatMap(List::stream)
+    .forEach(System.out::println);
+// Java, Spring, Lambda, Kafka
+```
+
+#### Lambda with Stream Reduce
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+int sum = numbers.stream()
+    .reduce(0, (a, b) -> a + b);
+System.out.println("Sum: " + sum); // Sum: 15
+```
+
+#### Lambda with Stream Filter and Map
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+list.stream()
+    .filter(s -> s.startsWith("J"))
+    .map(String::toUpperCase)
+    .forEach(System.out::println);
+// JAVA
+```
+
+#### Lambda with Stream Sorted with Comparator
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+list.stream()
+    .sorted((s1, s2) -> s2.compareTo(s1)) // reverse order
+    .forEach(System.out::println);
+// Spring, Lambda, Java
+```
+
+#### Lambda with Stream Iterate
+
+```java
+Stream.iterate(0, n -> n + 2)
+    .limit(5)
+    .forEach(System.out::println);
+// 0, 2, 4, 6, 8
+```
+
+#### Lambda with Stream Generate
+
+```java
+Stream.generate(() -> "Java")
+    .limit(3)
+    .forEach(System.out::println);
+// Java, Java, Java
+```
+
+#### Lambda with Stream of Primitives
+
+```java
+IntStream.range(1, 4)
+    .forEach(System.out::println);
+// 1, 2, 3
+```
+
+#### Lambda with Stream to Array
+
+```java
+List<String> list = Arrays.asList("Java", "Spring", "Lambda");
+String[] array = list.stream()
+    .toArray(String[]::new);
+System.out.println(Arrays.toString(array));
+// [Java, Spring, Lambda]
+```
+
+#### Lambda with Stream Collect to List
+
+```java
+Stream<String> stream = Stream.of("Java", "Spring", "Lambda");
+List<String> collectedList = stream
+    .collect(Collectors.toList());
+System.out.println(collectedList);
+// [Java, Spring, Lambda]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

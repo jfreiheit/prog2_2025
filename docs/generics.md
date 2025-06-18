@@ -143,3 +143,64 @@ System.out.println(insert( (s1, s2) -> List.of(s1, s2), 3, 4));
 	```
 
 
+## Eine generische Sortiermethode
+
+Wir haben uns im ersten Semester verschiedene Sortiermethoden für Arrays unterschiedlichen Typs geschrieben. Eine generische Methode könnte wie folgt aussehen:
+
+```java
+public static <T extends Comparable<T>> void bubbleSort(T[] array) {
+for (int bubble = 1; bubble < array.length; bubble++) {
+  for (int index = 0; index < array.length - bubble; index++) {
+    if (array[index].compareTo(array[index + 1]) > 0) {
+      swap(index, index + 1, array);
+    }
+  }
+}
+}
+
+public static <T> void swap(int i, int j, T[] a) {
+	T t = a[i];
+	a[i] = a[j];
+	a[j] = t;
+}
+```
+
+Diese Methode stellt 2 Anforderungen:
+
+- der Typ des Arrays ist ein Referenztyp (üfr Wertetypen müssen entsprechende Wrapperklassen verwendet werden),
+- der Typ des Arrays implementiert das Interface `Comparable`. Wird ein Typ verwendet, der nicht `Comparable` implementiert hat, erhalten wir eine `ClassCastException`. 
+
+
+## Wildcards
+
+Ein Typ kann mit der Wildcard `?` angegeben werden, dann ist jeder beliebige (Referenz-)Typ möglich. Beispiel:
+
+```java
+List<?> list = new ArrayList<String>();
+list = new ArrayList<Integer>(); // Works with any type
+```
+
+Eine solche Wildcard wird jedoch meistens nicht wie oben, sondern entweder als *Upper-Bounded-Wildcard*  oder als *Lower-Bounded-Wildcard*. Mit der **PECS**-Eselsbrücke kann man sich merken, ob `extends` (*Upper-Bounded-Wildcard*) oder `super` (*Lower-Bounded-Wildcard*) verwendet werden soll. **PECS** steht für *Producer-Extends, Consumer-Super*.
+
+### Upper-Bounded-Wildcard
+
+```java
+public void printNumbers(List<? extends Number> list) {
+    for (Number n : list) {
+        System.out.println(n);
+    }
+}
+```
+
+Es wird eine Liste erwartet, deren Typ mindestens von `Number` abgeleitet wurde (also z.B. `Interger`, `Double`, `Long`). `String` oder `Boolean` ginge z.B. nicht. Die Liste *produziert* die Input-Werte.
+
+### Lower-Bounded-Wildcard
+
+```java
+public void addNumbers(List<? super Integer> list) {
+    list.add(10); // You can add Integer or its subclass
+}
+```
+
+
+
