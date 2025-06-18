@@ -2390,6 +2390,54 @@
 		- Sorgen Sie dafür, dass in der Liste erst alle geraden und dann erst alle ungeraden Zahlen aufgeführt sind. 
 
 
+??? success "mögliche Lösung für Übung 11"
+	
+	=== "Uebung11.java"
+		```java
+		package uebungen.uebung11;
+
+		import java.util.Comparator;
+		import java.util.List;
+		import java.util.Map;
+		import java.util.Random;
+		import java.util.stream.Collectors;
+		import java.util.stream.IntStream;
+
+		public class Uebung11
+		{
+		    public static void main(String[] args)
+		    {
+		        Random r = new Random();
+		        IntStream s1 = r.ints(20, 1, 100);
+		        s1.forEach(s -> System.out.print(s + " "));
+		        System.out.println();
+
+		        IntStream s2 = r.ints(1, 100).limit(20);
+		        //s2.forEach(s -> System.out.print(s + " "));
+		        List<Integer> listS2 = s2.boxed().collect(Collectors.toList());
+		        listS2.forEach(s -> System.out.print(s + " "));
+		        System.out.println();
+
+		        IntStream s3 = r.ints().filter(i -> i > 0 && i < 100).limit(20);
+		        Map<Boolean, List<Integer>> mapS3 = s3.boxed().collect(Collectors.partitioningBy(n -> n % 2 == 0 ));
+
+		        mapS3.forEach( (k, v) -> System.out.print(k + " " + v));
+		        System.out.println();
+		        List<Integer> listMapS3 = mapS3.entrySet().stream()
+		                .sorted( (e1, e2) -> e2.getKey().compareTo(e1.getKey()))
+		                .flatMap( e -> e.getValue().stream().sorted() )
+		                //.forEach( i -> System.out.print(i + " "));
+		                .collect(Collectors.toList());
+		        listMapS3.forEach( s -> System.out.print(s + " "));
+		        System.out.println();
+		        //s3.forEach(s -> System.out.print(s + " "));
+		        System.out.println();
+
+		        //r.nextInt(1,100);
+		    }
+		}
+
+		```
 
 ##### Übung 12 (JUnit)
 
