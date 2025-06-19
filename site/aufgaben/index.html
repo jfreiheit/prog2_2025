@@ -647,9 +647,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#aufgabe-7-lambdas-und-streams" class="md-nav__link">
+  <a href="#aufgabe-7-lambdas-und-streams-i" class="md-nav__link">
     <span class="md-ellipsis">
-      Aufgabe 7 (Lambdas und Streams)
+      Aufgabe 7 (Lambdas und Streams I)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aufgabe-8-lambdas-und-streams-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aufgabe 8 (Lambdas und Streams II)
     </span>
   </a>
   
@@ -744,9 +753,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#aufgabe-7-lambdas-und-streams" class="md-nav__link">
+  <a href="#aufgabe-7-lambdas-und-streams-i" class="md-nav__link">
     <span class="md-ellipsis">
-      Aufgabe 7 (Lambdas und Streams)
+      Aufgabe 7 (Lambdas und Streams I)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aufgabe-8-lambdas-und-streams-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aufgabe 8 (Lambdas und Streams II)
     </span>
   </a>
   
@@ -1947,7 +1965,7 @@ Methode <code>notifyListeners()</code> aufgerufen wird. </p>
 </li>
 </ol>
 </details>
-<h5 id="aufgabe-7-lambdas-und-streams">Aufgabe 7 (Lambdas und Streams)<a class="headerlink" href="#aufgabe-7-lambdas-und-streams" title="Permanent link">&para;</a></h5>
+<h5 id="aufgabe-7-lambdas-und-streams-i">Aufgabe 7 (Lambdas und Streams I)<a class="headerlink" href="#aufgabe-7-lambdas-und-streams-i" title="Permanent link">&para;</a></h5>
 <details>
 <summary>Aufgabe 7</summary>
 <ol>
@@ -2297,6 +2315,55 @@ Methode <code>notifyListeners()</code> aufgerufen wird. </p>
 </li>
 <li>
 <p>Die Klassen <code>Name.java</code>, <code>Studentin.java</code> und <code>Main.java</code> sind fertig. Aber in <code>SG.java</code> und <code>HTW.java</code> gibt es einige <code>//TODO</code>s. Ersetzen Sie diese unter Beachtung der jeweils darüber befindlichen Kommentare. Eine Lösung ohne <a href="../streams/#streams">Streams</a> und <a href="../lambdas/#lambda-ausdrucke">Lambdas</a> finden Sie unter <a href="https://freiheit.f4.htw-berlin.de/prog1/probeklausuren/#probeklausuren">Probeklausuren - Studentin</a>, falls Sie an manchen Stellen nicht weiterkommen. </p>
+</li>
+</ol>
+</details>
+<h5 id="aufgabe-8-lambdas-und-streams-ii">Aufgabe 8 (Lambdas und Streams II)<a class="headerlink" href="#aufgabe-8-lambdas-und-streams-ii" title="Permanent link">&para;</a></h5>
+<details>
+<summary>Aufgabe 8</summary>
+<ol>
+<li>
+<p>Gegeben ist eine Liste von Strings, z.B. <code>List&lt;String&gt; words = Arrays.asList("fiw", "ai", "imi", "ikg", "wi", "bui", "ce", "csb", "iiw", "wiw");</code> Gruppieren Sie mithilfe von Streams die Strings nach ihrer Länge und zählen Sie die Anzahl der Strings in jeder Gruppe. Ausgabe könnte (für obiges Beispiel) wie folgt sein:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="m">3</span><span class="w"> </span>Strings<span class="w"> </span>mit<span class="w"> </span>Länge<span class="w"> </span><span class="m">2</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="m">7</span><span class="w"> </span>Strings<span class="w"> </span>mit<span class="w"> </span>Länge<span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>Gegeben folgender Record <code>Rectangle</code>: <code>public record Rectangle(int width, int length){}</code> und z.B. folgende Menge:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">Set</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rectangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">));</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">));</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="n">rectangles</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">));</span>
+</span></code></pre></div>
+<p>Partitionieren Sie die Menge der <code>rectangles</code>, je nachdem die Breite größer ist als die Länge und umgekehrt (Gleichheit können Sie eine der beiden Gruppen zuordnen). Mögliche Ausgabe könnte sein:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Länge<span class="w"> </span>&gt;<span class="w"> </span>Breite<span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">3</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">5</span><span class="o">]]</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Breite<span class="w"> </span>&gt;<span class="w"> </span>Länge<span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">3</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]]</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>Finden Sie alle kleinsten (größten) Rechteck aus <code>rectangles</code> (Größe soll die Addition von Länge und Breite sein). (Hinweis: Ich brauchte 2 Streams oder 1 Stream und eine schlaue Behandlung der Map - vielleicht schaffen Sie es ja mit einem Stream?!). Ausgabe könnte sein:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Alle<span class="w"> </span>Rechtecke<span class="w"> </span>mit<span class="w"> </span>Breite<span class="w"> </span>+<span class="w"> </span><span class="nv">Länge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>:
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">   </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]</span>
+</span></code></pre></div>
+<p>bzw. (größte)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Alle<span class="w"> </span>Rechtecke<span class="w"> </span>mit<span class="w"> </span>Breite<span class="w"> </span>+<span class="w"> </span><span class="nv">Länge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>:
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">   </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">3</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">   </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">5</span><span class="o">]</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>Gruppieren Sie alle <code>rectangles</code> nach ihrem Flächeninhalt. Ausgabe könnte sein:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">  </span><span class="m">2</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]]</span><span class="w"> </span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="m">4</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]]</span><span class="w"> </span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="m">6</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">3</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]]</span><span class="w"> </span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="m">8</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]</span>,<span class="w"> </span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">4</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">2</span><span class="o">]]</span><span class="w"> </span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w"> </span><span class="m">10</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">2</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">5</span><span class="o">]]</span><span class="w"> </span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w"> </span><span class="m">12</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>Rectangle<span class="o">[</span><span class="nv">width</span><span class="o">=</span><span class="m">3</span>,<span class="w"> </span><span class="nv">length</span><span class="o">=</span><span class="m">4</span><span class="o">]]</span><span class="w"> </span>
+</span></code></pre></div>
 </li>
 </ol>
 </details>

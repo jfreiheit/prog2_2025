@@ -1144,7 +1144,7 @@
 
 
 
-##### Aufgabe 7 (Lambdas und Streams)
+##### Aufgabe 7 (Lambdas und Streams I)
 
 ??? "Aufgabe 7"
 
@@ -1494,3 +1494,62 @@
 			```
 
 	2. Die Klassen `Name.java`, `Studentin.java` und `Main.java` sind fertig. Aber in `SG.java` und `HTW.java` gibt es einige `//TODO`s. Ersetzen Sie diese unter Beachtung der jeweils darüber befindlichen Kommentare. Eine Lösung ohne [Streams](streams.md#streams) und [Lambdas](lambdas.md#lambda-ausdrucke) finden Sie unter [Probeklausuren - Studentin](https://freiheit.f4.htw-berlin.de/prog1/probeklausuren/#probeklausuren), falls Sie an manchen Stellen nicht weiterkommen. 
+
+
+
+##### Aufgabe 8 (Lambdas und Streams II)
+
+??? "Aufgabe 8"
+
+	1. Gegeben ist eine Liste von Strings, z.B. `List<String> words = Arrays.asList("fiw", "ai", "imi", "ikg", "wi", "bui", "ce", "csb", "iiw", "wiw");` Gruppieren Sie mithilfe von Streams die Strings nach ihrer Länge und zählen Sie die Anzahl der Strings in jeder Gruppe. Ausgabe könnte (für obiges Beispiel) wie folgt sein:
+
+		```bash
+		3 Strings mit Länge 2
+		7 Strings mit Länge 3
+		```
+
+	2. Gegeben folgender Record `Rectangle`: `public record Rectangle(int width, int length){}` und z.B. folgende Menge:
+
+		```java
+		Set<Rectangle> rectangles = new HashSet<>();
+        rectangles.add(new Rectangle(1, 2));
+        rectangles.add(new Rectangle(3, 2));
+        rectangles.add(new Rectangle(1, 4));
+        rectangles.add(new Rectangle(3, 4));
+        rectangles.add(new Rectangle(2, 5));
+        rectangles.add(new Rectangle(4, 2));
+        rectangles.add(new Rectangle(2, 4));
+		```
+
+		Partitionieren Sie die Menge der `rectangles`, je nachdem die Breite größer ist als die Länge und umgekehrt (Gleichheit können Sie eine der beiden Gruppen zuordnen). Mögliche Ausgabe könnte sein:
+
+		```bash
+		Länge > Breite : [Rectangle[width=1, length=2], Rectangle[width=3, length=4], Rectangle[width=2, length=4], Rectangle[width=1, length=4], Rectangle[width=2, length=5]]
+		Breite > Länge : [Rectangle[width=4, length=2], Rectangle[width=3, length=2]]
+		```
+
+	3. Finden Sie alle kleinsten (größten) Rechteck aus `rectangles` (Größe soll die Addition von Länge und Breite sein). (Hinweis: Ich brauchte 2 Streams oder 1 Stream und eine schlaue Behandlung der Map - vielleicht schaffen Sie es ja mit einem Stream?!). Ausgabe könnte sein:
+
+		```bash
+		Alle Rechtecke mit Breite + Länge = 3 :
+		   Rectangle[width=1, length=2]
+		```
+
+		bzw. (größte)
+
+		```bash
+		Alle Rechtecke mit Breite + Länge = 7 :
+		   Rectangle[width=3, length=4]
+		   Rectangle[width=2, length=5]
+		```
+
+	4. Gruppieren Sie alle `rectangles` nach ihrem Flächeninhalt. Ausgabe könnte sein:
+
+		```bash
+		  2 : [Rectangle[width=1, length=2]] 
+		  4 : [Rectangle[width=1, length=4]] 
+		  6 : [Rectangle[width=3, length=2]] 
+		  8 : [Rectangle[width=2, length=4], Rectangle[width=4, length=2]] 
+		 10 : [Rectangle[width=2, length=5]] 
+		 12 : [Rectangle[width=3, length=4]] 
+		```
