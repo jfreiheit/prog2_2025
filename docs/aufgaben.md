@@ -1553,3 +1553,10 @@
 		 10 : [Rectangle[width=2, length=5]] 
 		 12 : [Rectangle[width=3, length=4]] 
 		```
+
+
+##### Aufgabe 9 (JUnit-Tests MyInteger)
+
+??? "Aufgabe 9"
+
+	1. Erstellen Sie für die Klasse `MyInteger` aus [Aufgabe 2](aufgaben.md#aufgabe-2-myinteger) so viele Junit-Tests, dass die Testabdeckung `100%` erreicht. 
