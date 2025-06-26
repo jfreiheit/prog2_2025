@@ -88,7 +88,6 @@ nav:
     - Lambdas: lambdas.md
     - Streams: streams.md
     - Optionals: optionals.md 
-    - Generics: generics.md 
     - JUnit: junit.md 
     - Übungen: uebungen.md
     - Aufgaben: aufgaben.md

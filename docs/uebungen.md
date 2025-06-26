@@ -2598,3 +2598,338 @@
 		}
 		```
 	
+
+##### Übung 13 (Collections Wiederholung)
+
+??? "Übung 13 (Collections Wiederholung)"
+	- Gegeben sind folgende Klassen:
+
+		??? question "Klassen für Uebung13"
+
+			=== "Uebung13.java"
+				```java
+				package uebungen.uebung13;
+
+				import java.util.*;
+
+				public class Uebung13
+				{
+				    static Random r =  new Random();
+
+				    public static Circle createCircle(int bound)
+				    {
+				        int randNr = r.nextInt(bound);
+				        if(randNr < 2)
+				        {
+				            return new Circle();
+				        }
+				        else
+				        {
+				            return new Circle(randNr);
+				        }
+				    }
+
+				    public static List<Circle> setUpCircleList(int listLength, int bound)
+				    {
+				        List<Circle> list = new ArrayList<Circle>();
+				        for(int i = 0; i < listLength; i++)
+				        {
+				            list.add(createCircle(bound));
+				        }
+				        return list;
+				    }
+
+				    /*
+				     *   gibt eine Liste mit allen Elementen aus c1 UND c2 zurueck
+				     *   in der Liste darf jedoch kein Element doppelt vorkommen, d.h.
+				     *   wenn e1 in Liste und e2 in Liste, dann gilt !e1.equals(e2)
+				     */
+				    public static List<Circle> union(List<Circle> c1, List<Circle> c2)
+				    {
+				        return null; 	//TODO
+				    }
+
+
+				    /*
+				     *   gibt eine Map zurueck
+				     *   Schluessel sind die Flaecheninhalte (area) der Circles
+				     *   Werte sind eine Liste aller Circle-Objekte mit diesem Flaecheninhalt
+				     */
+				    public static Map<Double, List<Circle>> createMap(List<Circle> circles)
+				    {
+				        return null; //TODO
+				    }
+
+
+				    /*
+				     *   fuegt der map alle circles passend hinzu
+				     */
+				    public static void addListToMap(Map<Double, List<Circle>> map, List<Circle> circles)
+				    {
+				        //TODO
+				    }
+
+				    /*
+				     *   - uebergeben wird eine map, deren keys vom Typ Double sind
+				     *   - der Schluessel key ist vom Typ int
+				     *   - in der map wird nach einem Schluessel gesucht, dessen ganzzahliger 
+				     *      Wert dem int key entspricht, d.h. 
+				     *          78,654... passt zu 78
+				     *          79,012... passt nicht zu 78
+				     *   - falls ein solcher Schluessel nicht in der map existiert, wird eine
+				     *      IllegalArgumentException geworfen. Die Nachricht enthaelt den Wert des 
+				     *      Schlussels, nach dem gesucht wurde, z.B. 'key 79 not found' 
+				     *   - falls ein solcher Schluessel existiert, wird der erste Circle aus der 
+				     *      Liste zu dem Schluessel zurueckgegeben
+				     */
+				    public static Circle getFirstCircleOfKey(Map<Double, List<Circle>> map, int key)
+				    {
+				    	//TODO
+				    	return null;
+				    }
+
+				    public static void main(String[] args)
+				    {
+				        System.out.printf("%n%n ---------------------- list1 und list2 ----------------------%n%n");
+				        List<Circle> list1 = setUpCircleList(10, 6);
+				        List<Circle> list2 = setUpCircleList(10, 6);
+				        System.out.println("list1: ");
+				        list1.forEach(System.out::println);
+				        System.out.println();
+				        System.out.println("list2: ");
+				        list1.forEach(System.out::println);
+
+				        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
+				        /* TODO: print List of union(list1, list2)
+				        * z.B.:
+				            Circle [radius=1.0] area=  3,14 circumference= 6,28
+				            Circle [radius=3.0] area= 28,27 circumference=18,85
+				            Circle [radius=4.0] area= 50,27 circumference=25,13
+				            Circle [radius=5.0] area= 78,54 circumference=31,42
+				        */
+
+				        System.out.printf("%n%n -------------------- createMap(list1) --------------------%n%n");
+				        /* TODO: print Map of createMap(list1)
+				        * z.B.:
+				            -- area =  28,27 --
+				            Circle [radius=3.0]
+				            Circle [radius=3.0]
+
+				            -- area =  78,54 --
+				            Circle [radius=5.0]
+
+				            -- area =   3,14 --
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+
+				            -- area =  50,27 --
+				            Circle [radius=4.0]
+
+				            -- area =  12,57 --
+				            Circle [radius=2.0]
+				        */
+
+				        System.out.printf("%n%n -------------------- addListToMap(map,list2) --------------------%n%n");
+				        /* TODO: print Map of addListToMap(map,list2)
+				        * z.B.:
+				            -- area =  28,27 --
+				            Circle [radius=3.0]
+				            Circle [radius=3.0]
+
+				            -- area =  78,54 --
+				            Circle [radius=5.0]
+
+				            -- area =   3,14 --
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+				            Circle [radius=1.0]
+
+				            -- area =  50,27 --
+				            Circle [radius=4.0]
+
+				            -- area =  12,57 --
+				            Circle [radius=2.0]
+				        */
+
+				        System.out.printf("%n%n -------------------- getFirstCircleOfKey(map,int) --------------------%n%n");
+				        /* TODO: search in map for key=78 and print Circle
+				        /* TODO: search in map for key=79 and print Exception-Message
+				    }
+				}
+
+				```
+
+			=== "Uebung13Test.java"
+				```java
+				package uebungen.uebung13;
+
+				import org.junit.jupiter.api.BeforeAll;
+				import org.junit.jupiter.api.DisplayName;
+				import org.junit.jupiter.api.Test;
+
+				import java.util.ArrayList;
+				import java.util.HashMap;
+				import java.util.List;
+				import java.util.Map;
+
+				import static org.junit.jupiter.api.Assertions.*;
+
+				public class Uebung13Test
+				{
+				    static Circle c0, c1, c2, c3, c4, c5, c6;
+				    @BeforeAll
+				    public static void setup()
+				    {
+				        c0 = new Circle();
+				        c1 = new Circle(1);     // c0.equals(c1) == true
+				        c2 = new Circle(2);
+				        c3 = new Circle(3);
+				        c4 = new Circle(4);
+				        c5 = new Circle(5);
+
+				    }
+
+				    @Test
+				    @DisplayName("test union(list1, list2)")
+				    public void testUnion()
+				    {
+				        System.out.printf("%n%n--------------- tests union(list1, list2) ------------------%n%n");
+				        // given
+				        List<Circle> l1 = List.of(c0, c1, c2);
+				        List<Circle> l2 = List.of(c3, c4, c5);
+				        List<Circle> l3 = List.of(c0, c1, c2);
+				        List<Circle> l4 = List.of(c0, c1, c3);
+				        List<Circle> l5 = List.of();
+
+				        // when
+				        List<Circle> list1 = Uebung13.union(l1, l2);
+				        List<Circle> list2 = Uebung13.union(l3, l4);
+				        List<Circle> list3 = Uebung13.union(l1, l3);
+				        List<Circle> list4 = Uebung13.union(l2, l4);
+				        List<Circle> list5 = Uebung13.union(l4, l5);
+
+				        // then
+				        List<Circle> expected1 = List.of(c0, c2, c3,  c4, c5);
+				        List<Circle> expected2 = List.of(c0, c2, c3);
+				        List<Circle> expected3 = List.of(c0, c2);
+				        List<Circle> expected4 = List.of(c0, c3,  c4, c5);
+				        List<Circle> expected5 = List.of(c0, c3);
+				        assertEquals(expected1, list1, "list should contain circles with radius 1.0, 2.0, 3.0, 4.0 and 5.0, only");
+				        assertEquals(expected2, list2, "list should contain circles with radius 1.0, 2.0 and 3.0, only");
+				        assertEquals(expected3, list3, "list should contain circles with radius 1.0 and 2.0, only");
+				        assertEquals(expected4, list4, "list should contain circles with radius 1.0, 3.0, 4.0 and 5.0, only");
+				        assertEquals(expected5, list5, "list should contain circles with radius 1.0 and 3.0, only");
+				    }
+
+				    @Test
+				    @DisplayName("test createMap(list)")
+				    public void testCreateMap()
+				    {
+				        System.out.printf("%n%n------------------ tests createMap(list) ---------------------%n%n");
+				        // given
+				        List<Circle> l1 = List.of(c0, c1, c2, c3, c4, c5, c0, c1, c2, c3, c4, c5, c4, c5, c0);
+				        List<Circle> l2 = List.of(c0, c1);
+
+				        // when
+				        Map<Double, List<Circle>> map1 = Uebung13.createMap(l1);
+				        Map<Double, List<Circle>> map2 = Uebung13.createMap(l2);
+
+				        // then
+				        Map<Double, List<Circle>> expected1 = new HashMap<>();
+				        expected1.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1, c0));
+				        expected1.put(Math.PI * Math.pow(2.0, 2), List.of(c2, c2));
+				        expected1.put(Math.PI * Math.pow(3.0, 2), List.of(c3, c3));
+				        expected1.put(Math.PI * Math.pow(4.0, 2), List.of(c4, c4, c4));
+				        expected1.put(Math.PI * Math.pow(5.0, 2), List.of(c5, c5, c5));
+				        assertEquals(expected1, map1, "click on \"Click to see difference\" in IntelliJ");
+
+				        Map<Double, List<Circle>> expected2 = new HashMap<>();
+				        expected2.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1));
+				        assertEquals(expected2, map2, "click on \"Click to see difference\" in IntelliJ");
+				    }
+
+				    @Test
+				    @DisplayName("test addListToMap(list)")
+				    public void testAddListToMap()
+				    {
+				        System.out.printf("%n%n------------------ tests addListToMap(list) ---------------------%n%n");
+				        // given
+				        Map<Double, List<Circle>> map1 = new HashMap<>();
+				        List<Circle> l1 = new ArrayList<>();
+				        l1.add(c0);
+				        l1.add(c1);
+				        map1.put(Math.PI * Math.pow(1.0, 2), l1);
+				        List<Circle> l2 = new ArrayList<>();
+				        l2.add(c2);
+				        map1.put(Math.PI * Math.pow(2.0, 2), l2);
+				        List<Circle> l3 = new ArrayList<>();
+				        l3.add(c3);
+				        map1.put(Math.PI * Math.pow(3.0, 2), l3);
+				        List<Circle> l4 = new ArrayList<>();
+				        l4.add(c4);
+				        l4.add(c4);
+				        map1.put(Math.PI * Math.pow(4.0, 2), l4);
+				        List<Circle> list1 = List.of(c0, c1, c2, c3, c4, c5);
+
+				        Map<Double, List<Circle>> map2 = new HashMap<>();
+				        List<Circle> l5 = new ArrayList<>();
+				        l5.add(c0);
+				        l5.add(c1);
+				        map2.put(Math.PI * Math.pow(1.0, 2), l5);
+				        List<Circle> list2 = List.of(c0, c1, c2);
+
+				        // when
+				        Uebung13.addListToMap(map1, list1);
+				        Uebung13.addListToMap(map2, list2);
+
+				        // then
+				        Map<Double, List<Circle>> expected1 = new HashMap<>();
+				        expected1.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1));
+				        expected1.put(Math.PI * Math.pow(2.0, 2), List.of(c2, c2));
+				        expected1.put(Math.PI * Math.pow(3.0, 2), List.of(c3, c3));
+				        expected1.put(Math.PI * Math.pow(4.0, 2), List.of(c4, c4, c4));
+				        expected1.put(Math.PI * Math.pow(5.0, 2), List.of(c5));
+				        assertEquals(expected1, map1, "click on \"Click to see difference\" in IntelliJ");
+
+				        Map<Double, List<Circle>> expected2 = new HashMap<>();
+				        expected2.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1));
+				        expected2.put(Math.PI * Math.pow(2.0, 2), List.of(c2));
+				        assertEquals(expected2, map2, "click on \"Click to see difference\" in IntelliJ");
+				    }
+
+				    @Test
+				    @DisplayName("test getFirstCircleOfKey(map, key)")
+				    public void testGetFirstCircleOfKey()
+				    {
+				        System.out.printf("%n%n------------------ tests getFirstCircleOfKey(map, key) ---------------------%n%n");
+				        // given
+				        Map<Double, List<Circle>> map = new HashMap<>();
+				        map.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1));
+				        map.put(Math.PI * Math.pow(2.0, 2), List.of(c2));
+				        map.put(Math.PI * Math.pow(3.0, 2), List.of(c3));
+				        map.put(Math.PI * Math.pow(4.0, 2), List.of(c4));
+				        map.put(Math.PI * Math.pow(5.0, 2), List.of(c5));
+
+				        //when
+				        int key1 = 78;
+				        int key2 = 79;
+				        Circle c = Uebung13.getFirstCircleOfKey(map, key1);
+				        Exception e = assertThrows(IllegalArgumentException.class, () -> Uebung13.getFirstCircleOfKey(map, key2));
+
+				        // then
+				        assertNotNull(c, "Circle should not be null");
+				        assertEquals(c5, c, "Circle should have radius=5.0");
+				        assertEquals("key 79 not found", e.getMessage());
+				    }
+				}
+
+				```
+
+	- siehe `TODO` in `Uebung13.java`
+	- am Ende sollten alle Tests bestanden sein
+

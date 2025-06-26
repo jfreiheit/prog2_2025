@@ -964,3 +964,566 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 			    }
 			}
 			```
+
+
+??? question "Streams"
+	- siehe [**Streams**](streams.md#streams) 
+	- siehe [**Optionals**](optionals.md#optionals) 
+	- siehe [**Übung 10**](uebungen.md#ubung-10-streams)
+	- siehe [**Übung 11**](uebungen.md#ubung-11-streams)
+	- siehe [**Aufgabe 7**](aufgaben.md#aufgabe-7-lambdas-und-streams-i)
+	- siehe [**Aufgabe 8**](aufgaben.md#aufgabe-8-lambdas-und-streams-ii)
+
+
+??? "Code aus der Vorlesung 02.06.2025"
+
+	=== "Main.java"
+		```java
+		package vorlesungen.vorl0602;
+
+		import java.util.List;
+		import java.util.stream.Collectors;
+
+		public class Main
+		{
+		    private static List<Person> getPersonen() {
+		        List<Person> personen = List.of(
+		                new Person("Alice", "Ankara"),
+		                new Person("Alice", "Caracas"),
+		                new Person("Barbara", "Bern"),
+		                new Person("Barbara", "Damaskus"),
+		                new Person("Conny", "Caracas"),
+		                new Person("Conny", "Bern"),
+		                new Person("Daniela", "Damaskus"),
+		                new Person("Daniela", "Caracas"),
+		                new Person("Elvira","Bern" ),
+		                new Person("Elvira","Ankara" ),
+		                new Person("Frieda", "Caracas"),
+		                new Person("Gerda", "Ankara"),
+		                new Person("Hannah", "Hanoi"),
+		                new Person("Ina", "Islamabad"),
+		                new Person("Jana", "Hanoi")
+		        );
+		        return personen;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+		        List<Integer> results = numbers.stream()
+		                .filter( e -> e % 2 == 0)
+		                .map( evenNumber -> evenNumber * 10 )
+		                .collect(Collectors.toList());
+
+		        results.forEach(s -> System.out.println(s));
+		    }
+		}
+		```
+
+	=== "Person.java"
+		```java
+		package vorlesungen.vorl0602;
+
+		public record Person(String name, String stadt){
+		    @Override
+		    public String toString()
+		    {
+		        return String.format("%s aus %s", name, stadt);
+		    }
+		}
+		```
+
+??? "Code aus der Vorlesung 16.06.2025"
+
+	=== "VorlesungStreams.java"
+		```java
+		package vorlesungen.vorl0616;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+		import java.util.stream.Stream;
+
+		public class VorlesungStreams
+		{
+		    public record Rectangle(int width, int length)
+		    {
+		        public int area()
+		        {
+		            return this.width * this.length;
+		        }
+		    }
+
+		    public static Optional<String> getValue(Map<String, String> map, String key)
+		    {
+		        if(map.containsKey(key))
+		        {
+		            return Optional.of(map.get(key));
+		        }
+		        else return Optional.empty();
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        Map<String, String> studiengaenge = new HashMap<>();
+		        studiengaenge.put("fiw", "Informatik und Wirtschaft");
+		        studiengaenge.put("ai", "Angewandte Informatik");
+		        studiengaenge.put("imi", "Internationale Medieninformatik");
+		        studiengaenge.put("ikg", "Informatik, Kultur und Gesundheit");
+		        System.out.println(studiengaenge.get("ai").toUpperCase());
+		        //System.out.println(studiengänge.get("wi").toUpperCase());
+
+		        Optional<String> value = getValue(studiengaenge, "ai");
+		        if(value.isPresent()) {
+		            System.out.println(value.get());
+		        }
+		        value = getValue(studiengaenge, "wi");
+		        if(value.isPresent()) {
+		            System.out.println(value.get());
+		        }
+		        else
+		        {
+		            System.out.println("wi nicht vorhanden");
+		        }
+
+
+		        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		        List<String> words1 = List.of("eins", "zwei", "drei", "vier", "fuenf");
+		        List<String> words2 = List.of("abc", "a", "abcd", "abcde", "ab");
+
+		        words1.stream()
+		                .forEach(s -> System.out.println(s.toUpperCase()));
+		        words1.stream()
+		                .map(s -> s.toUpperCase())
+		                .forEach(s -> System.out.println(s));
+
+		        words1.stream()
+		                .mapToInt(s -> s.length())
+		                .forEach(s -> System.out.println(s));
+
+		        Set<Rectangle> rectangles = new HashSet<>();
+		        rectangles.add(new Rectangle(1, 2));
+		        rectangles.add(new Rectangle(3, 2));
+		        rectangles.add(new Rectangle(1, 4));
+		        rectangles.add(new Rectangle(3, 4));
+		        rectangles.add(new Rectangle(2, 5));
+		        rectangles.add(new Rectangle(4, 2));
+		        rectangles.add(new Rectangle(2, 4));
+
+		        List<Rectangle> rectList = rectangles.stream()
+		                .collect(Collectors.toList());
+
+		        Map<Integer, List<Rectangle>> rectArea = rectangles.stream()
+		                .collect(Collectors.groupingBy(r -> r.width()));
+
+		        for(Map.Entry<Integer, List<Rectangle>> entry : rectArea.entrySet())
+		        {
+		            Integer key = entry.getKey();
+		            List<Rectangle> rectangleList = entry.getValue();
+		            System.out.println(key + " " + rectangleList);
+		        }
+
+		        List<Integer> numbers1 = List.of(1, 2, 3, 4);
+		        Integer sum = numbers1.stream()
+		                .reduce(0, (a,b) -> a + b);
+		        System.out.println("sum = " + sum);
+
+		        Integer product = numbers1.stream()
+		                .reduce(1, (a,b) -> a * b);
+		        System.out.println("product = " + product);
+
+		        numbers1.stream()
+		                .filter(n -> n % 2 == 0)
+		                .forEach(s -> System.out.println(s));
+
+		        Random r = new Random();
+		        Stream<Integer> s1 = Stream.generate(() -> r.nextInt(10)).limit(10);
+		        s1.forEach(s -> System.out.println(s));
+
+		        Stream<Integer> s2 = Stream.iterate(0, i -> i + 1).limit(100);
+		        s2.forEach(s -> System.out.println(s));
+		    }
+		}
+		```
+
+??? question "JUnit"
+	- siehe [**JUnit-Tests**](junit.md#junit-tests) 
+	- siehe [**Übung 12**](uebungen.md#ubung-12-junit)
+	- siehe [**Aufgabe 9**](aufgaben.md#aufgabe-9-junit-tests-myinteger)
+
+
+??? "Code aus der Vorlesung 23.06.2025"
+
+	=== "Fakultaet.java"
+		```java
+		package vorlesungen.vorl0623;
+
+		public class Fakultaet {
+
+		    public long fakultaet(int number) throws IllegalArgumentException
+		    {
+		        if(number < 1)
+		        {
+		            throw new IllegalArgumentException("Zahl muss groesser gleich 1 sein!");
+		        }
+		        long result = 1;
+		        for(int i = 2; i <= number; i++)
+		        {
+		            long tmp = result;
+		            result *= i;
+		            if(tmp > result)
+		            {
+		                throw new IllegalArgumentException("Overflow!");
+		            }
+		        }
+		        return result;
+		    }
+
+		    public void print(int number)
+		    {
+		        System.out.printf("%3d! = %,d %n", number, fakultaet(number));
+		    }
+
+		}
+		```		
+
+	=== "FakultaetTest.java"
+		```java
+		package vorlesungen.vorl0623;
+
+		import org.junit.jupiter.api.Test;
+
+		import java.io.ByteArrayOutputStream;
+		import java.io.PrintStream;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		public class FakultaetTest
+		{
+		    @Test
+		    public void testFakultaet6()
+		    {
+		        // given
+		        Fakultaet f = new Fakultaet();
+
+		        // when
+		        long result = f.fakultaet(6);
+
+		        // then
+		        long expected = 720;
+		        assertEquals(expected, result, "6! should be 720!");
+		    }
+
+		    @Test
+		    public void testFakultaet1()
+		    {
+		        // given
+		        Fakultaet f = new Fakultaet();
+
+		        // when
+		        long result = f.fakultaet(1);
+
+		        // then
+		        long expected = 1;
+		        //assertEquals(expected, result, "1! should be 1");
+		        assertTrue(expected == result, "1! should be 1");
+		    }
+
+		    @Test
+		    public void testSmallerThan1()
+		    {
+		        // given
+		        Fakultaet f = new Fakultaet();
+
+		        // when
+		        Exception exception = assertThrows(IllegalArgumentException.class, () -> f.fakultaet(0));
+
+		        // then
+		        assertEquals("Zahl muss groesser gleich 1 sein!",  exception.getMessage());
+		    }
+
+
+		    @Test
+		    public void testOverflow()
+		    {
+		        // given
+		        Fakultaet f = new Fakultaet();
+
+		        // when
+		        Exception exception = assertThrows(IllegalArgumentException.class, () -> f.fakultaet(21));
+
+		        // then
+		        assertEquals("Overflow!",  exception.getMessage());
+		    }
+
+		    @Test
+		    void testFakultaetPrint6()
+		    {
+		        PrintStream originalOut = System.out;       // System.out merken (Standardausgabegeraet Konsole)
+		        ByteArrayOutputStream out = new ByteArrayOutputStream();
+		        System.setOut(new PrintStream(out));
+
+		        // given
+		        Fakultaet f = new Fakultaet();
+
+		        // when
+		        f.print(6);
+
+		        // then
+		        assertEquals("  6! = 720 \n", out.toString(), "should print 6! = 720 with linebreak");
+		        System.setOut(originalOut);                 // System.out wieder auf das Standardausgabegeraet setzen
+		    }
+		}
+
+		```		
+
+	=== "Main.java"
+		```java
+		package vorlesungen.vorl0623;
+
+		public class Main
+		{
+		    public static void main(String[] args)
+		    {
+		        Fakultaet f1 = new Fakultaet();
+		        int nr = 0;
+		        while(nr < 22)
+		        {
+		            try {
+		                f1.print(nr);
+		            }
+		            catch(IllegalArgumentException e) {
+		                System.out.println("number = " + nr + " : " + e.getMessage());
+		            }
+		            nr++;
+		        }
+		    }
+		}
+
+		```		
+
+??? "Code aus der Vorlesung 25.06.2025"
+
+	=== "UmrechnungTimeZeit.java"
+		```java
+		package vorlesungen.vorl0625;
+
+		public class UmrechnungTimeZeit
+		{
+		    private boolean isDigit(char c)
+		    {
+		        return c >= '0' && c <= '9';
+		    }
+
+		    public String convert(String time) throws IllegalArgumentException
+		    {
+		        if(!isDigit(time.charAt(0))) throw new IllegalArgumentException("no digit");
+		        final int HOURS_MINUTES = 4;
+		        String zeit = time.substring(0, HOURS_MINUTES);
+		        return zeit;
+		    }
+		}
+
+		```		
+
+	=== "TestUmrechnungTimeZeit.java"
+		```java
+		package vorlesungen.vorl0625;
+
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		import static org.junit.jupiter.api.Assertions.assertEquals;
+		import static org.junit.jupiter.api.Assertions.assertThrows;
+
+		public class TestUmrechnungTimeZeit
+		{
+		    @Test
+		    @DisplayName("1:00 am converts to 1:00")
+		    public void testUmrechnungTimeZeit1am()
+		    {
+		        // given (preparation)
+		        UmrechnungTimeZeit utz =  new UmrechnungTimeZeit();
+
+		        // when (execution)
+		        String time = "1:00 am";
+		        String zeit = utz.convert(time);
+
+		        // then (validation)
+		        String expected = "1:00";
+		        assertEquals(expected, zeit, time + " should be converted to " + expected);
+		    }
+
+		    @Test
+		    @DisplayName("2:00 am converts to 2:00")
+		    public void testUmrechnungTimeZeit2am()
+		    {
+		        // given (preparation)
+		        UmrechnungTimeZeit utz =  new UmrechnungTimeZeit();
+
+		        // when (execution)
+		        String time = "2:00 am";
+		        String zeit = utz.convert(time);
+
+		        // then (validation)
+		        String expected = "2:00";
+		        assertEquals(expected, zeit, time + " should be converted to " + expected);
+		    }
+
+		    @Test
+		    @DisplayName("2:15 am converts to 2:15")
+		    public void testUmrechnungTimeZeit215am()
+		    {
+		        // given (preparation)
+		        UmrechnungTimeZeit utz =  new UmrechnungTimeZeit();
+
+		        // when (execution)
+		        String time = "2:15 am";
+		        String zeit = utz.convert(time);
+
+		        // then (validation)
+		        String expected = "2:15";
+		        assertEquals(expected, zeit, time + " should be converted to " + expected);
+		    }
+
+		    @Test
+		    @DisplayName("exception if time does not start with digit")
+		    public void testUmrechnungTimeZeitNoDigitAtBeginning()
+		    {
+		        // given (preparation)
+		        UmrechnungTimeZeit utz =  new UmrechnungTimeZeit();
+
+		        // when (execution)
+		        String time = "hallo";
+		        Exception e = assertThrows(IllegalArgumentException.class, () -> utz.convert(time));
+
+		        // then (validation)
+		        assertEquals("no digit", e.getMessage());
+		    }
+		}
+
+		```		
+
+	=== "Power.java"
+		```java
+		package vorlesungen.vorl0625;
+
+		public class Power {
+
+		    private int base;
+		    private int exp;
+
+		    public Power(int base, int exp)
+		    {
+		        this.base = base;
+		        this.exp = exp;
+		    }
+
+		    public double value()
+		    {
+		        double value = 1.0;
+		        if(exp > 0)
+		        {
+		            for(int i=0; i<exp; i++)
+		            {
+		                value *= base;
+		            }
+		        }
+		        else
+		        {
+		            for(int i=0; i<-exp; i++)
+		            {
+		                value *= base;
+		            }
+		            value = 1.0 / value;
+		        }
+		        return value;
+		    }
+
+		    @Override
+		    public String toString()
+		    {
+		        return "(" + this.base + "^" + this.exp + ")";
+		    }
+
+		    public void print()
+		    {
+		        System.out.println(this.toString());
+		    }
+
+		    @Override
+		    public boolean equals(Object o)
+		    {
+		        if(o == null) return false;
+		        if(this == o) return true;
+		        if(this.getClass() != o.getClass()) return false;
+
+		        Power p = (Power)o;
+		        return (this.base==p.base && this.exp==p.exp);
+		    }
+
+		    @Override
+		    public int hashCode()
+		    {
+		        return 7*this.base + 11*this.exp;
+		    }
+		}
+		```
+
+	=== "PowerTest.java"
+		```java
+		package vorlesungen.vorl0625;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.BeforeEach;
+		import org.junit.jupiter.api.Test;
+
+		class PowerTest {
+		    static Power p1,p2,p3,p4;
+		    static int testnr = 1;
+
+		    @BeforeAll
+		    public static void setup()
+		    {
+		        p1 = new Power(2,3);
+		        p2 = new Power(2,3);
+		        p3 = new Power(-2,3);
+		        p4 = new Power(2,-3);
+		    }
+
+		    @BeforeEach
+		    public void printBeforeTests()
+		    {
+		        System.out.printf("%n %n --------------- Test %d ------------ %n", testnr);
+		        p1.print();
+		        p2.print();
+		        testnr++;
+		    }
+
+
+		    @Test
+		    void testToString() {
+		        String s = p1.toString();
+
+		        assertEquals("(2^3)", s, "Strings are not equal!");
+		    }
+
+		    @Test
+		    void testPower() {
+		        assertNotNull(p1, "no Power object");
+		    }
+
+		    @Test
+		    void testValue() {
+		        double value = p1.value();
+
+		        assertEquals(8.0, value, "2^3 should be 8.0");
+		    }
+
+		    @Test
+		    public void testEqualsObject() {
+		        assertTrue(p1.equals(p2), " 2^3 should be equal to 2^3!");
+		    }
+		}
+		```

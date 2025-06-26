@@ -185,17 +185,17 @@ Es gibt unterschiedliche Möglichkeiten, das *tatsächliche Ergebnis* der Ausfü
 
 Diese Vergleiche werden mittels Assertions durchgeführt. Folgende Tabelle gibt einen Überblick über einige der am meisten verwendeten Assertions an. Alle Assertions, die es gibt, finden Sie [hier](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html).
 
-|Assertion |Beschreibung |
-|----------|-------------|
-|`fail(message)`|Lässt den Test scheitern (fail) mit Nachricht `message`. Wird genutzt, um zu überprüfen, ob Code unerreichbar ist oder bevor der Test implementiert ist. |
-|`assertTrue(cond,m)`|Überprüft, ob Bedingung `cond` **wahr** ist oder scheitert mit Nachricht `m` |
-|`assertFalse(cond,m)`|Überprüft, ob Bedingung `cond` **false** ist oder scheitert mit Nachricht `m`|
-|`assertEquals(a,b,m)`|Überprüft, ob Parameter `a` und `b` **gleich** sind oder scheitert mit Nachricht `m`|
-|`assertArrayEquals(a,b,m)` |Überprüft, ob Inhalte der Arrays `a` und `b` **gleich** sind oder scheitert mit Nachricht `m` |
-|`assertNull(o,m)` |Überprüft, ob Object `o==null` ist oder scheitert mit Nachricht `m` |
-|`assertNotNull(o,m)` |Überprüft, ob Object `o!=null` ist oder scheitert mit Nachricht `m` |
-|`assertSame(o1,o2,m)` |Überprüft, ob Objektreferenz `o1==o2` ist oder scheitert mit Nachricht `m`|
-|`assertNotSame(o1,o2,m)` |Überprüft, ob Objektreferenz `o1!=o2` ist oder scheitert mit Nachricht `m` |
+|<div style="width:200px">Assertion</div> |Beschreibung |
+|----------------------|-------------|
+|`fail(message)`     |Lässt den Test scheitern (fail) mit Nachricht `message`. Wird genutzt, um zu überprüfen, ob Code unerreichbar ist oder bevor der Test implementiert ist. |
+|`assertTrue(cond,m)`    |Überprüft, ob Bedingung `cond` **wahr** ist oder scheitert mit Nachricht `m` |
+|`assertFalse(cond,m)`   |Überprüft, ob Bedingung `cond` **false** ist oder scheitert mit Nachricht `m`|
+|`assertEquals(a,b,m)`   |Überprüft, ob Parameter `a` und `b` **gleich** sind oder scheitert mit Nachricht `m`|
+|`assertArrayEquals(a,b,m)`   |Überprüft, ob Inhalte der Arrays `a` und `b` **gleich** sind oder scheitert mit Nachricht `m` |
+|`assertNull(o,m)`   |Überprüft, ob Object `o==null` ist oder scheitert mit Nachricht `m` |
+|`assertNotNull(o,m)`   |Überprüft, ob Object `o!=null` ist oder scheitert mit Nachricht `m` |
+|`assertSame(o1,o2,m)`   |Überprüft, ob Objektreferenz `o1==o2` ist oder scheitert mit Nachricht `m`|
+|`assertNotSame(o1,o2,m)`    |Überprüft, ob Objektreferenz `o1!=o2` ist oder scheitert mit Nachricht `m` |
 
 Derzeit verwenden wir in unserer Testklasse nur die Assertion `fail()`. Diese steht aber nur dafür, dass wir diesen Test noch implementieren müssen. Das machen wir gleich.
 
