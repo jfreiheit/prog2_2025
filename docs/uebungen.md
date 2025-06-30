@@ -2930,6 +2930,63 @@
 
 				```
 
+			=== "Circle.java"
+				```java
+				package uebungen.uebung13;
+
+				public class Circle
+				{
+				    double radius;
+
+				    Circle()
+				    {
+				        this.radius = 1.0;
+				    }
+
+				    Circle(double radius)
+				    {
+				        this.radius = radius;
+				    }
+
+				    public double getRadius()
+				    {
+				        return this.radius;
+				    }
+
+				    public double area()
+				    {
+				        return Math.PI * this.radius * this.radius;
+				    }
+
+				    public double circumference()
+				    {
+				        return 2 * Math.PI * this.radius;
+				    }
+
+				    @Override
+				    public String toString()
+				    {
+				        return "Circle [radius=" + this.radius + "]";
+				    }
+
+				    @Override
+				    public boolean equals(Object o)
+				    {
+				        if (this == o) return true;
+				        if (o == null || getClass() != o.getClass()) return false;
+				        Circle circle = (Circle) o;
+				        return circle.radius == this.radius;
+				    }
+
+				    @Override
+				    public int hashCode()
+				    {
+				        return (int) this.radius;
+				    }
+				}
+				```
+
+
 	- siehe `TODO` in `Uebung13.java`
 	- am Ende sollten alle Tests bestanden sein
 
