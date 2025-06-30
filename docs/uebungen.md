@@ -2933,3 +2933,355 @@
 	- siehe `TODO` in `Uebung13.java`
 	- am Ende sollten alle Tests bestanden sein
 
+
+##### Probeklausur 1
+
+??? "Probeklausur 1"
+
+	***Vorbereitung***
+
+	??? question "Gegeben sind folgende Klassen:"
+
+		=== "Probeklausur1.java"
+			```java
+			package probeklausuren.probeklausur1;
+
+			import java.util.*;
+
+			public class Probeklausur1
+			{
+			    static Random r =  new Random();
+
+			    public static Circle createCircle(int bound)
+			    {
+			        int randNr = r.nextInt(bound);
+			        if(randNr < 2)
+			        {
+			            return new Circle();
+			        }
+			        else
+			        {
+			            return new Circle(randNr);
+			        }
+			    }
+
+			    public static List<Circle> setUpCircleList(int listLength, int bound)
+			    {
+			        List<Circle> list = new ArrayList<Circle>();
+			        for(int i = 0; i < listLength; i++)
+			        {
+			            list.add(createCircle(bound));
+			        }
+			        return list;
+			    }
+
+			    /*
+			     *   gibt eine Liste mit allen Elementen aus c1 UND c2 zurueck
+			     *   in der Liste darf jedoch kein Element doppelt vorkommen, d.h.
+			     *   wenn e1 in Liste und e2 in Liste, dann gilt !e1.equals(e2)
+			     */
+			    public static List<Circle> union(List<Circle> c1, List<Circle> c2)
+			    {
+			        return null; //TODO
+			    }
+
+
+			    /*
+			     *   gibt eine Map zurueck
+			     *   Schluessel sind die Flaecheninhalte (area) der Circles
+			     *   Werte sind eine Liste aller Circle-Objekte mit diesem Flaecheninhalt
+			     */
+			    public static Map<Double, List<Circle>> createMap(List<Circle> circles)
+			    {
+			        return null; //TODO
+			    }
+
+			    /*
+			     *   fuegt der map alle circles passend hinzu
+			     */
+			    public static void addListToMap(Map<Double, List<Circle>> map, List<Circle> circles)
+			    {
+			        //TODO
+			    }
+
+			    /*
+			     *   - uebergeben wird eine map, deren keys vom Typ Double sind
+			     *   - der Schluessel key ist vom Typ int
+			     *   - in der map wird nach einem Schluessel gesucht, dessen ganzzahliger
+			     *      Wert dem int key entspricht, d.h.
+			     *          78,654 passt zu 78
+			     *          79,01 passt nicht zu 78
+			     *   - falls ein solcher Schluessel nicht in der map existiert, wird eine
+			     *      IllegalArgumentException geworfen. Die Nachricht enthaelt den Wert des
+			     *      Schlussels, nach dem gesucht wurde, z.B. 'key 79 not found'
+			     *   - falls ein solcher Schluessel existiert, wird der erste Circle aus der
+			     *      Liste zu dem Schluessel zurueckgegeben
+			     */
+			    public static Circle getFirstCircleOfKey(Map<Double, List<Circle>> map, int key)
+			    {
+			        return null; //TODO
+			    }
+
+			    /*
+			     * Hilfsmethode zur Ausgabe einer Map<Double, List<Circle>>
+			     */
+			    private static void printMapOfCircles(Map<Double, List<Circle>> map)
+			    {
+			        // MUSS NICHT, KANN DIREKT IN MAIN, HILFT ABER
+			    }
+
+			    public static void main(String[] args)
+			    {
+			        System.out.printf("%n%n ---------------------- list1 und list2 ----------------------%n%n");
+			        List<Circle> list1 = setUpCircleList(10, 6);
+			        List<Circle> list2 = setUpCircleList(10, 6);
+			        System.out.println("list1: ");
+			        list1.forEach(System.out::println);
+			        System.out.println();
+			        System.out.println("list2: ");
+			        list1.forEach(System.out::println);
+
+			        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
+			        /* print List of union(list1, list2)
+			        * z.B.:
+			            Circle [radius=1.0] area=  3,14 circumference= 6,28
+			            Circle [radius=3.0] area= 28,27 circumference=18,85
+			            Circle [radius=4.0] area= 50,27 circumference=25,13
+			            Circle [radius=5.0] area= 78,54 circumference=31,42
+			        */
+			        //TODO
+
+			        System.out.printf("%n%n -------------------- createMap(list1) --------------------%n%n");
+			        /* print Map of createMap(list1)
+			        * z.B.:
+			            -- area =  28,27 --
+			            Circle [radius=3.0]
+			            Circle [radius=3.0]
+
+			            -- area =  78,54 --
+			            Circle [radius=5.0]
+
+			            -- area =   3,14 --
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+
+			            -- area =  50,27 --
+			            Circle [radius=4.0]
+
+			            -- area =  12,57 --
+			            Circle [radius=2.0]
+			        */
+			        //TODO
+
+			        System.out.printf("%n%n -------------------- addListToMap(map,list2) --------------------%n%n");
+			        /* print Map of addListToMap(map,list2)
+			        * z.B.:
+			            -- area =  28,27 --
+			            Circle [radius=3.0]
+			            Circle [radius=3.0]
+
+			            -- area =  78,54 --
+			            Circle [radius=5.0]
+
+			            -- area =   3,14 --
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+			            Circle [radius=1.0]
+
+			            -- area =  50,27 --
+			            Circle [radius=4.0]
+
+			            -- area =  12,57 --
+			            Circle [radius=2.0]
+			        */
+			       //TODO
+
+			        System.out.printf("%n%n -------------------- getFirstCircleOfKey(map,int) --------------------%n%n");
+			        for(int key = 78; key < 80; key++) {
+
+			        	//TODO
+
+			        }
+
+			        System.out.printf("%n%n -------------------- getFirstCircleOfRadius(map,double) --------------------%n%n");
+			        for(double radius = 5.0; radius < 7.0; radius++) {
+
+			        	//TODO
+
+			        }
+			    }
+			}
+
+			```
+
+		=== "Circle.java"
+			```java
+			package probeklausuren.probeklausur1;
+
+			public class Circle
+			{
+			    double radius;
+
+			    Circle()
+			    {
+			        this.radius = 1.0;
+			    }
+
+			    Circle(double radius)
+			    {
+			        this.radius = radius;
+			    }
+
+			    public double getRadius()
+			    {
+			        return this.radius;
+			    }
+
+			    public double area()
+			    {
+			        return Math.PI * this.radius * this.radius;
+			    }
+
+			    public double circumference()
+			    {
+			        return 2 * Math.PI * this.radius;
+			    }
+
+			    @Override
+			    public String toString()
+			    {
+			        return "Circle [radius=" + this.radius + "]";
+			    }
+
+			    @Override
+			    public boolean equals(Object o)
+			    {
+			        if (this == o) return true;
+			        if (o == null || getClass() != o.getClass()) return false;
+			        Circle circle = (Circle) o;
+			        return circle.radius == this.radius;
+			    }
+
+			    @Override
+			    public int hashCode()
+			    {
+			        return (int) this.radius;
+			    }
+			}
+			```
+
+		=== "Probeklausur1Test.java"
+			```java
+
+			```
+
+	***Aufgabe***
+
+	2. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `union(List<Circle> li1, List<Circle> li2)`. Diese Methode gibt eine `List<Circle>` zurück. Die zurückgegebene Liste enthält alle Circle-Objekte aus der als Parameter übergebenen Listen `li1` **und** `li2`. Aber **Achtung!**: es soll kein Circle doppelt vorkommen, d.h. für alle `c1` und `c2`, die in der zurückgegebenen Liste vorkommen, gilt `!c1.equals(c2)`. <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testUnion()`.
+
+	3. Rufen Sie die `union()`-Methode in der `main`-Methode auf. Übergeben Sie die Listen `list1` und `list2`. Geben Sie die zurückgegebene Liste in der folgenden Form auf der Konsole aus:
+
+		```bash
+		Circle [radius=1.0] area=  3,14 circumference= 6,28 
+		Circle [radius=2.0] area= 12,57 circumference=12,57 
+		Circle [radius=3.0] area= 28,27 circumference=18,85 
+		Circle [radius=4.0] area= 50,27 circumference=25,13 
+		Circle [radius=5.0] area= 78,54 circumference=31,42 
+		```
+
+	4. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `createMap(List<Circle> circles)`. Diese Methode gibt eine `Map<Double, List<Circle>>` zurück. Die Schlüssel in der `Map` sind die Flächeninhalte (`area`) der Circles aus der Liste `circles`. Die Werte in der `Map` sind jeweils eine Liste aller Circle-Objekte aus der Liste `circles` mit diesem Flächeninhalt. <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testCreateMap()`.
+
+	5. Rufen Sie die `createMap()`-Methode in der `main`-Methode auf. Übergeben Sie die Liste `list1`. Geben Sie die zurückgegebene Map in der folgenden Form auf der Konsole aus (Reihenfolge egal und Zusatzwerte):
+
+		```bash
+		-- area =  78,54 --
+		Circle [radius=5.0]
+		Circle [radius=5.0]
+
+		-- area =  28,27 --
+		Circle [radius=3.0]
+		Circle [radius=3.0]
+
+		-- area =  50,27 --
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+
+		-- area =  12,57 --
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+
+		-- area =   3,14 --
+		Circle [radius=1.0]
+		```
+
+	6. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `addListToMap(Map<Double, List<Circle>> map, List<Circle> circles)`. Diese Methode fügt der `Map<Double, List<Circle>>` alle Circle-Objekte aus der Liste `circles` hinzu. Die Schlüssel in der `Map` sind die Flächeninhalte (`area`) der Circles. Die entsprechenden Werte in `map` sind jeweils eine Liste von Circle-Objekten mit diesem Flächeninhalt. Diesen Listen müssen passend die Circle-Objekte aus `circles` hinzugefügt werden. <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testAddListToMap()`.
+
+	7. Rufen Sie die `addListToMap()`-Methode in der `main`-Methode auf. Übergeben Sie die Liste `list2`. Geben Sie die zurückgegebene Map in der folgenden Form auf der Konsole aus (Reihenfolge egal und Zusatzwerte):
+
+		```bash
+		-- area =  78,54 --
+		Circle [radius=5.0]
+		Circle [radius=5.0]
+		Circle [radius=5.0]
+
+		-- area =  28,27 --
+		Circle [radius=3.0]
+		Circle [radius=3.0]
+		Circle [radius=3.0]
+
+		-- area =  50,27 --
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+		Circle [radius=4.0]
+
+		-- area =  12,57 --
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+		Circle [radius=2.0]
+
+		-- area =   3,14 --
+		Circle [radius=1.0]
+		Circle [radius=1.0]
+		Circle [radius=1.0]
+		```
+
+	8. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `getFirstCircleOfKey(Map<Double, List<Circle>> map, int key)`. Diese Methode gibt ein `Circle`-Objekt zurück oder wirft eine `IllegalArgumentException`. In der `map` wird nach einem Schlüssel gesucht, dessen ganzzahliger Wert dem `int key` entspricht, d.h.
+
+     	- der Schlüssel `78,654...` in der `map` passt zu `key=78`
+     	- der Schlüssel `79,01...` in der `map` passt nicht zu 78
+
+     	Falls ein solcher Schlüssel nicht in der `map` existiert, wird eine `IllegalArgumentException` geworfen. Die Nachricht enthält den Wert des Schlüssels, nach dem gesucht wurde, z.B. 'key 79 not found'. <br>
+		Falls ein solcher Schlüssel existiert, wird der erste `Circle` aus der `value`-Liste des Schlüssels zurückgegeben <br/>
+		--> In `Probeklausur1Test` siehe Testmethode `testGetFirstCircleOfKey()`.
+
+	9. Rufen Sie die `getFirstCircleOfKey()`-Methode in der `main`-Methode innerhalb der `for(int key = 78; key < 80; key++) {}` auf und verwenden Sie den `key`. Übergeben Sie die aktuelle `map`. Wird ein `Circle` zurückgegeben, geben Sie ihn auf der Konsole aus. Wird eine `IllegalArgumentException` geworfen, geben Sie die *Exception-Message* aus:
+
+		```bash
+		found : Circle [radius=5.0]
+		key 79 not found
+		```
+
+	10. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `getFirstCircleOfRadius(Map<Double, List<Circle>> map, double radius)`. Diese Methode gibt ein `Optional<Circle>`-Objekt zurück. In der `map` wird in den `value`-Listen nach einem `Circle` mit dem Radius `radius` gesucht. Falls ein solcher `Circle` nicht in der `map` existiert, wird ein leeres `Optional` zurückgegeben. Falls ein solcher `Circle` existiert, wird er als Wert des `Optional`-Objektes zurückgegeben. <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `getFirstCircleOfRadius()`.
+
+	11. Rufen Sie die `getFirstCircleOfRadius()`-Methode in der `main`-Methode innerhalb der `for(double radius = 5.0; radius < 7.0; radius++) {}` auf und verwenden Sie den `radius`. Übergeben Sie die aktuelle `map`. Enthält das zurückgegebene `Optional`-Objekt ein `Circle`-Objekt, geben Sie es auf der Konsole aus. Wird ein leeres `Optional` zurückgegeben, geben Sie `no circle with radius=7.0 found` (Wert von `radius` einsetzen) aus:
+
+		```bash
+		found for radius=5.0 : Circle [radius=5.0]
+		no circle with radius=6.0 found
+		```
+
