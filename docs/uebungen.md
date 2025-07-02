@@ -2466,7 +2466,6 @@
 
 		```
 
-
 ??? question "MyInteger.java"
 	
 	=== "MyInteger.java"
@@ -2598,6 +2597,248 @@
 		}
 		```
 	
+
+
+??? success "eine mögliche Lösung für Übung 12 (JUnit)"
+
+	=== "MyIntegerTest.java"
+		```java linenums="1"
+		package uebungen.uebung10.loesung;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		class MyIntegerTest {
+			
+		    static MyInteger mi1, mi2, mi3, mi4, mi5, mi6, mi7;
+
+		    @BeforeAll
+		    public static void setUpBeforeClass() throws Exception 
+		    {
+		        mi1 = new MyInteger("-2147483648");
+		        mi2 = new MyInteger("+2147483647");
+		        mi3 = new MyInteger(-1);
+		        mi4 = new MyInteger(1);
+		        mi5 = new MyInteger(0);
+		        mi6 = new MyInteger("-1");
+		        mi7 = new MyInteger(2147483647);
+
+		    }
+		    
+			/*
+			 * parseInt-Testfaelle:
+			 * 	null		-> Exception (IAE) kein String
+			 * 	""			-> Exception (IAE) leerer String
+			 * 	"+"			-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			 * 	"-"			-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			 * 	"-00000000"	-> 0
+			 * 	"+00000000"	-> 0
+			 * 	"-00000001"	-> -1
+			 * 	"+00000001"	->	1
+			 * 	"123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"-123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"+123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"2147483648"	-> Exception (IAE) Zahl zu gross!
+			 *  "-2147483649"	-> Exception (IAE) Zahl zu klein!
+			 * 
+			 */
+			@Test
+			void testParseIntPositiveInt() {
+				
+				assertEquals(1234, MyInteger.parseInt("1234"), "\"1234\" should be 1234");
+				assertEquals(1234, MyInteger.parseInt("+1234"), "\"+1234\" should be 1234");
+				assertEquals(1234, MyInteger.parseInt("01234"), "\"01234\" should be 1234");
+			}
+			
+			@Test
+			void testParseIntNegativeInt() {
+				
+				assertEquals(-1234, MyInteger.parseInt("-1234"), "\"-1234\" should be -1234");
+				assertEquals(-1234, MyInteger.parseInt("-01234"), "\"-01234\" should be -1234");
+			}
+			
+			@Test
+			void testValueOfPositiveInt() {
+				MyInteger m = MyInteger.valueOf(1234);
+				
+				assertNotNull(m, "shoul be an object");
+				assertEquals(1234, m.intValue(), "1234 should be 1234");
+			}
+			
+			@Test
+			@DisplayName("Input-String is null")
+			void testParseIntNull() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(null));
+				
+				assertEquals("kein String", exception.getMessage());
+			}
+			
+			@Test
+			@DisplayName("Input-String is leer")
+			void testParseIntLeer() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(""));
+				
+				assertEquals("leerer String", exception.getMessage());
+			}
+			
+			
+			@Test
+			@DisplayName("Nur Plus oder Minus")
+			void testParseIntNurPlusOderMinus() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("+"));
+				
+				assertEquals("nur '+' bzw. '-' --> keine Zahl", exception.getMessage());
+				
+				exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("-"));
+				
+				assertEquals("nur '+' bzw. '-' --> keine Zahl", exception.getMessage());
+			}
+
+			@Test
+			@DisplayName("Keine Zahl")
+			void testParseIntKeineZahl() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("+1234a"));
+				
+				assertEquals("keine Zahl!", exception.getMessage());
+
+			}
+			
+			@Test
+			@DisplayName("Zahl zu gross")
+			void testParseIntZahlZuGross() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("2147483648"));
+				
+				assertEquals("Zahl zu gross!", exception.getMessage());
+			}
+			
+			@Test
+			@DisplayName("Zahl zu klein")
+			void testParseIntZahlZuKlein() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("-2147483649"));
+				
+				assertEquals("Zahl zu klein!", exception.getMessage());
+			}
+			
+			@Test
+			void testParseIntNurNullen() {
+				assertEquals(0, MyInteger.parseInt("-000000000000"), "\"-000000000000\" should be 0");
+				assertEquals(0, MyInteger.parseInt("+000000000000"), "\"+000000000000\" should be 0");
+				assertEquals(0, MyInteger.parseInt("0000000000000"), "\"0000000000000\" should be 0");
+			}
+	
+		    @Test
+		    void testHashCode()
+		    {
+		        assertTrue(mi2.hashCode()==mi7.hashCode(), "hashCode of mi2 and mi7 should be equal");
+		        assertEquals(-2147483648, mi1.hashCode(), "hashCode of mi1 should be -2147483648");
+		        assertEquals(0, mi5.hashCode(), "hashCode of mi5 should be 0");
+		    }
+
+		    @Test
+		    void testMyIntegerInt()
+		    {
+		        assertNotNull(mi4, "mi4 should be not null");
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		    }
+
+		    @Test
+		    void testMyIntegerString()
+		    {
+		        assertNotNull(mi1, "mi1 should be not null");
+		        assertNotNull(mi2, "mi2 should be not null");
+		        assertNotNull(mi6, "mi6 should be not null");
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		    }
+
+		    @Test
+		    void testParseInt()
+		    {
+		        assertEquals(-2147483648, MyInteger.parseInt("-2147483648"), "should be -2147483648");
+		        assertEquals(+2147483647, MyInteger.parseInt("+00002147483647"), "should be +2147483647");
+		        assertEquals(-1, MyInteger.parseInt("-0000001"), "should be -1");   
+		    }
+
+
+		    @Test
+		    void testIntValue()
+		    {
+		        assertEquals(-2147483648, mi1.intValue(), "should be -2147483648");
+		        assertEquals(+2147483647, mi2.intValue(), "should be +2147483647");
+		        assertEquals(+2147483647, mi7.intValue(), "should be +2147483647");
+		    }
+
+		    @Test
+		    void testDoubleValue()
+		    {
+		        assertEquals(-2147483648.0, mi1.doubleValue(), "should be -2147483648.0");
+		        assertEquals(+2147483647.0, mi2.doubleValue(), "should be +2147483647.0");
+		        assertEquals(+2147483647.0, mi7.doubleValue(), "should be +2147483647.0");
+		    }
+
+		    @Test
+		    void testValueOfString()
+		    {
+		        assertTrue(mi1.equals(MyInteger.valueOf("-2147483648")), "should be equal to mi1");
+		        assertTrue(mi2.equals(MyInteger.valueOf("2147483647")), "should be equal to mi2");
+		        assertTrue(mi7.equals(MyInteger.valueOf("2147483647")), "should be equal to mi7");
+		    }
+
+		    @Test
+		    void testValueOfInt()
+		    {
+		        assertTrue(mi1.equals(MyInteger.valueOf(-2147483648)), "should be equal to mi1");
+		        assertTrue(mi2.equals(MyInteger.valueOf(2147483647)), "should be equal to mi2");
+		        assertTrue(mi7.equals(MyInteger.valueOf(2147483647)), "should be equal to mi7");
+		    }
+
+		    @Test
+		    void testEqualsObject()
+		    {
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		        assertFalse(mi3.equals(mi4), "mi3 and mi4 should not be equal");
+		        assertFalse(mi3.equals(mi5), "mi3 and mi5 should not be equal");
+		    }
+
+		    @Test
+		    void testToString()
+		    {
+		        assertEquals("-2147483648", mi1.toString(), "should be '-2147483648'");
+		        assertEquals("2147483647", mi2.toString(), "should be '2147483647' mi2");
+		        assertEquals("2147483647", mi7.toString(), "should be '2147483647' mi7");
+		    }
+
+		    @Test
+		    void testCompare()
+		    {
+		        assertTrue(MyInteger.compare(5, 4)>0, "5,4 should be > 0");
+		        assertTrue(MyInteger.compare(4, 4)==0, "4,4 should be == 0");
+		        assertTrue(MyInteger.compare(4, 5)<0, "4,5 should be < 0");
+		        assertTrue(MyInteger.compare(MyInteger.MAX_VALUE, MyInteger.MIN_VALUE)>0, "MAX,MIN should be > 0");
+		        assertTrue(MyInteger.compare(MyInteger.MAX_VALUE, MyInteger.MAX_VALUE)==0, "MAX,MAX should be == 0");
+		        assertTrue(MyInteger.compare(MyInteger.MIN_VALUE, MyInteger.MAX_VALUE)<0, "MIN,MAX should be > 0");
+		    }
+
+		    @Test
+		    void testCompareTo()
+		    {
+		        assertTrue(mi1.compareTo(mi2)<0, "mi1, mi2 should be < 0");
+		        assertTrue(mi2.compareTo(mi1)>0, "mi2, mi1 should be > 0");
+		        assertTrue(mi2.compareTo(mi7)==0, "mi2, mi7 should be == 0");
+		        assertTrue(mi3.compareTo(mi6)==0, "mi3, mi6 should be == 0");
+		    }
+
+
+		}
+
+		```
+
+
 
 ##### Übung 13 (Collections Wiederholung)
 
@@ -2807,11 +3048,11 @@
 				        List<Circle> l5 = List.of();
 
 				        // when
-				        List<Circle> list1 = Uebung13.union(l1, l2);
-				        List<Circle> list2 = Uebung13.union(l3, l4);
-				        List<Circle> list3 = Uebung13.union(l1, l3);
-				        List<Circle> list4 = Uebung13.union(l2, l4);
-				        List<Circle> list5 = Uebung13.union(l4, l5);
+				        List<Circle> list1 = Uebung13.union(l1, l2); list1.sort(Comparator.comparing(Circle::getRadius));
+				        List<Circle> list2 = Uebung13.union(l3, l4); list2.sort(Comparator.comparing(Circle::getRadius));
+				        List<Circle> list3 = Uebung13.union(l1, l3); list3.sort(Comparator.comparing(Circle::getRadius));
+				        List<Circle> list4 = Uebung13.union(l2, l4); list4.sort(Comparator.comparing(Circle::getRadius));
+				        List<Circle> list5 = Uebung13.union(l4, l5); list5.sort(Comparator.comparing(Circle::getRadius));
 
 				        // then
 				        List<Circle> expected1 = List.of(c0, c2, c3,  c4, c5);
@@ -2989,6 +3230,230 @@
 
 	- siehe `TODO` in `Uebung13.java`
 	- am Ende sollten alle Tests bestanden sein
+
+
+??? success "mögliche Lösung für Übung 13"
+	
+	=== "Uebung13.java"
+		```java
+		package uebungen.uebung13;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+		import java.util.stream.Stream;
+
+		public class Uebung13
+		{
+		    static Random r =  new Random();
+
+		    private static Circle createCircle(int bound)
+		    {
+		        int randNr = r.nextInt(bound);
+		        if(randNr < 2)
+		        {
+		            return new Circle();
+		        }
+		        else
+		        {
+		            return new Circle(randNr);
+		        }
+		    }
+
+		    private static List<Circle> setUpCircleList(int listLength, int bound)
+		    {
+		        List<Circle> list = new ArrayList<Circle>();
+		        for(int i = 0; i < listLength; i++)
+		        {
+		            list.add(createCircle(bound));
+		        }
+		        return list;
+		    }
+
+		    /*
+		     *   gibt eine Liste mit allen Elementen aus c1 UND c2 zurueck
+		     *   in der Liste darf jedoch kein Element doppelt vorkommen, d.h.
+		     *   wenn e1 in Liste und e2 in Liste, dann gilt !e1.equals(e2)
+		     */
+		    public static List<Circle> union(final List<Circle> c1, final List<Circle> c2)
+		    {
+		        /*
+		        Set<Circle> set1 = new HashSet<>(c1);
+		        set1.addAll(c2);
+		        List<Circle> unionList = new ArrayList<>(set1);
+		         */
+
+		        List<Circle> unionList = Stream.concat(c1.stream(), c2.stream())
+		                .distinct().collect(Collectors.toList());
+		        return unionList;
+		    }
+
+
+		    /*
+		     *   gibt eine Map zurueck
+		     *   Schluessel sind die Flaecheninhalte (area) der Circles
+		     *   Werte sind eine Liste aller Circle-Objekte mit diesem Flaecheninhalt
+		     */
+		    public static Map<Double, List<Circle>> createMap(List<Circle> circles)
+		    {
+		        Map<Double, List<Circle>> map = circles.stream().collect(Collectors.groupingBy(c -> c.area()));
+		        return map;
+		    }
+
+
+		    /*
+		     *   fuegt der map alle circles passend hinzu
+		     */
+		    public static void addListToMap(Map<Double, List<Circle>> map, List<Circle> circles)
+		    {
+		        for(Circle circle : circles)
+		        {
+		            double area = circle.area();
+		            if(map.containsKey(area)) {
+		                List<Circle> list = map.get(area);
+		                list.add(circle);
+		            } else {
+		                List<Circle> list = new ArrayList<>();
+		                list.add(circle);
+		                map.put(area, list);
+		            }
+		        }
+		    }
+
+		    /*
+		     *   - uebergeben wird eine map, deren keys vom Typ Double sind
+		     *   - der Schluessel key ist vom Typ int
+		     *   - in der map wird nach einem Schluessel gesucht, dessen ganzzahliger
+		     *      Wert dem int key entspricht, d.h.
+		     *          78,654... passt zu 78
+		     *          79,012... passt nicht zu 78
+		     *   - falls ein solcher Schluessel nicht in der map existiert, wird eine
+		     *      IllegalArgumentException geworfen. Die Nachricht enthaelt den Wert des
+		     *      Schlussels, nach dem gesucht wurde, z.B. 'key 79 not found'
+		     *   - falls ein solcher Schluessel existiert, wird der erste Circle aus der
+		     *      Liste zu dem Schluessel zurueckgegeben
+		     */
+		    public static Circle getFirstCircleOfKey(Map<Double, List<Circle>> map, int key) throws IllegalArgumentException
+		    {
+		        for(Double originalKey : map.keySet())
+		        {
+		            //int intKey = (int) originalKey;
+		            if(originalKey.intValue() == key)
+		            {
+		                return map.get(originalKey).getFirst();
+		            }
+		        }
+		        throw new IllegalArgumentException("key " + key + " not found");
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n%n ---------------------- list1 und list2 ----------------------%n%n");
+		        List<Circle> list1 = setUpCircleList(10, 6);
+		        List<Circle> list2 = setUpCircleList(10, 6);
+		        System.out.println("list1: ");
+		        list1.forEach(System.out::println);
+		        System.out.println();
+		        System.out.println("list2: ");
+		        list2.forEach(System.out::println);
+
+		        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
+		        /* TODO: print List of union(list1, list2)
+		        * z.B.:
+		            Circle [radius=1.0] area=  3,14 circumference= 6,28
+		            Circle [radius=3.0] area= 28,27 circumference=18,85
+		            Circle [radius=4.0] area= 50,27 circumference=25,13
+		            Circle [radius=5.0] area= 78,54 circumference=31,42
+		        */
+		        List<Circle> unionList = union(list1, list2);
+		        for(Circle circle : unionList)
+		        {
+		            System.out.printf("%s area=%6.2f circumference=%5.2f %n",
+		                    circle.toString(), circle.area(), circle.circumference());
+		        }
+
+
+		        System.out.printf("%n%n -------------------- createMap(list1) --------------------%n%n");
+		        /* TODO: print Map of createMap(list1)
+		        * z.B.:
+		            -- area =  28,27 --
+		            Circle [radius=3.0]
+		            Circle [radius=3.0]
+
+		            -- area =  78,54 --
+		            Circle [radius=5.0]
+
+		            -- area =   3,14 --
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+
+		            -- area =  50,27 --
+		            Circle [radius=4.0]
+
+		            -- area =  12,57 --
+		            Circle [radius=2.0]
+		        */
+		        Map<Double, List<Circle>> map1 = createMap(list1);
+		        map1.forEach( (k,v) -> {
+		            System.out.printf("-- area = %.2f %n", k);
+		            v.forEach(c -> System.out.println(c.toString()));
+		            System.out.println();
+		        });
+
+		        System.out.printf("%n%n -------------------- addListToMap(map,list2) --------------------%n%n");
+		        /* TODO: print Map of addListToMap(map,list2)
+		        * z.B.:
+		            -- area =  28,27 --
+		            Circle [radius=3.0]
+		            Circle [radius=3.0]
+
+		            -- area =  78,54 --
+		            Circle [radius=5.0]
+
+		            -- area =   3,14 --
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+		            Circle [radius=1.0]
+
+		            -- area =  50,27 --
+		            Circle [radius=4.0]
+
+		            -- area =  12,57 --
+		            Circle [radius=2.0]
+		        */
+		        addListToMap(map1, list1);
+		        for(Map.Entry<Double, List<Circle>> entry : map1.entrySet())
+		        {
+		            System.out.printf("-- area = %.2f %n", entry.getKey());
+		            for(Circle circle : entry.getValue())
+		            {
+		                System.out.println(circle.toString());
+		            }
+		            System.out.println();
+		        }
+
+		        System.out.printf("%n%n -------------------- getFirstCircleOfKey(map,int) --------------------%n%n");
+		        /* TODO: search in map for key=78 and print Circle */
+		        /* TODO: search in map for key=79 and print Exception-Message */
+		        for(int key = 78; key < 80; key++)
+		        {
+		            try {
+		                Circle circle = getFirstCircleOfKey(map1, key);
+		                System.out.println(circle.toString());
+		            }
+		            catch(IllegalArgumentException e) {
+		                System.out.println(e.getMessage());
+		            }
+		        }
+
+		    }
+		}
+		```
+
 
 
 ##### Probeklausur 1
@@ -3325,11 +3790,11 @@
 			        List<Circle> l5 = List.of();
 
 			        // when
-			        List<Circle> list1 = Probeklausur1.union(l1, l2);
-			        List<Circle> list2 = Probeklausur1.union(l3, l4);
-			        List<Circle> list3 = Probeklausur1.union(l1, l3);
-			        List<Circle> list4 = Probeklausur1.union(l2, l4);
-			        List<Circle> list5 = Probeklausur1.union(l4, l5);
+			        List<Circle> list1 = Probeklausur1.union(l1, l2); list1.sort(Comparator.comparing(Circle::getRadius));
+			        List<Circle> list2 = Probeklausur1.union(l3, l4); list2.sort(Comparator.comparing(Circle::getRadius));
+			        List<Circle> list3 = Probeklausur1.union(l1, l3); list3.sort(Comparator.comparing(Circle::getRadius));
+			        List<Circle> list4 = Probeklausur1.union(l2, l4); list4.sort(Comparator.comparing(Circle::getRadius));
+			        List<Circle> list5 = Probeklausur1.union(l4, l5); list5.sort(Comparator.comparing(Circle::getRadius));
 
 			        // then
 			        List<Circle> expected1 = List.of(c0, c2, c3,  c4, c5);
@@ -3479,7 +3944,7 @@
 			        Circle c1 = new Circle(1.0);
 			        Circle c2 = new Circle(2.0);
 			        Circle c3 = new Circle(1.0);
-						        
+
 			        if(c1 instanceof Comparable co1 && c2 instanceof Comparable co2 && c3 instanceof Comparable co3) {
 			            //when
 			            int result1 = co1.compareTo(co2);
