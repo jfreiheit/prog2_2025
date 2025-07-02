@@ -2697,7 +2697,7 @@
 				        list1.forEach(System.out::println);
 				        System.out.println();
 				        System.out.println("list2: ");
-				        list1.forEach(System.out::println);
+				        list2.forEach(System.out::println);
 
 				        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
 				        /* TODO: print List of union(list1, list2)
@@ -2997,7 +2997,7 @@
 
 	***Vorbereitung***
 
-	??? question "Gegeben sind folgende Klassen:"
+	??? question "Gegeben sind folgende Klassen (auch als [download](./files/probeklausur1.zip) verfügbar):"
 
 		=== "Probeklausur1.java"
 			```java
@@ -3080,6 +3080,42 @@
 			    }
 
 			    /*
+			     *   - uebergeben wird eine map, deren keys vom Typ Double sind (area())
+			     *   - die Werte sind vom Typ List<Circle>
+			     *   - in der map (in den values) wird nach einem Circle gesucht, dessen
+			     *     Radius dem Parameterwert von double radius entspricht
+			     *   - falls ein solcher Circle existiert, wird er dem Optional hinzugefuegt
+			     *     und zurückgegeben
+			     *   - falls ein solcher Circle nicht existiert, wird ein leeres Optional
+			     *     zurueckgegeben
+			     */
+			    public static Optional<Circle> getFirstCircleOfRadius(Map<Double, List<Circle>> map, double radius)
+			    {
+			        return null; //TODO
+			    }
+
+		        /*
+			     * uebergeben wird eine unsortierte Liste von Circle-Objekten
+			     * zurueckgegeben wird eine sortierte Liste von Circle-Objekte
+			     * sortiert nach "natural order" (compareTo)
+			     */
+			    public static List<Circle> createSortedListOfCircles(List<Circle> circles)
+			    {
+			        return null; //TODO
+			    }
+
+			    /*
+			     * uebergeben wird eine unsortierte Liste von Circle-Objekten
+			     * zurueckgegeben wird eine sortierte Liste von Circle-Objekte
+			     * - sortiert nach "natural order" (compareTo)
+			     * - gerade Radien zuerst!!!
+			     */
+			    public static List<Circle> createSortedListOfCirclesEvenRadiiFirst(List<Circle> circles)
+			    {
+			        return null; //TODO
+			    }
+
+			    /*
 			     * Hilfsmethode zur Ausgabe einer Map<Double, List<Circle>>
 			     */
 			    private static void printMapOfCircles(Map<Double, List<Circle>> map)
@@ -3096,7 +3132,7 @@
 			        list1.forEach(System.out::println);
 			        System.out.println();
 			        System.out.println("list2: ");
-			        list1.forEach(System.out::println);
+			        list2.forEach(System.out::println);
 
 			        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
 			        /* print List of union(list1, list2)
@@ -3171,6 +3207,23 @@
 			        	//TODO
 
 			        }
+
+			        System.out.printf("%n%n -------------------- Circle is Comparable  --------------------%n%n");
+			        Circle c1 = createCircle(3);
+			        Circle c2 = createCircle(3);
+			        System.out.println("c1: " + c1);
+			        System.out.println("c2: " + c2);
+
+			        //TODO
+
+			        System.out.printf("%n%n -------------------- createSortedListOfCircles(list) --------------------%n%n");
+
+			        //TODO
+
+
+			        System.out.printf("%n%n -------------------- createSortedListOfCirclesEvenRadiiFirst(list) --------------------%n%n");
+
+			        //TODO
 			    }
 			}
 
@@ -3234,6 +3287,253 @@
 
 		=== "Probeklausur1Test.java"
 			```java
+			package probeklausuren.probeklausur1;
+
+			import org.junit.jupiter.api.BeforeAll;
+			import org.junit.jupiter.api.DisplayName;
+			import org.junit.jupiter.api.Test;
+
+			import java.util.*;
+
+			import static org.junit.jupiter.api.Assertions.*;
+
+			public class Probeklausur1Test
+			{
+			    static Circle c0, c1, c2, c3, c4, c5, c6;
+			    @BeforeAll
+			    public static void setup()
+			    {
+			        c0 = new Circle();
+			        c1 = new Circle(1);     // c0.equals(c1) == true
+			        c2 = new Circle(2);
+			        c3 = new Circle(3);
+			        c4 = new Circle(4);
+			        c5 = new Circle(5);
+
+			    }
+
+			    @Test
+			    @DisplayName("test union(list1, list2)")
+			    public void testUnion()
+			    {
+			        System.out.printf("%n------------------ tests union(list1, list2) ------------------%n");
+			        // given
+			        List<Circle> l1 = List.of(c0, c1, c2);
+			        List<Circle> l2 = List.of(c3, c4, c5);
+			        List<Circle> l3 = List.of(c0, c1, c2);
+			        List<Circle> l4 = List.of(c0, c1, c3);
+			        List<Circle> l5 = List.of();
+
+			        // when
+			        List<Circle> list1 = Probeklausur1.union(l1, l2);
+			        List<Circle> list2 = Probeklausur1.union(l3, l4);
+			        List<Circle> list3 = Probeklausur1.union(l1, l3);
+			        List<Circle> list4 = Probeklausur1.union(l2, l4);
+			        List<Circle> list5 = Probeklausur1.union(l4, l5);
+
+			        // then
+			        List<Circle> expected1 = List.of(c0, c2, c3,  c4, c5);
+			        List<Circle> expected2 = List.of(c0, c2, c3);
+			        List<Circle> expected3 = List.of(c0, c2);
+			        List<Circle> expected4 = List.of(c0, c3,  c4, c5);
+			        List<Circle> expected5 = List.of(c0, c3);
+			        assertEquals(expected1, list1, "list should contain circles with radius 1.0, 2.0, 3.0, 4.0 and 5.0, only");
+			        assertEquals(expected2, list2, "list should contain circles with radius 1.0, 2.0 and 3.0, only");
+			        assertEquals(expected3, list3, "list should contain circles with radius 1.0 and 2.0, only");
+			        assertEquals(expected4, list4, "list should contain circles with radius 1.0, 3.0, 4.0 and 5.0, only");
+			        assertEquals(expected5, list5, "list should contain circles with radius 1.0 and 3.0, only");
+			    }
+
+			    @Test
+			    @DisplayName("test createMap(list)")
+			    public void testCreateMap()
+			    {
+			        System.out.printf("%n------------------ tests createMap(list) ---------------------%n");
+			        // given
+			        List<Circle> l1 = List.of(c0, c1, c2, c3, c4, c5, c0, c1, c2, c3, c4, c5, c4, c5, c0);
+			        List<Circle> l2 = List.of(c0, c1);
+
+			        // when
+			        Map<Double, List<Circle>> map1 = Probeklausur1.createMap(l1);
+			        Map<Double, List<Circle>> map2 = Probeklausur1.createMap(l2);
+
+			        // then
+			        Map<Double, List<Circle>> expected1 = new HashMap<>();
+			        expected1.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1, c0));
+			        expected1.put(Math.PI * Math.pow(2.0, 2), List.of(c2, c2));
+			        expected1.put(Math.PI * Math.pow(3.0, 2), List.of(c3, c3));
+			        expected1.put(Math.PI * Math.pow(4.0, 2), List.of(c4, c4, c4));
+			        expected1.put(Math.PI * Math.pow(5.0, 2), List.of(c5, c5, c5));
+			        assertEquals(expected1, map1, "click on \"Click to see difference\" in IntelliJ");
+
+			        Map<Double, List<Circle>> expected2 = new HashMap<>();
+			        expected2.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1));
+			        assertEquals(expected2, map2, "click on \"Click to see difference\" in IntelliJ");
+			    }
+
+			    @Test
+			    @DisplayName("test addListToMap(list)")
+			    public void testAddListToMap()
+			    {
+			        System.out.printf("%n------------------ tests addListToMap(list) ---------------------%n");
+			        // given
+			        Map<Double, List<Circle>> map1 = new HashMap<>();
+			        List<Circle> l1 = new ArrayList<>();
+			        l1.add(c0);
+			        l1.add(c1);
+			        map1.put(Math.PI * Math.pow(1.0, 2), l1);
+			        List<Circle> l2 = new ArrayList<>();
+			        l2.add(c2);
+			        map1.put(Math.PI * Math.pow(2.0, 2), l2);
+			        List<Circle> l3 = new ArrayList<>();
+			        l3.add(c3);
+			        map1.put(Math.PI * Math.pow(3.0, 2), l3);
+			        List<Circle> l4 = new ArrayList<>();
+			        l4.add(c4);
+			        l4.add(c4);
+			        map1.put(Math.PI * Math.pow(4.0, 2), l4);
+			        List<Circle> list1 = List.of(c0, c1, c2, c3, c4, c5);
+
+			        Map<Double, List<Circle>> map2 = new HashMap<>();
+			        List<Circle> l5 = new ArrayList<>();
+			        l5.add(c0);
+			        l5.add(c1);
+			        map2.put(Math.PI * Math.pow(1.0, 2), l5);
+			        List<Circle> list2 = List.of(c0, c1, c2);
+
+			        // when
+			        Probeklausur1.addListToMap(map1, list1);
+			        Probeklausur1.addListToMap(map2, list2);
+
+			        // then
+			        Map<Double, List<Circle>> expected1 = new HashMap<>();
+			        expected1.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1));
+			        expected1.put(Math.PI * Math.pow(2.0, 2), List.of(c2, c2));
+			        expected1.put(Math.PI * Math.pow(3.0, 2), List.of(c3, c3));
+			        expected1.put(Math.PI * Math.pow(4.0, 2), List.of(c4, c4, c4));
+			        expected1.put(Math.PI * Math.pow(5.0, 2), List.of(c5));
+			        assertEquals(expected1, map1, "click on \"Click to see difference\" in IntelliJ");
+
+			        Map<Double, List<Circle>> expected2 = new HashMap<>();
+			        expected2.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1, c0, c1));
+			        expected2.put(Math.PI * Math.pow(2.0, 2), List.of(c2));
+			        assertEquals(expected2, map2, "click on \"Click to see difference\" in IntelliJ");
+			    }
+
+			    @Test
+			    @DisplayName("test getFirstCircleOfKey(map, key)")
+			    public void testGetFirstCircleOfKey()
+			    {
+			        System.out.printf("%n------------------ tests getFirstCircleOfKey(map, key) ---------------------%n");
+			        // given
+			        Map<Double, List<Circle>> map = new HashMap<>();
+			        map.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1));
+			        map.put(Math.PI * Math.pow(2.0, 2), List.of(c2));
+			        map.put(Math.PI * Math.pow(3.0, 2), List.of(c3));
+			        map.put(Math.PI * Math.pow(4.0, 2), List.of(c4));
+			        map.put(Math.PI * Math.pow(5.0, 2), List.of(c5));
+
+			        //when
+			        int key1 = 78;
+			        int key2 = 79;
+			        Circle c = Probeklausur1.getFirstCircleOfKey(map, key1);
+			        Exception e = assertThrows(IllegalArgumentException.class, () -> Probeklausur1.getFirstCircleOfKey(map, key2));
+
+			        // then
+			        assertNotNull(c, "Circle should not be null");
+			        assertEquals(c5, c, "Circle should have radius=5.0");
+			        assertEquals("key 79 not found", e.getMessage());
+			    }
+
+			    @Test
+			    @DisplayName("test getFirstCircleOfRadius(map, radius)")
+			    public void testGetFirstCircleOfRadius()
+			    {
+			        System.out.printf("%n------------------ tests getFirstCircleOfRadius(map, radius) ---------------------%n");
+			        // given
+			        Map<Double, List<Circle>> map = new HashMap<>();
+			        map.put(Math.PI * Math.pow(1.0, 2), List.of(c0, c1));
+			        map.put(Math.PI * Math.pow(2.0, 2), List.of(c2));
+			        map.put(Math.PI * Math.pow(3.0, 2), List.of(c3));
+			        map.put(Math.PI * Math.pow(4.0, 2), List.of(c4));
+			        map.put(Math.PI * Math.pow(5.0, 2), List.of(c5));
+
+			        //when
+			        double radius1 = 5.0;
+			        double radius2 = 6.0;
+			        Optional<Circle> o1 = Probeklausur1.getFirstCircleOfRadius(map, radius1);
+			        Optional<Circle> o2 = Probeklausur1.getFirstCircleOfRadius(map, radius2);
+
+			        // then
+			        assertTrue(o1.isPresent(), "Optional should not be empty");
+			        assertTrue(o2.isEmpty(), "Optional should be empty");
+			        assertEquals(c5, o1.get(), "Circle should have radius=5.0");
+			    }
+
+			    @Test
+			    @DisplayName("test Circle is Comparable")
+			    public void testCircleIsComparable()
+			    {
+			        System.out.printf("%n------------------ test Circle is Comparable ---------------------%n");
+			        // given
+			        Circle c1 = new Circle(1.0);
+			        Circle c2 = new Circle(2.0);
+			        Circle c3 = new Circle(1.0);
+						        
+			        if(c1 instanceof Comparable co1 && c2 instanceof Comparable co2 && c3 instanceof Comparable co3) {
+			            //when
+			            int result1 = co1.compareTo(co2);
+			            int result2 = co2.compareTo(co1);
+			            int result3 = co3.compareTo(co1);
+
+			            // then
+			            assertTrue(c1 instanceof Comparable, "Circle should be Comparable");
+			            assertTrue(result1 < 0, "if smaller then compareTo < 0");
+			            assertTrue(result2 > 0, "if bigger then compareTo > 0");
+			            assertTrue(result3 == 0, "if equals then compareTo == 0");
+			        } else {
+			            fail("Circle is not comparable");
+			        }
+			    }
+
+			    @Test
+			    @DisplayName("test createSortedListOfCircles(list)")
+			    public void testCreateSortedListOfCircles()
+			    {
+			        System.out.printf("%n------------------ tests createSortedListOfCircles(list) ---------------------%n");
+			        // given
+			        List<Circle> l1 = List.of(c0, c1, c2, c3, c4, c5, c0, c1, c2, c3, c4, c5, c4, c5, c0);
+			        
+			        // when
+			        List<Circle> sorted1 = Probeklausur1.createSortedListOfCircles(l1);
+
+			        // then
+			        for(int i = 0; i < sorted1.size() -1; i++) {
+			            if(sorted1.get(i) instanceof Comparable co1 && sorted1.get(i+1) instanceof Comparable co2) {
+			                assertTrue(co1.compareTo(co2) <= 0, "list should be sorted");
+			            } else {
+			                fail("Circle is not comparable");
+			            }
+			        }
+			    }
+
+			    @Test
+			    @DisplayName("test createSortedListOfCirclesEvenRadiiFirst(list)")
+			    public void testCreateSortedListOfCirclesEvenRadiiFirst()
+			    {
+			        System.out.printf("%n------------------ tests createSortedListOfCirclesEvenRadiiFirst(list) ---------------------%n");
+			        // given
+			        List<Circle> l1 = List.of(c0, c1, c2, c3, c4, c5, c0, c1, c2, c3, c4, c5, c4, c5, c0);
+			        List<Circle> sorted = List.of(c2, c2, c4, c4, c4, c0, c1, c0, c1, c0, c3, c3, c5, c5, c5);
+			        // when
+			        List<Circle> sorted1 = Probeklausur1.createSortedListOfCirclesEvenRadiiFirst(l1);
+
+			        // then
+			        for(int i = 0; i < sorted1.size(); i++) {
+			            assertTrue(sorted1.get(i).equals(sorted.get(i)), "list should be sorted, even radii first");
+			        }
+			    }
+			}
 
 			```
 
@@ -3333,7 +3633,7 @@
 		```
 
 	10. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `getFirstCircleOfRadius(Map<Double, List<Circle>> map, double radius)`. Diese Methode gibt ein `Optional<Circle>`-Objekt zurück. In der `map` wird in den `value`-Listen nach einem `Circle` mit dem Radius `radius` gesucht. Falls ein solcher `Circle` nicht in der `map` existiert, wird ein leeres `Optional` zurückgegeben. Falls ein solcher `Circle` existiert, wird er als Wert des `Optional`-Objektes zurückgegeben. <br/>
-	--> In `Probeklausur1Test` siehe Testmethode `getFirstCircleOfRadius()`.
+	--> In `Probeklausur1Test` siehe Testmethode `testGetFirstCircleOfRadius()`.
 
 	11. Rufen Sie die `getFirstCircleOfRadius()`-Methode in der `main`-Methode innerhalb der `for(double radius = 5.0; radius < 7.0; radius++) {}` auf und verwenden Sie den `radius`. Übergeben Sie die aktuelle `map`. Enthält das zurückgegebene `Optional`-Objekt ein `Circle`-Objekt, geben Sie es auf der Konsole aus. Wird ein leeres `Optional` zurückgegeben, geben Sie `no circle with radius=7.0 found` (Wert von `radius` einsetzen) aus:
 
@@ -3341,4 +3641,52 @@
 		found for radius=5.0 : Circle [radius=5.0]
 		no circle with radius=6.0 found
 		```
+
+	12. Implementieren Sie in der Klasse `Circle.java` das Interface [Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html), so dass ein `Circle` größer ist als ein anderer, wenn sein `radius` größer ist.<br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testCircleIsComparable()`.
+
+	13. Rufen Sie in der `main`-Methode unterhalb von 
+
+		```java
+        Circle c1 = createCircle(3);
+        Circle c2 = createCircle(3);
+        System.out.println("c1: " + c1);
+        System.out.println("c2: " + c2);
+		```
+
+		die `compareTo()`-Methode auf und erzeugen Sie je nach Resultat eine der drei Ausgaben:
+
+		```bash
+		c1 is equal to c2
+		c1 is less than c2
+		c1 is greater than c2
+		```
+
+	14. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `createSortedListOfCircles(List<Circle> circles)`. Diese Methode gibt eine `List<Circle>` zurück. Die übergebene Liste ist unsortiert. In der zurückgegebenen Liste sollen die `Circle`-Objekte unter Verwendung der *natural order* (`compareTo()`) aufsteigend sortiert sein (kleinster zuerst) <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testCreateSortedListOfCircles()`.
+
+	15. Rufen Sie die `createSortedListOfCircles()`-Methode in der `main`-Methode auf und verwenden Sie `list1` als Parameter. Geben Sie `list1` in der folgenden Form aus (die Radien der `Circle`-Objekte aus `list1` - Zufallswerte):
+
+		```bash
+		[ 3,0 3,0 1,0 5,0 1,0 1,0 1,0 1,0 1,0 5,0 ]
+		```
+		
+		Geben Sie durch `createSortedListOfCircles()` erzeugte Liste ebenso aus:
+
+		```bash
+		[ 1,0 1,0 1,0 1,0 1,0 1,0 3,0 3,0 5,0 5,0 ]
+		```
+
+	16. Implementieren Sie in der Klasse `Probeklausur1.java` die Methode `createSortedListOfCirclesEvenRadiiFirst(List<Circle> circles)`. Diese Methode gibt eine `List<Circle>` zurück. Die übergebene Liste ist unsortiert. In der zurückgegebenen Liste sollen die `Circle`-Objekte unter Verwendung der *natural order* (`compareTo()`) aufsteigend sortiert sein (kleinster zuerst). Aber **Achtung!**. es sollen zuerst die `Circle`-Objekte mit *geraden* Radien und dann die `Circle`-Objekte mit ungeraden Radien kommen <br/>
+	--> In `Probeklausur1Test` siehe Testmethode `testCreateSortedListOfCirclesEvenRadiiFirst()`.
+
+	17. Rufen Sie die `createSortedListOfCirclesEvenRadiiFirst()`-Methode in der `main`-Methode auf und verwenden Sie `list1` als Parameter. Erzeugen Sie folgende Ausgaben (Zufallswerte):
+
+		```bash
+		[ 3,0 2,0 5,0 2,0 3,0 1,0 5,0 2,0 3,0 1,0 ]
+		[ 2,0 2,0 2,0 1,0 1,0 3,0 3,0 3,0 5,0 5,0 ]
+		```
+		
+
+
 
