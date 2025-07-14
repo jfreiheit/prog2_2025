@@ -4468,7 +4468,71 @@
 		}
 
 		```
+	
+	=== "Circle.java"
+		```java
+		package probeklausuren.probeklausur1;
 
+		public class Circle implements Comparable<Circle>
+		{
+		    double radius;
+
+		    Circle()
+		    {
+		        this.radius = 1.0;
+		    }
+
+		    Circle(double radius)
+		    {
+		        this.radius = radius;
+		    }
+
+		    public double getRadius()
+		    {
+		        return this.radius;
+		    }
+
+		    public double area()
+		    {
+		        return Math.PI * this.radius * this.radius;
+		    }
+
+		    public double circumference()
+		    {
+		        return 2 * Math.PI * this.radius;
+		    }
+
+		    @Override
+		    public String toString()
+		    {
+		        return "Circle [radius=" + this.radius + "]";
+		    }
+
+		    @Override
+		    public boolean equals(Object o)
+		    {
+		        if (this == o) return true;
+		        if (o == null || getClass() != o.getClass()) return false;
+		        Circle circle = (Circle) o;
+		        return circle.radius == this.radius;
+		    }
+
+		    @Override
+		    public int hashCode()
+		    {
+		        return (int) this.radius;
+		    }
+
+		    @Override
+		    public int compareTo(Circle o)
+		    {
+		        if (this.radius > o.radius) return 1;
+		        else if (this.radius < o.radius) return -1;
+		        else return 0;
+		    }
+		}
+
+		```
 
 ##### Probeklausur 2
 
