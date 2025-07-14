@@ -4154,4 +4154,1237 @@
 		
 
 
+??? success "mögliche Lösung für Probeklausur1"
+	
+	=== "Probeklausur1.java"
+		```java
+		package probeklausuren.probeklausur1;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+
+		public class Probeklausur1
+		{
+		    static Random r =  new Random();
+
+		    public static Circle createCircle(int bound)
+		    {
+		        int randNr = r.nextInt(bound);
+		        if(randNr < 2)
+		        {
+		            return new Circle();
+		        }
+		        else
+		        {
+		            return new Circle(randNr);
+		        }
+		    }
+
+		    public static List<Circle> setUpCircleList(int listLength, int bound)
+		    {
+		        List<Circle> list = new ArrayList<Circle>();
+		        for(int i = 0; i < listLength; i++)
+		        {
+		            list.add(createCircle(bound));
+		        }
+		        return list;
+		    }
+
+		    /*
+		     *   gibt eine Liste mit allen Elementen aus c1 UND c2 zurueck
+		     *   in der Liste darf jedoch kein Element doppelt vorkommen, d.h.
+		     *   wenn e1 in Liste und e2 in Liste, dann gilt !e1.equals(e2)
+		     */
+		    public static List<Circle> union(List<Circle> c1, List<Circle> c2)
+		    {
+		        Set<Circle> unionSet = new HashSet<>(c1);
+		        unionSet.addAll(c2);
+		        List<Circle> union = new ArrayList<>();
+		        union.addAll(unionSet);
+		        return union;
+		    }
+
+
+		    /*
+		     *   gibt eine Map zurueck
+		     *   Schluessel sind die Flaecheninhalte (area) der Circles
+		     *   Werte sind eine Liste aller Circle-Objekte mit diesem Flaecheninhalt
+		     */
+		    public static Map<Double, List<Circle>> createMap(List<Circle> circles)
+		    {
+		        Map<Double, List<Circle>> map = new HashMap<>();
+		        for(Circle c : circles)
+		        {
+		            double area = c.area();
+		            if(!map.containsKey(area))
+		            {
+		                List<Circle> list = new ArrayList<>();
+		                list.add(c);
+		                map.put(area, list);
+		            }
+		            else
+		            {
+		                List<Circle> list = map.get(area);
+		                list.add(c);
+		            }
+		        }
+		        return map;
+		    }
+
+		    /*
+		     *   fuegt der map alle circles passend hinzu
+		     */
+		    public static void addListToMap(Map<Double, List<Circle>> map, List<Circle> circles)
+		    {
+		        for(Circle c : circles)
+		        {
+		            double area = c.area();
+		            if(!map.containsKey(area))
+		            {
+		                List<Circle> list = new ArrayList<>();
+		                list.add(c);
+		                map.put(area, list);
+		            }
+		            else
+		            {
+		                List<Circle> list = map.get(area);
+		                list.add(c);
+		            }
+		        }
+		    }
+
+		    /*
+		     *   - uebergeben wird eine map, deren keys vom Typ Double sind
+		     *   - der Schluessel key ist vom Typ int
+		     *   - in der map wird nach einem Schluessel gesucht, dessen ganzzahliger
+		     *      Wert dem int key entspricht, d.h.
+		     *          78,654 passt zu 78
+		     *          79,01 passt nicht zu 78
+		     *   - falls ein solcher Schluessel nicht in der map existiert, wird eine
+		     *      IllegalArgumentException geworfen. Die Nachricht enthaelt den Wert des
+		     *      Schlussels, nach dem gesucht wurde, z.B. 'key 79 not found'
+		     *   - falls ein solcher Schluessel existiert, wird der erste Circle aus der
+		     *      Liste zu dem Schluessel zurueckgegeben
+		     */
+		    public static Circle getFirstCircleOfKey(Map<Double, List<Circle>> map, int key)
+		    {
+		        Double doubleKey = 0.0;
+		        for(Double key2 : map.keySet())
+		        {
+		            if(key2-key < 1 && key2-key > 0)
+		            {
+		                doubleKey = key2;
+		            }
+		        }
+		        if(doubleKey > 0.0) {
+		            return map.get(doubleKey).getFirst();
+		        } else {
+		            throw new IllegalArgumentException("key " + key + " not found");
+		        }
+		    }
+
+		    /*
+		     *   - uebergeben wird eine map, deren keys vom Typ Double sind (area())
+		     *   - die Werte sind vom Typ List<Circle>
+		     *   - in der map (in den values) wird nach einem Circle gesucht, dessen
+		     *     Radius dem Parameterwert von double radius entspricht
+		     *   - falls ein solcher Circle existiert, wird er dem Optional hinzugefuegt
+		     *     und zurückgegeben
+		     *   - falls ein solcher Circle nicht existiert, wird ein leeres Optional
+		     *     zurueckgegeben
+		     */
+		    public static Optional<Circle> getFirstCircleOfRadius(Map<Double, List<Circle>> map, double radius)
+		    {
+		        Collection<List<Circle>> circles = map.values();
+		        for(List<Circle> circleList : circles)
+		        {
+		            for(Circle circle : circleList)
+		            {
+		                if(Double.compare(circle.getRadius(), radius) == 0)
+		                {
+		                    return Optional.of(circle);
+		                }
+		            }
+		        }
+		        return Optional.empty();
+		    }
+
+		    /*
+		     * uebergeben wird eine unsortierte Liste von Circle-Objekten
+		     * zurueckgegeben wird eine sortierte Liste von Circle-Objekte
+		     * sortiert nach "natural order" (compareTo)
+		     */
+		    public static List<Circle> createSortedListOfCircles(List<Circle> circles)
+		    {
+		        return circles.stream().sorted().collect(Collectors.toList());
+		    }
+
+		    /*
+		     * uebergeben wird eine unsortierte Liste von Circle-Objekten
+		     * zurueckgegeben wird eine sortierte Liste von Circle-Objekte
+		     * - sortiert nach "natural order" (compareTo)
+		     * - gerade Radien zuerst!!!
+		     */
+		    public static List<Circle> createSortedListOfCirclesEvenRadiiFirst(List<Circle> circles)
+		    {
+		        Map<Boolean, List<Circle>> map = circles.stream().collect(Collectors.partitioningBy(c -> c.getRadius() % 2 == 1));
+		        List<Circle> circleList = map.values().stream().flatMap(v -> v.stream().sorted()).collect(Collectors.toList());
+		        return circleList;
+		    }
+
+		    /*
+		     * Hilfsmethode zur Ausgabe einer Map<Double, List<Circle>>
+		     */
+		    private static void printMapOfCircles(Map<Double, List<Circle>> map)
+		    {
+		        for(Map.Entry<Double, List<Circle>> entry : map.entrySet())
+		        {
+		            double area = entry.getKey();
+		            System.out.printf("%n-- area = %6.2f --%n",area);
+		            List<Circle> list = entry.getValue();
+		            for(Circle c : list)
+		            {
+		                System.out.println(c);
+		            }
+		        }
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n%n ---------------------- list1 und list2 ----------------------%n%n");
+		        List<Circle> list1 = setUpCircleList(10, 6);
+		        List<Circle> list2 = setUpCircleList(10, 6);
+		        System.out.println("list1: ");
+		        list1.forEach(System.out::println);
+		        System.out.println();
+		        System.out.println("list2: ");
+		        list2.forEach(System.out::println);
+
+		        System.out.printf("%n%n -------------------- union(list1, list2) --------------------%n%n");
+					        /* print List of union(list1, list2)
+					        * z.B.:
+					            Circle [radius=1.0] area=  3,14 circumference= 6,28
+					            Circle [radius=3.0] area= 28,27 circumference=18,85
+					            Circle [radius=4.0] area= 50,27 circumference=25,13
+					            Circle [radius=5.0] area= 78,54 circumference=31,42
+					        */
+		        List<Circle> union = union(list1, list2);
+		        for(Circle c : union)
+		        {
+		            System.out.printf("%s area=%6.2f circumference=%5.2f %n", c, c.area(), c.circumference());
+		        }
+
+		        System.out.printf("%n%n -------------------- createMap(list1) --------------------%n%n");
+					        /* print Map of createMap(list1)
+					        * z.B.:
+					            -- area =  28,27 --
+					            Circle [radius=3.0]
+					            Circle [radius=3.0]
+
+					            -- area =  78,54 --
+					            Circle [radius=5.0]
+
+					            -- area =   3,14 --
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+
+					            -- area =  50,27 --
+					            Circle [radius=4.0]
+
+					            -- area =  12,57 --
+					            Circle [radius=2.0]
+					        */
+		        Map<Double, List<Circle>> map = createMap(list1);
+		        printMapOfCircles(map);
+
+		        System.out.printf("%n%n -------------------- addListToMap(map,list2) --------------------%n%n");
+					        /* print Map of addListToMap(map,list2)
+					        * z.B.:
+					            -- area =  28,27 --
+					            Circle [radius=3.0]
+					            Circle [radius=3.0]
+
+					            -- area =  78,54 --
+					            Circle [radius=5.0]
+
+					            -- area =   3,14 --
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+					            Circle [radius=1.0]
+
+					            -- area =  50,27 --
+					            Circle [radius=4.0]
+
+					            -- area =  12,57 --
+					            Circle [radius=2.0]
+					        */
+		        addListToMap(map, list2);
+		        printMapOfCircles(map);
+
+		        System.out.printf("%n%n -------------------- getFirstCircleOfKey(map,int) --------------------%n%n");
+		        for(int key = 78; key < 80; key++) {
+		            try {
+		                Circle first = getFirstCircleOfKey(map, key);
+		                System.out.println("found : " + first);
+		            } catch (IllegalArgumentException e) {
+		                System.out.println(e.getMessage());
+		            }
+		        }
+
+		        System.out.printf("%n%n -------------------- getFirstCircleOfRadius(map,double) --------------------%n%n");
+		        for(double radius = 5.0; radius < 7.0; radius++) {
+		            Optional<Circle> first = getFirstCircleOfRadius(map, radius);
+		            if(first.isPresent()) {
+		                System.out.println("found for radius=" + radius +" : " + first.get());
+		            } else {
+		                System.out.println("no circle with radius=" + radius +" found");
+		            }
+		        }
+
+		        System.out.printf("%n%n -------------------- Circle is Comparable  --------------------%n%n");
+		        Circle c1 = createCircle(3);
+		        Circle c2 = createCircle(3);
+		        System.out.println("c1: " + c1);
+		        System.out.println("c2: " + c2);
+
+		        if(c1.compareTo(c2) == 0) System.out.println("c1 is equal to c2");
+		        else if(c1.compareTo(c2) > 0) System.out.println("c1 is greater than c2");
+		        else System.out.println("c1 is smaller than c2");
+
+		        System.out.printf("%n%n -------------------- createSortedListOfCircles(list) --------------------%n%n");
+
+		        List<Circle> sortedList = createSortedListOfCircles(list1);
+		        sortedList.forEach(System.out::println);
+
+		        System.out.printf("%n%n -------------------- createSortedListOfCirclesEvenRadiiFirst(list) --------------------%n%n");
+		        List<Circle> circles = createSortedListOfCirclesEvenRadiiFirst(list1);
+		        circles.forEach(System.out::println);
+		    }
+		}
+
+		```
+
+
+##### Probeklausur 2
+
+??? "Probeklausur 2"
+
+	1. Gegeben ist der `record Person` wie folgt: 
+
+	    ```java
+	    public record Person(String vorname, String nachname, int alter, String ort)
+	    {
+	        @Override
+	        public String toString()
+	        {
+	            return String.format("%-8s %-9s aus %-9s ist %2d Jahre alt.",
+	                    this.vorname, this.nachname, this.ort, this.alter);
+	        }
+	    }
+	    ```
+
+	2. Gegeben sind die Klassen `Probeklausur2` und `Probeklausur2Test` wie folgt:
+
+	    === "Probeklausur2.java"
+	        ```java
+	        probeklausuren.probeklausur2;
+
+	        import java.util.*;
+	        import java.util.stream.Stream;
+
+	        public class Probeklausur2
+	        {
+	            static Random r = new Random();
+
+	            // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+	            private static Person createPerson()
+	            {
+	                String[] vornamen = { "Sophie", "Hannah", "Emma", "Mia", "Anna", "Elif",
+	                        "Zeynep", "Fatma", "Aylin", "Derya", "Layla", "Aisha", "Noor",
+	                        "Salma", "Mariam" };
+	                String[] nachnamen = { "Schmidt", "Schneider", "Fischer", "Weber",
+	                        "Wagner", "Becker", "Yilmaz", "Kaya", "Demir", "Polat",
+	                        "Aydın", "Arslan", "Al-Haddad", "Al-Mufti", "Ibrahim", "Khalil",
+	                        "Mansour" };
+	                String[] orte = { "Berlin", "Hamburg", "Potsdam", "Dresden", "Magdeburg",
+	                        "Stuttgart", "Leipzig", "Dortmund", "Essen", "Bremen"
+	                };
+	                String vorname = vornamen[r.nextInt(vornamen.length)];
+	                String nachname = nachnamen[r.nextInt(nachnamen.length)];
+	                String ort = orte[r.nextInt(orte.length)];
+	                int alter = r.nextInt(10, 100);
+	                return new Person(vorname, nachname, alter, ort);
+	            }
+
+	            // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+	            private static Set<Person> createSetOfPersonen(int numberOfPersonen)
+	            {
+	                Set<Person> personen = new HashSet<>();
+	                for(int i = 0; i < numberOfPersonen; i++)
+	                {
+	                    personen.add(createPerson());
+	                }
+	                return personen;
+	            }
+
+	            // TODO siehe 3.
+	            public static Set<Person> createSetAelterAls(int alter, Set<Person> personen1, Set<Person> personen2)
+	            {
+	                return null; // TODO siehe 3.
+	            }
+
+	            // TODO siehe 5.
+	            public static Map<String, Set<Person>> createMapOrtPersonen(Set<Person> personen1, Set<Person> personen2)
+	            {
+	                return null; // TODO siehe 5.
+	            }
+
+	            // TODO siehe 10.
+	            public static Person getPersonAusOrt(Set<Person> personen, String ort)
+	            {
+	                return null; // TODO siehe 10.
+	            }
+
+	            // TODO siehe 13.
+	            public static Optional<Person> getPersonMitAlter(Set<Person> personen, int alter)
+	            {
+	                return null; // TODO siehe 13.
+	            }
+
+	            public static void main(String[] args)
+	            {
+	                // --------------- Vorbereitung - bleibt so ----------
+	                Set<Person> personen1 = createSetOfPersonen(10);
+	                Set<Person> personen2 = createSetOfPersonen(10);
+	                System.out.printf("%n%n--------------- personen1 set---------------------%n%n");
+	                personen1.forEach(System.out::println);
+	                System.out.printf("%n%n--------------- personen2 set---------------------%n%n");
+	                personen2.forEach(System.out::println);
+
+	                // --------------- ab hier geht's los ----------------
+
+	                System.out.printf("%n%n--------------- createSetAelterAls(alter, personen1, personen2) ---------------------%n%n");
+	                int alter = r.nextInt(10, 100);
+	                System.out.println("alle Personen aelter als " + alter + ": ");
+	                // TODO siehe 4.
+
+	                System.out.printf("%n%n--------------- createMapOrtPersonen(personen1, personen2) ---------------------%n%n");
+	                // TODO siehe 6.
+
+	                System.out.printf("%n%n--------------- sortieren von personen1 - compareTo ---------------------%n%n");
+	                // TODO siehe 8.
+
+	                System.out.printf("%n%n--------------- sortieren von personen2 - nach Alter ---------------------%n%n");
+	                // TODO siehe 9.
+
+	                System.out.printf("%n%n--------------- getPersonAusOrt(Set<Person> personen, String ort) ---------------------%n%n");
+	                // TODO siehe 11.
+
+	                System.out.printf("%n%n--------------- getPersonMitAlter(Set<Person> personen, int alter) ---------------------%n%n");
+	                for(int alter1 = 20; alter1 < 30; alter1++) {
+	                    // TODO siehe 14.
+	                }
+
+	                System.out.printf("%n%n--------------- stream Map Anfangsbuchstabe ---------------------%n%n");
+	                Stream<Person> stream1 = Stream.generate(() -> createPerson()).limit(20);
+	                // TODO siehe 15.
+
+	                // TODO siehe 16.
+
+	                // TODO siehe 17.
+
+	            }
+
+	        }
+	        ```
+	    === "Probeklausur2Test.java"
+	        ```java
+	        probeklausuren.probeklausur2;
+
+	        import org.junit.jupiter.api.BeforeAll;
+	        import org.junit.jupiter.api.DisplayName;
+	        import org.junit.jupiter.api.Test;
+
+	        import java.util.*;
+	        import java.util.stream.Collectors;
+
+	        import static org.junit.jupiter.api.Assertions.*;
+
+	        public class Probeklausur2Test
+	        {
+	            static Person p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
+	                    p11, p12, p13, p14, p15, p16, p17, p18, p19, p20;
+	            static Set<Person> persons1,  persons2;
+
+	            @BeforeAll
+	            public static void setUp()
+	            {
+	                p1 = new Person("Zeynep", "Al-Haddad", 75, "Stuttgart");
+	                p2 = new Person("Mia", "Wagner", 93, "Berlin");
+	                p3 = new Person("Mariam", "Yilmaz", 33, "Berlin");
+	                p4 = new Person("Zeynep", "Becker", 12, "Bremen");
+	                p5 = new Person("Fatma", "Becker", 27, "Magdeburg");
+	                p6 = new Person("Layla", "Aydın", 10, "Essen");
+	                p7 = new Person("Emma", "Al-Haddad", 83, "Hamburg");
+	                p8 = new Person("Mia", "Al-Mufti", 27, "Hamburg");
+	                p9 = new Person("Anna", "Schmidt", 45, "Potsdam");
+	                p10 = new Person("Elif", "Al-Mufti", 92, "Magdeburg");
+	                p11 = new Person("Anna", "Ibrahim", 61, "Bremen");
+	                p12 = new Person("Aisha", "Wagner", 78, "Potsdam");
+	                p13 = new Person("Elif", "Fischer", 42, "Dortmund");
+	                p14 = new Person("Emma", "Becker", 15, "Potsdam");
+	                p15 = new Person("Aylin", "Khalil", 72, "Bremen");
+	                p16 = new Person("Elif", "Ibrahim", 82, "Berlin");
+	                p17 = new Person("Elif", "Fischer", 12, "Leipzig");
+	                p18 = new Person("Noor", "Al-Mufti", 62, "Berlin");
+	                p19 = new Person("Mariam", "Becker", 48, "Dresden");
+	                p20 = new Person("Noor", "Schneider", 98, "Leipzig");
+
+	                persons1 = Set.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+	                persons2 = Set.of(p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+	            }
+
+	            private Comparator<Person> helpSort()
+	            {
+	                return (o1, o2) -> (o1.nachname().compareTo(o2.nachname()) == 0) ?
+	                        o1.vorname().compareTo(o2.vorname()) :
+	                        o1.nachname().compareTo(o2.nachname());
+	            }
+
+	            @Test
+	            @DisplayName("createSetAelterAls()")
+	            public void testCreateSetAelterAls()
+	            {
+	                // given persons1 and persons2
+	                int alter = 50;
+
+	                // when
+	                Set<Person> aelterAls50 = Probeklausur2.createSetAelterAls(alter, persons1, persons2);
+	                List<Person> aelterAls50Sorted = aelterAls50.stream().sorted().collect(Collectors.toList());
+	                Set<Person> expected = Set.of(p1, p2, p7, p10, p11, p12, p15, p16, p18, p20);
+	                List<Person> expectedSorted = expected.stream().sorted().collect(Collectors.toList());
+
+	                // then
+	                assertEquals(expectedSorted, aelterAls50Sorted, "createSetAelterAls() doesn't seem to work properly yet");
+	            }
+
+	            @Test
+	            @DisplayName("createMapOrtPersonen()")
+	            public void testCreateMapOrtPersonen()
+	            {
+	                // given persons1 and persons2
+
+	                // when
+	                Map<String, Set<Person>> mapOrte = Probeklausur2.createMapOrtPersonen(persons1, persons2);
+	                Set<String> orteSet = mapOrte.keySet();
+	                List<String> orteSetSorted = orteSet.stream().sorted().collect(Collectors.toList());
+
+	                Collection<Set<Person>> valuesColl = mapOrte.values();
+	                List<List<Person>> valuesLists = new ArrayList<>();
+	                for(Set<Person> set : valuesColl)
+	                {
+	                    valuesLists.add(set.stream().collect(Collectors.toList()));
+	                }
+	                List<Person> valuesListSorted = valuesLists.stream()
+	                        .flatMap( l -> l.stream().sorted( helpSort()) )
+	                        .sorted( (o1, o2) -> o1.ort().compareTo(o2.ort()) )
+	                        .collect(Collectors.toList());
+
+	                Set<String> orteExpected = Set.of("Stuttgart", "Berlin", "Bremen", "Magdeburg",
+	                                "Essen", "Hamburg", "Potsdam", "Dortmund", "Leipzig", "Dresden");
+	                List<String> orteExpectedSorted = orteSetSorted.stream().sorted().collect(Collectors.toList());
+	                List<Person> stuttgart = List.of(p1);
+	                List<Person> berlin = List.of(p2, p3, p16, p18);
+	                List<Person> bremen = List.of(p4, p11, p15);
+	                List<Person> magdeburg = List.of(p5, p10);
+	                List<Person> essen = List.of(p6);
+	                List<Person> hamburg = List.of(p7, p8);
+	                List<Person> potsdam = List.of(p9, p12, p14);
+	                List<Person> dortmund = List.of(p13);
+	                List<Person> dresden = List.of(p19);
+	                List<Person> leipzig = List.of(p17, p20);
+	                List<List<Person>> expectedSets = List.of(stuttgart, berlin, bremen, magdeburg, essen, hamburg, potsdam,
+	                        dortmund, dresden, leipzig);
+	                List<Person> expectedSetsSorted = expectedSets.stream()
+	                        .flatMap( l -> l.stream().sorted( helpSort()) )
+	                        .sorted( (o1, o2) -> o1.ort().compareTo(o2.ort()) )
+	                        .collect(Collectors.toList());
+
+	                // then
+	                assertTrue(mapOrte instanceof Map<String, Set<Person>>, "createMapOrtPersonen() doesn't seem to work properly yet (wrong return type)");
+	                assertEquals(orteExpectedSorted, orteSetSorted, "createMapOrtPersonen() doesn't seem to work properly yet (wrong key set)");
+	                assertEquals(expectedSetsSorted, valuesListSorted, "createMapOrtPersonen() doesn't seem to work properly yet (wrong value collection)");
+	            }
+
+	            @Test
+	            @DisplayName("Person is Comparable")
+	            public void testPersonIsComparable() {
+	                // given
+	                Set<Person> unsorted = Set.of(p1, p4, p5, p14, p19);
+	                List<Person> expected = List.of(p1, p14, p5, p19, p4);
+
+	                Object o = p1;
+	                if(o instanceof Comparable) {
+	                    // when
+	                    List<Person> sorted = unsorted.stream().sorted().collect(Collectors.toList());
+
+	                    // then
+	                    assertEquals(expected, sorted, "compareTo of Person not working properly yet ");
+	                }
+	                else {
+	                    fail("Person is not Comparable yet");
+	                }
+	            }
+
+	            @Test
+	            @DisplayName("getPersonMitAlter()")
+	            public void testGetPersonMitAlter()
+	            {
+	                int alter = 42;
+	                Optional<Person> result1 = Probeklausur2.getPersonMitAlter(persons1, alter);
+	                Optional<Person> result2 = Probeklausur2.getPersonMitAlter(persons2, alter);
+	                assertTrue(result1.isEmpty(),"getPersonMitAlter() doesn't seem to work properly yet");
+	                assertEquals(result2.get(), p13, "getPersonMitAlter() doesn't seem to work properly yet");
+	            }
+
+	            /*
+	             * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer 12.
+	             */
+	        }
+
+	        ```
+
+	3. Implementieren Sie die Methode `createSetAelterAls(int alter, Set<Person> personen1, Set<Person> personen2)`. Diese Methode gibt eine `Set<Person>` zurück. Die zurückgegebene `Set` anthält alle `Person`-Objekte aus `personen1` **und** `personen2`, die älter als `alter` sind. 
+
+	    --> siehe `testCreateSetAelterAls()` in `Probeklausur2Test` (Anzeige `createSetAelterAls()`)
+
+	4. Rufen Sie die `createSetAelterAls()`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene `Set` wie folgt auf der Konsole aus (Zufallswerte!):
+
+	    ```bash
+	    alle Personen aelter als 73: 
+	    Zeynep   Mansour   aus Stuttgart ist 93 Jahre alt.
+	    Elif     Arslan    aus Leipzig   ist 95 Jahre alt.
+	    Anna     Al-Mufti  aus Hamburg   ist 95 Jahre alt.
+	    Zeynep   Fischer   aus Leipzig   ist 76 Jahre alt.
+	    Sophie   Demir     aus Berlin    ist 95 Jahre alt.
+	    Salma    Schneider aus Magdeburg ist 96 Jahre alt.
+	    ```
+
+	5. Implementieren Sie die Methode `createMapOrtPersonen(Set<Person> personen1, Set<Person> personen2)`. Diese Methode gibt eine `Map<String, Set<Person>` zurück. Beachten Sie, dass der `value` in der `Map` eine `Set` und keine `List` ist! Die zurückgegebene `Set` anthält einmalig alle `Person`-Objekte aus `personen1` **und** `personen2`. Schlüssel der Map sind die `ort`-Eigenschaften der `Person`-Objekte. 
+
+	    --> siehe `testCreateMapOrtPersonen()` in `Probeklausur2Test` (Anzeige `createMapOrtPersonen()`)
+
+	6. Rufen Sie die `createMapOrtPersonen()`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene `Map` wie folgt auf der Konsole aus (Zufallswerte!):
+
+	    ```bash
+	    aus Bremen kommen : 
+	     Hannah Aydın
+
+	    aus Stuttgart kommen : 
+	     Zeynep Mansour
+	     Mia Al-Mufti
+	     Aylin Schneider
+	     Layla Demir
+
+	    aus Berlin kommen : 
+	     Mia Fischer
+	     Sophie Demir
+
+	    aus Potsdam kommen : 
+	     Elif Fischer
+
+	    aus Leipzig kommen : 
+	     Elif Arslan
+	     Zeynep Fischer
+	     Anna Schneider
+
+	    aus Magdeburg kommen : 
+	     Salma Schneider
+	     Fatma Wagner
+
+	    aus Dortmund kommen : 
+	     Zeynep Demir
+	     Mariam Wagner
+
+	    aus Hamburg kommen : 
+	     Emma Al-Haddad
+	     Anna Al-Mufti
+	     Layla Weber
+	     Fatma Ibrahim
+
+	    aus Essen kommen : 
+	     Fatma Aydın
+	    ```
+
+	7. Implementieren Sie für die Klasse `Student` das `Comparable`-Interface so, dass eine Ordnung über die Nachnamen (`nachname`) entsteht. Bei gleichem Nachnamen, wird die Ordnung über den Vornamen (`vorname`) erweitert. 
+
+	    --> siehe `testPersonIsComparable()` in `Probeklausur2Test` (Anzeige `Person is Comparable`)
+
+	8. Erzeugen Sie in der `main`-Methode aus der Menge `personen1` eine sortierte Liste unter Verwendung von `compareTo()`. Geben Sie die sortierte Liste wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    Aylin    Aydın     aus Leipzig   ist 48 Jahre alt.
+	    Hannah   Aydın     aus Magdeburg ist 37 Jahre alt.
+	    Aisha    Becker    aus Berlin    ist 64 Jahre alt.
+	    Fatma    Demir     aus Potsdam   ist 27 Jahre alt.
+	    Salma    Kaya      aus Leipzig   ist 85 Jahre alt.
+	    Sophie   Kaya      aus Berlin    ist 53 Jahre alt.
+	    Derya    Polat     aus Dortmund  ist 41 Jahre alt.
+	    Mariam   Schmidt   aus Stuttgart ist 61 Jahre alt.
+	    Emma     Schneider aus Dortmund  ist 70 Jahre alt.
+	    Layla    Yilmaz    aus Magdeburg ist 51 Jahre alt.
+	    ```
+
+
+	9. Erzeugen Sie in der `main`-Methode aus der Menge `personen2` eine nach Alter sortierte Liste. Geben Sie die sortierte Liste wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    Noor     Ibrahim   aus Hamburg   ist 30 Jahre alt.
+	    Elif     Wagner    aus Leipzig   ist 35 Jahre alt.
+	    Fatma    Weber     aus Dresden   ist 41 Jahre alt.
+	    Aylin    Weber     aus Leipzig   ist 52 Jahre alt.
+	    Layla    Khalil    aus Berlin    ist 58 Jahre alt.
+	    Zeynep   Demir     aus Bremen    ist 60 Jahre alt.
+	    Sophie   Arslan    aus Potsdam   ist 62 Jahre alt.
+	    Hannah   Schneider aus Essen     ist 71 Jahre alt.
+	    Noor     Yilmaz    aus Essen     ist 97 Jahre alt.
+	    Emma     Wagner    aus Bremen    ist 98 Jahre alt.
+	    ```
+
+	10. Implementieren Sie die Methode `getPersonAusOrt(Set<Person> personen, String ort)`. Diese Methode gibt die (erste) `Person` aus der Menge `personen` zurück, die im Ort `ort` wohnt. Existiert eine solche `Person` in `personen` nicht, wird eine `IllegalArgumentException` mit der Nachricht `Keine Person aus <ort> gefunden.` geworfen, wobei `<ort>` durch den Ort ersetzt wird, nach dem gesucht wurde. 
+
+	    --> *Tests schreiben Sie (siehe 12.)*
+
+	11. Rufen Sie die `getPersonAusOrt(Set<Person> personen, String ort)` in der `main`-Methode auf. Es wird entweder die zurückgegebene Person ausgegeben (Zufallswert):
+
+	    ```bash
+	    Elif     Kaya      aus Dresden   ist 16 Jahre alt.
+	    ```
+
+	    oder die Nachricht aus der `IllegalArgumentException` (Zufallswert):
+
+	    ```bash
+	    Keine Person aus Aachen gefunden.
+	    ```
+
+	12. Erstellen Sie in der Klasse `Probeklausur2Test` zwei Tests für die Methode `getPersonAusOrt(Set<Person> personen, String ort)`. 
+
+	    - Der erste Test soll prüfen, ob ein `Student`-Objekt korrekt aus einer gegebenen Menge für einen Ort ausgelesen wird, wenn ein passendes `Student`-Objekt existiert. 
+	    - Der zweite Test soll prüfen, ob eine Exception geworfen wird, wenn ein solches Objekt nicht existiert. Außerdem soll für diesen Fall auch die Korrektheit der Exception-Message geprüft werden. 
+
+	13. Implementieren Sie die Methode `getPersonMitAlter(Set<Person> personen, int alter)`. Diese Methode gibt ein `Optional` zurück. Dieses Optional enthält die (erste) `Person` aus der Menge `personen` mit dem Alter `alter`. Existiert eine solche `Person` in `personen` nicht, wird ein leeres `Optional` zurückgegeben. 
+
+	    --> siehe `testGetPersonMitAlter()` in `Probeklausur2Test` (Anzeige `getPersonMitAlter()`)
+
+	14. Rufen Sie die `getPersonMitAlter(Set<Person> personen, int alter)` in der `main`-Methode auf. Es wird entweder die im `Optional` enthaltene Person ausgegeben (Zufallswert):
+
+	    ```bash
+	    Elif     Kaya      aus Dresden   ist 16 Jahre alt.
+	    ```
+
+	    oder eine Nachricht der Form `Keine Person mit Alter <alter> gefunden.`, wobei `<alter>` durch das Alter ersetzt wird, nach dem gesucht wurde.
+
+	15. Gegeben ist folgender Stream aus 20 `Person`-Objekten:
+
+	    ```bash
+	    Stream<Person> stream1 = Stream.generate(() -> createPerson()).limit(20);
+	    ```
+
+	    Speichern Sie diesen Stream in eine `Map`. Die Schlüssel der `Map` sind die Anfangsbuchstaben (als `Character`) der Nachnamen der jeweiligen `Person`-Objekte. Die Werte der `Map` sind Listen der Personen, deren Nachname mit dem jeweiligen Buchstaben beginnt. 
+
+	16. Geben Sie die oben erzeugte `Map` wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    Anfangsbuchstabe A
+	    Fatma    Al-Haddad aus Dortmund  ist 61 Jahre alt.
+	    Salma    Arslan    aus Potsdam   ist 88 Jahre alt.
+	    Layla    Al-Haddad aus Berlin    ist 16 Jahre alt.
+	    Mia      Aydın     aus Dresden   ist 29 Jahre alt.
+	    Anna     Aydın     aus Potsdam   ist 41 Jahre alt.
+	    Mia      Al-Haddad aus Leipzig   ist 28 Jahre alt.
+
+	    Anfangsbuchstabe F
+	    Fatma    Fischer   aus Essen     ist 74 Jahre alt.
+	    Emma     Fischer   aus Dresden   ist 67 Jahre alt.
+
+	    Anfangsbuchstabe I
+	    Emma     Ibrahim   aus Berlin    ist 41 Jahre alt.
+
+	    Anfangsbuchstabe K
+	    Noor     Kaya      aus Stuttgart ist 19 Jahre alt.
+	    Anna     Khalil    aus Dresden   ist 63 Jahre alt.
+
+	    Anfangsbuchstabe M
+	    Fatma    Mansour   aus Magdeburg ist 63 Jahre alt.
+	    Mariam   Mansour   aus Hamburg   ist 69 Jahre alt.
+
+	    Anfangsbuchstabe P
+	    Zeynep   Polat     aus Magdeburg ist 76 Jahre alt.
+
+	    Anfangsbuchstabe S
+	    Anna     Schneider aus Essen     ist 83 Jahre alt.
+	    Sophie   Schmidt   aus Hamburg   ist 15 Jahre alt.
+	    Fatma    Schneider aus Bremen    ist 13 Jahre alt.
+
+	    Anfangsbuchstabe W
+	    Hannah   Weber     aus Magdeburg ist 69 Jahre alt.
+	    Sophie   Wagner    aus Dortmund  ist 11 Jahre alt.
+	    Anna     Weber     aus Magdeburg ist 17 Jahre alt.
+	    ``` 
+
+	    - **Achtung**: Achten Sie darauf, dass die Ausgabe in sortierter Reihenfolge der Anfangsbuchstaben erfolgt.
+	    - **Tip**: Speichern Sie die Menge der Schlüssel der Map in einer sortierten Liste und durchlaufen Sie dann die Liste.
+
+	17. Passen Sie die Ausgabe der Map so an, dass die jeweiligen Wertelisten in "natürlicher Ordnung" (Nachname + Vorname) sortiert sind:
+
+	    ```bash
+	    Anfangsbuchstabe A
+	    Anna     Al-Haddad aus Magdeburg ist 69 Jahre alt.
+	    Derya    Al-Haddad aus Leipzig   ist 37 Jahre alt.
+	    Mia      Al-Mufti  aus Hamburg   ist 45 Jahre alt.
+	    Salma    Al-Mufti  aus Hamburg   ist 30 Jahre alt.
+	    Salma    Al-Mufti  aus Leipzig   ist 90 Jahre alt.
+	    Derya    Arslan    aus Potsdam   ist 83 Jahre alt.
+	    Zeynep   Aydın     aus Dresden   ist 54 Jahre alt.
+
+	    Anfangsbuchstabe B
+	    Hannah   Becker    aus Dortmund  ist 96 Jahre alt.
+
+	    Anfangsbuchstabe D
+	    Aisha    Demir     aus Stuttgart ist 19 Jahre alt.
+	    Elif     Demir     aus Bremen    ist 30 Jahre alt.
+
+	    Anfangsbuchstabe F
+	    Hannah   Fischer   aus Dortmund  ist 36 Jahre alt.
+	    Salma    Fischer   aus Bremen    ist 44 Jahre alt.
+
+	    Anfangsbuchstabe I
+	    Aylin    Ibrahim   aus Berlin    ist 53 Jahre alt.
+
+	    Anfangsbuchstabe K
+	    Anna     Kaya      aus Potsdam   ist 82 Jahre alt.
+
+	    Anfangsbuchstabe M
+	    Noor     Mansour   aus Essen     ist 22 Jahre alt.
+
+	    Anfangsbuchstabe P
+	    Elif     Polat     aus Dresden   ist 51 Jahre alt.
+
+	    Anfangsbuchstabe W
+	    Aisha    Wagner    aus Hamburg   ist 25 Jahre alt.
+	    Aisha    Weber     aus Stuttgart ist 10 Jahre alt.
+	    Mia      Weber     aus Dortmund  ist 36 Jahre alt.
+
+	    Anfangsbuchstabe Y
+	    Sophie   Yilmaz    aus Potsdam   ist 53 Jahre alt.
+	    ```
+
+	### Punkte
+
+	|<div style="min-width: 10em; width: 20em; max-width: 30em;">Aufgabe</div> |<div style="min-width: 10em; width: 25em; max-width: 30em;">Punkte</div> |
+	|--------------|:-------------:|
+	| 3. `createSetAelterAls()` | 3 Punkte | 
+	| 4. Ausgabe | 2 Punkte | 
+	| 5. `createMapOrtPersonen()` | 6 Punkte | 
+	| 6. Ausgabe | 4 Punkte | 
+	| 7. `Comparable` | 3 Punkte | 
+	| 8. Sortieren und Ausgabe | 2 Punkte | 
+	| 9. Sortieren und Ausgabe | 2 Punkte | 
+	| 10. `getPersonAusOrt()` | 4 Punkte | 
+	| 11. Aufruf und Ausgabe | 3 Punkte | 
+	| 12. 2 JUnit-Tests | 6 Punkte | 
+	| 13. `getPersonMitAlter()` | 3 Punkte | 
+	| 14. Aufruf und Ausgabe | 3 Punkte | 
+	| 15. Map Anfangsbuchstabe | 2 Punkte | 
+	| 16. Ausgabe sortiert | 4 Punkte |
+	| 17. Werte sortiert | 2 Punkte | 
+	| korrektes Programm | 4 Punkte | 
+	| <b>gesamt</b> | <b>53 Punkte</b>  |
+
+	---
+
+
+
+??? success "mögliche Lösung für Probeklausur2"
+	
+	=== "Probeklausur2.java"
+		```java
+		package probeklausuren.probeklausur2;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+		import java.util.stream.Stream;
+
+		public class Probeklausur2
+		{
+		    static Random r = new Random();
+
+		    private static Person createPerson()
+		    {
+		        String[] vornamen = { "Sophie", "Hannah", "Emma", "Mia", "Anna", "Elif",
+		                "Zeynep", "Fatma", "Aylin", "Derya", "Layla", "Aisha", "Noor",
+		                "Salma", "Mariam" };
+		        String[] nachnamen = { "Schmidt", "Schneider", "Fischer", "Weber",
+		                "Wagner", "Becker", "Yilmaz", "Kaya", "Demir", "Polat",
+		                "Aydın", "Arslan", "Al-Haddad", "Al-Mufti", "Ibrahim", "Khalil",
+		                "Mansour" };
+		        String[] orte = { "Berlin", "Hamburg", "Potsdam", "Dresden", "Magdeburg",
+		                "Stuttgart", "Leipzig", "Dortmund", "Essen", "Bremen"
+		        };
+		        String vorname = vornamen[r.nextInt(vornamen.length)];
+		        String nachname = nachnamen[r.nextInt(nachnamen.length)];
+		        String ort = orte[r.nextInt(orte.length)];
+		        int alter = r.nextInt(10, 100);
+		        return new Person(vorname, nachname, alter, ort);
+		    }
+
+		    private static Set<Person> createSetOfPersonen(int numberOfPersonen)
+		    {
+		        Set<Person> personen = new HashSet<>();
+		        for(int i = 0; i < numberOfPersonen; i++)
+		        {
+		            personen.add(createPerson());
+		        }
+		        return personen;
+		    }
+
+		    public static Set<Person> createSetAelterAls(int alter, Set<Person> personen1, Set<Person> personen2)
+		    {
+		        Set<Person> personen = new HashSet<>();
+		        for(Person person : personen1)
+		        {
+		            if(person.alter() > alter) personen.add(person);
+		        }
+		        for(Person person : personen2)
+		        {
+		            if(person.alter() > alter) personen.add(person);
+		        }
+		        return personen;
+		    }
+
+		    public static Map<String, Set<Person>> createMapOrtPersonen(Set<Person> personen1, Set<Person> personen2)
+		    {
+		        Map<String, Set<Person>> mapOrtPersonen = new HashMap<>();
+		        Set<Person> personen = new HashSet<>(personen1);
+		        personen.addAll(personen2);
+		        for(Person person : personen)
+		        {
+		            String key = person.ort();
+		            if(mapOrtPersonen.containsKey(key))
+		            {
+		                mapOrtPersonen.get(key).add(person);
+		            }
+		            else
+		            {
+		                Set<Person> personenSet = new HashSet<>();
+		                personenSet.add(person);
+		                mapOrtPersonen.put(key, personenSet);
+		            }
+		        }
+		        return mapOrtPersonen;
+		    }
+
+		    public static Person getPersonAusOrt(Set<Person> personen, String ort) throws IllegalArgumentException
+		    {
+		        for(Person person : personen)
+		        {
+		            if(person.ort().equals(ort)) return person;
+		        }
+		        throw new IllegalArgumentException("Keine Person aus " + ort + " gefunden.");
+		    }
+
+		    public static Optional<Person> getPersonMitAlter(Set<Person> personen, int alter)
+		    {
+		        for(Person person : personen)
+		        {
+		            if(person.alter() == alter) return Optional.of(person);
+		        }
+		        return Optional.empty();
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        Set<Person> personen1 = createSetOfPersonen(10);
+		        Set<Person> personen2 = createSetOfPersonen(10);
+		        System.out.printf("%n%n--------------- personen1 set---------------------%n%n");
+		        personen1.forEach(System.out::println);
+		        System.out.printf("%n%n--------------- personen2 set---------------------%n%n");
+		        personen2.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- createSetAelterAls(alter, personen1, personen2) ---------------------%n%n");
+		        int alter = r.nextInt(10, 100);
+		        System.out.println("alle Personen aelter als " + alter + ": ");
+		        //TODO
+		        // Aufruf von createSetAelterAls(alter, personen1, personen2);
+		        // Ausgabe der zurueckgegebenen Set
+		        Set<Person> aelterAls = createSetAelterAls(alter, personen1, personen2);
+		        aelterAls.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- createMapOrtPersonen(personen1, personen2) ---------------------%n%n");
+		        //TODO
+		        // Aufruf von createMapOrtPersonen(personen1, personen2);
+		        // Ausgabe der zurueckgegebenen Map
+		        Map<String, Set<Person>> mapOrtPersonen = createMapOrtPersonen(personen1, personen2);
+		        mapOrtPersonen.forEach((k,v) -> {
+		            System.out.println("aus " + k + " kommen : ");
+		            v.forEach(p -> System.out.println(" " + p.vorname() + " " + p.nachname()));
+		            System.out.println();
+		        });
+
+		        System.out.printf("%n%n--------------- sortieren von personen1 - compareTo ---------------------%n%n");
+		        List<Person> sortiert1 = personen1.stream().sorted().collect(Collectors.toList());
+		        sortiert1.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- sortieren von personen2 - nach Alter ---------------------%n%n");
+		        List<Person> sortiert2 = personen2.stream().sorted(Comparator.comparingInt(p -> p.alter())).collect(Collectors.toList());
+		        sortiert2.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- getPersonAusOrt(Set<Person> personen, String ort) ---------------------%n%n");
+		        try {
+		            Person personAusOrt = getPersonAusOrt(personen1, "Aachen");
+		            System.out.println(personAusOrt.toString());
+		        } catch (IllegalArgumentException e) {
+		            System.out.println(e.getMessage());
+		        }
+
+		        System.out.printf("%n%n--------------- getPersonMitAlter(Set<Person> personen, int alter) ---------------------%n%n");
+		        for(int alter1 = 20; alter1 < 30; alter1++) {
+		            Optional<Person> personMitAlter = getPersonMitAlter(personen2, alter1);
+		            if (personMitAlter.isPresent()) {
+		                System.out.println(personMitAlter.get().toString());
+		            }
+		            else {
+		                System.out.println("Keine Person mit Alter " + alter1 + " gefunden.");
+		            }
+		        }
+
+		        System.out.printf("%n%n--------------- stream ---------------------%n%n");
+		        Stream<Person> stream1 = Stream.generate(() -> createPerson()).limit(20);
+		        Map<Character, List<Person>> startsWithCharMap = stream1
+		                .collect(Collectors.groupingBy(p -> p.nachname().charAt(0)));
+		        List<Character> sortedKeyList = startsWithCharMap.keySet().stream()
+		                .sorted().collect(Collectors.toList());
+		        for(Character key : sortedKeyList)
+		        {
+		            System.out.println("Anfangsbuchstabe " + key);
+		            List<Person> sortedValue = startsWithCharMap.get(key);
+		            sortedValue.sort(Comparator.naturalOrder()); // Aufgabe 17
+		            for(Person person : sortedValue)
+		            {
+		                System.out.println(person.toString());
+		            }
+		            System.out.println();
+		        }
+
+		    }
+
+		}
+		```
+	
+	=== "Probeklausur2Test.java"
+		```java
+		package probeklausuren.probeklausur2;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		public class Probeklausur2Test
+		{
+		    static Person p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
+		            p11, p12, p13, p14, p15, p16, p17, p18, p19, p20;
+		    static Set<Person> persons1,  persons2;
+
+		    @BeforeAll
+		    public static void setUp()
+		    {
+		        p1 = new Person("Zeynep", "Al-Haddad", 75, "Stuttgart");
+		        p2 = new Person("Mia", "Wagner", 93, "Berlin");
+		        p3 = new Person("Mariam", "Yilmaz", 33, "Berlin");
+		        p4 = new Person("Zeynep", "Becker", 12, "Bremen");
+		        p5 = new Person("Fatma", "Becker", 27, "Magdeburg");
+		        p6 = new Person("Layla", "Aydın", 10, "Essen");
+		        p7 = new Person("Emma", "Al-Haddad", 83, "Hamburg");
+		        p8 = new Person("Mia", "Al-Mufti", 27, "Hamburg");
+		        p9 = new Person("Anna", "Schmidt", 45, "Potsdam");
+		        p10 = new Person("Elif", "Al-Mufti", 92, "Magdeburg");
+		        p11 = new Person("Anna", "Ibrahim", 61, "Bremen");
+		        p12 = new Person("Aisha", "Wagner", 78, "Potsdam");
+		        p13 = new Person("Elif", "Fischer", 42, "Dortmund");
+		        p14 = new Person("Emma", "Becker", 15, "Potsdam");
+		        p15 = new Person("Aylin", "Khalil", 72, "Bremen");
+		        p16 = new Person("Elif", "Ibrahim", 82, "Berlin");
+		        p17 = new Person("Elif", "Fischer", 12, "Leipzig");
+		        p18 = new Person("Noor", "Al-Mufti", 62, "Berlin");
+		        p19 = new Person("Mariam", "Becker", 48, "Dresden");
+		        p20 = new Person("Noor", "Schneider", 98, "Leipzig");
+
+		        persons1 = Set.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+		        persons2 = Set.of(p11, p12, p13, p14, p15, p16, p17, p18, p19, p20);
+		    }
+
+		    private boolean checkTowSetsSameElements(Set<Person> set1, Set<Person> set2)
+		    {
+		        if(set1.size() != set2.size()) return false;
+		        for(Person p : set1) if(!set2.contains(p)) return false;
+		        for(Person p : set2) if(!set1.contains(p)) return false;
+		        return true;
+		    }
+
+		    private Comparator<Person> helpSort()
+		    {
+		        return (o1, o2) -> (o1.nachname().compareTo(o2.nachname()) == 0) ?
+		                o1.vorname().compareTo(o2.vorname()) :
+		                o1.nachname().compareTo(o2.nachname());
+		    }
+
+		    @Test
+		    @DisplayName("createSetAelterAls()")
+		    public void testCreateSetAelterAls()
+		    {
+		        // given persons1 and persons2
+		        int alter = 50;
+
+		        // when
+		        Set<Person> aelterAls50 = Probeklausur2.createSetAelterAls(alter, persons1, persons2);
+		        List<Person> aelterAls50Sorted = aelterAls50.stream().sorted().collect(Collectors.toList());
+		        Set<Person> expected = Set.of(p1, p2, p7, p10, p11, p12, p15, p16, p18, p20);
+		        List<Person> expectedSorted = expected.stream().sorted().collect(Collectors.toList());
+
+		        // then
+		        assertEquals(expectedSorted, aelterAls50Sorted, "createSetAelterAls() doesn't seem to work properly yet");
+		    }
+
+		    @Test
+		    @DisplayName("createMapOrtPersonen()")
+		    public void testCreateMapOrtPersonen()
+		    {
+		        // given persons1 and persons2
+
+		        // when
+		        Map<String, Set<Person>> mapOrte = Probeklausur2.createMapOrtPersonen(persons1, persons2);
+		        Set<String> orteSet = mapOrte.keySet();
+		        List<String> orteSetSorted = orteSet.stream().sorted().collect(Collectors.toList());
+
+		        Collection<Set<Person>> valuesColl = mapOrte.values();
+		        List<List<Person>> valuesLists = new ArrayList<>();
+		        for(Set<Person> set : valuesColl)
+		        {
+		            valuesLists.add(set.stream().collect(Collectors.toList()));
+		        }
+		        List<Person> valuesListSorted = valuesLists.stream()
+		                .flatMap( l -> l.stream().sorted( helpSort()) )
+		                .sorted( (o1, o2) -> o1.ort().compareTo(o2.ort()) )
+		                .collect(Collectors.toList());
+
+		        Set<String> orteExpected = Set.of("Stuttgart", "Berlin", "Bremen", "Magdeburg",
+		                        "Essen", "Hamburg", "Potsdam", "Dortmund", "Leipzig", "Dresden");
+		        List<String> orteExpectedSorted = orteSetSorted.stream().sorted().collect(Collectors.toList());
+		        List<Person> stuttgart = List.of(p1);
+		        List<Person> berlin = List.of(p2, p3, p16, p18);
+		        List<Person> bremen = List.of(p4, p11, p15);
+		        List<Person> magdeburg = List.of(p5, p10);
+		        List<Person> essen = List.of(p6);
+		        List<Person> hamburg = List.of(p7, p8);
+		        List<Person> potsdam = List.of(p9, p12, p14);
+		        List<Person> dortmund = List.of(p13);
+		        List<Person> dresden = List.of(p19);
+		        List<Person> leipzig = List.of(p17, p20);
+		        List<List<Person>> expectedSets = List.of(stuttgart, berlin, bremen, magdeburg, essen, hamburg, potsdam,
+		                dortmund, dresden, leipzig);
+		        List<Person> expectedSetsSorted = expectedSets.stream()
+		                .flatMap( l -> l.stream().sorted( helpSort()) )
+		                .sorted( (o1, o2) -> o1.ort().compareTo(o2.ort()) )
+		                .collect(Collectors.toList());
+
+		        // then
+		        assertTrue(mapOrte instanceof Map<String, Set<Person>>, "createMapOrtPersonen() doesn't seem to work properly yet (wrong return type)");
+		        assertEquals(orteExpectedSorted, orteSetSorted, "createMapOrtPersonen() doesn't seem to work properly yet (wrong key set)");
+		        assertEquals(expectedSetsSorted, valuesListSorted, "createMapOrtPersonen() doesn't seem to work properly yet (wrong value collection)");
+		    }
+
+		    @Test
+		    @DisplayName("Person is Comparable")
+		    public void testPersonIsComparable() {
+		        // given
+		        Set<Person> unsorted = Set.of(p1, p4, p5, p14, p19);
+		        List<Person> expected = List.of(p1, p14, p5, p19, p4);
+
+		        assertTrue(p1 instanceof Comparable, "Person is not Comparable yet");
+		        if(p1 instanceof Comparable) {
+
+		            // when
+		            List<Person> sorted = unsorted.stream().sorted().collect(Collectors.toList());
+
+		            // then
+		            assertEquals(expected, sorted, "compareTo of Person not working properly yet ");
+		        }
+		    }
+
+		    @Test
+		    @DisplayName("getPersonMitAlter()")
+		    public void testGetPersonMitAlter()
+		    {
+		        int alter = 42;
+		        Optional<Person> result1 = Probeklausur2.getPersonMitAlter(persons1, alter);
+		        Optional<Person> result2 = Probeklausur2.getPersonMitAlter(persons2, alter);
+		        assertTrue(result1.isEmpty(),"getPersonMitAlter() doesn't seem to work properly yet");
+		        assertEquals(result2.get(), p13, "getPersonMitAlter() doesn't seem to work properly yet");
+		    }
+
+		    /*
+		     * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer 12.
+		     */
+
+		    @Test
+		    @DisplayName("getPersonAusOrt() - Student")
+		    public void testGetPersonAusOrt()
+		    {
+		        Person result = Probeklausur2.getPersonAusOrt(persons1, "Essen");
+		        assertEquals(p6, result, "getPersonAusOrt(persons1, Essen)");
+		    }
+
+		    @Test
+		    @DisplayName("getPersonAusOrt() - Exception")
+		    public void testGetPersonAusOrtException()
+		    {
+		        Exception e = assertThrows(IllegalArgumentException.class, () -> Probeklausur2.getPersonAusOrt(persons1, "Leipzig"));
+		        assertEquals("Keine Person aus Leipzig gefunden.", e.getMessage(), "getPersonAusOrt(persons1, Leipzig)");
+		    }
+		}
+		```
+	
+	=== "Person.java"
+		```java
+		package probeklausuren.probeklausur2;
+
+		public record Person(String vorname, String nachname, int alter, String ort) implements Comparable<Person>
+		{
+		    @Override
+		    public String toString()
+		    {
+		        return String.format("%-8s %-9s aus %-9s ist %2d Jahre alt.",
+		                this.vorname, this.nachname, this.ort, this.alter);
+		    }
+
+		    @Override
+		    public int compareTo(Person o)
+		    {
+		        if(this.nachname.compareTo(o.nachname) != 0) return this.nachname.compareTo(o.nachname);
+		        else return this.vorname.compareTo(o.vorname);
+		    }
+		}
+		```
+
+
 
