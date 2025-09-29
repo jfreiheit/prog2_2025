@@ -5048,29 +5048,29 @@
 	    Sophie   Yilmaz    aus Potsdam   ist 53 Jahre alt.
 	    ```
 
-	### Punkte
+		<h3>Punkte</h3>
 
-	|<div style="min-width: 10em; width: 20em; max-width: 30em;">Aufgabe</div> |<div style="min-width: 10em; width: 25em; max-width: 30em;">Punkte</div> |
-	|--------------|:-------------:|
-	| 3. `createSetAelterAls()` | 3 Punkte | 
-	| 4. Ausgabe | 2 Punkte | 
-	| 5. `createMapOrtPersonen()` | 6 Punkte | 
-	| 6. Ausgabe | 4 Punkte | 
-	| 7. `Comparable` | 3 Punkte | 
-	| 8. Sortieren und Ausgabe | 2 Punkte | 
-	| 9. Sortieren und Ausgabe | 2 Punkte | 
-	| 10. `getPersonAusOrt()` | 4 Punkte | 
-	| 11. Aufruf und Ausgabe | 3 Punkte | 
-	| 12. 2 JUnit-Tests | 6 Punkte | 
-	| 13. `getPersonMitAlter()` | 3 Punkte | 
-	| 14. Aufruf und Ausgabe | 3 Punkte | 
-	| 15. Map Anfangsbuchstabe | 2 Punkte | 
-	| 16. Ausgabe sortiert | 4 Punkte |
-	| 17. Werte sortiert | 2 Punkte | 
-	| korrektes Programm | 4 Punkte | 
-	| <b>gesamt</b> | <b>53 Punkte</b>  |
+		|<div style="min-width: 10em; width: 20em; max-width: 30em;">Aufgabe</div> |<div style="min-width: 10em; width: 25em; max-width: 30em;">Punkte</div> |
+		|--------------|:-------------:|
+		| 3. `createSetAelterAls()` | 3 Punkte | 
+		| 4. Ausgabe | 2 Punkte | 
+		| 5. `createMapOrtPersonen()` | 6 Punkte | 
+		| 6. Ausgabe | 4 Punkte | 
+		| 7. `Comparable` | 3 Punkte | 
+		| 8. Sortieren und Ausgabe | 2 Punkte | 
+		| 9. Sortieren und Ausgabe | 2 Punkte | 
+		| 10. `getPersonAusOrt()` | 4 Punkte | 
+		| 11. Aufruf und Ausgabe | 3 Punkte | 
+		| 12. 2 JUnit-Tests | 6 Punkte | 
+		| 13. `getPersonMitAlter()` | 3 Punkte | 
+		| 14. Aufruf und Ausgabe | 3 Punkte | 
+		| 15. Map Anfangsbuchstabe | 2 Punkte | 
+		| 16. Ausgabe sortiert | 4 Punkte |
+		| 17. Werte sortiert | 2 Punkte | 
+		| korrektes Programm | 4 Punkte | 
+		| <b>gesamt</b> | <b>53 Punkte</b>  |
 
-	---
+		---
 
 
 
@@ -5451,4 +5451,1125 @@
 		```
 
 
+##### Probeklausur 3
 
+??? "Probeklausur 3"
+
+	1. Gegeben ist der `record Adresse` wie folgt: 
+
+	    ```java
+	    public record Adresse(String stadt, int plz, String strasse, short hausnummer)
+	    {
+	        @Override
+	        public String toString()
+	        {
+	            return String.format("%-21s in %5d %-9s",
+	                    this.strasse + " " + this.hausnummer, this.plz, this.stadt);
+	        }
+	    }
+	    ```
+
+	2. Gegeben sind die Klassen `Probeklausur3` und `Probeklausur3Test` wie folgt:
+
+	    === "Probeklausur3.java"
+	        ```java
+	        package klausur;
+
+	        import java.util.*;
+
+	        public class Probeklausur3
+	        {
+	            static Random r = new Random();
+
+	            // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+	            private static Adresse createAdresse()
+	            {
+	                String[] strassen = {"Sonnenblumenweg", "Waldlichtungstraße", "Mondscheinpfad",
+	                        "Glückskleeallee", "Regenbogenpromenade", "Sternenstaubgasse",
+	                        "Kastanienhain", "Lavendelweg", "Wasserfallgasse", "Kirschblütenallee"};
+	                String[] staedte = {"Berlin", "Hamburg", "München", "Köln", "Stuttgart"};
+	                Map<String, List<Integer>> postleitzahlen = Map.of(
+	                        "Berlin", List.of(13187, 10245, 10437, 10318, 12167, 12555),
+	                        "Hamburg", List.of(22525, 20359),
+	                        "München", List.of(80939, 81547, 80802),
+	                        "Köln", List.of(50933, 50697, 50667),
+	                        "Stuttgart", List.of(70372)
+	                );
+	                short nr = (short)(r.nextInt(10) + 1);
+	                String strasse = strassen[r.nextInt(strassen.length)];
+	                String stadt = staedte[r.nextInt(staedte.length)];
+	                var values = postleitzahlen.get(stadt);
+	                int plz = values.get(r.nextInt(values.size()));
+	                return new Adresse(stadt, plz, strasse, nr);
+	            }
+
+	            // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+	            public static Set<Adresse> createSetOfAdressen(int numberOfAdressen)
+	            {
+	                Set<Adresse> adressen = new HashSet<>();
+	                for(int i = 0; i < numberOfAdressen; i++)
+	                {
+	                    adressen.add(createAdresse());
+	                }
+	                return adressen;
+	            }
+
+	            /*  TODO 3:
+	             *  Map erzeugen,
+	             *  Schluessel sind die Staedte aus adressen
+	             *  Werte sind Listen aus adressen mit der entsprechenden Stadt
+	             */
+	            public static Map<String, List<Adresse>> createMapIndexedByCity(Set<Adresse> adressen)
+	            {
+	                return null; // TODO siehe 3.
+	            }
+
+	            /*  TODO 6:
+	             *  Map erzeugen,
+	             *  Schluessel sind die Staedte aus adressen
+	             *  Werte sind Mengen aus den postleitzahlen der entsprechenden Stadt
+	             */
+	            public static Map<String, Set<Integer>> createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen)
+	            {
+	                return null; // TODO siehe 6.
+	            }
+
+	            /*  TODO 8:
+	             *  Map erzeugen,
+	             *  Schluessel sind die Strassen, die in adressen in MEHREREN Staedten vorkommen
+	             *  Werte sind Liste der Staedte mit den entsprechenden Strassen
+	             */
+	            public static Map<String, List<String>> createMapStreetsMultiple(Set<Adresse> adressen)
+	            {
+	                return null; // TODO siehe 8.
+	            }
+
+	            /*  TODO 10:
+	             *  Stadt mit plz aus adressen suchen,
+	             *  wenn Stadt mit plz existiert, dann Stadt zurueckgeben
+	             *  wenn Stadt mit plz nicht existiert, dann IllegalArgumentException werfen
+	             */
+	            public static String getStadtMitPLZ(Set<Adresse> adressen, int plz)
+	            {
+	                return null; // TODO siehe 10.
+	            }
+
+	            /*  TODO 13:
+	             *  Stadt mit plzStartsWith aus adressen suchen,
+	             *  plzStartsWith ist der Beginn einer Postleitzahl, z.B. 22
+	             *  wenn Stadt mit plzStartsWith existiert, dann Stadt im Optional zurueckgeben
+	             *  wenn Stadt mit plzStartsWith nicht existiert, dann leeres Optional zurueckgeben
+	             */
+	            public static Optional<String> getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith)
+	            {
+	                return null; // TODO siehe 13.
+	            }
+
+	            /*
+	             *  folgende Methode auskommentieren, nachdem Sie Interface Filterable erstellt haben
+	             *  siehe TODO 15 und 16
+	             */
+	            /*
+	            public static List<Adresse> filterAdressen(Set<Adresse> adressen, Filterable filter) {
+	                return adressen.stream()
+	                        .filter(filter::filter)
+	                        .collect(Collectors.toList());
+	            }
+	            */
+
+	            public static void main(String[] args)
+	            {
+	                // --------------- Vorbereitung - bleibt so ---------->
+	                Set<Adresse> adressen = createSetOfAdressen(20);
+	                System.out.printf("%n%n--------------- adressen set---------------------%n%n");
+	                adressen.forEach(System.out::println);
+	                // <--------------- Vorbereitung - bleibt so ----------
+
+	                System.out.printf("%n%n--------------- createMapIndexedByCity(Set<Adresse> adressen) ---------------------%n%n");
+	                // TODO siehe 4.
+
+	                System.out.printf("%n%n----------- createMapIndexedByCity(Set<Adresse> adressen) sortiert ------------------%n%n");
+	                // TODO siehe 5.
+
+	                System.out.printf("%n%n----------- createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen) ------------------%n%n");
+	                // TODO siehe 7.
+
+	                System.out.printf("%n%n-------------- createMapStreetsMultiple(Set<Adresse> adressen) ---------------------%n%n");
+	                // TODO siehe 9.
+
+	                System.out.printf("%n%n--------------- getStadtMitPLZ(Set<Adresse> adressen, int plz) ---------------------%n%n");
+	                // TODO siehe 11.
+
+	                System.out.printf("%n%n---------- getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith) -------------%n%n");
+	                for(int plzStartsWith = 21; plzStartsWith < 24; plzStartsWith++) {
+	                    // TODO siehe 14.
+	                }
+
+	                System.out.printf("%n%n------ Filterable und filterAdressen(Set<Adresse> adressen, Filterable filter) ------%n%n");
+	                // TODO siehe 15 und 16.
+	                // vorher Kommentare von Methode filterAdressen(Set<Adresse> adressen, Filterable filter) entfernen!
+
+
+	                System.out.printf("%n%n------ Liste aller Staedte (keine Doppelungen) aus adressen alphabetisch sortiert ------%n%n");
+	                // TODO siehe 17.
+
+	                System.out.printf("%n%n------ Liste aller Strassen + Hausnummer aus adressen alphabetisch absteigend sortiert ------%n%n");
+	                // TODO siehe 18.
+	            }
+	        }
+	        ```
+	    === "Probeklausur3Test.java"
+	        ```java
+	        package aufgabe;
+
+	        import org.junit.jupiter.api.BeforeAll;
+	        import org.junit.jupiter.api.DisplayName;
+	        import org.junit.jupiter.api.Test;
+
+	        import java.util.*;
+
+	        import static org.junit.jupiter.api.Assertions.*;
+
+	        public class Probeklausur3Test
+	        {
+	            static Adresse a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20;
+	            static Set<Adresse> adressen;
+
+	            @BeforeAll
+	            public static void setUp()
+	            {
+	                a1= new Adresse("Köln",50667,"Waldlichtungstraße",(short)10);
+	                a2= new Adresse("München",80939,"Lavendelweg",(short)1);
+	                a3= new Adresse("Hamburg",20359,"Sternenstaubgasse",(short)7);
+	                a4= new Adresse("Köln",50697,"Sonnenblumenweg",(short)6);
+	                a5= new Adresse("Köln",50697,"Kastanienhain",(short)1);
+	                a6= new Adresse("München",81547,"Wasserfallgasse",(short)6);
+	                a7= new Adresse("München",80939,"Glückskleeallee",(short)1);
+	                a8= new Adresse("Köln",50697,"Sternenstaubgasse",(short)10);
+	                a9= new Adresse("Hamburg",22525,"Kirschblütenallee",(short)6);
+	                a10= new Adresse("Köln",50667,"Lavendelweg",(short)7);
+	                a11= new Adresse("Stuttgart",70372,"Sternenstaubgasse",(short)4);
+	                a12= new Adresse("Berlin",12167,"Regenbogenpromenade",(short)4);
+	                a13= new Adresse("Hamburg",22525,"Regenbogenpromenade",(short)2);
+	                a14= new Adresse("Hamburg",20359,"Kirschblütenallee",(short)5);
+	                a15= new Adresse("Berlin",12555,"Kirschblütenallee",(short)6);
+	                a16= new Adresse("Berlin",10437,"Kirschblütenallee",(short)10);
+	                a17= new Adresse("München",80939,"Waldlichtungstraße",(short)5);
+	                a18= new Adresse("Köln",50933,"Sonnenblumenweg",(short)6);
+	                a19= new Adresse("Berlin",12555,"Regenbogenpromenade",(short)4);
+	                a20= new Adresse("München",81547,"Mondscheinpfad",(short)1);
+
+	                Adresse[] arr_adressen = {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20};
+
+	                adressen = new HashSet<Adresse>();
+	                for(Adresse adresse : arr_adressen) adressen.add(adresse);
+	            }
+
+	            private static boolean stringSetsAreIdentical(Set<String> set1, Set<String> set2)
+	            {
+	                if (set1.size() != set2.size()) return false;
+	                for(String word : set1)
+	                {
+	                    if(!set2.contains(word)) return false;
+	                }
+	                for(String word : set2)
+	                {
+	                    if(!set1.contains(word)) return false;
+	                }
+	                return true;
+	            }
+
+	            private static boolean integerSetsAreIdentical(Set<Integer> set1, Set<Integer> set2)
+	            {
+	                if (set1.size() != set2.size()) return false;
+	                for(Integer number : set1)
+	                {
+	                    if(!set2.contains(number)) return false;
+	                }
+	                for(Integer number : set2)
+	                {
+	                    if(!set1.contains(number)) return false;
+	                }
+	                return true;
+	            }
+
+	            private static boolean addressListsAreIdentical(List<Adresse> list1, List<Adresse> list2)
+	            {
+	                if (list1.size() != list2.size()) return false;
+	                for(Adresse adresse : list1)
+	                {
+	                    if(!list2.contains(adresse)) return false;
+	                }
+	                for(Adresse adresse : list2)
+	                {
+	                    if(!list1.contains(adresse)) return false;
+	                }
+	                return true;
+	            }
+
+	            private static boolean stringListsAreIdentical(List<String> list1, List<String> list2)
+	            {
+	                if (list1.size() != list2.size()) return false;
+	                for(String word : list1)
+	                {
+	                    if(!list2.contains(word)) return false;
+	                }
+	                for(String word : list2)
+	                {
+	                    if(!list1.contains(word)) return false;
+	                }
+	                return true;
+	            }
+
+
+	            @Test
+	            @DisplayName("createMapIndexedByCity()")
+	            public void testCreateMapIndexedByCity()
+	            {
+	                //given
+	                Map<String, List<Adresse>> map1 = new HashMap<>();
+	                map1.put("Berlin", List.of(a12,a15,a16,a19));
+	                map1.put("Köln", List.of(a1,a4,a5,a8,a10,a18));
+	                map1.put("Hamburg", List.of(a3,a9,a13,a14));
+	                map1.put("München", List.of(a2,a6,a7,a17,a20));
+	                map1.put("Stuttgart", List.of(a11));
+
+	                //when
+	                Map<String, List<Adresse>> map2 = Probeklausur3.createMapIndexedByCity(adressen);
+
+	                //then
+	                assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+	                assertTrue(addressListsAreIdentical(map1.get("Berlin"), map2.get("Berlin")), "address list for Berlin seems to be wrong");
+	                assertTrue(addressListsAreIdentical(map1.get("Köln"), map2.get("Köln")), "address list for Köln seems to be wrong");
+	                assertTrue(addressListsAreIdentical(map1.get("Hamburg"), map2.get("Hamburg")), "address list for Hamburg seems to be wrong");
+	                assertTrue(addressListsAreIdentical(map1.get("München"), map2.get("München")), "address list for München seems to be wrong");
+	                assertTrue(addressListsAreIdentical(map1.get("Stuttgart"), map2.get("Stuttgart")), "address list for Stuttgart seems to be wrong");
+	            }
+
+	            @Test
+	            @DisplayName("createMapIndexedByCitySetOfPLZ()")
+	            public void testCreateMapIndexedByCitySetOfPLZ()
+	            {
+	                //given
+	                Map<String, Set<Integer>> map1 = new HashMap<>();
+	                map1.put("Berlin", Set.of(12167,12555,10437));
+	                map1.put("Köln", Set.of(50667,50697,50933));
+	                map1.put("Hamburg", Set.of(20359,22525));
+	                map1.put("München", Set.of(80939,81547));
+	                map1.put("Stuttgart", Set.of(70372));
+
+	                //when
+	                Map<String, Set<Integer>> map2 = Probeklausur3.createMapIndexedByCitySetOfPLZ(adressen);
+
+	                //then
+	                assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+	                assertTrue(integerSetsAreIdentical(map1.get("Berlin"), map2.get("Berlin")), "plz set for Berlin seems to be wrong");
+	                assertTrue(integerSetsAreIdentical(map1.get("Köln"), map2.get("Köln")), "plz set for Köln seems to be wrong");
+	                assertTrue(integerSetsAreIdentical(map1.get("Hamburg"), map2.get("Hamburg")), "plz set for Hamburg seems to be wrong");
+	                assertTrue(integerSetsAreIdentical(map1.get("München"), map2.get("München")), "plz set for München seems to be wrong");
+	                assertTrue(integerSetsAreIdentical(map1.get("Stuttgart"), map2.get("Stuttgart")), "plz set for Stuttgart seems to be wrong");
+	            }
+
+	            @Test
+	            @DisplayName("createMapStreetsMultiple()")
+	            public void testCreateMapStreetsMultiple()
+	            {
+	                //given
+	                Map<String, List<String>> map1 = new HashMap<>();
+	                map1.put("Waldlichtungstraße", List.of("Köln","München"));
+	                map1.put("Sternenstaubgasse", List.of("Köln","Hamburg","Stuttgart"));
+	                map1.put("Lavendelweg", List.of("Köln","München"));
+	                map1.put("Kirschblütenallee", List.of("Hamburg","Berlin"));
+	                map1.put("Regenbogenpromenade", List.of("Hamburg","Berlin"));
+
+	                //when
+	                Map<String, List<String>> map2 = Probeklausur3.createMapStreetsMultiple(adressen);
+
+	                //then
+	                assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+	                assertTrue(stringListsAreIdentical(map1.get("Waldlichtungstraße"), map2.get("Waldlichtungstraße")), "createMapStreetsMultiple seems to be wrong");
+	                assertTrue(stringListsAreIdentical(map1.get("Sternenstaubgasse"), map2.get("Sternenstaubgasse")), "createMapStreetsMultiple seems to be wrong");
+	                assertTrue(stringListsAreIdentical(map1.get("Lavendelweg"), map2.get("Lavendelweg")), "createMapStreetsMultiple seems to be wrong");
+	                assertTrue(stringListsAreIdentical(map1.get("Kirschblütenallee"), map2.get("Kirschblütenallee")), "createMapStreetsMultiple seems to be wrong");
+	                assertTrue(stringListsAreIdentical(map1.get("Regenbogenpromenade"), map2.get("Regenbogenpromenade")), "createMapStreetsMultiple seems to be wrong");
+	            }
+
+	            @Test
+	            @DisplayName("getStadtMitPLZstartsWith()")
+	            public void testGetStadtMitPLZstartsWith()
+	            {
+	                //given
+	                int plzStartsWith1 = 22;
+	                int plzStartsWith2 = 23;
+
+	                //when
+	                Optional<String> result1 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith1);
+	                Optional<String> result2 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith2);
+	                assertEquals(result2.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+	                assertTrue(result1.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+	            }
+
+	            /*
+	             * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer 12.
+	             */
+
+	        }
+
+	        ```
+
+	3. Implementieren Sie die Methode `createMapIndexedByCity(Set<Adresse> adressen)`. Diese Methode gibt eine `Map<String, List<Adresse>>` zurück. Die zurückgegebene `Map` anthält als Schlüssel alle Städte aus `adressen`. Die Werte sind die Listen von Adressen aus den entsprechenden Städten. 
+
+	    --> siehe `testCreateMapIndexedByCity()` in `Probeklausur3Test` (Anzeige `createMapIndexedByCity()`)
+
+	4. Rufen Sie die `createMapIndexedByCity()`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene `Map` wie folgt auf der Konsole aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- createMapIndexedByCity(Set<Adresse> adressen) ---------------------
+
+	    Stadt : Berlin
+	    ---------------------
+	    Sonnenblumenweg 1
+	    Sternenstaubgasse 8
+	    Kirschblütenallee 5
+	    Kirschblütenallee 7
+	    Kirschblütenallee 6
+	    ---------------------
+
+	    Stadt : Stuttgart
+	    ---------------------
+	    Sonnenblumenweg 4
+	    Mondscheinpfad 10
+	    Regenbogenpromenade 2
+	    Kirschblütenallee 7
+	    Lavendelweg 1
+	    Regenbogenpromenade 6
+	    Lavendelweg 10
+	    Sonnenblumenweg 10
+	    ---------------------
+
+	    Stadt : Köln
+	    ---------------------
+	    Waldlichtungstraße 8
+	    Glückskleeallee 3
+	    ---------------------
+
+	    Stadt : Hamburg
+	    ---------------------
+	    Mondscheinpfad 6
+	    Glückskleeallee 6
+	    ---------------------
+
+	    Stadt : München
+	    ---------------------
+	    Glückskleeallee 1
+	    Waldlichtungstraße 6
+	    Waldlichtungstraße 2
+	    ---------------------
+	    ```
+
+	    d.h. immer erst die Stadt, dann eine Linie (Länge egal), dann aus den Adressen jeweils Straße und Hausnummer. Zuletzt eine Linie und eine Leerzeile.
+
+	5. Geben Sie nun in `main` die gleiche `Map` (aus `5.`) sortiert aus, d.h. sowohl die Städte erscheinen in sortierter Reihenfolge als auch für jede einzelne Stadt die Straßen aus den Adressen). Bei gleichem Straßennamen wird nach Hausnummer sortiert.
+
+	    ```bash
+	    ----------- createMapIndexedByCity(Set<Adresse> adressen) sortiert ------------------
+
+	    Stadt : Berlin
+	    ---------------------
+	    Kirschblütenallee 5
+	    Kirschblütenallee 6
+	    Kirschblütenallee 7
+	    Sonnenblumenweg 1
+	    Sternenstaubgasse 8
+	    ---------------------
+
+	    Stadt : Hamburg
+	    ---------------------
+	    Glückskleeallee 6
+	    Mondscheinpfad 6
+	    ---------------------
+
+	    Stadt : Köln
+	    ---------------------
+	    Glückskleeallee 3
+	    Waldlichtungstraße 8
+	    ---------------------
+
+	    Stadt : München
+	    ---------------------
+	    Glückskleeallee 1
+	    Waldlichtungstraße 2
+	    Waldlichtungstraße 6
+	    ---------------------
+
+	    Stadt : Stuttgart
+	    ---------------------
+	    Kirschblütenallee 7
+	    Lavendelweg 1
+	    Lavendelweg 10
+	    Mondscheinpfad 10
+	    Regenbogenpromenade 2
+	    Regenbogenpromenade 6
+	    Sonnenblumenweg 4
+	    Sonnenblumenweg 10
+	    ---------------------
+	    ```
+
+	6. Implementieren Sie die Methode `createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen)`. Diese Methode gibt eine `Map<String, Set<Integer>>` zurück. Die zurückgegebene `Map` anthält als Schlüssel alle Städte aus `adressen`. Die Werte sind die **Mengen** der Postleitzahlen der entsprechenden Stadt aus `adressen`. 
+
+	    --> siehe `testCreateMapIndexedByCitySetOfPLZ()` in `Probeklausur3Test` (Anzeige `createMapIndexedByCitySetOfPLZ()`)
+
+
+	7. Rufen Sie die `createMapIndexedByCitySetOfPLZ()`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene `Map` wie folgt auf der Konsole aus (Zufallswerte!):
+
+	    ```bash
+	    ----------- createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen) ------------------
+
+	    Berlin     : [ 13187 12167 12555 10318 ]
+	    Stuttgart  : [ 70372 ]
+	    Köln       : [ 50667 ]
+	    Hamburg    : [ 22525 ]
+	    München    : [ 80802 81547 ]
+	    ```
+
+	    d.h. immer erst die Stadt, dann Postleitzahlen in eckigen Klammern durch Leerzeichen getrennt.
+
+	8. Implementieren Sie die Methode `createMapStreetsMultiple(Set<Adresse> adressen)`. Diese Methode gibt eine `Map<String, List<String>>` zurück. Die zurückgegebene `Map` anthält als Schlüssel alle Straßen, die in `adressen` in **mehreren** Städten vorkommen. Die Werte sind die Listen der Städte mit den entsprechenden Straßen.  
+
+	    --> siehe `testCreateMapStreetsMultiple()` in `Probeklausur3Test` (Anzeige `createMapStreetsMultiple()`)
+
+	    **Tipp**: Sie könnten sich erst eine Map erstellen mit den Straßen als Schlüssel und Mengen der Adressen als Werte, dann diese Map durchgehen und schauen, welche Wertemengen größer als 1 sind.
+
+	9. Rufen Sie die `createMapStreetsMultiple()`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene `Map` wie folgt auf der Konsole aus (Zufallswerte!)::
+
+	    ```bash
+	    -------------- createMapStreetsMultiple(Set<Adresse> adressen) ---------------------
+
+	    Glückskleeallee      : [ Köln Hamburg München ]
+	    Waldlichtungstraße   : [ Köln München ]
+	    Kirschblütenallee    : [ Stuttgart Berlin ]
+	    Mondscheinpfad       : [ Stuttgart Hamburg ]
+	    Sonnenblumenweg      : [ Stuttgart Berlin ]
+	    ```
+
+	    d.h. immer erst die Straße, dann die Städte in eckigen Klammern durch Leerzeichen getrennt.
+
+	10. Implementieren Sie die Methode `getStadtMitPLZ(Set<Adresse> adressen, int plz)`. Diese Methode gibt die `Stadt` aus der Menge `adressen` zurück, für die Postleitzahl `plz` verwendet wird. Existiert eine solche `Stadt` in `adressen` nicht, wird eine `IllegalArgumentException` mit der Nachricht `Keine Stadt mit Postleitzahl <plz> gefunden.` geworfen, wobei `<plz>` durch die Postleitzahl ersetzt wird, nach der gesucht wurde. 
+
+	    --> *Tests schreiben Sie (siehe 12.)*
+
+	11. Rufen Sie die `getStadtMitPLZ(Set<Adresse> adressen, int plz)` in der `main`-Methode auf. Es wird entweder die zurückgegebene Stadt ausgegeben (hier für Wert `22525`):
+
+	    ```bash
+	    Hamburg
+	    ```
+
+	    oder die Nachricht aus der `IllegalArgumentException` (hier für Wert `22526`):
+
+	    ```bash
+	    Keine Stadt mit Postleitzahl 22526 gefunden.
+	    ```
+
+	12. Erstellen Sie in der Klasse `KlausurTest` zwei Tests für die Methode `getStadtMitPLZ(Set<Adresse> adressen, int plz)`. 
+
+	    - Der erste Test soll prüfen, ob eine `Stadt` korrekt aus einer gegebenen Menge (Sie können `adressen` aus `KlausrTest` verwenden) für eine gegebene Postleitzahl ausgelesen wird, wenn eine passende `Stadt` existiert. 
+	    - Der zweite Test soll prüfen, ob eine Exception geworfen wird, wenn eine solche Stadt nicht existiert. Außerdem soll für diesen Fall auch die Korrektheit der Exception-Message geprüft werden. 
+
+	13. Implementieren Sie die Methode `getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith)`. Diese Methode gibt ein `Optional` zurück. Dieses Optional enthält die `Stadt` aus der Menge `adressen` mit einer Postleitzahl, die mit `plzStartsWith` beginnt (z.B. `22` ist ein passender Beginn für die Postleitzahl `22525`). Existiert eine solche `Stadt` in `adressen` nicht, wird ein leeres `Optional` zurückgegeben. 
+
+	    --> siehe `testGetStadtMitPLZstartsWith()` in `Probeklausur3Test` (Anzeige `getStadtMitPLZstartsWith()`)
+
+	14. Rufen Sie die `getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith)` in der `main`-Methode auf. Es wird entweder die im `Optional` enthaltene Stadt ausgegeben (hier z.B. für `22`):
+
+	    ```bash
+	    Hamburg
+	    ```
+
+	    oder eine Nachricht der Form `Keine Stadt gefunden, deren Postleitzahl mit <plzStartsWith> gefunden.`, wobei `<plzStartsWith>` durch die Zahl ersetzt wird, nach der gesucht wurde (z.B. `21` oder `23`).
+
+	15. Erstellen Sie ein *functional Interface* `Filterable` mit der Methode `filter(Adresse adresse)`. Diese Methode gibt ein `boolean` zurück. <br>Entfernen Sie nach Erstellung des Interfaces die Kommentare um die Methode `filterAdressen(Set<Adresse> adressen, Filterable filter)`.
+
+
+	16. Erzeugen Sie in der `main`-Methode einen Lambda-Ausdruck vom Typ `Filterable`, der für eine gegebene `Adresse` prüft, ob die in `Adresse` enthaltene `Stadt` `"Berlin"` ist. Rufen Sie die Methode `filterAdressen(Set<Adresse> adressen, Filterable filter)` und geben Sie die zurückgegebene Liste aus (Zufallswerte):
+
+	    ```bash
+	    ------ Filterable und filterAdressen(Set<Adresse> adressen, Filterable filter) ------
+
+	    Sonnenblumenweg 1     in 10318 Berlin   
+	    Sternenstaubgasse 8   in 10318 Berlin   
+	    Kirschblütenallee 5   in 12167 Berlin   
+	    Kirschblütenallee 7   in 13187 Berlin   
+	    Kirschblütenallee 6   in 12555 Berlin   
+	    ``` 
+
+	17. Erstellen Sie aus der Menge `adressen` eine Liste aller Städte. Die Liste soll aufsteigend nach den Stadtnamen sortiert sein und keine Stadt darf doppelt vorkommen. Geben Sie die Liste aus:
+
+	    ```bash
+	    ------ Liste aller Staedte (keine Doppelungen) aus adressen alphabetisch sortiert ------
+
+	    Berlin
+	    Hamburg
+	    Köln
+	    München
+	    Stuttgart
+	    ```
+
+	18. Erstellen Sie aus der Menge `adressen` eine Liste aller Strassen und Hausnummern. Die Liste soll **absteigend** nach den Straßennamen sortiert sein. Bei gleichen Straßennamen höhere Hausnummer zuerst. Geben Sie die Liste aus:
+
+	    ```bash
+	    ------ Liste aller Strassen + Hausnummer aus adressen alphabetisch absteigend sortiert ------
+
+	    Waldlichtungstraße 8
+	    Waldlichtungstraße 6
+	    Waldlichtungstraße 2
+	    Sternenstaubgasse 8
+	    Sonnenblumenweg 10
+	    Sonnenblumenweg 4
+	    Sonnenblumenweg 1
+	    Regenbogenpromenade 6
+	    Regenbogenpromenade 2
+	    Mondscheinpfad 10
+	    Mondscheinpfad 6
+	    Lavendelweg 10
+	    Lavendelweg 1
+	    Kirschblütenallee 7
+	    Kirschblütenallee 6
+	    Kirschblütenallee 5
+	    Glückskleeallee 6
+	    Glückskleeallee 3
+	    Glückskleeallee 1
+	    ```
+
+	    **Tipp:** Sortieren Sie zunächst nach Straßennamen (und evtl. Hausnummer) und bilden dann aus Straßennamen und Hausnummer einen String, den Sie in der Liste speichern.
+
+		<h3>Punkte</h3>
+
+		|<div style="min-width: 10em; width: 20em; max-width: 30em;">Aufgabe</div> |<div style="min-width: 10em; width: 25em; max-width: 30em;">Punkte</div> |
+		|--------------|:-------------:|
+		| 3. `createMapIndexedByCity()` | 3 Punkte | 
+		| 4. Ausgabe unsortiert | 3 Punkte | 
+		| 5. Ausgabe sortiert  | 4 Punkte | 
+		| 6. `createMapIndexedByCitySetOfPLZ()` | 4 Punkte | 
+		| 7. Ausgabe | 3 Punkte | 
+		| 8. `createMapStreetsMultiple()` | 4 Punkte | 
+		| 9. Ausgabe | 2 Punkte | 
+		| 10. `getStadtMitPLZ()` | 3 Punkte | 
+		| 11. Aufruf und Ausgabe | 3 Punkte | 
+		| 12. 2 JUnit-Tests | 5 Punkte | 
+		| 13. `getStadtMitPLZstartsWith()` | 3 Punkte | 
+		| 14. Aufruf und Ausgabe | 2 Punkte | 
+		| 15. Filterable | 2 Punkte | 
+		| 16. Aufruf und Ausgabe | 4 Punkte |
+		| 17. Liste Städte sortiert | 2 Punkte | 
+		| 18. Liste Straßen+Nr sortiert | 4 Punkte | 
+		| korrektes Programm | 4 Punkte | 
+		| <b>gesamt</b> | <b>55 Punkte</b>  |
+
+		---
+
+
+??? success "mögliche Lösung für Probeklausur3"
+	
+	=== "Probeklausur3.java"
+		```java
+		package probeklausuren.probeklausur3;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+
+		public class Probeklausur3
+		{
+		    static Random r = new Random();
+
+		    // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+		    private static Adresse createAdresse()
+		    {
+		        String[] strassen = {"Sonnenblumenweg", "Waldlichtungstraße", "Mondscheinpfad",
+		                "Glückskleeallee", "Regenbogenpromenade", "Sternenstaubgasse",
+		                "Kastanienhain", "Lavendelweg", "Wasserfallgasse", "Kirschblütenallee"};
+		        String[] staedte = {"Berlin", "Hamburg", "München", "Köln", "Stuttgart"};
+		        Map<String, List<Integer>> postleitzahlen = Map.of(
+		                "Berlin", List.of(13187, 10245, 10437, 10318, 12167, 12555),
+		                "Hamburg", List.of(22525, 20359),
+		                "München", List.of(80939, 81547, 80802),
+		                "Köln", List.of(50933, 50697, 50667),
+		                "Stuttgart", List.of(70372)
+		        );
+		        short nr = (short)(r.nextInt(10) + 1);
+		        String strasse = strassen[r.nextInt(strassen.length)];
+		        String stadt = staedte[r.nextInt(staedte.length)];
+		        var values = postleitzahlen.get(stadt);
+		        int plz = values.get(r.nextInt(values.size()));
+		        return new Adresse(stadt, plz, strasse, nr);
+		    }
+
+		    // Hilfsmethode - bleibt unveraendert (koenen Sie zuklappen)
+		    public static Set<Adresse> createSetOfAdressen(int numberOfAdressen)
+		    {
+		        Set<Adresse> adressen = new HashSet<>();
+		        for(int i = 0; i < numberOfAdressen; i++)
+		        {
+		            adressen.add(createAdresse());
+		        }
+		        return adressen;
+		    }
+
+		    /*  TODO 3:
+		     *  Map erzeugen,
+		     *  Schluessel sind die Staedte aus adressen
+		     *  Werte sind Listen aus adressen mit der entsprechenden Stadt
+		     */
+		    public static Map<String, List<Adresse>> createMapIndexedByCity(Set<Adresse> adressen)
+		    {
+		        return adressen.stream().collect(Collectors.groupingBy(a -> a.stadt()));
+		    }
+
+		    /*  TODO 6:
+		     *  Map erzeugen,
+		     *  Schluessel sind die Staedte aus adressen
+		     *  Werte sind Mengen aus den postleitzahlen der entsprechenden Stadt
+		     */
+		    public static Map<String, Set<Integer>> createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen)
+		    {
+		        Map<String, List<Adresse>> mapIndexByCity = createMapIndexedByCity(adressen);
+		        Map<String, Set<Integer>> mapSetPLZ = new HashMap<>();
+		        for(Map.Entry<String, List<Adresse>> entry : mapIndexByCity.entrySet())
+		        {
+		            String stadt = entry.getKey();
+		            List<Adresse> adressenList = entry.getValue();
+		            Set<Integer> plzSet = adressenList.stream().map(a -> a.plz()).collect(Collectors.toSet());
+		            mapSetPLZ.put(stadt, plzSet);
+		        }
+		        return mapSetPLZ;
+		    }
+
+		    /*  TODO 8:
+		     *  Map erzeugen,
+		     *  Schluessel sind die Strassen, die in adressen in MEHREREN Staedten vorkommen
+		     *  Werte sind Liste der Staedte mit den entsprechenden Strassen
+		     */
+		    public static Map<String, List<String>> createMapStreetsMultiple(Set<Adresse> adressen)
+		    {
+		        Map<String, List<Adresse>> strasseMitStaedten = adressen.stream().collect(Collectors.groupingBy(a -> a.strasse()));
+		        Map<String, List<String>> strasseMitStreetsMultiple = new HashMap<>();
+		        for(Map.Entry<String, List<Adresse>> entry : strasseMitStaedten.entrySet())
+		        {
+		            String strasse = entry.getKey();
+		            List<Adresse> adressenList = entry.getValue();
+		            Set<String> adressenSet = adressenList.stream().map(a -> a.stadt()).collect(Collectors.toSet());
+		            if(adressenSet.size() > 1)
+		            {
+		                List<String> staedteList = adressenSet.stream().collect(Collectors.toList());
+		                strasseMitStreetsMultiple.put(strasse, staedteList);
+		            }
+		        }
+		        return strasseMitStreetsMultiple;
+		    }
+
+		    /*  TODO 10:
+		     *  Stadt mit plz aus adressen suchen,
+		     *  wenn Stadt mit plz existiert, dann Stadt zurueckgeben
+		     *  wenn Stadt mit plz nicht existiert, dann IllegalArgumentException werfen
+		     */
+		    public static String getStadtMitPLZ(Set<Adresse> adressen, int plz) throws IllegalArgumentException
+		    {
+		        for(Adresse adresse : adressen)
+		        {
+		            if(adresse.plz() == plz) return adresse.stadt();
+		        }
+		        throw new IllegalArgumentException("Keine Stadt mit Postleitzahl " + plz + " gefunden.");
+		    }
+
+
+		    /*  TODO 13:
+		     *  Stadt mit plzStartsWith aus adressen suchen,
+		     *  plzStartsWith ist der Beginn einer Postleitzahl, z.B. 22
+		     *  wenn Stadt mit plzStartsWith existiert, dann Stadt im Optional zurueckgeben
+		     *  wenn Stadt mit plzStartsWith nicht existiert, dann leeres Optional zurueckgeben
+		     */
+		    public static Optional<String> getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith)
+		    {
+		        for(Adresse adresse : adressen)
+		        {
+		            String adressePLZ = adresse.plz() + "";
+		            String substringSearchPLZ = plzStartsWith + "";
+		            if(adressePLZ.startsWith(substringSearchPLZ)) return Optional.of(adresse.stadt());
+		        }
+		        return Optional.empty();
+		    }
+
+		    /*
+		     *  folgende Methode auskommentieren, nachdem Sie Interface Filterable erstellt haben
+		     */
+		    public static List<Adresse> filterAdressen(Set<Adresse> adressen, Filterable filter) {
+		        return adressen.stream()
+		                .filter(filter::filter)
+		                .collect(Collectors.toList());
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        // --------------- Vorbereitung - bleibt so ----------
+		        Set<Adresse> adressen = createSetOfAdressen(20);
+		        System.out.printf("%n%n--------------- adressen set---------------------%n%n");
+		        adressen.forEach(System.out::println);
+		        int i = 1;
+		        for(Adresse adresse : adressen)
+		        {
+		            System.out.println("a"+i+"= new Adresse(\""+adresse.stadt()+"\","+adresse.plz()+",\""
+		                    +adresse.strasse()+"\",(short)"+adresse.hausnummer()+");");
+		            i++;
+		        }
+
+		        System.out.printf("%n%n--------------- createMapIndexedByCity(Set<Adresse> adressen) ---------------------%n%n");
+		        // TODO siehe 4.
+		        Map<String, List<Adresse>> mapCity = createMapIndexedByCity(adressen);
+		        for(Map.Entry<String, List<Adresse>> entry : mapCity.entrySet())
+		        {
+		            System.out.println("Stadt : " + entry.getKey());
+		            System.out.println("---------------------");
+		            for(Adresse adresse : entry.getValue())
+		            {
+		                System.out.println(adresse.strasse() + " " + adresse.hausnummer());
+		            }
+		            System.out.println("---------------------");
+		            System.out.println();
+		        }
+
+		        System.out.printf("%n%n----------- createMapIndexedByCity(Set<Adresse> adressen) sortiert ------------------%n%n");
+		        // TODO siehe 5.
+		        List<String> staedteSetSortiert = mapCity.keySet().stream().sorted().collect(Collectors.toList());
+
+		        for(String stadt : staedteSetSortiert)
+		        {
+		            System.out.println("Stadt : " + stadt);
+		            System.out.println("---------------------");
+		            List<Adresse> adresseList = mapCity.get(stadt);
+		            List<Adresse> adresseListSorted = adresseList.stream()
+		                    .sorted((a,b) -> a.strasse().compareTo(b.strasse()) != 0 ? a.strasse().compareTo(b.strasse()) : a.hausnummer() - b.hausnummer())
+		                    .collect(Collectors.toList());
+		            for(Adresse adresse : adresseListSorted)
+		            {
+		                System.out.println(adresse.strasse() + " " + adresse.hausnummer());
+		            }
+		            System.out.println("---------------------");
+		            System.out.println();
+		        }
+
+		        System.out.printf("%n%n----------- createMapIndexedByCitySetOfPLZ(Set<Adresse> adressen) ------------------%n%n");
+		        // TODO siehe 7.
+		        Map<String, Set<Integer>> mapSetPLZ = createMapIndexedByCitySetOfPLZ(adressen);
+		        for(Map.Entry<String, Set<Integer>> entry : mapSetPLZ.entrySet())
+		        {
+		            System.out.printf("%-10s : [ " , entry.getKey());
+		            for(Integer plz : entry.getValue())
+		            {
+		                System.out.print(plz + " ");
+		            }
+		            System.out.println("]");
+		        }
+
+		        System.out.printf("%n%n-------------- createMapStreetsMultiple(Set<Adresse> adressen) ---------------------%n%n");
+		        // TODO siehe 9.
+		        Map<String, List<String>> mapMultipleStreets = createMapStreetsMultiple(adressen);
+		        for(Map.Entry<String, List<String>> entry : mapMultipleStreets.entrySet())
+		        {
+		            System.out.printf("%-20s : [ " , entry.getKey());
+		            for(String stadt : entry.getValue())
+		            {
+		                System.out.print(stadt + " ");
+		            }
+		            System.out.println("]");
+		        }
+
+		        System.out.printf("%n%n--------------- getStadtMitPLZ(Set<Adresse> adressen, int plz) ---------------------%n%n");
+		        // TODO siehe 11.
+		        try {
+		            String stadtMitPLZ = getStadtMitPLZ(adressen, 22526);
+		            System.out.println(stadtMitPLZ);
+		        } catch (IllegalArgumentException e) {
+		            System.out.println(e.getMessage());
+		        }
+
+		        System.out.printf("%n%n---------- getStadtMitPLZstartsWith(Set<Adresse> adressen, int plzStartsWith) -------------%n%n");
+		        // TODO siehe 14.
+		        for(int plzStartsWith = 21; plzStartsWith < 24; plzStartsWith++) {
+		            Optional<String> stadtBeginntMitPLZ = getStadtMitPLZstartsWith(adressen, plzStartsWith);
+		            if (stadtBeginntMitPLZ.isPresent()) {
+		                System.out.println(stadtBeginntMitPLZ.get());
+		            }
+		            else {
+		                System.out.println("Keine Stadt gefunden, deren Postleitzahl mit " + plzStartsWith + " gefunden.");
+		            }
+		        }
+
+		        System.out.printf("%n%n------ Filterable und filterAdressen(Set<Adresse> adressen, Filterable filter) ------%n%n");
+		        // TODO siehe 15 und 16.
+		        // vorher Kommentare von Methode filterAdressen(Set<Adresse> adressen, Filterable filter) entfernen!
+		        Filterable berlinFilter = adresse -> "Berlin".equals(adresse.stadt());
+		        List<Adresse> berlinAdressen = filterAdressen(adressen, berlinFilter);
+		        berlinAdressen.forEach(adresse -> System.out.println(adresse));
+
+		        System.out.printf("%n%n------ Liste aller Staedte (keine Doppelungen) aus adressen alphabetisch sortiert ------%n%n");
+		        // TODO siehe 17.
+		        List<String> staedteSortiert = adressen.stream().map(a -> a.stadt()).sorted().distinct().collect(Collectors.toList());
+		        staedteSortiert.forEach(System.out::println);
+
+		        System.out.printf("%n%n------ Liste aller Strassen + Hausnummer aus adressen alphabetisch absteigend sortiert ------%n%n");
+		        // TODO siehe 18.
+		        List<String> strassenSortiert = adressen.stream()
+		                .sorted((a,b) -> b.strasse().compareTo(a.strasse()) != 0 ? b.strasse().compareTo(a.strasse()) : b.hausnummer() - a.hausnummer())
+		                .map(a -> a.strasse() + " " + a.hausnummer()).distinct().collect(Collectors.toList());
+		        strassenSortiert.forEach(System.out::println);
+		    }
+		}
+		```
+	
+	=== "Filterable.java"
+		```java
+		package probeklausuren.probeklausur3;
+
+		@FunctionalInterface
+		public interface Filterable
+		{
+		    boolean filter(Adresse adresse);
+		}
+		```
+	
+	=== "Probeklausur3Test.java"
+		```java
+		package probeklausuren.probeklausur3;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		import java.util.*;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		public class Probeklausur3Test
+		{
+		    static Adresse a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20;
+		    static Set<Adresse> adressen;
+
+		    @BeforeAll
+		    public static void setUp()
+		    {
+		        a1= new Adresse("Köln",50667,"Waldlichtungstraße",(short)10);
+		        a2= new Adresse("München",80939,"Lavendelweg",(short)1);
+		        a3= new Adresse("Hamburg",20359,"Sternenstaubgasse",(short)7);
+		        a4= new Adresse("Köln",50697,"Sonnenblumenweg",(short)6);
+		        a5= new Adresse("Köln",50697,"Kastanienhain",(short)1);
+		        a6= new Adresse("München",81547,"Wasserfallgasse",(short)6);
+		        a7= new Adresse("München",80939,"Glückskleeallee",(short)1);
+		        a8= new Adresse("Köln",50697,"Sternenstaubgasse",(short)10);
+		        a9= new Adresse("Hamburg",22525,"Kirschblütenallee",(short)6);
+		        a10= new Adresse("Köln",50667,"Lavendelweg",(short)7);
+		        a11= new Adresse("Stuttgart",70372,"Sternenstaubgasse",(short)4);
+		        a12= new Adresse("Berlin",12167,"Regenbogenpromenade",(short)4);
+		        a13= new Adresse("Hamburg",22525,"Regenbogenpromenade",(short)2);
+		        a14= new Adresse("Hamburg",20359,"Kirschblütenallee",(short)5);
+		        a15= new Adresse("Berlin",12555,"Kirschblütenallee",(short)6);
+		        a16= new Adresse("Berlin",10437,"Kirschblütenallee",(short)10);
+		        a17= new Adresse("München",80939,"Waldlichtungstraße",(short)5);
+		        a18= new Adresse("Köln",50933,"Sonnenblumenweg",(short)6);
+		        a19= new Adresse("Berlin",12555,"Regenbogenpromenade",(short)4);
+		        a20= new Adresse("München",81547,"Mondscheinpfad",(short)1);
+
+		        Adresse[] arr_adressen = {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20};
+
+		        adressen = new HashSet<Adresse>();
+		        for(Adresse adresse : arr_adressen) adressen.add(adresse);
+		    }
+
+		    private static boolean addressSetsAreIdentical(Set<Adresse> set1, Set<Adresse> set2)
+		    {
+		        if (set1.size() != set2.size()) return false;
+		        for(Adresse adresse : set1)
+		        {
+		            if(!set2.contains(adresse)) return false;
+		        }
+		        for(Adresse adresse : set2)
+		        {
+		            if(!set1.contains(adresse)) return false;
+		        }
+		        return true;
+		    }
+
+		    private static boolean stringSetsAreIdentical(Set<String> set1, Set<String> set2)
+		    {
+		        if (set1.size() != set2.size()) return false;
+		        for(String word : set1)
+		        {
+		            if(!set2.contains(word)) return false;
+		        }
+		        for(String word : set2)
+		        {
+		            if(!set1.contains(word)) return false;
+		        }
+		        return true;
+		    }
+
+		    private static boolean integerSetsAreIdentical(Set<Integer> set1, Set<Integer> set2)
+		    {
+		        if (set1.size() != set2.size()) return false;
+		        for(Integer number : set1)
+		        {
+		            if(!set2.contains(number)) return false;
+		        }
+		        for(Integer number : set2)
+		        {
+		            if(!set1.contains(number)) return false;
+		        }
+		        return true;
+		    }
+
+		    private static boolean addressListsAreIdentical(List<Adresse> list1, List<Adresse> list2)
+		    {
+		        if (list1.size() != list2.size()) return false;
+		        for(Adresse adresse : list1)
+		        {
+		            if(!list2.contains(adresse)) return false;
+		        }
+		        for(Adresse adresse : list2)
+		        {
+		            if(!list1.contains(adresse)) return false;
+		        }
+		        return true;
+		    }
+
+		    private static boolean stringListsAreIdentical(List<String> list1, List<String> list2)
+		    {
+		        if (list1.size() != list2.size()) return false;
+		        for(String word : list1)
+		        {
+		            if(!list2.contains(word)) return false;
+		        }
+		        for(String word : list2)
+		        {
+		            if(!list1.contains(word)) return false;
+		        }
+		        return true;
+		    }
+
+
+		    @Test
+		    @DisplayName("createMapIndexedByCity()")
+		    public void testCreateMapIndexedByCity()
+		    {
+		        //given
+		        Map<String, List<Adresse>> map1 = new HashMap<>();
+		        map1.put("Berlin", List.of(a12,a15,a16,a19));
+		        map1.put("Köln", List.of(a1,a4,a5,a8,a10,a18));
+		        map1.put("Hamburg", List.of(a3,a9,a13,a14));
+		        map1.put("München", List.of(a2,a6,a7,a17,a20));
+		        map1.put("Stuttgart", List.of(a11));
+
+		        //when
+		        Map<String, List<Adresse>> map2 = Probeklausur3.createMapIndexedByCity(adressen);
+
+		        //then
+		        assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+		        assertTrue(addressListsAreIdentical(map1.get("Berlin"), map2.get("Berlin")), "address list for Berlin seems to be wrong");
+		        assertTrue(addressListsAreIdentical(map1.get("Köln"), map2.get("Köln")), "address list for Köln seems to be wrong");
+		        assertTrue(addressListsAreIdentical(map1.get("Hamburg"), map2.get("Hamburg")), "address list for Hamburg seems to be wrong");
+		        assertTrue(addressListsAreIdentical(map1.get("München"), map2.get("München")), "address list for München seems to be wrong");
+		        assertTrue(addressListsAreIdentical(map1.get("Stuttgart"), map2.get("Stuttgart")), "address list for Stuttgart seems to be wrong");
+		    }
+
+		    @Test
+		    @DisplayName("createMapIndexedByCitySetOfPLZ()")
+		    public void testCreateMapIndexedByCitySetOfPLZ()
+		    {
+		        //given
+		        Map<String, Set<Integer>> map1 = new HashMap<>();
+		        map1.put("Berlin", Set.of(12167,12555,10437));
+		        map1.put("Köln", Set.of(50667,50697,50933));
+		        map1.put("Hamburg", Set.of(20359,22525));
+		        map1.put("München", Set.of(80939,81547));
+		        map1.put("Stuttgart", Set.of(70372));
+
+		        //when
+		        Map<String, Set<Integer>> map2 = Probeklausur3.createMapIndexedByCitySetOfPLZ(adressen);
+
+		        //then
+		        assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+		        assertTrue(integerSetsAreIdentical(map1.get("Berlin"), map2.get("Berlin")), "plz set for Berlin seems to be wrong");
+		        assertTrue(integerSetsAreIdentical(map1.get("Köln"), map2.get("Köln")), "plz set for Köln seems to be wrong");
+		        assertTrue(integerSetsAreIdentical(map1.get("Hamburg"), map2.get("Hamburg")), "plz set for Hamburg seems to be wrong");
+		        assertTrue(integerSetsAreIdentical(map1.get("München"), map2.get("München")), "plz set for München seems to be wrong");
+		        assertTrue(integerSetsAreIdentical(map1.get("Stuttgart"), map2.get("Stuttgart")), "plz set for Stuttgart seems to be wrong");
+		    }
+
+		    @Test
+		    @DisplayName("createMapStreetsMultiple()")
+		    public void testCreateMapStreetsMultiple()
+		    {
+		        //given
+		        Map<String, List<String>> map1 = new HashMap<>();
+		        map1.put("Waldlichtungstraße", List.of("Köln","München"));
+		        map1.put("Sternenstaubgasse", List.of("Köln","Hamburg","Stuttgart"));
+		        map1.put("Lavendelweg", List.of("Köln","München"));
+		        map1.put("Kirschblütenallee", List.of("Hamburg","Berlin"));
+		        map1.put("Regenbogenpromenade", List.of("Hamburg","Berlin"));
+
+		        //when
+		        Map<String, List<String>> map2 = Probeklausur3.createMapStreetsMultiple(adressen);
+
+		        //then
+		        assertTrue(stringSetsAreIdentical(map1.keySet(), map2.keySet()), "key set seems to be wrong");
+		        assertTrue(stringListsAreIdentical(map1.get("Waldlichtungstraße"), map2.get("Waldlichtungstraße")), "createMapStreetsMultiple seems to be wrong");
+		        assertTrue(stringListsAreIdentical(map1.get("Sternenstaubgasse"), map2.get("Sternenstaubgasse")), "createMapStreetsMultiple seems to be wrong");
+		        assertTrue(stringListsAreIdentical(map1.get("Lavendelweg"), map2.get("Lavendelweg")), "createMapStreetsMultiple seems to be wrong");
+		        assertTrue(stringListsAreIdentical(map1.get("Kirschblütenallee"), map2.get("Kirschblütenallee")), "createMapStreetsMultiple seems to be wrong");
+		        assertTrue(stringListsAreIdentical(map1.get("Regenbogenpromenade"), map2.get("Regenbogenpromenade")), "createMapStreetsMultiple seems to be wrong");
+		    }
+
+		    @Test
+		    @DisplayName("getStadtMitPLZstartsWith()")
+		    public void testGetStadtMitPLZstartsWith()
+		    {
+		        //given
+		        int plzStartsWith1 = 22;
+		        int plzStartsWith2 = 23;
+
+		        //when
+		        Optional<String> result1 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith1);
+		        Optional<String> result2 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith2);
+		        assertEquals(result2.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+		        assertTrue(result1.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+		    }
+
+		    /*
+		     * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer 12.
+		     */
+
+		    @Test
+		    @DisplayName("getStadtMitPLZ()")
+		    public void testGetStadtMitPLZ()
+		    {
+		        //given
+		        int plz = 22525;
+
+		        //when
+		        String stadt = Probeklausur3.getStadtMitPLZ(adressen, plz);
+
+		        //then
+		        String expected = "Hamburg";
+		        assertTrue(stadt.equals(expected), "getStadtMitPLZ doesn't seem to work properly yet");
+		    }
+
+		    @Test
+		    @DisplayName("getStadtMitPLZException")
+		    public void testGetStadtMitPLZException()
+		    {
+		        //given
+		        int plz = 22526;
+
+		        //then
+		        Exception exception = assertThrows(IllegalArgumentException.class, () -> Klausur.getStadtMitPLZ(adressen, plz));
+		        assertEquals("Keine Stadt mit Postleitzahl " + plz + " gefunden.", exception.getMessage(), "getStadtMitPLZException doesn't seem to work properly yet");
+		    }
+		}
+		```
