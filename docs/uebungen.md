@@ -5805,8 +5805,8 @@
 	                //when
 	                Optional<String> result1 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith1);
 	                Optional<String> result2 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith2);
-	                assertEquals(result2.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
-	                assertTrue(result1.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+	                assertEquals(result1.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+	                assertTrue(result2.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
 	            }
 
 	            /*
@@ -6537,8 +6537,8 @@
 		        //when
 		        Optional<String> result1 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith1);
 		        Optional<String> result2 = Probeklausur3.getStadtMitPLZstartsWith(adressen, plzStartsWith2);
-		        assertEquals(result2.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
-		        assertTrue(result1.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+		        assertEquals(result1.get(), "Hamburg", "getStadtMitPLZstartsWith() doesn't seem to work properly yet");
+		        assertTrue(result2.isEmpty(),"getStadtMitPLZstartsWith() doesn't seem to work properly yet");
 		    }
 
 		    /*
