@@ -1,7 +1,7 @@
 # Übungen
 
 
-##### Übung 1 (Codereview und static)
+##### Übung 1 (Record und Wiederholung)
 
 ??? "Übung 1"
 
