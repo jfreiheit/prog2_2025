@@ -59,3 +59,125 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 ### Code aus der Vorlesung
 
+??? "Code aus der Vorlesung 07.04.2026"
+
+	=== "Vorlesung0407.java"
+		```java
+		package vorlesungen.vorlesung0407;
+
+		import java.util.Arrays;
+		import javax.swing.JOptionPane;
+
+		public class Vorlesung0407
+		{
+
+			public static void main(String[] args)
+			{
+				int[] numbers = {1, 2,  3, 4, 5, 6, 7, 8, 9, 10};
+				 for(int element : numbers)
+				 {
+					 System.out.println(element);
+					 element = 8;
+				 }
+				 int b = 1;
+				 int a;
+				 if(b%2==0)
+				 {
+					 a = 0;
+				 }
+				 else
+				 {
+					 a = 1;
+				 }
+				 System.out.println(a);
+				 String s1 = Arrays.toString(numbers);
+				 System.out.println(s1);
+				 
+				 
+				 String s2 = "Hello \"FIW\"! \nNaechste Zeile";
+				 System.out.println(s2);
+				 
+				 String s3 = """
+				 		Hello "FIW"
+				 		Naechste Zeile
+				 			eingerueckt
+				 				noch mehr eingerueckt""";
+				 System.out.println(s3);
+				 
+				 /*
+				 JOptionPane.showMessageDialog(null, "Hallo FIW!", 
+						 "Eigener Titel", 
+						 JOptionPane.ERROR_MESSAGE);
+
+				 String input = JOptionPane.showInputDialog("Geben Sie eine Zahl ein:");
+				 System.out.println("Sie haben eine " + input + " eingegeben");
+				 */
+				 
+				 int antwort = JOptionPane.showConfirmDialog(null, "Wollen Sie beenden?");
+				 if(antwort == JOptionPane.YES_OPTION)
+				 {
+					 System.out.println("Ja geklickt");
+				 }
+				 else if(antwort == JOptionPane.NO_OPTION)
+				 {
+					 System.out.println("Nein geklickt");
+				 }
+				 else if(antwort == JOptionPane.CANCEL_OPTION)
+				 {
+					 System.out.println("Abbrechen geklickt");
+				 }
+				 System.out.println("Ende");
+				 
+				 Circle c1 = new Circle(5.0);
+				 Circle c2 = new Circle(6.0);
+				 Circle c3 = new Circle(5.0);
+				 
+				 System.out.println(c1.toString());
+				 System.out.println(c1.equals(c2));
+				 System.out.println(c1.equals(c3));
+				 
+				 System.out.println(c1.radius());
+			}
+
+		}
+		```
+
+	=== "Circle.java"
+		```java
+		package vorlesungen.vorlesung0407;
+
+		public record Circle(double radius)
+		{
+
+		}
+		```
+
+	=== "Test.java"
+		```java
+		package vorlesungen.vorlesung0407;
+
+		public class Test
+		{
+			public void objMethod()
+			{
+				System.out.println("Objektmethode");
+			}
+			
+			public static void classMethod()
+			{
+				System.out.println("Klassenmethode");
+			}
+
+		}
+		```	
+
+	=== "module-info.java"
+		```java
+		/**
+		 * 
+		 */
+		module SoSe26	// heisst wie das Projekt
+		{
+			requires java.desktop;
+		}
+		```

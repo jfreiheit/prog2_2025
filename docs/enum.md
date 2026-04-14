@@ -171,6 +171,8 @@ Verwendung:
 		@Override
 		public String toString()
 		{
+			/*
+			 * alte switch-Syntax mit break
 			char c = ' ';
 			switch(this)
 			{
@@ -179,6 +181,18 @@ Verwendung:
 				case HERZ 	: c ='\u2665'; 	break;
 				case KARO 	: c ='\u2666'; 	break;
 			}
+			*/
+
+			/*
+			 * neue switsch-Syntax besser, weil ohne break
+			 */
+			char c = switch(this)
+	        {
+	            case KREUZ  -> '\u2663';  
+	            case PIK    -> '\u2664';
+	            case HERZ   -> '\u2665';
+	            case KARO   -> '\u2666';
+	        };		// hier das Semikolon beachten!
 			return String.valueOf(c);
 		}
 	}
