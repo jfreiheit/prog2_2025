@@ -181,3 +181,79 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 			requires java.desktop;
 		}
 		```
+
+
+??? "Code aus der Vorlesung 14.04.2026"
+
+	=== "Vorlesung0414.java"
+		```java
+		package vorlesungen.vorlesung0414;
+
+		import javax.swing.JOptionPane;
+
+		public class Vorlesung0414
+		{
+			/*
+			public static boolean isWeekend(String day)
+			{
+				return (day.equals("Samstag") || day.equals("Sonntag"));
+						
+			}
+			*/
+			
+			public static boolean isWeekend(Tag day)
+			{
+				return (day.equals(Tag.SAMSTAG) || day.equals(Tag.SONNTAG));	
+						
+			}
+
+			public static void main(String[] args)
+			{
+				Tag day = Tag.MONTAG;
+				
+				System.out.println(isWeekend(day));
+				
+				Integer i1 = new Integer(100);
+				Integer i2 = new Integer("100");
+				
+				Integer i3 = Integer.valueOf(100);
+				Integer i4 = Integer.valueOf("100");
+				
+				Integer i5 = 100;
+				
+				System.out.println(i3.toString());
+				System.out.println(i4.toString());
+				System.out.println(i5.toString());
+				
+				System.out.println(i3.equals(i4));
+				
+				Integer i6 = 5000;
+				Integer i7 = 5000;
+				System.out.println(i6 == i7);	// false
+				System.out.println(i6.equals(i7));	// true
+				System.out.println(i3 == i4);
+				
+				int iw1 = i6.intValue();
+				int iw2 = i7;
+				
+				String s1 = Integer.toString(iw1);
+				
+				String input = JOptionPane.showInputDialog("Geben Sie eine Zahl ein:");
+				
+				int number = Integer.parseInt("1234");
+				System.out.println("Sie haben eine " + number + " eingegeben");
+
+			}
+
+		}
+		```
+
+	=== "Tag.java"
+		```java
+		package vorlesungen.vorlesung0414;
+
+		public enum Tag
+		{
+			MONTAG, DIENSTAG, MITTWOCH, DONNERSTAG, FREITAG, SAMSTAG, SONNTAG
+		}
+		```		
