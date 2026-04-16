@@ -8,15 +8,17 @@
 
 	1. Erstellen Sie im Paket `uebungen.uebung1` einen Java-Klasse `Uebung1` mit `main()`-Methode. 
 
-	2. Erstellen Sie im Paket `uebungen.uebung1`  einen Java-**Record** `Rectangle` mit den beiden `int`-Objektvariablen `a` und `b`. Implementieren Sie in diesen Record eine Methode `area()`, die den Flächeninhalt des Rechteckes als `int` zurückgibt. 
+	2. Erstellen Sie im Paket `uebungen.uebung1`  einen Java-**Record** `Rectangle` mit den beiden `int`-Objektvariablen `length` und `width`. 
 
-	3. Erstelllen Sie in der `main()`-Methode der `Main`-Klasse ein `Rectangle`-Objekt und testen Sie dafür die `toString()`- und die `area()`-Methode.
+	3. Erstelllen Sie in der `main()`-Methode der `Uebung1`-Klasse ein `Rectangle`-Objekt und testen Sie dafür die `toString()`, die `length()`, `width()`- und die `equals()`-Methoden.
 
-	4. Erstellen Sie in der `Main`-Klasse eine statische Methode `createRectangleArray(int length)`. Diese gibt ein `Rectangle[]` der Länge `length` zurück. Das Array ist mit `Rectangle`-Objekten befüllt, deren Seitenlängen zufällig erzeugt wurden. Die zufälligen Seitenlängen sind aus dem Intervall `[1, ..., 9]` (jeweils inklusive).
+	4. Implementieren Sie im Record `Rectangle` eine Methode `area()`, die den Flächeninhalt des Rechteckes als `int` zurückgibt. Testen Sie diese Methode in `main()`.
 
-	5. Testen Sie die `createRectangleArray(int)`-Methode in der `main`-Methode und geben Sie alle Objekte des Arrays aus. 
+	5. Erstellen Sie in der `Uebung1`-Klasse eine statische Methode `createRectangleArray(int nrOfRects)`. Diese gibt ein `Rectangle[]` der Länge `length` zurück. Das Array ist mit `Rectangle`-Objekten befüllt, deren Seitenlängen zufällig erzeugt wurden. Die zufälligen Seitenlängen sind aus dem Intervall `[1, ..., 9]` (jeweils inklusive).
 
-	6. Erstellen Sie in der `Main`-Klasse eine statische Methode `containsDoublets(Rectangle[])`, die ein `true` zurückgibt, wenn das `Rectangle[]` gleiche Objekte (laut `equals()`) enthält und `false` sonst.
+	6. Testen Sie die `createRectangleArray(int)`-Methode in der `main`-Methode und geben Sie alle Objekte des Arrays aus. 
+
+	7. Erstellen Sie in der `Uebung1`-Klasse eine statische Methode `containsDoublets(Rectangle[])`, die ein `true` zurückgibt, wenn das `Rectangle[]` gleiche Objekte (laut `equals()`) enthält und `false` sonst.
 
 
 ##### Übung 2 (String und algorithmisches Denken)
