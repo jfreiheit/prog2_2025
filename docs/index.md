@@ -257,3 +257,76 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 			MONTAG, DIENSTAG, MITTWOCH, DONNERSTAG, FREITAG, SAMSTAG, SONNTAG
 		}
 		```		
+
+
+
+
+??? "Code aus der Vorlesung 21.04.2026"
+
+	=== "Vorlesung0421.java"
+		```java
+		package vorlesungen.vorlesung0421;
+
+		import javax.swing.JOptionPane;
+
+		public class Vorlesung0421
+		{
+			public static int divide(int nr1, int nr2) throws ArithmeticException
+			{
+					return nr1/nr2;
+			}
+			
+			public static char charAt(String s, int index) throws StringIndexOutOfBoundsException
+			{
+
+				return s.charAt(index);
+			}
+
+			public static void main(String[] args)
+			{
+				int number1 = 7;
+				int number2 = 0;
+				
+
+					System.out.println(number1 + "/" + number2 + " = " + divide(number1, number2));
+
+
+				
+				try {
+					System.out.println(charAt("Hallo", 5));
+					System.out.println("hat geklappt");
+				}
+				catch(StringIndexOutOfBoundsException e)
+				{
+					System.out.println("kein korrekter Index");
+				}
+				
+				boolean inputOk = false;
+				int zahl = 0;
+				String message = "Geben Sie eine Zahl ein :";
+				while(!inputOk)
+				{
+					String input = JOptionPane.showInputDialog(message);
+
+					try {
+						zahl = Integer.parseInt(input);
+						inputOk = true;
+					}
+					catch(NumberFormatException e)
+					{
+						//JOptionPane.showMessageDialog(null, "Das war keine Zahl!");
+						message = "Das war keine Zahl! Bitte nochmal";
+					}
+				}
+				System.out.println("Sie haben eine " + zahl + " eingegeben.");
+				
+				
+				System.out.println("Programmende");
+			}
+
+		}
+
+		```
+
+
+

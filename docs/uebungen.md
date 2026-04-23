@@ -21,6 +21,104 @@
 	7. Erstellen Sie in der `Uebung1`-Klasse eine statische Methode `containsDoublets(Rectangle[])`, die ein `true` zurückgibt, wenn das `Rectangle[]` gleiche Objekte (laut `equals()`) enthält und `false` sonst.
 
 
+
+??? success "Eine mögliche Lösung für Übung 1"
+	=== "Rectangle.java"
+		```java
+		package uebungen.uebung1;
+
+		public record Rectangle(int length, int width)
+		{
+			    /*
+			     * falls die Standard-Implementierung von toString() nicht gefaellt
+			     * es koennen alle implementierten Methoden ueberschrieben werden
+			       (length(), width(), equals(), hashCode(), toString())
+			     */
+			    @Override
+			    public String toString()
+			    {
+			        return "( " + this.length + ", " + this.width + " )";
+			    }
+
+			    /*
+			     * es koennen beliebige Methoden hinzugefuegt werden, z.B. area()
+			     */
+			    public int area()
+			    {
+			        return this.length * this.width;
+			    }
+		}
+		```
+	=== "Uebung1.java"
+		```java
+		package uebungen.uebung1;
+
+		import java.util.Random;
+
+		public class Uebung1 {
+
+		    public static Rectangle[] createRectangleArray(int nrOfRects)
+		    {
+		        Rectangle[] ra = new Rectangle[nrOfRects];
+		        Random r = new Random();
+		        for (int i = 0; i < nrOfRects; i++)
+		        {
+		            int length = r.nextInt(9) + 1;
+		            int width = r.nextInt(1, 10);
+
+		            ra[i] = new Rectangle(length, width);
+		        }
+		        return ra;
+		    }
+
+		    public static boolean containsDoublets(Rectangle[] ra)
+		    {
+		        for (int i = 0; i < ra.length - 1; i++)
+		        {
+		            for (int j = i+1; j < ra.length; j++)   // alle rechts von i
+		            {
+		                if(ra[i].equals(ra[j]))     // ein i vergleicht sich mit allen j
+		                {
+		                    return true;
+		                }
+		            }
+		        }
+		        return false;
+		    }
+
+		    public static void main(String[] args) {
+		        Rectangle r1 = new Rectangle(10, 20);
+		        Rectangle r2 = new Rectangle(20, 30);
+		        Rectangle r3 = new Rectangle(10, 20);
+
+		        System.out.println(r1.toString());
+		        System.out.println(r1);
+		        System.out.println("r1 equals r2 ? " + r1.equals(r2));
+		        System.out.println("r1 equals r3 ? " + r1.equals(r3));
+
+		        System.out.println("Laenge = " + r1.length());  // getter
+		        System.out.println("Breite = " + r1.width());   // getter
+		        System.out.println("Flaeche = " + r1.area());
+
+		        Rectangle[] ram = createRectangleArray(10);
+		        for(int i = 0; i < ram.length; i++)
+		        {
+		            System.out.print(ram[i]);     // toString() von Rectangle
+		        }
+		        System.out.println();
+		        for(Rectangle r : ram)
+		        {
+		            System.out.print(r);          // toString() von Rectangle
+		        }
+		        System.out.println();
+
+		        System.out.println("Doppelung enthalten ? " + containsDoublets(ram));
+		    }
+		}
+
+		```
+
+
 ##### Übung 2 (String und algorithmisches Denken)
 
 ??? "Übung 2"
@@ -79,6 +177,179 @@
 	())(				// nicht korrekt
 	```
 
+
+
+??? success "Eine mögliche Lösung für Übung 2"
+	=== "Uebung2.java"
+		```java
+		package uebungen.uebung2;
+
+		/**
+		 * Uebung2 class provides methods for binary number validation,
+		 * binary to decimal conversion,
+		 * string manipulation, and bracket validation.
+		 * see http://freiheit.f4.htw-berlin.de/prog2/uebungen/#ubung-2-string-und-algorithmisches-denken
+		 *
+		 * @author: Anna Stepper, Lucija Pöhlmann
+		 */
+		public class Uebung2
+		{
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n------ is Binary Number  -----------%n");
+		        System.out.println(isBinaryNumber("101101"));   // true
+		        System.out.println(isBinaryNumber("0"));        // true
+		        System.out.println(isBinaryNumber("101a01"));   // false
+		        System.out.println(isBinaryNumber("101201"));   // false
+
+		        System.out.printf("%n------ Binary to Decimal -----------%n");
+		        System.out.println(binaryToDecimal("101101"));  // 45
+		        System.out.println(binaryToDecimal("0"));       // 0
+		        System.out.println(binaryToDecimal("000001"));  // 1
+		        System.out.println(binaryToDecimal("100000"));  // 32
+		        System.out.println(binaryToDecimal("101a01"));  // -1
+		        System.out.println(binaryToDecimal("101201"));  // -1
+
+		        System.out.printf("%n---- Capital letters to lower case --------%n");
+		        System.out.println(toLowerCase("abcdEFG"));     // abcdefg
+		        System.out.println(toLowerCase("abcd123EFG"));  // abcd123efg
+		        System.out.println(toLowerCase("ABC XYZ !%"));  // abc xyz !%
+
+		        System.out.printf("%n---- Palindromes --------%n");
+		        System.out.println(isPalindrome("Otto"));       // true
+		        System.out.println(isPalindrome("abc_CBA"));    // true
+		        System.out.println(isPalindrome("abc_-CBA"));   // false
+		        System.out.println(isPalindrome("-"));          // true
+		        System.out.println(isPalindrome("Dreh mal am Herd"));   // false
+
+
+		        System.out.printf("%n-------Brackets --------%n");
+		        System.out.println(rightBrackets("((()))()(())"));
+		        System.out.println(rightBrackets("((())"));
+		        System.out.println(rightBrackets(""));
+		        System.out.println(rightBrackets("(()))"));
+		        System.out.println(rightBrackets("())("));
+
+		    }
+
+		    /**
+		     * Checks if a given string is a binary number.
+		     * Returns true if the string is empty or consists only of 0s and 1s.
+		     *
+		     * @param s the string to check
+		     * @return true if the string is a binary number, false otherwise
+		     */
+		    public static boolean isBinaryNumber(String s)
+		    {
+		        boolean isBinary = (s.length() == 0) ? false : true;
+
+		        for (int i = 0; i < s.length() && isBinary; i++) {
+		            if (s.charAt(i) != '1' && s.charAt(i) != '0') {
+		                isBinary = false;
+		            }
+		        }
+		        return isBinary;
+		    }
+
+		    /**
+		     * Converts a binary string to its decimal representation.
+		     * Returns -1 if the input is not a valid binary number.
+		     *
+		     * @param s the binary string to convert
+		     * @return the decimal representation of the binary string, or -1 if invalid
+		     */
+		    public static int binaryToDecimal(String s)
+		    {
+		        if (isBinaryNumber(s) == false) {
+		            return -1;
+		        }
+
+		        int decimal = 0;
+		        int position = 1;
+
+		        for (int i = s.length() - 1; i > -1; i--) {
+		            if (s.charAt(i) == '1') {
+		                decimal += position;
+		            }
+		            position *= 2;
+		        }
+		        return decimal;
+		    }
+
+		    /**
+		     * Converts a string to lowercase.
+		     * Preserves non-alphabetic characters.
+		     *
+		     * @param input the string to convert
+		     * @return the lowercase version of the input string
+		     */
+		    public static String toLowerCase(String input)
+		    {
+		        String result = "";
+		        final int ASCI_DIFF_CAPITAL_TO_LOWER = 32;
+
+		        for (int i = 0; i < input.length(); i++) {
+		            char c = input.charAt(i);
+		            if (c >= 'A' && c <= 'Z') {
+		                result += (char) (c + ASCI_DIFF_CAPITAL_TO_LOWER);
+		            }
+		            else {
+		                result += c;
+		            }
+		        }
+		        return result;
+		    }
+
+		    /**
+		     * Checks if a given string is a palindrome.
+		     * Ignores case and non-alphabetic characters.
+		     *
+		     * @param input the string to check
+		     * @return true if the string is a palindrome, false otherwise
+		     */
+		    public static boolean isPalindrome(String input)
+		    {
+		        String inputToLowerCase = toLowerCase(input);
+		        String half = inputToLowerCase.substring(0, input.length() / 2); // beginn iklusive, upperbound exclusive
+		        // haaah --> ha
+
+		        int j = inputToLowerCase.length() - 1;
+		        for (int i = 0; i < half.length(); i++) {
+		            if (half.charAt(i) != inputToLowerCase.charAt(j)) {
+		                return false;
+		            }
+		            j--;
+
+		        }
+		        return true;
+		    }
+
+		    /**
+		     * Checks if a given string has matching brackets.
+		     * Only considers '(' and ')' characters.
+		     * Return false if the number of opening brackets is not equal to the
+		     * number of closing brackets.
+		     * Return false in a state where there are more closing brackets than opening brackets.
+		     *
+		     * @param s the string to check
+		     * @return true if the string has matching brackets, false otherwise
+		     */
+		    public static boolean rightBrackets(String s)
+		    {
+		        int bracketsCounter = 0;
+
+		        for (int i = 0; i < s.length() && bracketsCounter >= 0; i++) {
+		            if (s.charAt(i) == '(') {
+		                bracketsCounter++;
+		            }
+		            else if (s.charAt(i) == ')') {
+		                bracketsCounter--;
+		            }
+		        }
+		        return (bracketsCounter == 0);
+		    }
+		}
+		```
 
 ##### Übung 3 (enum und zweidimensionale Arrays)
 
