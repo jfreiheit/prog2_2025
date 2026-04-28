@@ -71,7 +71,7 @@ Eine kurze Entscheidungshilfe, welche Collection verwendet wird, zeigt die folge
 
 ## Der Collection-Klassenbaum
 
-Leider ist die Verwaltung von Collections in Java nicht einheitlich. Das liegt daran, dass (unverständlicherweise) Listen und Mengen in einer anderen Vererbungshierarchie verwaltet werden, als Maps. Wir schauen uns die Vererbungshierarchie von `Collection` einaml an. Darin kommen die Listen und Mengen vor, aber nicht Maps.
+Leider ist die Verwaltung von Collections in Java nicht einheitlich. Das liegt daran, dass (unverständlicherweise) Listen und Mengen in einer anderen Vererbungshierarchie verwaltet werden, als Maps. Wir schauen uns die Vererbungshierarchie von `Collection` einmal an. Darin kommen die Listen und Mengen vor, aber nicht Maps.
 
 ![collections](files/37_collection.png)
 

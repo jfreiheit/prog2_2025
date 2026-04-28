@@ -330,3 +330,144 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 
 
+??? "Code aus der Vorlesung 28.04.2026"
+
+	=== "Vorlesung0428.java"
+		```java
+		package vorlesungen.vorlesung0428;
+
+		public class Vorlesung0428
+		{
+			
+
+			public static void main(String[] args)
+			{
+				String[] basen = {"2", "8", "10", "Hi"};
+				int base = 0;
+				double result = 0;
+				for(int index = 0; index <= basen.length; index++)
+				{
+					try {
+						base = Integer.parseInt(basen[index]);
+					}
+					/*
+					catch(NumberFormatException e) {
+						//System.out.println("keine Zahl!");
+						//System.out.println(e.getMessage());
+					}
+					catch(ArrayIndexOutOfBoundsException e)
+					{
+						//System.out.println("index ausserhalb!");
+						//System.out.println(e.getMessage());
+					}
+					*/
+					catch(RuntimeException e)
+					{
+						System.out.println("RuntimeException");
+						System.out.println(e.getMessage());
+					}
+					catch(Exception e)
+					{
+						System.out.println("Exception");
+					}
+					for(int exp = 0; exp < 6; exp++)
+					{
+						result = Math.pow(base,  exp);
+						System.out.printf("%d ^ %d = %.0f %n", base, exp, result);
+					}
+					
+					Triangle t = null;
+					boolean objektErzeugt = false;
+
+					try {
+						t = new Triangle(3,4,-8);
+						objektErzeugt = true;
+					}
+					catch(IllegalSideLengthException e)
+					{
+						System.out.println(e.getMessage());
+					}
+					catch(IllegalTriangleException e)
+					{
+						System.out.println(e.getMessage());
+					}
+					if(objektErzeugt) // if(t != null)
+					{
+						// t kann verwendet werden
+					}
+
+					
+				}
+			}
+		}
+		```
+
+	=== "Triangle.java"
+		```java
+		package vorlesungen.vorlesung0428;
+
+		public class Triangle
+		{
+			private int a, b , c;
+			
+			public Triangle(int a, int b, int c) throws IllegalSideLengthException, IllegalTriangleException
+			{
+				if(a <= 0 || b <= 0 || c <= 0)
+				{
+					//throw new IllegalArgumentException("Seiten muessen groesser als 0 sein!");
+					throw new IllegalSideLengthException("Seitenlaengen " + a + ", " + b + ", " 
+					+ c + " muessen ALLE > 0 sein!");
+				}
+				else if((a+b) <= c || (b+c) <= a || (a+c) <= b)
+				{
+					//throw new IllegalArgumentException("kein Dreieck!");
+					throw new IllegalTriangleException();
+				}
+				else
+				{
+					this.a = a;
+					this.b = b;
+					this.c = c;
+				}
+			}
+		}
+		```
+
+	=== "IllegalSideLengthException.java"
+		```java
+		package vorlesungen.vorlesung0428;
+
+		public class IllegalSideLengthException extends Exception
+		{
+			public IllegalSideLengthException(String message)
+			{
+				super(message);
+			}
+			
+			public IllegalSideLengthException()
+			{
+				super("Seiten muessen groesser als 0 sein!");
+			}
+
+		}
+		```
+
+	=== "IllegalTriangleException.java"
+		```java
+		package vorlesungen.vorlesung0428;
+
+		public class IllegalTriangleException extends Exception
+		{
+			public IllegalTriangleException(String message)
+			{
+				super(message);
+			}
+			
+			public IllegalTriangleException()
+			{
+				super("kein Dreieck!");
+			}
+
+		}
+		```
+
