@@ -471,3 +471,111 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		}
 		```
 
+
+??? "Code aus der Vorlesung 05.05.2026"
+
+	=== "Vorlesung0505.java"
+		```java
+		package vorlesungen.vorlesung0505;
+
+		import java.util.*;
+
+		public class Vorlesung0505
+		{
+
+			public static void main(String[] args)
+			{
+				List<String> liste1 = new ArrayList<>();
+				List<String> liste2 = new LinkedList<>();
+				
+				liste1.add("erster");
+				liste1.add("zweiter");
+				//liste1.add(1);
+				liste1.add("dritter");
+				
+				liste2.add("dritter");
+				liste2.add("vierter");
+				
+				liste1.addAll(liste2);
+				
+				System.out.println(liste1.contains("dritter"));
+				
+				for(String element : liste1)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				for(String element : liste2)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				for(int index = 0; index < liste1.size(); index++)
+				{
+					System.out.print(liste1.get(index) + " "); // get(index)
+				}
+				System.out.println();
+				//System.out.println(liste1.get(10)); // IndexOutOfBoundsException
+				System.out.println(liste1.containsAll(liste2));
+				
+				liste1.remove(2);	// Rueckgabe "dritter"
+
+				for(String element : liste1)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				System.out.println(liste1.size());
+				liste1.add("erster");
+				for(String element : liste1)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				liste1.remove("erster");
+				for(String element : liste1)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				//System.out.println(liste1.remove(10));	// IndexOutOfBoundsException
+			
+				List<Integer> liste3 = new ArrayList<>();
+				liste3.add(1);
+				System.out.println(liste3.remove(0));		// remove(index)
+				liste3.add(1);
+				System.out.println(liste3.remove(Integer.valueOf(1)));	// remove(Object)	
+				
+				// liste1.addAll(liste3);
+				
+				// ----------- Mengen (Set) ---------------
+				
+				System.out.printf("%n%n-------------- Set ---------------%n%n");
+				Set<String> menge1 = new HashSet<>();
+				Set<String> menge2 = new TreeSet<>();
+				
+				menge1.add("erster");
+				menge1.add("zweiter");
+				menge1.add("dritter");
+				
+				for(String element : menge1)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+				
+				menge2.add("erster");
+				menge2.add("zweiter");
+				menge2.add("dritter");
+				menge2.add("zweiter");		// wird nicht hinzugefuegt! (false)
+				
+				for(String element : menge2)
+				{
+					System.out.print(element + " ");
+				}
+				System.out.println();
+			}
+
+		}
+		```
+
