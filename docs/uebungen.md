@@ -635,9 +635,7 @@
 
 ??? "Übung 4"
 
-	1. Schreiben Sie ein Programm zur Eingabe von zwei Zahlen mithilfe der Klasse `JOptionPane` und deren Division! Fangen Sie folgende Ausnahmen ab:
-		- Falls die Eingabe keiner Zahl entspricht.
-		- Falls die zweite Zahl eine 0 ist.
+	1. Schreiben Sie ein Programm zur Eingabe von zwei Zahlen mithilfe der Klasse `JOptionPane` und deren Division! Fangen Sie die Ausnahme ab, dass die Eingabe keiner Zahl entspricht. Sorgen Sie auch dafür, dass die zweite Zahl keine 0 ist. 
 
 	2. **Scenario**:
 		- Fenster zur Eingabe von Zahl 1 öffnet sich: <br/>
@@ -648,7 +646,7 @@
 			![uebung2](./files/24_uebung2.png)
 		- Fenster zur Eingabe von Zahl 2 öffnet sich:  <br/>
 			![uebung2](./files/25_uebung2.png)
-		- die Division Zahl1/Zahl2 schlägt fehl (`ArithmeticException`), deshalb (andere Nachricht!):  <br/>
+		- falls Zahl2 0 ist, andere Nachricht:  <br/>
 			![uebung2](./files/26_uebung2.png)
 		- Ergebnis  <br/>
 			![uebung2](./files/27_uebung2.png)
@@ -661,10 +659,97 @@
 	**Viel Spaß!**
 
 
+??? success "Eine mögliche Lösung für Übung 4"
+	=== "Uebung4.java"
+		```java
+		package uebungen.uebung4;
 
-##### Übung 5 (try-with-resource und eigene Exception-Klassen)
+		import javax.swing.*;
 
-??? "Übung 5"
+		public class Uebung4
+		{
+		    public static int inputInt(String message, String title, int icon)
+		    {
+		        boolean inputOk = false;
+		        int number = 0;
+		        while(!inputOk)
+		        {
+		            String input = JOptionPane.showInputDialog(null, message, title, icon);
+
+		            try {
+		                number = Integer.parseInt(input);
+		                inputOk = true;
+		            }
+		            catch(NumberFormatException e) {
+		                message = "Es war keine Zahl! Bitte Zahl eingeben!";
+		                icon = JOptionPane.ERROR_MESSAGE;
+		            }
+		        }
+		        return number;
+		    }
+
+		    public static int inputInt(int min, int max)
+		    {
+		        String message = "Zahl im Bereich zwischen " + min + " und " + max + ": ";
+		        boolean inputOk = false;
+		        int number = 0;
+		        String title = "Eingabe Intervall";
+		        int icon = JOptionPane.QUESTION_MESSAGE;
+		        while(!inputOk)
+		        {
+		            number = inputInt(message, title, icon);
+		            if(number < min || number > max)
+		            {
+		            	icon = JOptionPane.ERROR_MESSAGE;
+		            }
+		            else
+		            {
+		            	inputOk = true;
+		            }
+		        }
+		        return number;
+		    }
+
+
+		    public static void main(String[] args)
+		    {
+		    	String message = "Bitte eine Zahl eingeben :";
+		    	int icon = JOptionPane.QUESTION_MESSAGE;
+		    	
+		    	// zahl 1
+		        String title = "Zahl 1";
+		        int zahl1 = inputInt(message, title, icon);
+
+		        // zahl 2
+		        title = "Zahl 2";
+		        boolean number2Valid = false;
+		        int zahl2 = 0;
+		        while (!number2Valid) {
+		            zahl2 = inputInt(message, title, icon);
+		            if(zahl2 == 0) {
+		                message = "Zahl darf nicht 0 sein!";
+		                icon = JOptionPane.ERROR_MESSAGE;
+		            }
+		            else
+		            {
+		            	number2Valid = true;
+		            }
+		        }
+		        
+		        // division
+		        double result = (double)zahl1/zahl2;
+		        message = zahl1 + " / " + zahl2 + " = " + String.format("%.2f", result);
+		        JOptionPane.showMessageDialog(null, message, "ERGEBNIS", JOptionPane.PLAIN_MESSAGE);
+
+		        // test inputInt(min,max)
+		        System.out.println(inputInt(1,6));
+		    }
+		}
+		```
+
+##### Übung 5 (try-with-resource und eigene Exception-Klassen) 
+
+??? "Übung 5 --> überspringen wir!!!"
 
 
 	1. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
@@ -800,7 +885,6 @@
 		Typische Vertreter solcher *Ressourcen* sind [FileReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/FileReader.html) und [BufferedReader](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/BufferedReader.html). *Ressources* sind alle Klassen, die das Java-Interface [Closeable](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/Closeable.html) implementieren - zu *Interfaces* kommen wir später.
 
 	2. Ändern Sie 2. und 3. so, dass Sie die `try-with-resources`-Anweisung verwenden.
-
 
 
 
