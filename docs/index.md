@@ -579,3 +579,153 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		}
 		```
 
+
+
+??? "Code aus der Vorlesung 12.05.2026"
+
+	=== "Vorlesung0512.java"
+		```java
+		package vorlesungen.vorlesung0512;
+
+		import java.util.*;
+
+		public class Vorlesung0512
+		{
+			public static double sumOfAreas(Set<Shape> shapes)
+			{
+				double sum = 0.0;
+				for(Shape s : shapes)
+				{
+					sum += s.area();
+				}
+				return sum;
+			}
+
+			public static void main(String[] args)
+			{
+				Set<Integer> s1 = new HashSet<>();
+				Set<Integer> s2 = new HashSet<>();
+				
+				List<Integer> li1 = new ArrayList<>();
+				List<Integer> li2 = new ArrayList<>();
+				
+				for(int i = 1; i <= 10; i++)
+				{
+					s1.add(i);
+					li1.add(i);
+				}
+				
+				for(int i = 5; i <= 15; i++)
+				{
+					s2.add(Integer.valueOf(i));
+					li2.add(i);
+				}
+				
+				s1.addAll(s2);
+				li1.addAll(li2);
+				
+				
+				System.out.print("Menge : ");
+				for(Integer i : s1)
+				{
+					System.out.print(i + " ");
+				}
+				System.out.println();
+				
+				System.out.print("Liste : ");
+				for(Integer i : li1)
+				{
+					System.out.print(i + " ");
+				}
+				System.out.println();
+
+				Float f = 0.1f;
+				double d1 = 1;
+				Double d2 = d1;
+				Boolean b = true;
+				Integer i = 1;
+				
+				System.out.printf("%n%n---------- Maps ---------------%n%n");
+				
+				Map<String, Double> map1 = new HashMap<>();
+				map1.put("s05123456", 1.7);
+				map1.put("s05654321", 1.3);
+				map1.put("s05123456", 2.0);
+				
+				System.out.println("size : " + map1.size());
+				
+				Set<String> allKeys = map1.keySet();
+				for(String s : allKeys)
+				{
+					System.out.println(s);
+				}
+				Collection<Double> allValues = map1.values();
+				for(Double d : allValues)
+				{
+					System.out.println(d);
+				}
+				Double value = map1.get("s05123456");
+				System.out.println(value);
+				
+				Set<Map.Entry<String, Double>> allPairs = map1.entrySet();
+				for(Map.Entry<String, Double> entry : allPairs)
+				{
+					System.out.println(entry);
+					String entryKey = entry.getKey();
+					Double entryValue = entry.getValue();
+				}
+				
+				map1.remove("s05123456");
+				System.out.println("size: " + map1.size());
+				value = map1.get("s05123456");
+				System.out.println(value);
+				allKeys = map1.keySet();
+				for(String s : allKeys)
+				{
+					System.out.println(s);
+				}
+			}
+
+		}
+		```
+
+	=== "Shape.java"
+		```java
+		package vorlesungen.vorlesung0512;
+
+		public abstract class Shape
+		{
+			public abstract double perimeter();
+			public abstract double area();
+		}
+		```
+
+	=== "Rectangle.java"
+		```java
+		package vorlesungen.vorlesung0512;
+
+		public class Rectangle extends Shape
+		{
+			private int width; 
+			private int height;
+			
+			public Rectangle(int width, int height)
+			{
+				this.width = width;
+				this.height = height;
+			}
+
+			@Override
+			public double perimeter()
+			{
+				return 2 * (this.width + this.height);
+			}
+
+			@Override
+			public double area()
+			{
+				return this.width * this.height;
+			}
+
+		}
+		```

@@ -749,7 +749,7 @@
 
 ##### Übung 5 (try-with-resource und eigene Exception-Klassen) 
 
-??? "Übung 5 --> überspringen wir!!!"
+??? "Übung 5 --> Selbststudium!!!"
 
 
 	1. Laden Sie sich folgende Datei herunter: [**staedte.csv**](./files/staedte.csv), erstellen Sie in Ihrem Workspace einen `assets`-Ordner (direkt im Projektordner neben `src`und `out`).
@@ -887,6 +887,130 @@
 	2. Ändern Sie 2. und 3. so, dass Sie die `try-with-resources`-Anweisung verwenden.
 
 
+
+??? success "Eine mögliche Lösung für Übung 5"
+	=== "Uebung5.java"
+		```java
+		package uebungen.uebung5;
+
+		import java.io.*;
+		import java.util.Scanner;
+
+		public class Uebung5
+		{
+		    public static void printCSVFileUsingFileReader()
+		    {
+		        String filePath = "assets/staedte.csv";
+		        try {
+		            FileReader fileReader = new FileReader(filePath);
+		            BufferedReader bufferedReader = new BufferedReader(fileReader);
+		            String line;
+		            while ((line = bufferedReader.readLine()) != null) {
+		                String[] data = line.split(";");
+		                //System.out.println(data[0]);
+		                System.out.printf("| %4s | %-20s | %10s | %10s | %10s | %10s | %10s | %10s | %10s | %-20s |%n",
+		                        data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]);
+		                //System.out.println(line);
+		            }
+		        }
+		        catch (FileNotFoundException e)
+		        {
+		            System.out.println(e.getMessage());
+		        }
+		        catch(IOException e)
+		        {
+		            System.out.println(e.getMessage());
+		        }
+		    }
+
+		    public static void printCSVFileUsingScanner()
+		    {
+		        try {
+		            Scanner scanner = new Scanner(new File("assets/staedte.csv"));
+		            while (scanner.hasNextLine()) {
+		                System.out.println(scanner.nextLine());
+		            }
+		            scanner.close();
+		        }
+		        catch (FileNotFoundException e) {
+		            System.out.println(e.getMessage());
+		        }
+		    }
+
+		    public static Integer getInteger(Integer[] values, int index) throws MyIndexOutOfBoundsException
+		    {
+		        if (index < 0 || index >= values.length) {
+		            throw new MyIndexOutOfBoundsException(index, values.length);
+		        }
+		        Integer value =  values[index];
+		        if(value == null) {
+		            throw new MyNullPointerException();
+		        }
+		        return value;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        printCSVFileUsingFileReader();
+		        //printCSVFileUsingScanner();
+
+		        Integer[] values = new Integer[3];
+		        values[0] = Integer.valueOf(0);
+		        values[2] = Integer.valueOf(2);
+		        for(int index = 0; index <= 3; index++) {
+		            try {
+		                System.out.println(getInteger(values, index));
+		            }
+		            catch (MyIndexOutOfBoundsException e) {
+		                System.out.println(e.getMessage());
+		            }
+		            catch (MyNullPointerException e) {
+		                System.out.println(e.getMessage());
+		            }
+		        }
+		        System.out.println("Ende");
+		    }
+		}
+		```
+	=== "MyIndexOutOfBoundsException.java"
+		```java
+		package uebungen.uebung5;
+
+		public class MyIndexOutOfBoundsException extends RuntimeException
+		{
+		    public MyIndexOutOfBoundsException(String message)
+		    {
+		        super(message);
+		    }
+
+		    public MyIndexOutOfBoundsException()
+		    {
+		        super("index out of bounds");
+		    }
+
+		    public MyIndexOutOfBoundsException(int index, int length)
+		    {
+		        super("index " + index + " ist out of bounds! length = " + length);
+		    }
+		}
+		```
+	=== "MyNullPointerException.java"
+		```java
+		package uebungen.uebung5;
+
+		public class MyNullPointerException extends RuntimeException
+		{
+		    public MyNullPointerException(String message)
+		    {
+		        super(message);
+		    }
+
+		    public MyNullPointerException()
+		    {
+		        super("no object!");
+		    }
+		}
+		```
 
 
 ##### Übung 6 (Listen und Mengen)
