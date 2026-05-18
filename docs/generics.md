@@ -159,9 +159,9 @@ Es könnte ja sein, dass die Liste vom Typ `List<Integer>` ist, das `element` je
 
 
 ```java
-public static void add(List<? extends Number> liste, Number element)
+public static void add(List<? super Number> liste, Number element)
 {
-	liste.add(element);	funktioniert nun 
+	liste.add(element);	// funktioniert nun 
 }
 ```
 
@@ -180,7 +180,7 @@ for(Number i : numbers3)
 ```
 
 beachten Sie auch, dass innerhalb der `add`-Methode z.B. nicht `Number n = liste.get(0)` aufgerufen werden könnte, da die Liste ja auch eine `List<Object>` sein könnte und ein `Object` keine `Number` ist.
-	
+
 
 ## Beispiel einfaches Interface
 
