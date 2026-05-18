@@ -84,6 +84,7 @@ nav:
     - Collections: collections.md 
     - Maps: maps.md
     - Abstrakte Klassen: abstrakt.md 
+    - Generics: generics.md 
     - Interfaces: interfaces.md
     - Lambdas: lambdas.md
     - Streams: streams.md

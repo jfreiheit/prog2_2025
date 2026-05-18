@@ -54,12 +54,12 @@ Welche Bezeichnungen Sie für die generischen Typen verwenden, bleibt Ihnen übe
 
 Manchmal werden an die generischen Typen spezielle Anforderungen gestellt. Angenommen, wir wollen die Klasse `MyGenericClass<T>` um folgende Methode erweitern:
 
-	```java linenums="18"
-    public boolean isBigger(MyGenericClass<T> other)
-    {
-        return this.value.compareTo(other.value) > 0;
-    }
-	```
+```java linenums="18"
+public boolean isBigger(MyGenericClass<T> other)
+{
+    return this.value.compareTo(other.value) > 0;
+}
+```
 
 Dann bräuchten wir die Zusicherung, dass der Typ `T` auch `Comparable` implementiert hat, denn sonst könnten wir `compareTo()` gar nicht aufrufen. Eine solche Zusicherung lässt sich mittels `<T extends Comparable<T>>` beschreiben: 
 
@@ -87,6 +87,100 @@ Dann bräuchten wir die Zusicherung, dass der Typ `T` auch `Comparable` implemen
 	}
 	```
 
+
+## Die PECS-Regel
+
+**PECS** steht für <strong>P</strong>roducer <strong>E</strong>xtends, <strong>C</strong>onsumer <strong>S</strong>uper. Um diese Regel zu verstehen, führen wir zunächst zwei Begriffe ein: *Invarianz* und *Kovarianz*. 
+
+> Kovarianz: Wenn `A` eine Kindklasse von `B` ist, dann ist `T(A)` auch eine Kindklasse von `T(B)`. Beispiel: `Interger` ist eine Kindklasse von `Number`. `Integer[]` ist eine Kindklasse von `Number[]`. Es ginge also `Number[] array = new Integer[5]`.
+
+Das Problem dabei:
+
+```java
+Number[] numbers = new Integer[5];	// erlaubt Kovarianz
+numbers[0] = 3.14;					// ArrayStoreException!!!
+```
+
+Deshalb hat man *Generics* invariant gemacht:
+
+> Invarianz: Eine Klasse (Typ) ist invariant, wenn sie keine Kindklassen-Beziehung der zugrundeliegenden Klassen (Typen) übernimmt bzw. zulässt. Beispiel: `List<Integer>` ist **keine** `List<Number>`! 
+
+Arrays sind kovariant, Generics nicht! Angenommen, wir haben eine Methode 
+
+```java
+public static double summe(List<Number> liste) 
+{
+    double sum = 0.0;
+    for (Number n : liste) 
+    {
+        sum += n.doubleValue();
+    }
+    return sum;
+}
+```
+
+, die eine `List<Number>` erwartet. Dann können wir **nicht**:
+
+```java
+List<Integer> numbers2 = List.of(1, 2, 3, 4, 5);
+System.out.println(summe(numbers2));				// Compilerfehler!!!
+```
+
+Eine `List<Integer>` ist **keine** `List<Number>`, denn `List<T>` ist eine Generic und somit invariant.
+
+Wir müssen stattdessen so implementieren:
+
+```java
+public static double summe(List<? extends Number> liste) 
+{
+    double sum = 0.0;
+    for (Number n : liste) 
+    {
+        sum += n.doubleValue();
+    }
+    return sum;
+}
+```
+
+Beim `?` spricht man von einer *Wildcard*. Bei `? extends Number` spricht man von einer `Upper-Bounded-Wildcard`.
+
+Nun funktioniert `summe(numbers2)`! Mithilfe von `<? extends Number>` erzwingen wir *Kovarianz*. `<? extends Number>` besagt: *Diese Methode akzeptiert eine Liste von Objekten irgendeines Typs, solange dieser Typ `Number` ist oder von `Number` erbt.* 
+
+**Aber Achtung!** Weil der Compiler nicht genau weiß, welcher Typ *konkret* in der Liste steckt, ist das Hinzufügen von Elementen so nicht erlaubt!
+
+```java
+public static void add(List<? extends Number> liste, Number element)
+{
+	liste.add(element);	// Compilerfehler!!! 
+}
+```
+
+Es könnte ja sein, dass die Liste vom Typ `List<Integer>` ist, das `element` jedoch vom Typ `Double`. Hier kommt die **PECS**-Regel zur Anwendung. Während die Liste in `summe` ein *Producer* ist (wir lesen nur Werte aus, Werte werden geliefert), ist die Liste in `add` ein *Consumer* (wir schreiben Werte, nehmen Werte auf). 
+
+
+```java
+public static void add(List<? extends Number> liste, Number element)
+{
+	liste.add(element);	funktioniert nun 
+}
+```
+
+Der Ausdruck `<? super Number>` bedeutet, dass die Liste Objekte von Typ `Number` oder einer ihrer Elternklassen (wie `Object`) aufnehmen kann. Man spricht von einer `Lower-Bounded-Wildcard`. Da jede Zahl (egal ob `Integer` oder `Double`) strukturell eine `Number` ist, ist es absolut sicher, jedes Objekt vom Typ `Number` in diese Liste einzufügen. Dafür kann man nun keine `List<Integer>` mehr als Parameter übergeben! 
+
+```java
+List<Integer> numbers2 = List.of(1, 2, 3, 4, 5);
+System.out.println(summe(numbers2));
+//add(numbers2, 6); 	// Compilerfehler!!!
+List<Number> numbers3 = new ArrayList<>(numbers2);
+add(numbers3, 6);		// klappt! List<Object> ginge auch
+for(Number i : numbers3)
+{
+	System.out.print(i + " ");
+}
+```
+
+beachten Sie auch, dass innerhalb der `add`-Methode z.B. nicht `Number n = liste.get(0)` aufgerufen werden könnte, da die Liste ja auch eine `List<Object>` sein könnte und ein `Object` keine `Number` ist.
+	
 
 ## Beispiel einfaches Interface
 
@@ -148,14 +242,18 @@ System.out.println(insert( (s1, s2) -> List.of(s1, s2), 3, 4));
 Wir haben uns im ersten Semester verschiedene Sortiermethoden für Arrays unterschiedlichen Typs geschrieben. Eine generische Methode könnte wie folgt aussehen:
 
 ```java
-public static <T extends Comparable<T>> void bubbleSort(T[] array) {
-for (int bubble = 1; bubble < array.length; bubble++) {
-  for (int index = 0; index < array.length - bubble; index++) {
-    if (array[index].compareTo(array[index + 1]) > 0) {
-      swap(index, index + 1, array);
-    }
-  }
-}
+public static <T extends Comparable<T>> void bubbleSort(T[] array) 
+{
+	for (int bubble = 1; bubble < array.length; bubble++) 
+	{
+	  for (int index = 0; index < array.length - bubble; index++) 
+	  {
+	    if (array[index].compareTo(array[index + 1]) > 0) 
+	    {
+	      swap(index, index + 1, array);
+	    }
+	  }
+	}
 }
 
 public static <T> void swap(int i, int j, T[] a) {
@@ -167,40 +265,9 @@ public static <T> void swap(int i, int j, T[] a) {
 
 Diese Methode stellt 2 Anforderungen:
 
-- der Typ des Arrays ist ein Referenztyp (üfr Wertetypen müssen entsprechende Wrapperklassen verwendet werden),
+- der Typ des Arrays ist ein Referenztyp (für Wertetypen müssen entsprechende Wrapperklassen verwendet werden),
 - der Typ des Arrays implementiert das Interface `Comparable`. Wird ein Typ verwendet, der nicht `Comparable` implementiert hat, erhalten wir eine `ClassCastException`. 
 
-
-## Wildcards
-
-Ein Typ kann mit der Wildcard `?` angegeben werden, dann ist jeder beliebige (Referenz-)Typ möglich. Beispiel:
-
-```java
-List<?> list = new ArrayList<String>();
-list = new ArrayList<Integer>(); // Works with any type
-```
-
-Eine solche Wildcard wird jedoch meistens nicht wie oben, sondern entweder als *Upper-Bounded-Wildcard*  oder als *Lower-Bounded-Wildcard*. Mit der **PECS**-Eselsbrücke kann man sich merken, ob `extends` (*Upper-Bounded-Wildcard*) oder `super` (*Lower-Bounded-Wildcard*) verwendet werden soll. **PECS** steht für *Producer-Extends, Consumer-Super*.
-
-### Upper-Bounded-Wildcard
-
-```java
-public void printNumbers(List<? extends Number> list) {
-    for (Number n : list) {
-        System.out.println(n);
-    }
-}
-```
-
-Es wird eine Liste erwartet, deren Typ mindestens von `Number` abgeleitet wurde (also z.B. `Interger`, `Double`, `Long`). `String` oder `Boolean` ginge z.B. nicht. Die Liste *produziert* die Input-Werte.
-
-### Lower-Bounded-Wildcard
-
-```java
-public void addNumbers(List<? super Integer> list) {
-    list.add(10); // You can add Integer or its subclass
-}
-```
 
 
 
