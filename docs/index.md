@@ -729,3 +729,381 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 		}
 		```
+
+
+
+??? "Code aus der Vorlesung 19.05.2026"
+
+	=== "Vorlesung0519.java"
+		```java
+		package vorlesungen.vorlesung0519;
+
+		import java.util.*;
+
+		public class Vorlesung0519
+		{
+			public static void printPerimeter(Shape s)
+			{
+				System.out.println("Umfang : " + s.perimeter());
+			}
+			
+			public static void printArea(Shape s)
+			{
+				System.out.println("Flaeche : " + s.area());
+			}
+			
+			public static double sumOfAreas(Shape[] sarr)
+			{
+				double sum = 0.0;
+				for(Shape s : sarr)
+				{
+					sum += s.area();
+				}
+				return sum;
+			}
+			
+			
+			public static double sumOfAreas(List<? extends Shape> list)
+			{
+				double sum = 0.0;
+				for(Shape s : list)
+				{
+					sum += s.area();
+				}
+				return sum;
+			}
+			
+			public static void addElement(List<? super Shape> list, Shape element)
+			{
+				list.add(element);
+			}
+
+			public static void main(String[] args)
+			{
+				Circle c1 = new Circle(3.0);
+				Shape c2 = new Circle(4.0);
+				
+				Rectangle r1 = new Rectangle(3,4);
+				Shape r2 = new Rectangle(5,6);
+				
+				printPerimeter(c1);
+				printPerimeter(c2);
+				printPerimeter(r1);
+				printPerimeter(r2);
+				
+				Rectangle[] ra1 = new Rectangle[2];
+				ra1[0] = new Rectangle(7,8);
+				ra1[1] = new Rectangle(1,2);
+				
+				System.out.println(sumOfAreas(ra1));
+				
+				Shape[] sa1 = new Shape[2];
+				sa1[0] = new Rectangle(2,3);
+				sa1[1] = new Circle(2.0);
+				
+				System.out.println(sumOfAreas(sa1));
+				
+				Number[] narr = new Integer[2];
+				// narr[0] = 3.14;
+				
+				List<Circle> lc = new ArrayList<>();
+				lc.add(new Circle(4.0));
+				lc.add(new Circle(5.0));
+				
+				System.out.println(sumOfAreas(lc));
+				
+				MyGenericClass<String> mgc1 = new MyGenericClass<>("Hallo FIW!");
+				System.out.println(mgc1.getValue());
+				
+				MyGenericClass<Integer> mgc2 = new MyGenericClass<>(1);
+				System.out.println(mgc2.getValue());
+				
+			}
+		}
+		```
+
+	=== "Shape.java"
+		```java
+		package vorlesungen.vorlesung0519;
+
+		public abstract class Shape
+		{
+			public abstract double perimeter();
+			public abstract double area();
+		}
+		```
+
+	=== "Rectangle.java"
+		```java
+		package vorlesungen.vorlesung0519;
+
+		public class Rectangle extends Shape
+		{
+			private int width;
+			private int length;
+			
+			
+			public Rectangle(int width, int length)
+			{
+				this.width = width;
+				this.length = length;
+			}
+
+			@Override
+			public double perimeter()
+			{
+				return 2 * (this.width + this.length);
+			}
+
+			@Override
+			public double area()
+			{
+				return this.width * this.length;
+			}
+		}
+		```
+
+	=== "Circle.java"
+		```java
+		package vorlesungen.vorlesung0519;
+
+		public class Circle extends Shape
+		{
+			private double radius;
+			
+			public Circle(double radius)
+			{
+				this.radius = radius;
+			}
+
+			@Override
+			public double perimeter()
+			{
+				return Math.PI * 2.0 * this.radius;
+			}
+
+			@Override
+			public double area()
+			{
+				return Math.PI * this.radius * this.radius;
+			}
+		}
+		```
+
+	=== "MyGenericClass.java"
+		```java
+		package vorlesungen.vorlesung0519;
+
+		public class MyGenericClass<T>
+		{
+			private T value;
+			
+			public MyGenericClass(T value)
+			{
+				this.value = value;
+			}
+			
+			public T getValue()
+			{
+				return this.value;
+			}
+		}
+		```
+
+
+
+??? "Code aus der Vorlesung 26.05.2026"
+
+	=== "Vorlesung0526.java"
+		```java
+		package vorlesungen.vorlesung0526;
+
+		import java.util.Arrays;
+
+		public class Vorlesung0526
+		{
+			public static void sortieren(Comparable[] ca)
+			{
+				for(int bubble = 1; bubble < ca.length; bubble++)
+				{
+					for(int index = 0; index < ca.length - bubble; index++)
+					{
+						if(ca[index].compareTo(ca[index+1]) > 0)
+						{
+							Comparable tmp = ca[index];
+							ca[index] = ca[index+1];
+							ca[index+1] = tmp;
+						}
+					}
+				}
+			}
+			
+			public static void print(Printable[] pa)
+			{
+				for(Printable p : pa)
+				{
+					p.print();
+				}
+			}
+			
+			public static void main(String[] args)
+			{
+				Rectangle[] ra = new Rectangle[4];
+				ra[0] = new Rectangle(3,5);
+				ra[1] = new Rectangle(3,4);
+				ra[2] = new Rectangle(3,6);
+				ra[3] = new Rectangle(3,5);
+				
+				System.out.println(Arrays.toString(ra));
+				sortieren(ra);
+				System.out.println(Arrays.toString(ra));
+				print(ra);
+				
+				Shape[] sha = new Shape[2];
+				sha[0] = new Circle(3.0);
+				sha[1] = new Rectangle(3,4);
+				System.out.println(Arrays.toString(sha));
+				sortieren(sha);
+				System.out.println(Arrays.toString(sha));
+				
+			}
+		}
+		```
+
+	=== "Shape.java"
+		```java
+		package vorlesungen.vorlesung0526;
+
+		public abstract class Shape implements Comparable<Shape>
+		{
+			public abstract double perimeter();
+			public abstract double area();
+			
+			@Override
+			public int compareTo(Shape s)
+			{
+				if(this.area() > s.area())
+				{
+					return 1;
+				}
+				else if(this.area() > s.area())
+				{
+					return -1;
+				}
+				return 0;
+			}
+		}
+		```
+
+	=== "Rectangle.java"
+		```java
+		package vorlesungen.vorlesung0526;
+
+		public class Rectangle extends Shape implements Printable
+		{
+			private int width;
+			private int length;
+			
+			
+			public Rectangle(int width, int length)
+			{
+				this.width = width;
+				this.length = length;
+			}
+
+			@Override
+			public double perimeter()
+			{
+				return 2 * (this.width + this.length);
+			}
+
+			@Override
+			public double area()
+			{
+				return this.width * this.length;
+			}
+
+			/*
+			@Override
+			public int compareTo(Rectangle o)
+			{
+				return (this.width+this.length) - (o.width+o.length);
+			}
+			*/
+			
+			@Override
+			public String toString()
+			{
+				return "( " + this.width + ", " + this.length + " ) ";
+			}
+
+			@Override
+			public void print()
+			{
+				System.out.println(this.toString());
+				
+			}
+		}
+		```
+
+	=== "Circle.java"
+		```java
+		package vorlesungen.vorlesung0526;
+
+
+		public class Circle extends Shape 
+		{
+			private double radius;
+			
+			public Circle(double radius)
+			{
+				this.radius = radius;
+			}
+
+			@Override
+			public double perimeter()
+			{
+				return Math.PI * 2.0 * this.radius;
+			}
+
+			@Override
+			public double area()
+			{
+				return Math.PI * this.radius * this.radius;
+			}
+
+			/*
+			@Override
+			public int compareTo(Circle o)
+			{
+				if(this.radius > o.radius)
+				{
+					return 1;
+				}
+				else if(this.radius < o.radius)
+				{
+					return -1;
+				}
+				return 0;
+			}
+			*/
+
+			@Override
+			public String toString()
+			{
+				return String.format("%.2f ", this.radius);
+			}
+		}
+		```
+
+	=== "Printable.java"
+		```java
+		package vorlesungen.vorlesung0526;
+
+		@FunctionalInterface
+		public interface Printable
+		{
+			void print();
+		}
+		```
+
