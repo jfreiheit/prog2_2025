@@ -1159,6 +1159,180 @@
 		```
 
 
+??? success "Eine mögliche Lösung für Übung 6"
+	=== "Uebung6.java"
+		```java
+		package uebungen.uebung6;
+
+		import java.util.*;
+
+		public class Uebung6
+		{
+		    public static List<String> createArrayList(String[] words)
+		    {
+		        List<String> list = new ArrayList<>();
+		        for(String word : words)
+		        {
+		            list.add(word);
+		        }
+		        return list;
+		    }
+
+		    public static void printList(List<String> list)
+		    {
+		        System.out.printf("Liste mit %d Elementen : %n", list.size());
+		        System.out.println("--------------------------");
+		        for(String s : list)
+		        {
+		            System.out.println(s);
+		        }
+		        System.out.println();
+		    }
+
+		    public static Set<String> createHashSet(String[] words)
+		    {
+		        Set<String> set = new HashSet<>();
+		        for(String word : words)
+		        {
+		            set.add(word);
+		        }
+		        return set;
+		    }
+
+
+		    public static Set<String> createTreeSet(String[] words)
+		    {
+		        Set<String> set = new TreeSet<>();
+		        for(String word : words)
+		        {
+		            set.add(word);
+		        }
+		        return set;
+		    }
+
+
+		    public static Set<Integer> createIntegerSet(int from, int to)
+		    {
+		        Set<Integer> set = new HashSet<>();
+		        for(Integer i = from; i <= to; i++)
+		        {
+		            set.add(i);
+		        }
+		        return set;
+		    }
+
+		    public static void printSet(Set<String> set)
+		    {
+		        System.out.printf("Menge mit %d Elementen : %n", set.size());
+		        System.out.println("--------------------------");
+		        for(String s : set)
+		        {
+		            System.out.println(s);
+		        }
+		        System.out.println();
+		    }
+
+		    public static void printIntegerSet(Set<Integer> set)
+		    {
+		        for(Integer i : set)
+		        {
+		            System.out.print(i + " ");
+		        }
+		        System.out.println();
+		    }
+
+		    public static List<String> findDoubletsTwice(List<String> list)
+		    {
+		        List<String> doublets = new ArrayList<>();
+		        for(String currentValue : list)
+		        {
+		            if(list.indexOf(currentValue) != list.lastIndexOf(currentValue))
+		            {
+		                doublets.add(currentValue);
+		            }
+		        }
+		        return doublets;
+		    }
+
+		    public static List<String> findDoubletsOnce(List<String> list)
+		    {
+		        List<String> doublets = new ArrayList<>();
+		        for(int index = 0; index < list.size(); index++)
+		        {
+		            String currentValue = list.get(index);
+		            if(contains(list, currentValue, index+1))
+		            {
+		                doublets.add(currentValue);
+		            }
+		        }
+		        return doublets;
+		    }
+
+		    public static boolean contains(List<String> list, String currentValue, int index)
+		    {
+		        for(int i = index; i < list.size(); i++)
+		        {
+		            if(list.get(i).equals(currentValue))
+		            {
+		                return true;
+		            }
+		        }
+		        return false;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        System.out.printf("%n%n------- Uebung6 -------%n%n");
+		        String[] words = {"Linux", "Apple", "Facebook", "Amazon",
+		                "IBM", "Lenovo", "Google", "IBM", "Microsoft",
+		                "Apple", "Google", "Twitter", "Skype", "Chrome",
+		                "Linux", "Firefox"};
+
+		        System.out.printf("%n%n------- List -------%n%n");
+		        List<String> wordsList = createArrayList(words);
+		        printList(wordsList);
+		        int indexFirst = wordsList.indexOf("Apple");
+		        int indexLast = wordsList.lastIndexOf("Apple");
+		        String firstWord = wordsList.get(0);
+		        String lastWord = wordsList.get(wordsList.size() - 1);
+		        System.out.println("Index des ersten Auftretens von Apple : " + indexFirst);
+		        System.out.println("Index des letzten Auftretens von Apple : " + indexLast);
+		        System.out.println("erstes Element der Liste : " + firstWord);
+		        System.out.println("letztes Element der Liste : " + lastWord);
+		        System.out.println("Loeschen von Apple : " + wordsList.remove("Apple"));
+		        System.out.println("Loeschen von Google : " + wordsList.remove("Google"));
+		        System.out.println("Loeschen von Facebook : " + wordsList.remove("Facebook"));
+		        printList(wordsList);
+
+		        System.out.printf("%n%n------- Set -------%n%n");
+		        Set<String> wordsHashSet = createHashSet(words);
+		        printSet(wordsHashSet);
+		        Set<String> wordsTreeSet = createTreeSet(words);
+		        printSet(wordsTreeSet);
+
+		        System.out.printf("%n%n------- Zusatz -------%n%n");
+		        printList(findDoubletsTwice(wordsList));
+		        printList(findDoubletsOnce(wordsList));
+
+		        System.out.printf("%n%n------- Operationen ueber Mengen -------%n%n");
+
+		        Set<Integer> s2 = Set.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);    // immutable set
+
+		        Set<Integer> s1 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s1.addAll(s2);          // Vereinigung
+		        printIntegerSet(s1);       // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+
+		        Set<Integer> s3 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s3.removeAll(s2);       // Differenz
+		        printIntegerSet(s3);       // 1, 2, 3, 4
+
+		        Set<Integer> s4 = createIntegerSet(1, 10);  // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		        s4.retainAll(s2);       // Schnitt
+		        printIntegerSet(s4);       // 5, 6, 7, 8, 9, 10
+		    }
+		}
+		```
+
 
 ##### Übung 7 (Maps)
 
