@@ -1107,3 +1107,86 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		}
 		```
 		
+
+??? "Code aus der Vorlesung 02.06.2026"
+
+	=== "Vorlesung00602.java"
+		```java
+		package vorlesungen.vorlesung0602;
+
+		import java.util.List;
+		import java.util.function.*;
+
+		public class Vorlesung0602
+		{
+
+			public static void main(String[] args)
+			{
+				System.out.printf("%n%n----------- Ausgangspunkt Liste ------------%n%n");
+				
+				List<String> staedte = List.of("Berlin", "Hamburg", "München", 
+						"Köln", "Frankfurt am Main", "Düsseldorf",
+		                "Stuttgart", "Leipzig", "Dortmund", "Bremen", "Essen" ,
+		                "Dresden");
+				
+				List<Integer> numbers = List.of(1, 2, 3, 4);
+				// staedte.forEach( ??? );
+				
+				System.out.printf("%n%n----------- Variante 1: eigene Klasse ------------%n%n");
+				MyConsumer mc = new MyConsumer();
+				
+				staedte.forEach( mc );
+				
+				System.out.printf("%n%n----------- Variante 2: anonyme Klasse ------------%n%n");
+				
+				staedte.forEach( new Consumer<String>() {
+
+					@Override
+					public void accept(String t)
+					{
+						System.out.println("Halloechen " + t + "chen !");
+					}
+					
+				});
+				
+				System.out.printf("%n%n----------- Variante 3: Lambda-Ausdruck ------------%n%n");
+				
+				staedte.forEach( s -> System.out.println("variante 3 " + s) );
+				
+				
+				numbers.forEach( s -> {
+					System.out.printf("%2d : ", numbers.indexOf(s));
+					int i = s * 10;
+					System.out.println(s + " * 10 = " + i);
+				});
+				
+
+				Consumer<String> mc1 = s -> {
+					s = s.toUpperCase();
+					System.out.println(s);
+				};
+				staedte.forEach( mc1 );
+				
+				staedte.forEach( System.out::println);	// Methodenreferenz
+			}
+
+		}
+		```
+
+	=== "MyConsumer.java"
+		```java
+		package vorlesungen.vorlesung0602;
+
+		import java.util.function.Consumer;
+
+		public class MyConsumer implements Consumer<String>
+		{
+
+			@Override
+			public void accept(String t)
+			{
+				System.out.println("Hallo " + t + " !");
+			}
+
+		}
+		```

@@ -8,13 +8,20 @@
 
 *Lambda*-Ausdrücke bestehen aus drei Teilen:
 
-1. einer Liste von keinem, einem oder merhrern Parametern, durch Komma getrennt und in runden Klammern `()`. Diesen Parametern muss kein Typ zugewiseen werden. Der jeweilige Tp des Parameters wird aus dem Kontext ermittelt. Besteht die Parameterliste aus genau einem Parameter, können die runden Klammern weggelassen werden.
+1. einer Liste von keinem, einem oder mehreren Parametern, durch Komma getrennt und in runden Klammern `()`. Diesen Parametern muss kein Typ zugewiesen werden. Der jeweilige Typ des Parameters wird aus dem Kontext ermittelt. Besteht die Parameterliste aus genau einem Parameter, können die runden Klammern weggelassen werden.
 2. dem Pfeil `->`, der die Parameterliste mit dem Funktionskörper verbindet.
 3. Dem Funktionskörper, der nur dann in geschweiften Klammern eingefasst ist, wenn er aus mehr als einer Anweissung besteht. Wir können also auch so schreiben:
 
 
 ```java
 (params) -> anweisung
+```
+
+bzw. 
+
+
+```java
+param -> anweisung
 ```
 
 Beachten Sie, dass hinter der einzelnen Anweisung kein Semikolon steht. 

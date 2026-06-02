@@ -16,9 +16,9 @@ Es gibt also zwei Arten von Operationen in *Streams*
 
 |intermediate operations |terminal operations |
 |------------------------|--------------------|
-| return *Stream* | return *non-stream* Werte |
+| return *Stream* | return *non-Stream* Werte |
 | können verkettet werden | können nicht verkettet werden | 
-| eine *Stream-Pipeline* kann mehrere intermediäre Operationen enthalten | eine *Stream-Pipeline* enthält genau eine terminal Operation am Ende. |
+| eine *Stream-Pipeline* kann mehrere intermediäre Operationen enthalten | eine *Stream-Pipeline* enthält genau eine terminale Operation am Ende. |
 | intermediäre Operationen werden ausgeführt, wenn die terminale Operation aufgerufen wird (*lazy loading*) | terminale Operationen triggern die Abarbeitung des Streams (*eagerly loaded*) |
 | produzieren kein finales Ergebnis | produzieren das finale Ergebnis der *Stream-Pipeline* |
 | Beispiele: `filter()`, `map()`, `distinct()`, `sorted()`, `limit()`, `skip()` | Beispiele: `forEach()`, `toArray()`, `reduce()`, `collect()`, `min()`, `max()`, `count()`, `anyMatch()`, `allMatch()`, `noneMatch()`, `findFirst()`, `findAny()` |

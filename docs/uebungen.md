@@ -1442,6 +1442,175 @@
 	``` 
 
 
+??? success "Eine mögliche Lösung für Übung 7"
+	=== "StadtTest.java"
+		```java
+		package uebungen.uebung7;
+
+		import java.util.*;
+
+		public class StadtTest
+		{
+		    public static Stadt[] staedte()
+		    {
+		        Stadt[] staedte = new Stadt[6];
+		        List<Integer> berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);
+		        berlinBevoelkerung.add(3460725);
+		        berlinBevoelkerung.add(3574830);
+		        staedte[0] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        List<Integer> hamburgBevoelkerung = new ArrayList<>();
+		        hamburgBevoelkerung.add(1715392);
+		        hamburgBevoelkerung.add(1786448);
+		        hamburgBevoelkerung.add(1810438);
+		        staedte[1] = new Stadt("Hamburg", hamburgBevoelkerung, 755.22f);
+
+		        List<Integer> muenchenBevoelkerung = new ArrayList<>();
+		        muenchenBevoelkerung.add(1210223);
+		        muenchenBevoelkerung.add(1353186);
+		        muenchenBevoelkerung.add(1464301);
+		        staedte[2] = new Stadt("Muenchen", muenchenBevoelkerung, 310.70f);
+
+		        List<Integer> koelnBevoelkerung = new ArrayList<>();
+		        koelnBevoelkerung.add(962884);
+		        koelnBevoelkerung.add(1007119);
+		        koelnBevoelkerung.add(1075935);
+		        staedte[3] = new Stadt("Koeln", koelnBevoelkerung, 405.02f);
+
+		        List<Integer> frankfurtBevoelkerung = new ArrayList<>();
+		        frankfurtBevoelkerung.add(648550);
+		        frankfurtBevoelkerung.add(679664);
+		        frankfurtBevoelkerung.add(736414);
+		        staedte[4] = new Stadt("Frankfurt/Main", frankfurtBevoelkerung, 248.31f);
+
+		        berlinBevoelkerung = new ArrayList<>();
+		        berlinBevoelkerung.add(3382169);
+		        berlinBevoelkerung.add(3460725);
+		        berlinBevoelkerung.add(3574830);
+		        staedte[5] = new Stadt("Berlin", berlinBevoelkerung, 891.68f);
+
+		        return staedte;
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        Stadt[] staedteArray = staedte();
+
+		        System.out.printf("%n%n--------------- Liste --------------%n%n");
+		        // Liste erstellen
+		        List<Stadt> staedteListe = new ArrayList<>();
+
+		        // Liste befuellen
+		        for(Stadt s : staedteArray)
+		        {
+		            staedteListe.add(s);
+		        }
+
+		        // Liste auslesen
+		        for(Stadt s : staedteListe)
+		        {
+		            s.print();
+		        }
+
+		        System.out.printf("%n%n--------------- Menge --------------%n%n");
+		        // Set erstellen
+		        Set<Stadt> staedteMenge = new HashSet<>();
+
+		        // Set befuellen
+		        for(Stadt s : staedteArray)
+		        {
+		            staedteMenge.add(s);
+		        }
+
+		        // Set auslesen
+		        for(Stadt s : staedteMenge)
+		        {
+		            s.print();
+		        }
+
+		        System.out.printf("%n%n--------------- Map --------------%n%n");
+		        // Map erzeugen
+		        Map<Integer, Stadt> staedteMap = new HashMap<>();
+
+		        // Map befuellen
+		        Integer key = 1;
+		        for(Stadt s : staedteArray)
+		        {
+		            staedteMap.put(key, s);
+		            key++;
+		        }
+
+		        // Map auslesen
+		        // Variante 1
+		        Set<Integer> allKeys = staedteMap.keySet();
+		        for(Integer k : allKeys)
+		        {
+		            Stadt s = staedteMap.get(k);
+		            System.out.printf("%2d ", k);
+		            s.print();
+		        }
+		        System.out.println();
+		        // Variante 2
+		        Set<Map.Entry<Integer, Stadt>> allEntries = staedteMap.entrySet();
+		        for(Map.Entry<Integer, Stadt> entry : allEntries)
+		        {
+		            Integer k = entry.getKey();
+		            Stadt v = entry.getValue();
+		            System.out.printf("%-2d ", k);
+		            v.print();
+		        }
+		    }
+		}
+		```
+	=== "Stadt.java"
+		```java
+		package uebungen.uebung7;
+
+		import java.util.List;
+
+		public class Stadt
+		{
+		    private String name;
+		    private List<Integer> bevoelkerung;
+		    private float flaeche;
+
+		    public Stadt(String name, List<Integer> bevoelkerung, float flaeche)
+		    {
+		        this.name = name;
+		        this.bevoelkerung = bevoelkerung;
+		        this.flaeche = flaeche;
+		    }
+
+		    public void print()
+		    {
+		        System.out.printf("%-15s %8.2f km%c ", this.name, this.flaeche, '\u00b2');
+		        for(Integer i : this.bevoelkerung)
+		        {
+		            System.out.printf("%,10d ", i);
+		        }
+		        System.out.println();
+		    }
+
+		    @Override
+		    public boolean equals(Object o)
+		    {
+		        if (o == null) return false;
+		        if (o == this) return true;
+		        if (this.getClass() != o.getClass()) return false;
+
+		        Stadt s = (Stadt) o;
+		        return this.name.equals(s.name) && this.flaeche == s.flaeche;
+		    }
+
+		    @Override
+		    public int hashCode()
+		    {
+		        return this.name.hashCode();
+		    }
+		}
+		```
+
 
 ##### Übung 8 (Interfaces)
 
