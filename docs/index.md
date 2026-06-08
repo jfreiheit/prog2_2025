@@ -54,8 +54,8 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 22.-26.06.2026 | [Test driven development]()| [Übung 12](uebungen.md#ubung-12-junit) | [Probeklausur 2](uebungen.md#probeklausur-2) | 
 | 29.-03.07.2026 | [Klausurvorbereitung]() | [Übung 13](uebungen.md#ubung-13-collections-wiederholung) | [Probeklausur 3](uebungen.md#probeklausur-3)  | 
 | 06.-10.07.2026 | [Klausurvorbereitung]()| - | - | 
-| 29.07.2026 14:00 Uhr| Klausur 1.PZ | C 635 und C 639| - | - |
-| 30.09.2026 14:00 Uhr| Klausur 2.PZ | Labore 6. Etage C-Gebäude| - | 
+| 28.07.2026 09:00 Uhr| Klausur 1.PZ | C 624 und C 625| - | - |
+| 28.09.2026 09:00 Uhr| Klausur 2.PZ | C 624 und C 625| - | 
 
 ### Code aus der Vorlesung
 
