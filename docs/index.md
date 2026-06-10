@@ -1190,3 +1190,69 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 		}
 		```
+
+
+
+??? "Code aus der Vorlesung 09.06.2026"
+
+	=== "Vorlesung00609.java"
+		```java
+		package vorlesungen.vorlesung0609;
+
+		import java.util.Arrays;
+		import java.util.List;
+		import java.util.Random;
+		import java.util.stream.Collectors;
+		import java.util.stream.Stream;
+
+		public class Vorlesung0609
+		{
+
+			public static void main(String[] args)
+			{
+				int[] numbersArr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+				List<String> words1 = List.of("eins", "zwei", "drei", "vier", "fuenf");
+				List<String> words2 = List.of("abc", "a", "abcd", "abcde", "ab");
+				
+				System.out.printf("%n%n---------------- Streams ---------------------%n%n");
+				
+				Arrays.stream(numbersArr)		// Stream aus Array erzeugen
+					  .map(x -> (x * x))			// intermed. op: wendet Function (apply(x)) an
+					  .filter(x -> (x % 2 == 0))  	// intermed. op: wendet Predicate (test(x)) an
+					  .forEach(System.out::println);   // terminal operation
+				
+				System.out.println();
+				
+				List<String> output = words2.stream() 		// Stream aus List (Collection) erzeugen
+						.map(s -> s.toUpperCase()) 		// intermed. op: wendet Function (apply(x)) an
+						.sorted()						// intermed. op: wendet Comparable an
+						.filter(s -> (s.length() < 4))
+						.collect(Collectors.toList());
+				
+				output.forEach(System.out::println );
+				
+				System.out.printf("%n%n---------------- Streams erzeugen ---------------------%n%n");
+				
+				Stream<String> s1 = Stream.of("eins", "zwei" , "drei", "vier");
+				Random r = new Random();
+				Stream<Integer> s2 = Stream.generate(r::nextInt).limit(20);
+				Stream<Integer> s3 = Stream.iterate(1, n -> n*2).limit(20);
+				s3.forEach(System.out::println);
+
+			}
+
+		}
+		```
+
+
+
+
+
+
+
+
+
+
+
+
+
