@@ -1110,7 +1110,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 ??? "Code aus der Vorlesung 02.06.2026"
 
-	=== "Vorlesung00602.java"
+	=== "Vorlesung0602.java"
 		```java
 		package vorlesungen.vorlesung0602;
 
@@ -1195,7 +1195,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 ??? "Code aus der Vorlesung 09.06.2026"
 
-	=== "Vorlesung00609.java"
+	=== "Vorlesung0609.java"
 		```java
 		package vorlesungen.vorlesung0609;
 
@@ -1245,6 +1245,145 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 		```
 
 
+??? "Code aus der Vorlesung 16.06.2026"
+
+	=== "Vorlesung0616.java"
+		```java
+		package vorlesungen.vorlesung0616;
+
+		import java.util.ArrayList;
+		import java.util.List;
+		import java.util.Map;
+		import java.util.Random;
+		import java.util.stream.Collectors;
+
+		import uebungen.uebung9.Student;
+
+		public class Vorlesung0616
+		{
+
+			// aus Uebung 9
+			private static List<Student> generateMockupData(int length) {
+		        List<Student> studentsList = new ArrayList<>();
+		        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+		                "Riley", "Casey", "Drew", "Reese", "Quinn",
+		                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+		                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+		                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+		                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+		        Random random = new Random();
+
+		        for (int i = 0; i < length; i++) {
+		            String name = names[random.nextInt(names.length)];
+		            int number = 10000 + random.nextInt(90000);
+		            String registrationNumber = "s05" + number;
+		            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+		            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+		            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+		            
+		            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+		        }
+		        return studentsList;
+		    }
+			
+			// gibt eine Map aus - Values sind List<Student>
+			public static <T> void printMap(Map<T, List<Student>> map)
+			{
+				map.forEach( (k, v) -> System.out.printf("%-10s : %s%n", k, v) );
+			}
+			
+			public static void main(String[] args)
+			{
+				System.out.printf("%n%n------------ List of Students -------------%n%n");
+		        List<Student> students = generateMockupData(25);
+		        students.forEach( s -> s.print() );
+		        
+		        System.out.printf("%n%n------------ List 2 of Students -------------%n%n");
+		        
+		        List<Student> students2 = students
+		        		.stream()									// Stream erzeugt
+		        		.filter(s -> s.gradePointAverage() < 2.3)	// aendert Anzahl der Elemente im Stream
+		        //		.collect(Collectors.toList()); 				// terminal operation --> alle Elemente in Liste
+		        		.collect(Collectors.toCollection(ArrayList::new));   
+		        
+		        students2.forEach( s -> s.print() );
+		        
+		        System.out.printf("%n%n------------ groupingBy() Name -------------%n%n");
+		        
+		        Map<String, List<Student>> mapNamen = students.stream()
+		        .collect(Collectors.groupingBy(s -> s.name()));
+		        
+		        printMap(mapNamen);
+		        
+		        System.out.printf("%n%n------------ groupingBy() MatrNr -------------%n%n");
+		        
+		        Map<String, List<Student>> mapMatrNr = students.stream()
+		        .collect(Collectors.groupingBy(s -> s.registrationNumber()));
+		        
+		        printMap(mapMatrNr);
+		        
+		        
+		        System.out.printf("%n%n------------ groupingBy() Semester -------------%n%n");
+		        
+		        Map<Integer, List<Student>> mapSemester = students.stream()
+		        .collect(Collectors.groupingBy(s -> s.semester()));
+		        
+		        printMap(mapSemester);
+		        
+		        System.out.printf("%n%n------------ partitioningBy() Note -------------%n%n");
+		        
+		        Map<Boolean, List<Student>> mapNote = students.stream()
+		        .collect(Collectors.partitioningBy(s -> s.gradePointAverage() > 2.0));
+		        
+		        printMap(mapNote);
+			}
+
+		}
+		```
+
+	=== "Student.java"
+		```java
+		package vorlesungen.vorlesung0616;
+
+		public record Student(
+				String name, 
+				String registrationNumber, 
+				int age, 
+				double gradePointAverage, 
+				int semester
+				) implements Comparable<Student>
+		{
+		    // record besitzt automatisch alle Getter (aber ohne get im Namen :-( )
+			// record besitzt automatisch equals(), hashCode() und toString()
+			// toString() ueberschreiben wir aber lieber selbst:
+			@Override
+			public String toString()
+			{
+			    return String.format("(%-8s, %s, %2d Jahre, %d. Semester, %c%.1f)",
+			            this.name, this.registrationNumber, this.age, this.semester, '\u2300', this.gradePointAverage);
+		    }
+
+		    public void print()
+		    {
+		        System.out.println(this.toString());
+		    }
+
+			@Override
+			public int compareTo(Student o)
+			{
+				int vergleichName = this.name().compareTo(o.name());
+				boolean gleicherName = (vergleichName == 0);
+				if(gleicherName)
+				{
+					return this.registrationNumber.compareTo(o.registrationNumber);
+				} 
+				else
+				{
+					return vergleichName;
+				}
+			}
+		}
+		```
 
 
 

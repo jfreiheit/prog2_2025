@@ -2397,6 +2397,177 @@
 
 
 
+??? success "mögliche Lösung für Übung 10"
+	
+	=== "Uebung10.java"
+		```java linenums="1"
+		package uebungen.uebung10;
+
+		import java.util.*;
+		import java.util.stream.Collectors;
+
+		public class Uebung10
+		{
+		    private static List<Student> generateMockupData(int length) {
+		        List<Student> studentsList = new ArrayList<>();
+		        String[] names = {"Alex", "Jamie", "Jordan", "Taylor", "Morgan",
+		                "Riley", "Casey", "Drew", "Reese", "Quinn",
+		                "Sydney", "Dakota", "Avery", "Blake", "Cameron",
+		                "Harper", "Hayden", "Charlie", "Bailey", "Peyton",
+		                "Skyler", "Jesse", "Kendall", "Logan", "Parker",
+		                "Rowan", "Sawyer", "Finley", "Skylar", "Emerson"};  // hat ChatGPT gemacht
+		        Random random = new Random();
+
+		        for (int i = 0; i < length; i++) {
+		            String name = names[random.nextInt(names.length)];
+		            int number = 10000 + random.nextInt(90000);
+		            String registrationNumber = "s05" + number;
+		            int age = 18 + random.nextInt(20);                    // Alter zwischen 18 und 37
+		            double gradePointAverage = 1.0 + random.nextDouble() * 3.0; // GPA zwischen 1.0 und 4.0
+		            int semester = 1 + random.nextInt(9);                 // Semester zwischen 1 and 9
+		            
+		            studentsList.add(new Student(name, registrationNumber, age, gradePointAverage, semester));
+		        }
+		        return studentsList;
+		    }
+
+		    public static void printStudents(List<Student> students)
+		    {
+		        for(Student student : students)
+		        {
+		            student.print();
+		        }
+		    }
+
+		    public static void main(String[] args)
+		    {
+		    	List<Student> students = generateMockupData(15);
+		        printStudents(students);
+
+		        System.out.printf("%n%n----------- Liste von Namen erzeugen --------------%n%n");
+		        List<String> namensListe = students.stream()
+		                .map( s -> s.name() )  // Student-Stream nach String-Stream
+		                .distinct()                     // doppelte Namen entfernen
+		                .collect(Collectors.toList());
+		        namensListe.forEach( s -> System.out.println(s) );
+
+		        System.out.printf("%n%n----------- Liste von Namen erzeugen mit Doppelungen--------------%n%n");
+		        students.stream()
+		                .map( s -> s.name() )  // Student-Stream nach String-Stream
+		                //.distinct()
+		                .forEach( s -> System.out.println(s) );
+
+
+		        System.out.printf("%n%n----------- Liste von Students älter als 23 --------------%n%n");
+		        List<Student> studentsAelter23 = students.stream()
+		                .filter( s -> s.age() > 23 )
+		                .collect(Collectors.toList());
+		        studentsAelter23.forEach( s -> System.out.println(s) );
+
+		        System.out.printf("%n%n----------- Beste Studentin --------------%n%n");
+		        Optional<Student> beste = students.stream()
+		                .min( Comparator.comparingDouble( s -> s.gradePointAverage() ) );
+		        
+		        if(beste.isPresent())
+		        {
+		        	System.out.println(beste.get());
+		        }
+		        else
+		        {
+		        	System.out.println("Stream war leer");
+		        }
+		        
+		        // es ginge auch: 
+		        students.stream()
+		                .min( Comparator.comparingDouble( s -> s.gradePointAverage() ) )
+		                .ifPresent(s -> s.print());
+		        // das wirft keine Exception, wenn der Stream leer ist
+		        // hat dann aber auch gar keine Ausgabe
+
+
+		        System.out.printf("%n%n----------- Beste Studentin mind. 6 Semester--------------%n%n");
+		        Optional<Student> besteMind6Sem = 
+		        		students.stream()
+		                .filter( s -> s.semester() >= 6 )
+		                .min( Comparator.comparingDouble( s -> s.gradePointAverage() ) );
+		        
+		        if(besteMind6Sem.isPresent())
+		        {
+		        	System.out.println(besteMind6Sem.get());
+		        }
+		        else
+		        {
+		        	System.out.println("Stream war leer");
+		        }
+		        
+
+		        System.out.printf("%n%n----------- Notendurchschnitt --------------%n%n");
+		        double notendurchschnitt = students.stream()
+		                .mapToDouble( s -> s.gradePointAverage() )		// erzeugt einen DoubleStream
+		                .average()			// Methode aus DoubleStream; erzeugt OptionalDouble
+		                .getAsDouble();		// Methode aus OptionalDouble
+		        System.out.println(notendurchschnitt);
+
+		        System.out.printf("%n%n----------- Altersdurchschnitt --------------%n%n");
+		        double altersdurchschnitt = students.stream()
+		                .mapToInt( s -> s.age() )	// erzeugt einen IntStream
+		                .average()			// Methode aus IntStream
+		                .getAsDouble();		// Methode aus OptionalDouble
+		        System.out.println(altersdurchschnitt);
+
+		        System.out.printf("%n%n----------- gruppiert nach Semestern --------------%n%n");
+		        Map<Integer, List<Student>> gruppiertNachSemester = students.stream()
+		                .collect(Collectors.groupingBy(s -> s.semester()));
+
+		        gruppiertNachSemester.entrySet()	// entrySet() muss gar nicht
+		                .forEach( gruppiert -> System.out.println(
+		                                gruppiert.getKey()
+		                                + " : "
+		                                + gruppiert.getValue()));
+		        
+		        // das hier ginge auch (2 Parameter):
+		        gruppiertNachSemester				// hier wuerde entrySet() gar nicht gehen 
+		        .forEach( (key, value) -> System.out.println(
+		                        key
+		                        + " : "
+		                        + value));       
+
+		        System.out.printf("%n%n----------- andere Ausgabe --------------%n%n");
+		        for(Map.Entry<Integer, List<Student>> entry : gruppiertNachSemester.entrySet())
+		        {
+		            Integer key = entry.getKey();
+		            List<Student> value = entry.getValue();
+		            System.out.println("------- " + key + ". Semester -------------");
+		            value.forEach( student -> System.out.println(student));
+		            System.out.println();
+		        }
+		        
+		        // hier noch 2 Vorschlaege aus der 2. Uebungsgruppe
+				// Aufgabe 7 (optional)
+		        
+		        System.out.printf("%n%n----------Anzahl Studenten ab 6. Semester oder höher----------%n%n");
+
+		        long anzahl = students.stream() 
+		                .filter(s -> s.semester() >= 6) 
+		                .count(); 
+
+		        System.out.println("Anzahl: " + anzahl);
+		        
+		        
+		        //Aufgabe 7 (optional)
+
+		        System.out.printf("%n%n----------Jüngster Student----------%n%n");
+
+		        students.stream() 
+		                .min(Comparator.comparingInt(s -> s.age()))
+		                .ifPresent( s -> s.print() );
+		        
+		    }
+		}
+		```
+
+
+
 ##### Übung 11 (Streams)
 
 ??? "Übung 11 (Streams)"
