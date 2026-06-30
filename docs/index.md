@@ -1387,6 +1387,70 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 
 
+??? "Code aus der Vorlesung 30.06.2026"
+
+	=== "Fakultaet.java"
+		```java
+		package vorlesungen.vorlesung0630;
+
+		public class Fakultaet {
+
+		    public long fakultaet(int number) throws IllegalArgumentException
+		    {
+		        if(number < 1) 
+		        {
+		            throw new IllegalArgumentException("Zahl muss groesser gleich 1 sein!");
+		        }
+		        long result = 1;
+		        for(int i = 2; i <= number; i++) 
+		        {
+		            long tmp = result;
+		            result *= i;
+		            if(tmp > result)
+		            {
+		                throw new IllegalArgumentException("Overflow!");
+		            }
+		        }
+		        return result;
+		    }
+
+		    public void print(int number)
+		    {
+		        System.out.printf("%3d! = %,d %n", number, fakultaet(number));
+		    }
+
+		}
+		```
+
+	=== "Main.java"
+		```java
+		package vorlesungen.vorlesung0630;
+
+		public class Main
+		{
+			public static void main(String[] args) 
+			{
+			    Fakultaet f1 = new Fakultaet();
+			    int nr = 0;
+			    while(nr < 22)
+			    {
+			        try {
+			            f1.print(nr);
+			        }
+			        catch(IllegalArgumentException e) {
+			            System.out.println("number = " + nr + " : " + e.getMessage());
+			        }
+			        nr++;
+			    }
+			}
+		}
+
+		```
+
+
+
+
+
 
 
 
