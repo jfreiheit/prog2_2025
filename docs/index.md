@@ -1447,6 +1447,85 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 		```
 
+	=== "FakultaetTest.java"
+		```java
+		package vorlesungen.vorlesung0630;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		class FakultaetTest
+		{
+
+			@Test
+			@DisplayName("Test von Fakultaet 5")
+			void testFakultaet5()
+			{
+				// given
+				Fakultaet f = new Fakultaet();
+				
+				// when
+				long result = f.fakultaet(5);
+				
+				// then
+				long expected = 120;
+				assertEquals(expected, result, "5! should be 120.");	
+			}
+			
+
+			@Test
+			@DisplayName("Test von Fakultaet 1")
+			void testFakultaet1()
+			{
+				// given
+				Fakultaet f = new Fakultaet();
+				
+				// when
+				long result = f.fakultaet(1);
+				
+				// then
+				long expected = 1;
+				assertEquals(expected, result, "1! should be 1.");
+			}
+			
+
+			@Test
+			@DisplayName("Test von Fakultaet 0 - Exception")
+			void testFakultaet0()
+			{
+				// given
+				Fakultaet f = new Fakultaet();
+				
+				// when
+				int number = 0;
+				Exception e = assertThrows(IllegalArgumentException.class, () -> f.fakultaet(number));
+				
+				// then
+				assertEquals("Zahl muss groesser gleich 1 sein!", e.getMessage());
+			}
+			
+
+			@Test
+			@DisplayName("Test von Fakultaet 22 - Exception")
+			void testFakultaet22()
+			{
+				// given
+				Fakultaet f = new Fakultaet();
+				
+				// when
+				int number = 22;
+				Exception e = assertThrows(IllegalArgumentException.class, () -> f.fakultaet(number));
+				
+				// then
+				assertEquals("Overflow!", e.getMessage());
+			}
+
+		}
+
+		```
+
 
 
 

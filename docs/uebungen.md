@@ -2584,6 +2584,104 @@
 		- Sorgen Sie dafür, dass in der Liste erst alle geraden und dann erst alle ungeraden Zahlen aufgeführt sind. 
 
 
+??? success "mögliche Lösung für Übung 11"
+	
+	=== "Uebung11.java"
+		```java linenums="1"
+		package uebungen.uebung11;
+
+		import java.util.Comparator;
+		import java.util.List;
+		import java.util.Map;
+		import java.util.Random;
+		import java.util.stream.Collectors;
+		import java.util.stream.IntStream;
+		import java.util.stream.Stream;
+
+		public class Uebung11
+		{
+		    public static void main(String[] args)
+		    {
+				Random r = new Random();
+				
+				// Geht es mit allen Varianten der ints()-Methode? - fast
+				System.out.printf("%n%n------- ints() ----------%n%n");
+				IntStream is1 = r.ints().filter( i -> i > 0 && i < 100).limit(20);
+				is1.forEach( i -> System.out.print(i + " "));
+				System.out.println();
+				
+				System.out.printf("%n%n------- ints(incl, excl) ----------%n%n");
+				IntStream is2 = r.ints(1,100).limit(20);
+				is2.forEach( i -> System.out.print(i + " "));
+				System.out.println();
+				
+				System.out.printf("%n%n------- ints(limit, incl, excl) ----------%n%n");
+				IntStream is3 = r.ints(20, 1,100);
+				is3.forEach( i -> System.out.printf("%02d ", i));
+				System.out.println();
+				
+				// Geht es mit allen Varianten der ints()-Methode? - nein
+				System.out.printf("%n%n------- ints(limit) ----------%n%n");
+				IntStream is4 = r.ints(1000000000L).filter( i -> i > 0 && i < 100 );  // nicht zwingend 20
+				is4.forEach( i -> System.out.print(i + " "));
+				System.out.println();
+				
+				
+				// Für IntStream gibt es kein collect(Collector c). Was tun?
+				System.out.printf("%n%n------- boxed() fuer collect(Collector) ----------%n%n");
+				IntStream is5 = r.ints(20, 1,100);
+				List<Integer> li1 = is5.boxed().collect(Collectors.toList());
+				li1.forEach( i -> System.out.printf("%02d ", i));
+				
+				
+				// partitioningBy()
+				System.out.printf("%n%n------- partitioningBy() ----------%n%n");
+				IntStream is6 = r.ints(20, 1,100);
+				Stream<Integer> s1 = is6.boxed();
+				Map<Boolean, List<Integer>> m1 = s1.collect(Collectors.partitioningBy( i -> i % 2 == 0));
+				m1.forEach( ( k, v ) -> System.out.println(k + " -> " + v));
+				
+				// Stream aus Map
+				System.out.printf("%n%n------- entrySet().stream() ----------%n%n");
+				Stream<Map.Entry<Boolean, List<Integer>>> sm1 = m1.entrySet().stream();
+				
+				// List of values (List<List<Integer>>) - map
+				System.out.printf("%n%n------- map() ----------%n%n");
+				List<List<Integer>> lli = sm1
+				.map( me -> me.getValue() )
+				.collect(Collectors.toList());
+				
+				lli.forEach( l -> System.out.println(l));
+				System.out.println();
+					
+				// sm1 ist verbraucht, deshalb nochmal
+				Stream<Map.Entry<Boolean, List<Integer>>> sm2 = m1.entrySet().stream();
+				
+				// List of Integer (List<Integer>) - flatMap
+				System.out.printf("%n%n------- flatMap() ----------%n%n");
+				List<Integer> li2 = sm2
+				.flatMap( me -> me.getValue().stream() )
+				.collect(Collectors.toList());	// erst alle ungeraden, dann alle geraden
+				
+				li2.forEach( i -> System.out.println(i));
+				System.out.println();
+					
+				// sm2 ist verbraucht, deshalb nochmal
+				Stream<Map.Entry<Boolean, List<Integer>>> sm3 = m1.entrySet().stream();
+				
+				// List of Integer (List<Integer>) - flatMap
+				System.out.printf("%n%n------- flatMap() ----------%n%n");
+				List<Integer> li3 = sm3
+				.sorted( (e1, e2) -> e2.getKey().compareTo(e1.getKey()) )	// erst true dann false
+				.flatMap( me -> me.getValue().stream() )
+				.collect(Collectors.toList());	// nun erst alle geraden, dann alle ungeraden
+				
+				li3.forEach( i -> System.out.println(i));
+				System.out.println();
+		    }
+		}
+		```
+
 
 ##### Übung 12 (JUnit)
 
