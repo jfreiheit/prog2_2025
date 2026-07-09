@@ -3071,6 +3071,254 @@
 		}
 		```
 
+
+
+??? success "mögliche Lösung für Übung 12"
+	
+	=== "MyIntegerTest.java"
+		```java
+		package uebungen.uebung12;
+
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		class MyIntegerTest {
+			
+		    static MyInteger mi1, mi2, mi3, mi4, mi5, mi6, mi7;
+
+		    @BeforeAll
+		    public static void setUpBeforeClass() throws Exception 
+		    {
+		        mi1 = new MyInteger("-2147483648");
+		        mi2 = new MyInteger("+2147483647");
+		        mi3 = new MyInteger(-1);
+		        mi4 = new MyInteger(1);
+		        mi5 = new MyInteger(0);
+		        mi6 = new MyInteger("-1");
+		        mi7 = new MyInteger(2147483647);
+
+		    }
+		    
+			/*
+			 * parseInt-Testfaelle:
+			 * 	null		-> Exception (IAE) kein String
+			 * 	""			-> Exception (IAE) leerer String
+			 * 	"+"			-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			 * 	"-"			-> Exception (IAE) nur '+' bzw. '-' --> keine Zahl
+			 * 	"-00000000"	-> 0
+			 * 	"+00000000"	-> 0
+			 * 	"-00000001"	-> -1
+			 * 	"+00000001"	->	1
+			 * 	"123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"-123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"+123456a"	-> Exception (IAE) keine Zahl!
+			 * 	"2147483648"	-> Exception (IAE) Zahl zu gross!
+			 *  "-2147483649"	-> Exception (IAE) Zahl zu klein!
+			 * 
+			 */
+			@Test
+			@DisplayName("Einfache positive Zahlen")
+			void testParseIntPositiveInt() {
+				
+				assertEquals(1234, MyInteger.parseInt("1234"), "\"1234\" should be 1234");
+				assertEquals(1234, MyInteger.parseInt("+1234"), "\"+1234\" should be 1234");
+				assertEquals(1234, MyInteger.parseInt("01234"), "\"01234\" should be 1234");
+			}
+			
+			@Test
+			@DisplayName("Einfache negative Zahlen")
+			void testParseIntNegativeInt() {
+				
+				assertEquals(-1234, MyInteger.parseInt("-1234"), "\"-1234\" should be -1234");
+				assertEquals(-1234, MyInteger.parseInt("-01234"), "\"-01234\" should be -1234");
+			}
+			
+			@Test
+			@DisplayName("valueOf() mit positiver Zahl")
+			void testValueOfPositiveInt() {
+				MyInteger m = MyInteger.valueOf(1234);
+				
+				assertNotNull(m, "shoul be an object");
+				assertEquals(1234, m.intValue(), "1234 should be 1234");
+			}
+			
+			@Test
+			@DisplayName("Input-String is null")
+			void testParseIntNull() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(null));
+				
+				assertEquals("kein String", exception.getMessage());
+			}
+			
+			@Test
+			@DisplayName("Input-String is leer")
+			void testParseIntLeer() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(""));
+				
+				assertEquals("leerer String", exception.getMessage());
+			}
+			
+			
+			@Test
+			@DisplayName("Nur Plus oder Minus")
+			void testParseIntNurPlusOderMinus() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("+"));
+				
+				assertEquals("nur '+' bzw. '-' --> keine Zahl", exception.getMessage());
+				
+				exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("-"));
+				
+				assertEquals("nur '+' bzw. '-' --> keine Zahl", exception.getMessage());
+			}
+
+			@Test
+			@DisplayName("Keine Zahl")
+			void testParseIntKeineZahl() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("+1234a"));
+				
+				assertEquals("keine Zahl!", exception.getMessage());
+
+			}
+			
+			@Test
+			@DisplayName("Zahl zu gross")
+			void testParseIntZahlZuGross() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("2147483648"));
+				
+				assertEquals("Zahl zu gross!", exception.getMessage());
+			}
+			
+			@Test
+			@DisplayName("Zahl zu klein")
+			void testParseIntZahlZuKlein() {
+				Exception exception = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt("-2147483649"));
+				
+				assertEquals("Zahl zu klein!", exception.getMessage());
+			}
+			
+			@Test
+			@DisplayName("nur Nullen")
+			void testParseIntNurNullen() {
+				assertEquals(0, MyInteger.parseInt("-000000000000"), "\"-000000000000\" should be 0");
+				assertEquals(0, MyInteger.parseInt("+000000000000"), "\"+000000000000\" should be 0");
+				assertEquals(0, MyInteger.parseInt("0000000000000"), "\"0000000000000\" should be 0");
+			}
+
+		    @Test
+			@DisplayName("hashCode()")
+		    void testHashCode()
+		    {
+		        assertTrue(mi2.hashCode()==mi7.hashCode(), "hashCode of mi2 and mi7 should be equal");
+		        assertEquals(-2147483648, mi1.hashCode(), "hashCode of mi1 should be -2147483648");
+		        assertEquals(0, mi5.hashCode(), "hashCode of mi5 should be 0");
+		    }
+
+		    @Test
+			@DisplayName("equals() mit int")
+		    void testMyIntegerEqualsInt()
+		    {
+		        assertNotNull(mi4, "mi4 should be not null");
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		    }
+
+		    @Test
+			@DisplayName("equals() mit String")
+		    void testMyIntegerEqualsString()
+		    {
+		        assertNotNull(mi1, "mi1 should be not null");
+		        assertNotNull(mi2, "mi2 should be not null");
+		        assertNotNull(mi6, "mi6 should be not null");
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		    }
+
+		    @Test
+			@DisplayName("parseInt()")
+		    void testParseInt()
+		    {
+		        assertEquals(-2147483648, MyInteger.parseInt("-2147483648"), "should be -2147483648");
+		        assertEquals(+2147483647, MyInteger.parseInt("+00002147483647"), "should be +2147483647");
+		        assertEquals(-1, MyInteger.parseInt("-0000001"), "should be -1");   
+		    }
+
+
+		    @Test
+			@DisplayName("parseInt()")
+		    void testIntValue()
+		    {
+		        assertEquals(-2147483648, mi1.intValue(), "should be -2147483648");
+		        assertEquals(+2147483647, mi2.intValue(), "should be +2147483647");
+		        assertEquals(+2147483647, mi7.intValue(), "should be +2147483647");
+		    }
+
+		    @Test
+		    void testDoubleValue()
+		    {
+		        assertEquals(-2147483648.0, mi1.doubleValue(), "should be -2147483648.0");
+		        assertEquals(+2147483647.0, mi2.doubleValue(), "should be +2147483647.0");
+		        assertEquals(+2147483647.0, mi7.doubleValue(), "should be +2147483647.0");
+		    }
+
+		    @Test
+		    void testValueOfString()
+		    {
+		        assertTrue(mi1.equals(MyInteger.valueOf("-2147483648")), "should be equal to mi1");
+		        assertTrue(mi2.equals(MyInteger.valueOf("2147483647")), "should be equal to mi2");
+		        assertTrue(mi7.equals(MyInteger.valueOf("2147483647")), "should be equal to mi7");
+		    }
+
+		    @Test
+		    void testValueOfInt()
+		    {
+		        assertTrue(mi1.equals(MyInteger.valueOf(-2147483648)), "should be equal to mi1");
+		        assertTrue(mi2.equals(MyInteger.valueOf(2147483647)), "should be equal to mi2");
+		        assertTrue(mi7.equals(MyInteger.valueOf(2147483647)), "should be equal to mi7");
+		    }
+
+		    @Test
+		    void testEqualsObject()
+		    {
+		        assertTrue(mi3.equals(mi6), "mi3 and mi6 should be equal");
+		        assertTrue(mi7.equals(mi2), "mi7 and mi2 should be equal");
+		        assertFalse(mi3.equals(mi4), "mi3 and mi4 should not be equal");
+		        assertFalse(mi3.equals(mi5), "mi3 and mi5 should not be equal");
+		    }
+
+		    @Test
+		    void testToString()
+		    {
+		        assertEquals("-2147483648", mi1.toString(), "should be '-2147483648'");
+		        assertEquals("2147483647", mi2.toString(), "should be '2147483647' mi2");
+		        assertEquals("2147483647", mi7.toString(), "should be '2147483647' mi7");
+		    }
+
+		    @Test
+		    void testCompare()
+		    {
+		        assertTrue(MyInteger.compare(5, 4)>0, "5,4 should be > 0");
+		        assertTrue(MyInteger.compare(4, 4)==0, "4,4 should be == 0");
+		        assertTrue(MyInteger.compare(4, 5)<0, "4,5 should be < 0");
+		        assertTrue(MyInteger.compare(MyInteger.MAX_VALUE, MyInteger.MIN_VALUE)>0, "MAX,MIN should be > 0");
+		        assertTrue(MyInteger.compare(MyInteger.MAX_VALUE, MyInteger.MAX_VALUE)==0, "MAX,MAX should be == 0");
+		        assertTrue(MyInteger.compare(MyInteger.MIN_VALUE, MyInteger.MAX_VALUE)<0, "MIN,MAX should be > 0");
+		    }
+
+		    @Test
+		    void testCompareTo()
+		    {
+		        assertTrue(mi1.compareTo(mi2)<0, "mi1, mi2 should be < 0");
+		        assertTrue(mi2.compareTo(mi1)>0, "mi2, mi1 should be > 0");
+		        assertTrue(mi2.compareTo(mi7)==0, "mi2, mi7 should be == 0");
+		        assertTrue(mi3.compareTo(mi6)==0, "mi3, mi6 should be == 0");
+		    }
+		}
+		```
+
 ##### Übung 13 (Collections Wiederholung)
 
 ??? "Übung 13 (Collections Wiederholung)"
