@@ -2844,6 +2844,232 @@
 
 
 
+??? hint "aus der Donnerstag-Übung"
+	
+	=== "MyIntegerTest.java"
+		```java linenums="1"
+		import static org.junit.jupiter.api.Assertions.*;
+
+		import org.junit.jupiter.api.Test;
+
+		class MyIntegerTest
+		{
+			
+			@Test
+			void testParseInt()
+			{
+				//given
+			    String s1234 = "1234";
+			    String sPlus1234 = "+1234";
+			    String s01234 = "01234";
+			    String sMinus1234 = "-1234";
+			    String sNull = null;
+			    String s = "";
+			    String sPlus = "+";
+			    String sMinus = "-";
+			    String sMinusNull = "-00000000";
+			    String sPlusNull = "+00000000";
+			    String sMinusOne = "-00000001";
+			    String sPlusOne = "+00000001";
+			    String sA = "123456a";
+			    String sMinusA = "-123456a";
+			    String sPlusA = "+123456a";
+			    String sToHigh = "2147483648";
+			    String sToLow = "-2147483649";
+				
+				//when
+			    int i1234 = MyInteger.parseInt(s1234);
+			    int iPlus1234 = MyInteger.parseInt(sPlus1234);
+			    int i01234 = MyInteger.parseInt(s01234);
+			    int iMinus1234 = MyInteger.parseInt(sMinus1234);
+			    
+				Exception eNull = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sNull));
+				Exception e = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(s));
+				Exception ePlus = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sPlus));
+				Exception eMinus = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sMinus));
+
+			    int iMinusNull = MyInteger.parseInt(sMinusNull);
+			    int iPlusNull = MyInteger.parseInt(sPlusNull);
+			    int iMinusOne = MyInteger.parseInt(sMinusOne);
+			    int iPlusOne = MyInteger.parseInt(sPlusOne);
+			    
+				Exception eA = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sA));
+				Exception eMinusA = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sMinusA));
+				Exception ePlusA = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sPlusA));
+				Exception eToHigh = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sToHigh));
+				Exception eToLow = assertThrows(IllegalArgumentException.class, () -> MyInteger.parseInt(sToLow));
+
+				
+				//then
+				int expected1234 = 1234;
+				int expectedMinus1234 = -1234;
+				String expectedNoString = "kein String";
+				String expectedEmptyString = "leerer String";
+				String expectedOnlyPlusOrMinus = "nur '+' bzw. '-' --> keine Zahl";
+				int expectedZero = 0;
+				int ExpectedMinusOne = -1;
+				int expectedOne = 1;
+				String expectedNoNumber = "keine Zahl!";
+				String expectedToLow = "Zahl zu klein!";
+				String expectedToHigh = "Zahl zu gross!";
+				
+				assertEquals(i1234, expected1234, "should be 1234");
+				assertEquals(iPlus1234, expected1234, "should be 1234");
+				assertEquals(i01234, expected1234, "should be 1234");
+				assertEquals(iMinus1234, expectedMinus1234, "should be -1234");
+				assertEquals(expectedNoString, eNull.getMessage());
+				assertEquals(expectedEmptyString, e.getMessage());
+				assertEquals(expectedOnlyPlusOrMinus, eMinus.getMessage());
+				assertEquals(expectedOnlyPlusOrMinus, ePlus.getMessage());
+				assertEquals(iMinusNull, expectedZero, "should be 0");
+				assertEquals(iPlusNull, expectedZero, "should be 0");
+				assertEquals(iMinusOne, ExpectedMinusOne, "should be -1");
+				assertEquals(iPlusOne, expectedOne, "should be 1");
+				assertEquals(expectedNoNumber, eA.getMessage());
+				assertEquals(expectedNoNumber, eMinusA.getMessage());
+				assertEquals(expectedNoNumber, ePlusA.getMessage());
+				assertEquals(expectedToHigh, eToHigh.getMessage());
+				assertEquals(expectedToLow, eToLow.getMessage());
+
+			}
+			
+			@Test
+			void testIntValue()
+			{
+				//given
+				MyInteger mi = new MyInteger("2147483647");
+				
+				//when
+				int value = mi.intValue();
+				
+				//then
+				int expected = 2147483647;
+				assertEquals(value, expected, "should be the same");
+			}
+			
+			@Test
+			void testDoubleValue()
+			{
+				//given
+				MyInteger miDouble = new MyInteger("2147483647");
+				
+				//when
+				double value = miDouble.doubleValue();
+				
+				//then
+				double expected = 2147483647.0;
+				assertEquals(value, expected, "should be the same");
+			}
+			
+			@Test
+			void testValueOf()
+			{
+				//given
+				MyInteger mi1 = new MyInteger(0);
+				MyInteger mi2 = new MyInteger("-03214");
+				
+				//when
+				mi1 = MyInteger.valueOf("1");
+				mi2 = MyInteger.valueOf(1);
+				
+				//then
+				MyInteger expected = new MyInteger(1);
+				assertEquals(mi1, expected, "should be the 1");
+				assertEquals(mi2, expected, "should be 1");
+			}
+			
+			@Test
+			void testEquals()
+			{
+				//given
+				MyInteger mi1 = new MyInteger(1);
+				MyInteger miString0 = new MyInteger("0");
+				MyInteger miStringMinus5 = new MyInteger("-05");
+				MyInteger miMinus5 = new MyInteger(-5);	
+				MyInteger mi0 = new MyInteger(0);
+				MyInteger miNull = null;
+				Integer in = 1;
+				
+				//when
+				boolean isUnEqual1 = mi1.equals(miStringMinus5);
+				boolean isEqual0 = mi0.equals(miString0);
+				boolean isEqual5 = miStringMinus5.equals(miMinus5);
+				boolean isUnEqual5 = miMinus5.equals(mi0);
+				boolean otherIsNull = mi1.equals(miNull);
+				boolean thisIsOther = mi1.equals(mi1);
+				boolean otherClass = mi1.equals(in);
+				
+				
+				
+				//then
+				boolean expected = true;
+				boolean expectedFalse = false;
+				assertEquals(isEqual0, expected, "should be true");
+				assertEquals(isUnEqual1, expectedFalse, "should be false");
+				assertEquals(isEqual5, expected, "should be true");
+				assertEquals(isUnEqual5, expectedFalse, "should be false");
+				assertEquals(otherIsNull, expectedFalse, "should be false");
+				assertEquals(thisIsOther, expected, "should be true");
+				assertEquals(otherClass, expectedFalse, "should be false");
+
+			}
+
+			@Test
+			void testHashCode()
+			{
+				//given
+				MyInteger mi = new MyInteger(12345);
+
+				
+				//when
+				int hash = mi.hashCode();
+				int expected = 12345;
+				
+				//then
+				assertEquals(hash, expected, "should be equal");
+			}
+			
+			@Test
+			void testToString()
+			{
+				//given
+				MyInteger mi = new MyInteger(12345);
+				
+				//when
+				String s = mi.toString();
+				String expected ="12345";
+				
+				//then
+				assertEquals(s, expected, "should be '12345'");
+			}
+			
+			
+			@Test
+			void testCompareTo()
+			{
+				//given
+				MyInteger mi1 = new MyInteger(1);
+				MyInteger miString1 = new MyInteger("1");
+				MyInteger mi5 = new MyInteger("05");
+				MyInteger miMinus1 = new MyInteger("-01");		
+				
+				//when
+				int higher = mi1.compareTo(miMinus1);
+				int lower = mi1.compareTo(mi5);
+				int same = mi1.compareTo(miString1);
+				
+				//then
+				int expectedLower = -1;
+				int expectedEqual = 0;
+				int expectedHigher = 1;
+				
+				assertEquals(higher, expectedHigher, "1 should be higher than -1");
+				assertEquals(lower, expectedLower, "1 should be lower than 5");
+				assertEquals(same, expectedEqual, "1 should be equal to 1");
+
+			}
+		}
+		```
 
 ##### Übung 13 (Collections Wiederholung)
 
