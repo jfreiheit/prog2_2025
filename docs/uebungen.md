@@ -3477,8 +3477,8 @@
 				        */
 
 				        System.out.printf("%n%n -------------------- getFirstCircleOfKey(map,int) --------------------%n%n");
-				        /* TODO: search in map for key=78 and print Circle
-				        /* TODO: search in map for key=79 and print Exception-Message
+				        /* TODO: search in map for key=78 and print Circle 				*/
+				        /* TODO: search in map for key=79 and print Exception-Message 	*/
 				    }
 				}
 
@@ -3493,6 +3493,7 @@
 				import org.junit.jupiter.api.Test;
 
 				import java.util.ArrayList;
+				import java.util.Comparator;
 				import java.util.HashMap;
 				import java.util.List;
 				import java.util.Map;
