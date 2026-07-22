@@ -305,6 +305,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#hinweise-zur-klausur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hinweise zur Klausur
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -689,6 +698,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hinweise-zur-klausur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hinweise zur Klausur
+    </span>
+  </a>
   
 </li>
       
@@ -2332,6 +2350,71 @@
 </div>
 </div>
 </details>
+<h2 id="hinweise-zur-klausur">Hinweise zur Klausur<a class="headerlink" href="#hinweise-zur-klausur" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Die ProgrammierungII-Klausur im 1. PZ findet am Dienstag, den 28.7.2026 statt.</li>
+<li>Es stehen die Labore C 624 (Mac) und C 625 (Windows) zur Verfügung.</li>
+<li>Wir wollen um 9:35 Uhr die Aufgabenblätter austeilen, so dass wir spätestens um 9:45 Uhr mit dem Programmieren beginnen können. Seien Sie am besten um 9:15 Uhr in dem Labor Ihrer Wahl.</li>
+<li>Sie können sich vorab schon ein Package <code>klausur</code> erstellen. In der Klausur erhalten Sie eine Testklasse und evtl. auch eine Programmklasse, die Sie sich in dieses Package kopieren. </li>
+<li>Sie können sich in Ihren Workspace gerne allen Ihren Code importieren, den Sie im Laufe des Semesters erzeugt haben (üben Sie den Import dann am besten vorher - Sie können sich nicht sicher sein, dass Sie an dem Rechner die Klausur schreiben können, an dem Sie den Import geübt haben).</li>
+<li>Sie dürfen beliebig viele Seiten <strong>handgeschriebenen</strong> Spicker mitbringen. Sie können auch leere Zettel dabei haben, um sich während der Klausur Notizen zu machen.</li>
+<li>
+<p>Im Browser <strong>dürfen nur</strong> </p>
+<ul>
+<li>der <a href="https://moodle.htw-berlin.de/course/view.php?id=59708">Moodle-Raum</a>, </li>
+<li>das <a href="https://freiheit.f4.htw-berlin.de/prog2/">Prog2-Skript</a>,</li>
+<li>die <a href="https://docs.oracle.com/en/java/javase/21/docs/api/index.html">Java-Dokumentation</a> und</li>
+<li>die <a href="https://freiheit.f4.htw-berlin.de/klausur">Klausuraufgabe</a> </li>
+</ul>
+<p>geöffnet sein. Alle anderen Webseiten sind ab 9.35 Uhr bis zum Ende der Klausur verboten! </p>
+</li>
+<li>
+<p>Auf dem Rechner <strong>dürfen nur</strong> </p>
+<ul>
+<li>ein Browser, </li>
+<li>Eclipse (oder IntelliJ) und </li>
+<li>der Dateiexplorer/Finder </li>
+</ul>
+<p>geöffnet sein. Alle anderen Programme sind ebenfalls nicht erlaubt!</p>
+</li>
+<li>
+<p>Testen Sie vorab die korrekte Durchführung von JUnit-Tests! Erstllen Sie sich dazu eine Klasse <code>KlausurTest</code> (in Eclipse: <code>New -&gt; JUnit Test Case</code>). Achten Sie darauf, dass es sich mindestens um <code>Junit5</code> handelt (<code>JUnit6</code> geht auch, <code>New Junit Jupiter test</code> ist auch korrekt, <code>JUnit4</code> oder weniger <strong>nicht</strong>). Es wird eine Testklasse mit einer Testmethode erstellt, die die Assertion <code>fail</code> enthält. Führen Sie am besten einen Rechtsklick auf die Klasse aus und wählen <code>Coverage As</code> &rarr; <code>JUnit KlausurTest</code>. Wenn das funktioniert, sind Sie bereit. In der <code>module-info.java</code> muss dazu der Eintrag <code>requires org.junit.jupiter.api;</code> enthalten sein. Außerdem wird <code>Junit5</code> dem Modulpfad (oder Klassenpfad) hinzugefügt. Sie können auch z.B. folgende Klasse ausprobieren:
+    <div class="language-java highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions.assertTrue</span><span class="p">;</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions.fail</span><span class="p">;</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">KlausurTest</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="p">{</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">    </span><span class="nd">@Test</span>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">        </span><span class="n">assertTrue</span><span class="p">(</span><span class="mi">5</span><span class="o">==</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fehlermeldung&quot;</span><span class="p">);</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="p">}</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Es ist <strong>nicht gestattet</strong>:</p>
+<ul>
+<li>den eigenen Rechner zu verwenden (gar nicht mitbringen oder auspacken)</li>
+<li>das Handy zu verwenden  (gar nicht mitbringen oder auspacken)</li>
+<li>Kommunikation mit anderen oder mit KI-Tools</li>
+</ul>
+</li>
+<li>
+<p><strong>Wichtig!</strong></p>
+<ul>
+<li>Mit Teilnahme an der Klausur gestatten Sie uns, nachträglich die Access-Logs der Rechner im Labor zu überprüfen!</li>
+<li>Bereits geöffnete Programme oder Tabs (selbst, wenn Sie unbenutzt sind), die eine Kommunikation mit anderen (z.B. E-Mail, Chats, KI, ...) ermöglichen, führen zum Ausschluss aus der Klausur.</li>
+</ul>
+</li>
+<li>
+<p>Sollte sich herausstellen, dass 2 Labore nicht genügen, weichen wir auf ein drittes Labor aus (Windows). Deswegen ist es wichtig, dass Sie bereits 9:15 Uhr vor Ort sind.</p>
+</li>
+<li>Bitte beachten Sie auch, dass wir <strong>nicht</strong> beim Hochladen der Lösung in Moodle unterstützen können. Das haben Sie für die Aufgaben genügend geübt. Wichtig ist, dass Sie wissen, wo Ihr <em>workspace</em> auf dem Rechner ist, damit Sie von dort aus hochladen können.  </li>
+</ul>
 
 
 

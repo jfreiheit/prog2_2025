@@ -1528,6 +1528,63 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 
 
+## Hinweise zur Klausur
+
+- Die ProgrammierungII-Klausur im 1. PZ findet am Dienstag, den 28.7.2026 statt.
+- Es stehen die Labore C 624 (Mac) und C 625 (Windows) zur Verfügung.
+- Wir wollen um 9:35 Uhr die Aufgabenblätter austeilen, so dass wir spätestens um 9:45 Uhr mit dem Programmieren beginnen können. Seien Sie am besten um 9:15 Uhr in dem Labor Ihrer Wahl.
+- Sie können sich vorab schon ein Package `klausur` erstellen. In der Klausur erhalten Sie eine Testklasse und evtl. auch eine Programmklasse, die Sie sich in dieses Package kopieren. 
+- Sie können sich in Ihren Workspace gerne allen Ihren Code importieren, den Sie im Laufe des Semesters erzeugt haben (üben Sie den Import dann am besten vorher - Sie können sich nicht sicher sein, dass Sie an dem Rechner die Klausur schreiben können, an dem Sie den Import geübt haben).
+- Sie dürfen beliebig viele Seiten **handgeschriebenen** Spicker mitbringen. Sie können auch leere Zettel dabei haben, um sich während der Klausur Notizen zu machen.
+- Im Browser **dürfen nur** 
+
+	- der [Moodle-Raum](https://moodle.htw-berlin.de/course/view.php?id=59708), 
+	- das [Prog2-Skript](https://freiheit.f4.htw-berlin.de/prog2/),
+	- die [Java-Dokumentation](https://docs.oracle.com/en/java/javase/21/docs/api/index.html) und
+	- die [Klausuraufgabe](https://freiheit.f4.htw-berlin.de/klausur) 
+
+	geöffnet sein. Alle anderen Webseiten sind ab 9.35 Uhr bis zum Ende der Klausur verboten! 
+
+- Auf dem Rechner **dürfen nur** 
+
+	- ein Browser, 
+	- Eclipse (oder IntelliJ) und 
+	- der Dateiexplorer/Finder 
+
+	geöffnet sein. Alle anderen Programme sind ebenfalls nicht erlaubt!
+
+- Testen Sie vorab die korrekte Durchführung von JUnit-Tests! Erstllen Sie sich dazu eine Klasse `KlausurTest` (in Eclipse: `New -> JUnit Test Case`). Achten Sie darauf, dass es sich mindestens um `Junit5` handelt (`JUnit6` geht auch, `New Junit Jupiter test` ist auch korrekt, `JUnit4` oder weniger **nicht**). Es wird eine Testklasse mit einer Testmethode erstellt, die die Assertion `fail` enthält. Führen Sie am besten einen Rechtsklick auf die Klasse aus und wählen `Coverage As` --> `JUnit KlausurTest`. Wenn das funktioniert, sind Sie bereit. In der `module-info.java` muss dazu der Eintrag `requires org.junit.jupiter.api;` enthalten sein. Außerdem wird `Junit5` dem Modulpfad (oder Klassenpfad) hinzugefügt. Sie können auch z.B. folgende Klasse ausprobieren:
+	```java
+	import org.junit.jupiter.api.Test;
+
+	import static org.junit.jupiter.api.Assertions.assertTrue;
+	import static org.junit.jupiter.api.Assertions.fail;
+
+	public class KlausurTest
+	{
+	    @Test
+	    void test()
+	    {
+	        assertTrue(5==5, "Fehlermeldung");
+	    }
+
+	}
+	```
+- Es ist **nicht gestattet**:
+
+	- den eigenen Rechner zu verwenden (gar nicht mitbringen oder auspacken)
+	- das Handy zu verwenden  (gar nicht mitbringen oder auspacken)
+	- Kommunikation mit anderen oder mit KI-Tools
+
+- **Wichtig!**
+
+	- Mit Teilnahme an der Klausur gestatten Sie uns, nachträglich die Access-Logs der Rechner im Labor zu überprüfen!
+	- Bereits geöffnete Programme oder Tabs (selbst, wenn Sie unbenutzt sind), die eine Kommunikation mit anderen (z.B. E-Mail, Chats, KI, ...) ermöglichen, führen zum Ausschluss aus der Klausur.
+
+- Sollte sich herausstellen, dass 2 Labore nicht genügen, weichen wir auf ein drittes Labor aus (Windows). Deswegen ist es wichtig, dass Sie bereits 9:15 Uhr vor Ort sind.
+- Bitte beachten Sie auch, dass wir **nicht** beim Hochladen der Lösung in Moodle unterstützen können. Das haben Sie für die Aufgaben genügend geübt. Wichtig ist, dass Sie wissen, wo Ihr *workspace* auf dem Rechner ist, damit Sie von dort aus hochladen können.  
+
+
 
 
 
