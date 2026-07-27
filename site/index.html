@@ -2375,7 +2375,7 @@
 <li>Eclipse (oder IntelliJ) und </li>
 <li>der Dateiexplorer/Finder </li>
 </ul>
-<p>geöffnet sein. Alle anderen Programme sind ebenfalls nicht erlaubt!</p>
+<p>geöffnet sein. Sollten Sie IntelliJ verwenden, darf das AI-Chat-Plugin entweder gar nicht erst installiert oder aber muss disabled sein! Alle anderen Programme sind ebenfalls nicht erlaubt!</p>
 </li>
 <li>
 <p>Testen Sie vorab die korrekte Durchführung von JUnit-Tests! Erstllen Sie sich dazu eine Klasse <code>KlausurTest</code> (in Eclipse: <code>New -&gt; JUnit Test Case</code>). Achten Sie darauf, dass es sich mindestens um <code>Junit5</code> handelt (<code>JUnit6</code> geht auch, <code>New Junit Jupiter test</code> ist auch korrekt, <code>JUnit4</code> oder weniger <strong>nicht</strong>). Es wird eine Testklasse mit einer Testmethode erstellt, die die Assertion <code>fail</code> enthält. Führen Sie am besten einen Rechtsklick auf die Klasse aus und wählen <code>Coverage As</code> &rarr; <code>JUnit KlausurTest</code>. Wenn das funktioniert, sind Sie bereit. In der <code>module-info.java</code> muss dazu der Eintrag <code>requires org.junit.jupiter.api;</code> enthalten sein. Außerdem wird <code>Junit5</code> dem Modulpfad (oder Klassenpfad) hinzugefügt. Sie können auch z.B. folgende Klasse ausprobieren:
