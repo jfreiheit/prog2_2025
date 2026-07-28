@@ -6854,7 +6854,7 @@
     }
     ```
 
-	2. Gegeben sind die Klassen `Probeklausur` und `Probeklausur4Test` wie folgt:
+	2. Gegeben sind die Klassen `Probeklausur4` und `Probeklausur4Test` wie folgt:
 
 	    === "Probeklausur4.java"
 	        ```java
@@ -6931,7 +6931,7 @@
 	            }
 
 	            /*  TODO 10:
-	             *  gibt (mit einem Stream) alle Alben aus albenListe zurueck, die VOR
+	             *  gibt alle Alben aus albenListe zurueck, die VOR
 	             *  dem Jahr jahr erschienen sind - ohne Duplikate
 	             */
 	            public static Set<Album> getAlbenVorJahr(List<Album> albenListe, int jahr)
@@ -6940,7 +6940,7 @@
 	            }
 
 	            /*  TODO 12:
-	             *  gibt (mit einem Stream) eine Liste aller Bandnamen aus albenListe
+	             *  gibt eine Liste aller Bandnamen aus albenListe
 	             *  zurueck - ohne Duplikate, alphabetisch aufsteigend sortiert
 	             */
 	            public static List<String> getSortedBandNamen(List<Album> albenListe)
@@ -6949,7 +6949,7 @@
 	            }
 
 	            /*  TODO 14:
-	             *  sucht (mit einem Stream) in albenListe nach dem ersten Album der
+	             *  sucht in albenListe nach dem ersten Album der
 	             *  uebergebenen band. Existiert kein solches Album, wird eine
 	             *  IllegalArgumentException mit der Nachricht "band <band> not found" geworfen
 	             */
@@ -6959,7 +6959,7 @@
 	            }
 
 	            /*  TODO 16:
-	             *  sucht (mit einem Stream) in albenListe nach einem Album mit
+	             *  sucht in albenListe nach einem Album mit
 	             *  uebergebenem titel. Existiert ein solches Album, wird es im
 	             *  Optional zurueckgegeben, sonst wird ein leeres Optional zurueckgegeben
 	             */
