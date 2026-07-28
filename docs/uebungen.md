@@ -5715,6 +5715,8 @@
 	1. Gegeben ist der `record Adresse` wie folgt: 
 
 	    ```java
+	    package probeklausur3;
+
 	    public record Adresse(String stadt, int plz, String strasse, short hausnummer)
 	    {
 	        @Override
@@ -5730,7 +5732,7 @@
 
 	    === "Probeklausur3.java"
 	        ```java
-	        package klausur;
+	        package probeklausur3;
 
 	        import java.util.*;
 
@@ -5877,7 +5879,7 @@
 	        ```
 	    === "Probeklausur3Test.java"
 	        ```java
-	        package aufgabe;
+	        package probeklausur3;
 
 	        import org.junit.jupiter.api.BeforeAll;
 	        import org.junit.jupiter.api.DisplayName;
@@ -6830,3 +6832,928 @@
 		    }
 		}
 		```
+
+
+
+##### Probeklausur 4
+
+??? "Probeklausur 4"
+
+	1. Gegeben ist der `record Album` wie folgt:
+
+    ```java
+    package probeklausur4;
+
+    public record Album(String titel, String band, int jahr)
+    {
+        @Override
+        public String toString()
+        {
+            return String.format("%-30s von %-20s (%d)", this.titel, this.band, this.jahr);
+        }
+    }
+    ```
+
+	2. Gegeben sind die Klassen `Probeklausur` und `Probeklausur4Test` wie folgt:
+
+	    === "Probeklausur4.java"
+	        ```java
+		    package probeklausur4;
+
+	        import java.util.*;
+	        import java.util.stream.*;
+
+	        public class Probeklausur4
+	        {
+	            static Random r = new Random();
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            private static Album createAlbum()
+	            {
+	                String[] titel = {"Skyline", "Solitude", "Echoes", "Horizon", "Neon Nights",
+	                        "Wildfire", "Silver Lining", "Midnight Drive", "Afterglow", "Northern Lights"};
+	                String[] bands = {"The Wanderers", "Crimson Tide", "Velvet Static", "Glass Horizon",
+	                        "Northern Echo", "Paper Moon", "The Lowlights", "Iron Skyline"};
+	                int jahr = r.nextInt(1960, 2025);
+	                String t = titel[r.nextInt(titel.length)];
+	                String b = bands[r.nextInt(bands.length)];
+	                return new Album(t, b, jahr);
+	            }
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            private static List<Album> createAlbenListe(int anzahl)
+	            {
+	                List<Album> alben = new ArrayList<>();
+	                for(int i = 0; i < anzahl; i++)
+	                {
+	                    alben.add(createAlbum());
+	                }
+	                return alben;
+	            }
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            static final List<Album> ALBEN = List.of(
+	                    new Album("Abbey Road", "The Beatles", 1969),
+	                    new Album("Let It Be", "The Beatles", 1970),
+	                    new Album("Revolver", "The Beatles", 1966),
+	                    new Album("The Wall", "Pink Floyd", 1979),
+	                    new Album("Wish You Were Here", "Pink Floyd", 1975),
+	                    new Album("A Night at the Opera", "Queen", 1975),
+	                    new Album("News of the World", "Queen", 1977),
+	                    new Album("Rumours", "Fleetwood Mac", 1977),
+	                    new Album("Tusk", "Fleetwood Mac", 1979),
+	                    new Album("Nevermind", "Nirvana", 1991),
+	                    new Album("Thriller", "Michael Jackson", 1982),
+	                    new Album("Bad", "Michael Jackson", 1987),
+	                    new Album("Purple Rain", "Prince", 1984),
+	                    new Album("Back in Black", "AC/DC", 1980),
+	                    new Album("Hotel California", "Eagles", 1976),
+	                    new Album("Graceland", "Paul Simon", 1986)
+	            );
+
+	            /*  TODO 3:
+	             *  waehlt zufaellig length viele Alben (Wiederholungen sind erlaubt)
+	             *  aus der vorgegebenen Liste ALBEN aus und gibt sie als neue Liste zurueck
+	             */
+	            public static List<Album> createCDList(int length)
+	            {
+	                return null; // TODO siehe 3.
+	            }
+
+	            /*  TODO 7:
+	             *  Map erzeugen,
+	             *  Schluessel ist die Band,
+	             *  Werte sind die Listen aller Alben dieser Band aus albenListe
+	             */
+	            public static Map<String, List<Album>> createMapByBand(List<Album> albenListe)
+	            {
+	                return null; // TODO siehe 7.
+	            }
+
+	            /*  TODO 10:
+	             *  gibt (mit einem Stream) alle Alben aus albenListe zurueck, die VOR
+	             *  dem Jahr jahr erschienen sind - ohne Duplikate
+	             */
+	            public static Set<Album> getAlbenVorJahr(List<Album> albenListe, int jahr)
+	            {
+	                return null; // TODO siehe 10.
+	            }
+
+	            /*  TODO 12:
+	             *  gibt (mit einem Stream) eine Liste aller Bandnamen aus albenListe
+	             *  zurueck - ohne Duplikate, alphabetisch aufsteigend sortiert
+	             */
+	            public static List<String> getSortedBandNamen(List<Album> albenListe)
+	            {
+	                return null; // TODO siehe 12.
+	            }
+
+	            /*  TODO 14:
+	             *  sucht (mit einem Stream) in albenListe nach dem ersten Album der
+	             *  uebergebenen band. Existiert kein solches Album, wird eine
+	             *  IllegalArgumentException mit der Nachricht "band <band> not found" geworfen
+	             */
+	            public static Album getFirstAlbumOfBand(List<Album> albenListe, String band)
+	            {
+	                return null; // TODO siehe 14.
+	            }
+
+	            /*  TODO 16:
+	             *  sucht (mit einem Stream) in albenListe nach einem Album mit
+	             *  uebergebenem titel. Existiert ein solches Album, wird es im
+	             *  Optional zurueckgegeben, sonst wird ein leeres Optional zurueckgegeben
+	             */
+	            public static Optional<Album> getAlbumMitTitel(List<Album> albenListe, String titel)
+	            {
+	                return null; // TODO siehe 16.
+	            }
+
+	            public static void main(String[] args)
+	            {
+	                // --------------- Vorbereitung - bleibt so ---------->
+	                List<Album> meineAlben = createAlbenListe(12);
+	                System.out.printf("%n%n--------------- meineAlben ---------------------%n%n");
+	                meineAlben.forEach(System.out::println);
+	                // <--------------- Vorbereitung - bleibt so ----------
+
+	                System.out.printf("%n%n--------------- createCDList(10) ---------------------%n%n");
+	                // TODO siehe 4.
+
+	                System.out.printf("%n%n--------------- meineAlben sortiert (compareTo) ---------------------%n%n");
+	                // TODO siehe 6.
+
+	                System.out.printf("%n%n--------------- createMapByBand(meineAlben) ---------------------%n%n");
+	                // TODO siehe 8.
+
+	                System.out.printf("%n%n----------- createMapByBand(meineAlben) sortiert ------------------%n%n");
+	                // TODO siehe 9.
+
+	                System.out.printf("%n%n--------------- getAlbenVorJahr(meineAlben, 1990) ---------------------%n%n");
+	                // TODO siehe 11.
+
+	                System.out.printf("%n%n--------------- getSortedBandNamen(meineAlben) ---------------------%n%n");
+	                // TODO siehe 13.
+
+	                System.out.printf("%n%n--------------- getFirstAlbumOfBand(meineAlben, band) ---------------------%n%n");
+	                String[] bandNamen = {"The Wanderers", "ABBA"};
+	                for(String band : bandNamen)
+	                {
+	                    // TODO siehe 15.
+	                }
+
+	                System.out.printf("%n%n--------------- getAlbumMitTitel(meineAlben, titel) ---------------------%n%n");
+	                String[] titelListe = {"Skyline", "Yesterday"};
+	                for(String titel : titelListe)
+	                {
+	                    // TODO siehe 17.
+	                }
+	            }
+	        }
+	        ```
+
+	    === "Probeklausur4Test.java"
+	        ```java
+		    package probeklausur4;
+       		
+       		import org.junit.jupiter.api.BeforeAll;
+	        import org.junit.jupiter.api.DisplayName;
+	        import org.junit.jupiter.api.Test;
+
+	        import java.util.*;
+
+	        import static org.junit.jupiter.api.Assertions.*;
+
+	        public class Probeklausur4Test
+	        {
+	            static Album al1, al2, al3, al4, al5, al6, al7, al8, al9, al10;
+	            static List<Album> albenListe;
+
+	            @BeforeAll
+	            public static void setUp()
+	            {
+	                al1 = new Album("A Night at the Opera", "Queen", 1975);
+	                al2 = new Album("News of the World", "Queen", 1977);
+	                al3 = new Album("The Wall", "Pink Floyd", 1979);
+	                al4 = new Album("Wish You Were Here", "Pink Floyd", 1975);
+	                al5 = new Album("Abbey Road", "The Beatles", 1969);
+	                al6 = new Album("Let It Be", "The Beatles", 1970);
+	                al7 = new Album("Revolver", "The Beatles", 1966);
+	                al8 = new Album("Rumours", "Fleetwood Mac", 1977);
+	                al9 = new Album("Tusk", "Fleetwood Mac", 1979);
+	                al10 = new Album("Nevermind", "Nirvana", 1991);
+
+	                albenListe = List.of(al1, al2, al3, al4, al5, al6, al7, al8, al9, al10);
+	            }
+
+	            @Test
+	            @DisplayName("createCDList()")
+	            public void testCreateCDList()
+	            {
+	                // given
+	                int length = 20;
+
+	                // when
+	                List<Album> result = Probeklausur4.createCDList(length);
+
+	                // then
+	                assertEquals(length, result.size(), "createCDList() gibt nicht die richtige Anzahl an Alben zurueck");
+	                assertTrue(Probeklausur4.ALBEN.containsAll(result), "createCDList() enthaelt Alben, die nicht in ALBEN vorkommen");
+	            }
+
+	            @Test
+	            @DisplayName("Album is Comparable")
+	            public void testAlbumIsComparable()
+	            {
+	                // given
+	                List<Album> unsorted = new ArrayList<>(List.of(al2, al8, al5, al1, al7));
+	                List<Album> expected = List.of(al8, al1, al2, al5, al7);
+
+	                Object o = al1;
+	                if(o instanceof Comparable)
+	                {
+	                    // when
+	                    Collections.sort((List)unsorted);
+
+	                    // then
+	                    assertEquals(expected, unsorted, "compareTo() von Album scheint noch nicht richtig zu funktionieren");
+	                }
+	                else
+	                {
+	                    fail("Album ist noch nicht Comparable");
+	                }
+	            }
+
+	            @Test
+	            @DisplayName("createMapByBand()")
+	            public void testCreateMapByBand()
+	            {
+	                // given
+	                Map<String, List<Album>> expected = new HashMap<>();
+	                expected.put("Queen", List.of(al1, al2));
+	                expected.put("Pink Floyd", List.of(al3, al4));
+	                expected.put("The Beatles", List.of(al5, al6, al7));
+	                expected.put("Fleetwood Mac", List.of(al8, al9));
+	                expected.put("Nirvana", List.of(al10));
+
+	                // when
+	                Map<String, List<Album>> result = Probeklausur4.createMapByBand(albenListe);
+
+	                // then
+	                assertEquals(expected, result, "createMapByBand() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("getAlbenVorJahr()")
+	            public void testGetAlbenVorJahr()
+	            {
+	                // given
+	                Set<Album> expected = Set.of(al5, al6, al7);
+
+	                // when
+	                Set<Album> result = Probeklausur4.getAlbenVorJahr(albenListe, 1975);
+
+	                // then
+	                assertEquals(expected, result, "getAlbenVorJahr() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("getSortedBandNamen()")
+	            public void testGetSortedBandNamen()
+	            {
+	                // given
+	                List<String> expected = List.of("Fleetwood Mac", "Nirvana", "Pink Floyd", "Queen", "The Beatles");
+
+	                // when
+	                List<String> result = Probeklausur4.getSortedBandNamen(albenListe);
+
+	                // then
+	                assertEquals(expected, result, "getSortedBandNamen() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("getFirstAlbumOfBand() - gefunden")
+	            public void testGetFirstAlbumOfBandGefunden()
+	            {
+	                assertEquals(al3, Probeklausur4.getFirstAlbumOfBand(albenListe, "Pink Floyd"),
+	                        "getFirstAlbumOfBand() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("getFirstAlbumOfBand() - nicht gefunden")
+	            public void testGetFirstAlbumOfBandNichtGefunden()
+	            {
+	                Exception e = assertThrows(IllegalArgumentException.class,
+	                        () -> Probeklausur4.getFirstAlbumOfBand(albenListe, "ABBA"));
+	                assertEquals("band ABBA not found", e.getMessage());
+	            }
+
+	            /*
+	             * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer getAlbumMitTitel() (siehe 18.)
+	             */
+
+	        }
+	        ```
+
+	3. Implementieren Sie die Methode `createCDList(int length)`. Diese Methode gibt eine `List<Album>` der Länge `length` zurück. Die Alben werden **zufällig** (Wiederholungen sind erlaubt) aus der vorgegebenen Liste `ALBEN` ausgewählt.
+
+	    **Tipp:** als `bound` für die Zufallszahlenerzeugung eignet sich die Länge der Liste `ALBEN`
+
+	    --> siehe `testCreateCDList()` in `Probeklausur4Test` (Anzeige `createCDList()`)
+
+	4. Rufen Sie die `createCDList(10)`-Methode in der `main`-Methode auf und geben Sie die zurückgegebene Liste wie folgt auf der Konsole aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- createCDList(10) ---------------------
+
+	    Abbey Road                     von The Beatles          (1969)
+	    Rumours                        von Fleetwood Mac        (1977)
+	    Thriller                       von Michael Jackson      (1982)
+	    The Wall                       von Pink Floyd           (1979)
+	    Bad                            von Michael Jackson      (1987)
+	    News of the World              von Queen                (1977)
+	    Back in Black                  von AC/DC                (1980)
+	    Nevermind                      von Nirvana              (1991)
+	    Graceland                      von Paul Simon           (1986)
+	    Rumours                        von Fleetwood Mac        (1977)
+	    ```
+
+	5. Implementieren Sie für den `record Album` das `Comparable`-Interface so, dass eine Ordnung über die Band (`band`) entsteht. Bei gleicher Band wird die Ordnung über den Titel (`titel`) erweitert.
+
+	    **Tipp:** nutzen Sie die `compareTo()`-Methode von `String`
+
+	    --> siehe `testAlbumIsComparable()` in `Probeklausur4Test` (Anzeige `Album is Comparable`)
+
+	6. Erzeugen Sie in `main` aus `meineAlben` eine sortierte Liste unter Verwendung von `compareTo()`. Geben Sie die sortierte Liste wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- meineAlben sortiert (compareTo) ---------------------
+
+	    Wildfire                       von Crimson Tide         (2003)
+	    Horizon                        von Glass Horizon        (1985)
+	    Silver Lining                  von Iron Skyline         (2014)
+	    Echoes                         von Northern Echo        (1972)
+	    Afterglow                      von Paper Moon           (1998)
+	    Midnight Drive                 von The Lowlights        (2020)
+	    Neon Nights                    von The Wanderers        (1965)
+	    Northern Lights                von The Wanderers        (1990)
+	    ```
+
+	    **Tipp:** erzeugen Sie aus `meineAlben` einen Stream, sortieren Sie diesen in natürlicher Ordnung und erzeugen aus dem Stream wieder eine Liste (geht aber natürlich auch anders).
+
+	7. Implementieren Sie die Methode `createMapByBand(List<Album> albenListe)`. Diese Methode gibt eine `Map<String, List<Album>>` zurück. Die zurückgegebene `Map` enthält als Schlüssel alle Bands aus `albenListe`. Die Werte sind die Listen der Alben der entsprechenden Band.
+
+	    --> siehe `testCreateMapByBand()` in `Probeklausur4Test` (Anzeige `createMapByBand()`)
+
+	8. Rufen Sie die `createMapByBand()`-Methode in `main` mit `meineAlben` auf und geben Sie die zurückgegebene `Map` wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- createMapByBand(meineAlben) ---------------------
+
+	    Band : The Wanderers
+	    ---------------------
+	    Neon Nights (1965)
+	    Northern Lights (1990)
+	    ---------------------
+
+	    Band : Glass Horizon
+	    ---------------------
+	    Horizon (1985)
+	    ---------------------
+
+	    Band : Crimson Tide
+	    ---------------------
+	    Wildfire (2003)
+	    ---------------------
+	    ```
+
+	    d.h. immer erst die Band, dann eine Linie, dann für jedes Album Titel und Jahr in Klammern, zuletzt eine Linie und eine Leerzeile.
+
+	9. Geben Sie nun in `main` die gleiche `Map` (aus `8.`) **sortiert** aus, d.h. die Bands erscheinen alphabetisch sortiert und innerhalb einer Band sind die Alben aufsteigend nach `jahr` sortiert.
+
+	    ```bash
+	    ----------- createMapByBand(meineAlben) sortiert ------------------
+
+	    Band : Crimson Tide
+	    ---------------------
+	    Wildfire (2003)
+	    ---------------------
+
+	    Band : Glass Horizon
+	    ---------------------
+	    Horizon (1985)
+	    ---------------------
+
+	    Band : The Wanderers
+	    ---------------------
+	    Neon Nights (1965)
+	    Northern Lights (1990)
+	    ---------------------
+	    ```
+
+	10. Implementieren Sie die Methode `getAlbenVorJahr(List<Album> albenListe, int jahr)`. Diese Methode gibt ein `Set<Album>` zurück, das alle Alben aus `albenListe` enthält, die **vor** dem Jahr `jahr` erschienen sind (ohne Duplikate).
+
+	    --> siehe `testGetAlbenVorJahr()` in `Probeklausur4Test` (Anzeige `getAlbenVorJahr()`)
+
+	11. Rufen Sie `getAlbenVorJahr(meineAlben, 1990)` in `main` auf und geben Sie das zurückgegebene `Set` aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- getAlbenVorJahr(meineAlben, 1990) ---------------------
+
+	    Horizon                        von Glass Horizon        (1985)
+	    Echoes                         von Northern Echo        (1972)
+	    Afterglow                      von Paper Moon           (1998)
+	    Northern Lights                von The Wanderers        (1965)
+	    ```
+
+	12. Implementieren Sie die Methode `getSortedBandNamen(List<Album> albenListe)`. Diese Methode gibt eine `List<String>` zurück, die alle Bandnamen aus `albenListe` ohne Duplikate, alphabetisch aufsteigend sortiert, enthält.
+
+	    --> siehe `testGetSortedBandNamen()` in `Probeklausur4Test` (Anzeige `getSortedBandNamen()`)
+
+	13. Rufen Sie `getSortedBandNamen(meineAlben)` in `main` auf und geben Sie die zurückgegebene Liste aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- getSortedBandNamen(meineAlben) ---------------------
+
+	    Crimson Tide
+	    Glass Horizon
+	    Iron Skyline
+	    Northern Echo
+	    Paper Moon
+	    The Lowlights
+	    The Wanderers
+	    ```
+
+	14. Implementieren Sie die Methode `getFirstAlbumOfBand(List<Album> albenListe, String band)`. Diese Methode gibt das erste `Album` aus `albenListe` zurück, dessen `band` mit dem übergebenen Parameter übereinstimmt. Existiert kein solches Album, wird eine `IllegalArgumentException` mit der Nachricht `band <band> not found` geworfen, wobei `<band>` durch die gesuchte Band ersetzt wird.
+
+	    --> siehe `testGetFirstAlbumOfBandGefunden()` und `testGetFirstAlbumOfBandNichtGefunden()` in `Probeklausur4Test` (Anzeige `getFirstAlbumOfBand() - gefunden` bzw. `getFirstAlbumOfBand() - nicht gefunden`)
+
+	15. Rufen Sie `getFirstAlbumOfBand(meineAlben, band)` in `main` für jede Band aus `bandNamen` auf. Es wird entweder das gefundene Album ausgegeben, oder - falls eine Exception geworfen wird - deren Nachricht (Zufallswerte!):
+
+	    ```bash
+	    --------------- getFirstAlbumOfBand(meineAlben, band) ---------------------
+
+	    Neon Nights                    von The Wanderers        (1965)
+	    band ABBA not found
+	    ```
+
+	16. Implementieren Sie die Methode `getAlbumMitTitel(List<Album> albenListe, String titel)`. Diese Methode gibt ein `Optional<Album>` zurück. Existiert ein Album mit dem übergebenen `titel` in `albenListe`, wird es im `Optional` zurückgegeben, sonst wird ein leeres `Optional` zurückgegeben.
+
+	    --> *Tests schreiben Sie selbst (siehe 18.)*
+
+	17. Rufen Sie `getAlbumMitTitel(meineAlben, titel)` in `main` für jeden Titel aus `titelListe` auf. Es wird entweder das im `Optional` enthaltene Album ausgegeben, oder eine Nachricht der Form `Kein Album mit Titel <titel> gefunden.`, wobei `<titel>` durch den gesuchten Titel ersetzt wird (Zufallswerte!):
+
+	    ```bash
+	    --------------- getAlbumMitTitel(meineAlben, titel) ---------------------
+
+	    Skyline                        von Velvet Static        (1977)
+	    Kein Album mit Titel Yesterday gefunden.
+	    ```
+
+	18. Erstellen Sie in der Klasse `Probeklausur4Test` zwei Tests für die Methode `getAlbumMitTitel(List<Album> albenListe, String titel)`.
+
+	    - Der erste Test soll prüfen, ob ein Album korrekt aus `albenListe` für einen gegebenen Titel gefunden wird, wenn ein passendes Album existiert.
+	    - Der zweite Test soll prüfen, ob ein leeres `Optional` zurückgegeben wird, wenn kein passendes Album existiert.
+
+
+
+??? success "mögliche Lösung für Probeklausur4"
+	
+	=== "Probeklausur4.java"
+		```java
+		package probeklausur4;
+
+		import java.util.*;
+		import java.util.stream.*;
+
+		public class Probeklausur4
+		{
+		    static Random r = new Random();
+
+		    // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+		    private static Album createAlbum()
+		    {
+		        String[] titel = {"Skyline", "Solitude", "Echoes", "Horizon", "Neon Nights",
+		                "Wildfire", "Silver Lining", "Midnight Drive", "Afterglow", "Northern Lights"};
+		        String[] bands = {"The Wanderers", "Crimson Tide", "Velvet Static", "Glass Horizon",
+		                "Northern Echo", "Paper Moon", "The Lowlights", "Iron Skyline"};
+		        int jahr = r.nextInt(1960, 2025);
+		        String t = titel[r.nextInt(titel.length)];
+		        String b = bands[r.nextInt(bands.length)];
+		        return new Album(t, b, jahr);
+		    }
+
+		    // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+		    private static List<Album> createAlbenListe(int anzahl)
+		    {
+		        List<Album> alben = new ArrayList<>();
+		        for(int i = 0; i < anzahl; i++)
+		        {
+		            alben.add(createAlbum());
+		        }
+		        return alben;
+		    }
+
+		    // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+		    static final List<Album> ALBEN = List.of(
+		            new Album("Abbey Road", "The Beatles", 1969),
+		            new Album("Let It Be", "The Beatles", 1970),
+		            new Album("Revolver", "The Beatles", 1966),
+		            new Album("The Wall", "Pink Floyd", 1979),
+		            new Album("Wish You Were Here", "Pink Floyd", 1975),
+		            new Album("A Night at the Opera", "Queen", 1975),
+		            new Album("News of the World", "Queen", 1977),
+		            new Album("Rumours", "Fleetwood Mac", 1977),
+		            new Album("Tusk", "Fleetwood Mac", 1979),
+		            new Album("Nevermind", "Nirvana", 1991),
+		            new Album("Thriller", "Michael Jackson", 1982),
+		            new Album("Bad", "Michael Jackson", 1987),
+		            new Album("Purple Rain", "Prince", 1984),
+		            new Album("Back in Black", "AC/DC", 1980),
+		            new Album("Hotel California", "Eagles", 1976),
+		            new Album("Graceland", "Paul Simon", 1986)
+		    );
+
+		    /*  TODO 3:
+		     *  waehlt zufaellig length viele Alben (Wiederholungen sind erlaubt)
+		     *  aus der vorgegebenen Liste ALBEN aus und gibt sie als neue Liste zurueck
+		     */
+		    public static List<Album> createCDList(int length)
+		    {
+		    	int bound = ALBEN.size();
+		    	Random r = new Random();
+		    	List<Album> result = new ArrayList<>();
+		    	for(int i = 0; i < length; i++)
+		    	{
+		    		result.add(ALBEN.get(r.nextInt(bound)));
+		    	}
+		        return result; // TODO siehe 3.
+		    }
+
+		    /*  TODO 7:
+		     *  Map erzeugen,
+		     *  Schluessel ist die Band,
+		     *  Werte sind die Listen aller Alben dieser Band aus albenListe
+		     */
+		    public static Map<String, List<Album>> createMapByBand(List<Album> albenListe)
+		    {
+		    	Map<String, List<Album>> result = albenListe.stream()
+		    			.collect(Collectors.groupingBy(Album::band));
+		        return result; // TODO siehe 7.
+		    }
+
+		    /*  TODO 10:
+		     *  gibt alle Alben aus albenListe zurueck, die VOR
+		     *  dem Jahr jahr erschienen sind - ohne Duplikate
+		     */
+		    public static Set<Album> getAlbenVorJahr(List<Album> albenListe, int jahr)
+		    {
+		    	Set<Album> set1 = albenListe.stream()
+		    			.filter(a -> a.jahr() < jahr )
+		    			.collect(Collectors.toSet());
+		        return set1; // TODO siehe 10.
+		    }
+
+		    /*  TODO 12:
+		     *  gibt eine Liste aller Bandnamen aus albenListe
+		     *  zurueck - ohne Duplikate, alphabetisch aufsteigend sortiert
+		     */
+		    public static List<String> getSortedBandNamen(List<Album> albenListe)
+		    {
+		    	List<String> bands = albenListe.stream()
+		    			.map(a -> a.band())
+		    			.distinct()
+		    			.sorted()
+		    			.toList();
+		        return bands; // TODO siehe 12.
+		    }
+
+		    /*  TODO 14:
+		     *  sucht in albenListe nach dem ersten Album der
+		     *  uebergebenen band. Existiert kein solches Album, wird eine
+		     *  IllegalArgumentException mit der Nachricht "band <band> not found" geworfen
+		     */
+		    public static Album getFirstAlbumOfBand(List<Album> albenListe, String band)
+		    {
+		    	for(Album a : albenListe)
+		    	{
+		    		if(a.band().equals(band))
+		    		{
+		    			return a;
+		    		}
+		    	}
+		    	throw new IllegalArgumentException("band " + band + " not found");
+		        //return null; // TODO siehe 14.
+		    }
+
+		    /*  TODO 16:
+		     *  sucht in albenListe nach einem Album mit
+		     *  uebergebenem titel. Existiert ein solches Album, wird es im
+		     *  Optional zurueckgegeben, sonst wird ein leeres Optional zurueckgegeben
+		     */
+		    public static Optional<Album> getAlbumMitTitel(List<Album> albenListe, String titel)
+		    {
+		    	for(Album a : albenListe)
+		    	{
+		    		if(a.titel().equals(titel))
+		    		{
+		    			return Optional.of(a);
+		    		}
+		    	}
+		        return Optional.empty(); // TODO siehe 16.
+		    }
+
+		    public static void main(String[] args)
+		    {
+		        // --------------- Vorbereitung - bleibt so ---------->
+		        List<Album> meineAlben = createAlbenListe(12);
+		        System.out.printf("%n%n--------------- meineAlben ---------------------%n%n");
+		        meineAlben.forEach(System.out::println);
+		        // <--------------- Vorbereitung - bleibt so ----------
+
+		        System.out.printf("%n%n--------------- createCDList(10) ---------------------%n%n");
+		        // TODO siehe 4.
+		        List<Album> list1 = createCDList(10);
+		        for(Album a : list1)
+		        {
+		        	System.out.println(a.toString());
+		        }
+
+
+		        System.out.printf("%n%n--------------- meineAlben sortiert (compareTo) ---------------------%n%n");
+		        // TODO siehe 6.
+		        List<Album> list2 = meineAlben.stream().sorted().toList();
+		        for(Album a : list2)
+		        {
+		        	System.out.println(a.toString());
+		        }
+
+		        System.out.printf("%n%n--------------- createMapByBand(meineAlben) ---------------------%n%n");
+		        // TODO siehe 8.
+		        Map<String, List<Album>> map1 = createMapByBand(meineAlben);
+		        map1.forEach( (k,v) -> {
+		        	System.out.println("Band : " + k);
+		        	System.out.println("--------------------");
+		        	for(Album a : v)
+		        	{
+		        		System.out.printf("%s (%d) %n", a.titel(), a.jahr());
+		        	}
+		        	System.out.println("--------------------");
+		        	System.out.println();
+		        });
+
+		        System.out.printf("%n%n----------- createMapByBand(meineAlben) sortiert ------------------%n%n");
+		        // TODO siehe 9.
+		        Set<String> keys = map1.keySet().stream().sorted().collect(Collectors.toSet());
+		        for(String k : keys)
+		        {
+		        	System.out.println("Band : " + k);
+		        	System.out.println("--------------------");
+		        	List<Album> value = map1.get(k)
+		        			.stream()
+		        			.sorted(Comparator.comparing(Album::jahr))
+		        			.toList();
+		        	for(Album a : value)
+		        	{
+		        		System.out.printf("%s (%d) %n", a.titel(), a.jahr());
+		        	}
+		        	System.out.println("--------------------");
+		        	System.out.println();	
+		        }
+
+		        System.out.printf("%n%n--------------- getAlbenVorJahr(meineAlben, 1990) ---------------------%n%n");
+		        // TODO siehe 11.
+		        Set<Album> set1 = getAlbenVorJahr(meineAlben, 1990);
+		        set1.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- getSortedBandNamen(meineAlben) ---------------------%n%n");
+		        // TODO siehe 13.
+		        List<String> bands = getSortedBandNamen(meineAlben);
+		        bands.forEach(System.out::println);
+		        
+		        System.out.printf("%n%n--------------- getFirstAlbumOfBand(meineAlben, band) ---------------------%n%n");
+		        String[] bandNamen = {"The Wanderers", "ABBA"};
+		        for(String band : bandNamen)
+		        {
+		            try {
+		            	Album a = getFirstAlbumOfBand(meineAlben, band);
+		            	System.out.println(a);
+		            }
+		            catch(IllegalArgumentException e) {
+		            	System.out.println(e.getMessage());
+		            }
+		        }
+
+		        System.out.printf("%n%n--------------- getAlbumMitTitel(meineAlben, titel) ---------------------%n%n");
+		        String[] titelListe = {"Skyline", "Yesterday"};
+		        for(String titel : titelListe)
+		        {
+		        	Optional<Album> opt = getAlbumMitTitel(meineAlben, titel);
+		        	if(opt.isPresent())
+		        	{
+		        		System.out.println(opt.get());
+		        	}
+		        	else
+		        	{
+		        		System.out.println("Kein Album mit Titel " + titel + " gefunden.");
+		        	}
+		            // TODO siehe 17.
+		        }
+		    }
+		}
+		```
+
+	=== "Probeklausur4Test.java"
+		```java
+		package probeklausur4;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		import java.util.*;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		public class Probeklausur4Test
+		{
+		    static Album al1, al2, al3, al4, al5, al6, al7, al8, al9, al10;
+		    static List<Album> albenListe;
+
+		    @BeforeAll
+		    public static void setUp()
+		    {
+		        al1 = new Album("A Night at the Opera", "Queen", 1975);
+		        al2 = new Album("News of the World", "Queen", 1977);
+		        al3 = new Album("The Wall", "Pink Floyd", 1979);
+		        al4 = new Album("Wish You Were Here", "Pink Floyd", 1975);
+		        al5 = new Album("Abbey Road", "The Beatles", 1969);
+		        al6 = new Album("Let It Be", "The Beatles", 1970);
+		        al7 = new Album("Revolver", "The Beatles", 1966);
+		        al8 = new Album("Rumours", "Fleetwood Mac", 1977);
+		        al9 = new Album("Tusk", "Fleetwood Mac", 1979);
+		        al10 = new Album("Nevermind", "Nirvana", 1991);
+
+		        albenListe = List.of(al1, al2, al3, al4, al5, al6, al7, al8, al9, al10);
+		    }
+
+		    @Test
+		    @DisplayName("createCDList()")
+		    public void testCreateCDList()
+		    {
+		        // given
+		        int length = 20;
+
+		        // when
+		        List<Album> result = Probeklausur4.createCDList(length);
+
+		        // then
+		        assertEquals(length, result.size(), "createCDList() gibt nicht die richtige Anzahl an Alben zurueck");
+		        assertTrue(Probeklausur4.ALBEN.containsAll(result), "createCDList() enthaelt Alben, die nicht in ALBEN vorkommen");
+		    }
+
+		    @Test
+		    @DisplayName("Album is Comparable")
+		    public void testAlbumIsComparable()
+		    {
+		        // given
+		        List<Album> unsorted = new ArrayList<>(List.of(al2, al8, al5, al1, al7));
+		        List<Album> expected = List.of(al8, al1, al2, al5, al7);
+
+		        Object o = al1;
+		        if(o instanceof Comparable)
+		        {
+		            // when
+		        	Collections.sort((List) unsorted);	
+
+		            // then
+		            assertEquals(expected, unsorted, "compareTo() von Album scheint noch nicht richtig zu funktionieren");
+		        }
+		        else
+		        {
+		            fail("Album ist noch nicht Comparable");
+		        }
+		    }
+
+		    @Test
+		    @DisplayName("createMapByBand()")
+		    public void testCreateMapByBand()
+		    {
+		        // given
+		        Map<String, List<Album>> expected = new HashMap<>();
+		        expected.put("Queen", List.of(al1, al2));
+		        expected.put("Pink Floyd", List.of(al3, al4));
+		        expected.put("The Beatles", List.of(al5, al6, al7));
+		        expected.put("Fleetwood Mac", List.of(al8, al9));
+		        expected.put("Nirvana", List.of(al10));
+
+		        // when
+		        Map<String, List<Album>> result = Probeklausur4.createMapByBand(albenListe);
+
+		        // then
+		        assertEquals(expected, result, "createMapByBand() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("getAlbenVorJahr()")
+		    public void testGetAlbenVorJahr()
+		    {
+		        // given
+		        Set<Album> expected = Set.of(al5, al6, al7);
+
+		        // when
+		        Set<Album> result = Probeklausur4.getAlbenVorJahr(albenListe, 1975);
+
+		        // then
+		        assertEquals(expected, result, "getAlbenVorJahr() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("getSortedBandNamen()")
+		    public void testGetSortedBandNamen()
+		    {
+		        // given
+		        List<String> expected = List.of("Fleetwood Mac", "Nirvana", "Pink Floyd", "Queen", "The Beatles");
+
+		        // when
+		        List<String> result = Probeklausur4.getSortedBandNamen(albenListe);
+
+		        // then
+		        assertEquals(expected, result, "getSortedBandNamen() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("getFirstAlbumOfBand() - gefunden")
+		    public void testGetFirstAlbumOfBandGefunden()
+		    {
+		        assertEquals(al3, Probeklausur4.getFirstAlbumOfBand(albenListe, "Pink Floyd"),
+		                "getFirstAlbumOfBand() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("getFirstAlbumOfBand() - nicht gefunden")
+		    public void testGetFirstAlbumOfBandNichtGefunden()
+		    {
+		        Exception e = assertThrows(IllegalArgumentException.class,
+		                () -> Probeklausur4.getFirstAlbumOfBand(albenListe, "ABBA"));
+		        assertEquals("band ABBA not found", e.getMessage());
+		    }
+
+		    /*
+		     * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer getAlbumMitTitel() (siehe 18.)
+		     */
+
+		    @Test
+		    @DisplayName("getAlbumMitTitel() - gefunden")
+		    public void testGetAlbumMitTitelGefunden()
+		    {
+		        // given
+		    	List<Album> list = List.of(al9);
+		    	
+		    	// when
+		    	Optional<Album> opt = Probeklausur4.getAlbumMitTitel(list, "Tusk");
+		    	
+		    	// then
+		    	assertEquals(al9, opt.get(), "Tusk nicht gefunden");
+		    }
+		    
+		    @Test
+		    @DisplayName("getAlbumMitTitel() - nicht gefunden")
+		    public void testGetAlbumMitTitelNichtGefunden()
+		    {
+		        // given
+		    	List<Album> list = List.of(al9);
+		    	
+		    	// when
+		    	Optional<Album> opt = Probeklausur4.getAlbumMitTitel(list, "Yesterday");
+		    	
+		    	// then
+		    	assertEquals(Optional.empty(), opt, "für Yesterday nicht leer");
+		    }
+		}
+		```
+
+	=== "Album.java"
+		```java
+		package probeklausur4;
+
+		public record Album(String titel, String band, int jahr) implements Comparable<Album>
+		{
+		    @Override
+		    public String toString()
+		    {
+		        return String.format("%-30s von %-20s (%d)", this.titel, this.band, this.jahr);
+		    }
+
+			@Override
+			public int compareTo(Album o)
+			{
+				int comparison = this.band.compareTo(o.band);
+				if(comparison == 0)
+				{
+					return this.titel.compareTo(o.titel);
+				}
+				return comparison;
+			}
+		}
+		```
+
