@@ -1530,10 +1530,10 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 ## Hinweise zur Klausur
 
-- Die ProgrammierungII-Klausur im 1. PZ findet am Dienstag, den 28.7.2026 statt.
+- Die ProgrammierungII-Klausur im 2. PZ findet am Montag, den 28.9.2026 statt.
 - Es stehen die Labore C 624 (Mac) und C 625 (Windows) zur Verfügung.
-- Wir wollen um 9:35 Uhr die Aufgabenblätter austeilen, so dass wir spätestens um 9:45 Uhr mit dem Programmieren beginnen können. Seien Sie am besten um 9:15 Uhr in dem Labor Ihrer Wahl.
-- Sie können sich vorab schon ein Package `klausur` erstellen. In der Klausur erhalten Sie eine Testklasse und evtl. auch eine Programmklasse, die Sie sich in dieses Package kopieren. 
+- Wir wollen um 9:35 Uhr die Aufgabenblätter austeilen, so dass wir spätestens um 9:45 Uhr mit dem Programmieren beginnen können. Seien Sie am besten spätestens 9:15 Uhr in dem Labor Ihrer Wahl.
+- Sie können sich vorab schon ein Package `klausur` erstellen. In der Klausur erhalten Sie eine Testklasse (`KlausurTest.java`) und eine Programmklasse (`Klausur.java`), die Sie sich in dieses Package kopieren. 
 - Sie können sich in Ihren Workspace gerne allen Ihren Code importieren, den Sie im Laufe des Semesters erzeugt haben (üben Sie den Import dann am besten vorher - Sie können sich nicht sicher sein, dass Sie an dem Rechner die Klausur schreiben können, an dem Sie den Import geübt haben).
 - Sie dürfen beliebig viele Seiten **handgeschriebenen** Spicker mitbringen. Sie können auch leere Zettel dabei haben, um sich während der Klausur Notizen zu machen.
 - Im Browser **dürfen nur** 
@@ -1583,6 +1583,8 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 
 - Sollte sich herausstellen, dass 2 Labore nicht genügen, weichen wir auf ein drittes Labor aus (Windows). Deswegen ist es wichtig, dass Sie bereits 9:15 Uhr vor Ort sind.
 - Bitte beachten Sie auch, dass wir **nicht** beim Hochladen der Lösung in Moodle unterstützen können. Das haben Sie für die Aufgaben genügend geübt. Wichtig ist, dass Sie wissen, wo Ihr *workspace* auf dem Rechner ist, damit Sie von dort aus hochladen können.  
+- Beachten Sie auch, dass wir auch vor der Klausur nicht immer allen helfen können. Insbesondere das Importieren von Klassen und Paketen in den Workspace sollten Sie schon einmal vorher im Labor geübt haben! Die Labore sind in der Klausurvorbereitung stets verfügbar!
+- Mit Unterschrift unter der Teilnehmendenliste nehmen Sie an der Klausur teil! 
 
 
 
