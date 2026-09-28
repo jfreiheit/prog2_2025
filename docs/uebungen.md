@@ -6827,7 +6827,7 @@
 		        int plz = 22526;
 
 		        //then
-		        Exception exception = assertThrows(IllegalArgumentException.class, () -> Klausur.getStadtMitPLZ(adressen, plz));
+		        Exception exception = assertThrows(IllegalArgumentException.class, () -> Probeklausur3.getStadtMitPLZ(adressen, plz));
 		        assertEquals("Keine Stadt mit Postleitzahl " + plz + " gefunden.", exception.getMessage(), "getStadtMitPLZException doesn't seem to work properly yet");
 		    }
 		}
@@ -7754,6 +7754,1042 @@
 				}
 				return comparison;
 			}
+		}
+		```
+
+
+
+##### Probeklausur 5
+
+??? "Probeklausur 5"
+
+	1. Gegeben sind der `record Land` und das `enum Kontinent` wie folgt:
+
+	    ```java
+	    public record Land(String name, int einwohner, int flaeche, Kontinent kontinent)
+	    {
+	        @Override
+	        public String toString()
+	        {
+	            return String.format("%-15s mit %6.1f Mio Einw. auf %,10d km%c ", 
+	                    this.name,
+	                    (this.einwohner / 1000000.0),
+	                    this.flaeche,
+	                    '²');
+	        }
+	    }
+	    ```
+
+	    ```java
+	    public enum Kontinent
+	    {
+	        AFRIKA, ANTARKTIKA, ASIEN, AUSTRALIEN, EUROPA, NORDAMERIKA, SUEDAMERIKA
+	    }
+	    ```
+
+	2. Gegeben sind die Klassen `Probeklausur5` und `Probeklausur5Test` wie folgt:
+
+	    === "Probeklausur5.java"
+	        ```java
+	        package klausur;
+
+	        import java.util.*;
+	        import java.util.stream.*;
+
+	        public class Probeklausur5
+	        {
+	            static Random r = new Random();
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            private static final List<Land> LAENDER = List.of(
+	                    // AFRIKA
+	                    new Land("Algerien", 47400000, 2381741, Kontinent.AFRIKA),
+	                    new Land("Sudan", 48100000, 1861484, Kontinent.AFRIKA),
+	                    new Land("DR Kongo", 112800000, 2344858, Kontinent.AFRIKA),
+	                    new Land("Nigeria", 237500000, 923768, Kontinent.AFRIKA),
+	                    new Land("Aethiopien", 132100000, 1104300, Kontinent.AFRIKA),
+	                    new Land("Aegypten", 118400000, 1001449, Kontinent.AFRIKA),
+
+	                    // NORDAMERIKA
+	                    new Land("USA", 341800000, 9525067, Kontinent.NORDAMERIKA),
+	                    new Land("Kanada", 40100000, 9984670, Kontinent.NORDAMERIKA),
+	                    new Land("Mexiko", 130900000, 1972550, Kontinent.NORDAMERIKA),
+	                    new Land("Kuba", 9400000, 109884, Kontinent.NORDAMERIKA),
+	                    new Land("Nicaragua", 6900000, 130373, Kontinent.NORDAMERIKA),
+	                    new Land("Guatemala", 18400000, 109021, Kontinent.NORDAMERIKA),
+
+	                    // EUROPA
+	                    new Land("Deutschland", 84500000, 357588, Kontinent.EUROPA),
+	                    new Land("Frankreich", 68500000, 551695, Kontinent.EUROPA),
+	                    new Land("Grossbritannien", 68300000, 243610, Kontinent.EUROPA),
+	                    new Land("Italien", 58900000, 301340, Kontinent.EUROPA),
+	                    new Land("Spanien", 48600000, 505990, Kontinent.EUROPA),
+	                    new Land("Polen", 36700000, 312696, Kontinent.EUROPA),
+
+	                    // ASIEN
+	                    new Land("Indien", 1441700000, 3287263, Kontinent.ASIEN),
+	                    new Land("China", 1409700000, 9596961, Kontinent.ASIEN),
+	                    new Land("Indonesien", 281600000, 1904569, Kontinent.ASIEN),
+	                    new Land("Pakistan", 245200000, 881913, Kontinent.ASIEN),
+	                    new Land("Japan", 124500000, 377975, Kontinent.ASIEN),
+	                    new Land("Suedkorea", 51700000, 100210, Kontinent.ASIEN),
+
+	                    // SUEDAMERIKA
+	                    new Land("Brasilien", 216400000, 8515767, Kontinent.SUEDAMERIKA),
+	                    new Land("Kolumbien", 52600000, 1141748, Kontinent.SUEDAMERIKA),
+	                    new Land("Argentinien", 46600000, 2780400, Kontinent.SUEDAMERIKA),
+	                    new Land("Peru", 34400000, 1285216, Kontinent.SUEDAMERIKA),
+	                    new Land("Chile", 19600000, 756102, Kontinent.SUEDAMERIKA),
+	                    new Land("Ecuador", 18200000, 283561, Kontinent.SUEDAMERIKA),
+
+	                    // AUSTRALIEN / OZEANIEN
+	                    new Land("Australien", 26700000, 7692024, Kontinent.AUSTRALIEN),
+	                    new Land("Papua-Neuguinea", 10300000, 462840, Kontinent.AUSTRALIEN),
+	                    new Land("Neuseeland", 5300000, 270467, Kontinent.AUSTRALIEN),
+	                    new Land("Fidschi", 940000, 18274, Kontinent.AUSTRALIEN)
+	                );
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            private static Land createLand()
+	            {
+	                return LAENDER.get(r.nextInt(LAENDER.size()));
+	            }
+
+	            // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+	            private static List<Land> createLaenderListe(int anzahl)
+	            {
+	                List<Land> laender = new ArrayList<>();
+	                for (int i = 0; i < anzahl; i++)
+	                {
+	                    laender.add(createLand());
+	                }
+	                return laender;
+	            }
+
+	            /*  TODO 3:
+	             *  Map erzeugen,
+	             *  Schluessel ist der Kontinent,
+	             *  Werte sind die Listen aller Laender dieses Kontinents aus laender
+	             *  Laender duerfen in der Map nicht doppelt vorkommen!
+	             */
+	            public static Map<Kontinent, List<Land>> gruppiereNachKontinent(List<Land> laender)
+	            {
+	                return null; // TODO siehe 3.
+	            }
+
+	            /*  TODO 6:
+	             *  Map erzeugen,
+	             *  Schluessel ist der Kontinent,
+	             *  Wert ist das (nach flaeche) groesste Land dieses Kontinents aus laender
+	             */
+	            public static Map<Kontinent, Land> groessterProKontinent(List<Land> laender)
+	            {
+	                return null; // TODO siehe 6.
+	            }
+
+	            /*  TODO 8:
+	             *  berechnet (mit einem Stream) den Durchschnitt der Bevoelkerungsdichten
+	             *  (einwohner / flaeche) aller Laender aus laender
+	             */
+	            public static double durchschnittlicheDichte(List<Land> laender)
+	            {
+	                return 0.0; // TODO siehe 8.
+	            }
+
+	            /*  TODO 12:
+	             *  sucht in laender nach dem Land mit dem uebergebenen name.
+	             *  Existiert kein solches Land, wird eine IllegalArgumentException mit
+	             *  der Nachricht "Land <name> nicht gefunden." geworfen
+	             */
+	            public static Land getLandMitName(List<Land> laender, String name)
+	            {
+	                return null; // TODO siehe 12.
+	            }
+
+	            /*  TODO 14:
+	             *  sucht in laender nach dem ersten Land, dessen name mit prefix beginnt.
+	             *  Existiert ein solches Land, wird es im Optional zurueckgegeben,
+	             *  sonst wird ein leeres Optional zurueckgegeben
+	             */
+	            public static Optional<Land> getLandMitNamePrefix(List<Land> laender, String prefix)
+	            {
+	                return null; // TODO siehe 14.
+	            }
+
+	            /*
+	             * folgende Methode auskommentieren, nachdem Sie das Interface Kriterium erstellt haben
+	             * siehe TODO 17 und 18
+	             */
+	            /*
+	            public static <T> List<T> filtereListe(List<T> elemente, Kriterium<T> kriterium)
+	            {
+	                return elemente.stream()
+	                        .filter(kriterium::erfuellt)
+	                        .collect(Collectors.toList());
+	            }
+	            */
+
+	            public static void main(String[] args)
+	            {
+	                // --------------- Vorbereitung - bleibt so ---------->
+	                List<Land> meineLaender = createLaenderListe(15);
+	                System.out.printf("%n%n--------------- meineLaender ---------------------%n%n");
+	                meineLaender.forEach(System.out::println);
+	                // <--------------- Vorbereitung - bleibt so ----------
+
+	                System.out.printf("%n%n--------------- gruppiereNachKontinent(meineLaender) ---------------------%n%n");
+	                // TODO siehe 4.
+
+	                System.out.printf("%n%n----------- gruppiereNachKontinent(meineLaender) sortiert ------------------%n%n");
+	                // TODO siehe 5.
+
+	                System.out.printf("%n%n--------------- groessterProKontinent(meineLaender) ---------------------%n%n");
+	                // TODO siehe 7.
+
+	                System.out.printf("%n%n--------------- durchschnittlicheDichte(meineLaender) ---------------------%n%n");
+	                // TODO siehe 9.
+
+	                System.out.printf("%n%n--------------- meineLaender sortiert (compareTo) ---------------------%n%n");
+	                // TODO siehe 11.
+
+	                System.out.printf("%n%n--------------- getLandMitName(meineLaender, name) ---------------------%n%n");
+	                String[] namen = {"Deutschland", "Atlantis"};
+	                for (String name : namen)
+	                {
+	                    // TODO siehe 13.
+	                }
+
+	                System.out.printf("%n%n--------------- getLandMitNamePrefix(meineLaender, prefix) ---------------------%n%n");
+	                String[] praefixe = {"De", "Xy"};
+	                for (String prefix : praefixe)
+	                {
+	                    // TODO siehe 15.
+	                }
+
+	                System.out.printf("%n%n--------------- Kriterium und filtereListe(meineLaender, kriterium) ---------------------%n%n");
+	                // TODO siehe 17 und 18.
+	                // vorher Kommentare von Methode filtereListe(List<T> elemente, Kriterium<T> kriterium) entfernen!
+
+	                System.out.printf("%n%n------ Liste aller Kontinente (keine Doppelungen) aus meineLaender alphabetisch sortiert ------%n%n");
+	                // TODO siehe 19.
+
+	                System.out.printf("%n%n------ Liste aller Laendernamen aus meineLaender, absteigend nach Bevoelkerungsdichte sortiert ------%n%n");
+	                // TODO siehe 19.
+	            }
+
+	        }
+	        ```
+	    === "Probeklausur5Test.java"
+	        ```java
+	        package klausur;
+
+	        import org.junit.jupiter.api.BeforeAll;
+	        import org.junit.jupiter.api.DisplayName;
+	        import org.junit.jupiter.api.Test;
+
+	        import java.util.*;
+
+	        import static org.junit.jupiter.api.Assertions.*;
+
+	        public class Probeklausur5Test
+	        {
+	            static Land l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12;
+	            static List<Land> laenderListe, laenderListeDoppel;
+
+	            @BeforeAll
+	            public static void setUp()
+	            {
+	                l1 = new Land("Deutschland", 84500000, 357588, Kontinent.EUROPA);
+	                l2 = new Land("Frankreich", 68500000, 551695, Kontinent.EUROPA);
+	                l3 = new Land("Italien", 58900000, 301340, Kontinent.EUROPA);
+	                l4 = new Land("USA", 341800000, 9525067, Kontinent.NORDAMERIKA);
+	                l5 = new Land("Kanada", 40100000, 9984670, Kontinent.NORDAMERIKA);
+	                l6 = new Land("Indien", 1441700000, 3287263, Kontinent.ASIEN);
+	                l7 = new Land("China", 1409700000, 9596961, Kontinent.ASIEN);
+	                l8 = new Land("Brasilien", 216400000, 8515767, Kontinent.SUEDAMERIKA);
+	                l9 = new Land("Argentinien", 46600000, 2780400, Kontinent.SUEDAMERIKA);
+	                l10 = new Land("Nigeria", 237500000, 923768, Kontinent.AFRIKA);
+	                l11 = new Land("Aegypten", 118400000, 1001449, Kontinent.AFRIKA);
+	                l12 = new Land("Australien", 26700000, 7692024, Kontinent.AUSTRALIEN);
+
+	                laenderListe = List.of(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12);
+	                laenderListeDoppel = List.of(l1, l1, l2, l3, l4, l5, l6, l7, l7, l8, l9, l10, l11, l11, l12);
+	            }
+
+	            @Test
+	            @DisplayName("gruppiereNachKontinent()")
+	            public void testGruppiereNachKontinent()
+	            {
+	                // given
+	                Map<Kontinent, List<Land>> expected = new HashMap<>();
+	                expected.put(Kontinent.EUROPA, List.of(l1, l2, l3));
+	                expected.put(Kontinent.NORDAMERIKA, List.of(l4, l5));
+	                expected.put(Kontinent.ASIEN, List.of(l6, l7));
+	                expected.put(Kontinent.SUEDAMERIKA, List.of(l8, l9));
+	                expected.put(Kontinent.AFRIKA, List.of(l10, l11));
+	                expected.put(Kontinent.AUSTRALIEN, List.of(l12));
+
+	                // when
+	                Map<Kontinent, List<Land>> result = Probeklausur5.gruppiereNachKontinent(laenderListe);
+	                Map<Kontinent, List<Land>> resultDoppel = Probeklausur5.gruppiereNachKontinent(laenderListeDoppel);
+	                
+	                // then
+	                assertEquals(expected, result, "gruppiereNachKontinent() scheint noch nicht richtig zu funktionieren");
+	                assertEquals(expected, resultDoppel, "gruppiereNachKontinent() filtert doppelte Laender nicht raus");
+	            }
+
+	            @Test
+	            @DisplayName("groessterProKontinent()")
+	            public void testGroessterProKontinent()
+	            {
+	                // given
+	                Map<Kontinent, Land> expected = new HashMap<>();
+	                expected.put(Kontinent.EUROPA, l2);
+	                expected.put(Kontinent.NORDAMERIKA, l5);
+	                expected.put(Kontinent.ASIEN, l7);
+	                expected.put(Kontinent.SUEDAMERIKA, l8);
+	                expected.put(Kontinent.AFRIKA, l11);
+	                expected.put(Kontinent.AUSTRALIEN, l12);
+
+	                // when
+	                Map<Kontinent, Land> result = Probeklausur5.groessterProKontinent(laenderListe);
+
+	                // then
+	                assertEquals(expected, result, "groessterProKontinent() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("durchschnittlicheDichte()")
+	            public void testDurchschnittlicheDichte()
+	            {
+	                // given laenderListe
+
+	                // when
+	                double result = Probeklausur5.durchschnittlicheDichte(laenderListe);
+
+	                // then
+	                assertEquals(133.52, result, 0.01, "durchschnittlicheDichte() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("Land is Comparable")
+	            public void testLandIsComparable()
+	            {
+	                // given
+	                List<Land> unsorted = new ArrayList<>(List.of(l2, l4, l1, l10, l6, l12));
+	                List<Land> expected = List.of(l10, l6, l12, l1, l2, l4);
+
+	                Object o = l1;
+	                if (o instanceof Comparable)
+	                {
+	                    // when
+	                    Collections.sort((List) unsorted);
+
+	                    // then
+	                    assertEquals(expected, unsorted, "compareTo() von Land scheint noch nicht richtig zu funktionieren");
+	                }
+	                else
+	                {
+	                    fail("Land ist noch nicht Comparable");
+	                }
+	            }
+
+	            @Test
+	            @DisplayName("getLandMitName() - gefunden")
+	            public void testGetLandMitNameGefunden()
+	            {
+	                assertEquals(l1, Probeklausur5.getLandMitName(laenderListe, "Deutschland"),
+	                        "getLandMitName() scheint noch nicht richtig zu funktionieren");
+	            }
+
+	            @Test
+	            @DisplayName("getLandMitName() - nicht gefunden")
+	            public void testGetLandMitNameNichtGefunden()
+	            {
+	                Exception e = assertThrows(IllegalArgumentException.class,
+	                        () -> Probeklausur5.getLandMitName(laenderListe, "Atlantis"));
+	                assertEquals("Land Atlantis nicht gefunden.", e.getMessage());
+	            }
+
+	            /*
+	             * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer getLandMitNamePrefix() (siehe 16.)
+	             */
+
+	        }
+	        ```
+
+	3. Implementieren Sie die Methode `gruppiereNachKontinent(List<Land> laender)`. Diese Methode gibt eine `Map<Kontinent, List<Land>>` zurück. Die zurückgegebene Map enthält als Schlüssel alle Kontinente aus `laender`. Die Werte sind die Listen der Länder des entsprechenden Kontinents. <br/>**Achtung!** Länder dürfen in der Map **nicht doppelt** vorkommen!
+
+	    --> siehe `testGruppiereNachKontinent()` in `KlausurTest` (Anzeige `gruppiereNachKontinent()`)
+
+	4. Rufen Sie die `gruppiereNachKontinent()`-Methode in der `main`-Methode mit `meineLaender` auf und geben Sie die zurückgegebene Map wie folgt auf der Konsole aus (Reihenfolge und Werte zufällig!):
+
+	    ```bash
+	    --------------- gruppiereNachKontinent(meineLaender) ---------------------
+
+	    Kontinent : SUEDAMERIKA
+	    ---------------------
+	    Brasilien       mit  216,4 Mio Einw. auf  8.515.767 km² 
+	    Argentinien     mit   46,6 Mio Einw. auf  2.780.400 km² 
+	    ---------------------
+
+	    Kontinent : AFRIKA
+	    ---------------------
+	    Nigeria         mit  237,5 Mio Einw. auf    923.768 km² 
+	    Aegypten        mit  118,4 Mio Einw. auf  1.001.449 km² 
+	    ---------------------
+	    ```
+
+	    d.h. immer erst der Kontinent, dann eine Linie, dann für jeden Kontinent die Länder, zuletzt eine Linie und eine Leerzeile.
+
+	5. Geben Sie nun in `main` die gleiche Map (aus `4.`) **sortiert** aus, d.h. die Kontinente erscheinen alphabetisch sortiert und innerhalb eines Kontinents sind die Länder **absteigend** nach `einwohner` sortiert.
+
+	    ```bash
+	    ----------- gruppiereNachKontinent(meineLaender) sortiert ------------------
+
+	    Kontinent : AFRIKA
+	    ---------------------
+	    Nigeria         mit  237,5 Mio Einw. auf    923.768 km² 
+	    Aegypten        mit  118,4 Mio Einw. auf  1.001.449 km² 
+	    ---------------------
+
+	    Kontinent : ASIEN
+	    ---------------------
+	    Indien          mit 1441,7 Mio Einw. auf  3.287.263 km² 
+	    China           mit 1409,7 Mio Einw. auf  9.596.961 km² 
+	    ---------------------
+	    ```
+
+	6. Implementieren Sie die Methode `groessterProKontinent(List<Land> laender)`. Diese Methode gibt eine `Map<Kontinent, Land>` zurück. Für jeden Kontinent aus `laender` wird als Wert das (nach `flaeche`) **größte** Land dieses Kontinents eingetragen.
+
+	    --> siehe `testGroessterProKontinent()` in `KlausurTest` (Anzeige `groessterProKontinent()`)
+
+	7. Rufen Sie die `groessterProKontinent()`-Methode in `main` mit `meineLaender` auf und geben Sie die zurückgegebene Map **sortiert nach Kontinentname** wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- groessterProKontinent(meineLaender) ---------------------
+
+	    AFRIKA : Aegypten        mit  118,4 Mio Einw. auf  1.001.449 km² 
+	    ASIEN : China           mit 1409,7 Mio Einw. auf  9.596.961 km² 
+	    AUSTRALIEN : Australien      mit   26,7 Mio Einw. auf  7.692.024 km² 
+	    EUROPA : Frankreich      mit   68,5 Mio Einw. auf    551.695 km² 
+	    NORDAMERIKA : Kanada          mit   40,1 Mio Einw. auf  9.984.670 km² 
+	    SUEDAMERIKA : Brasilien       mit  216,4 Mio Einw. auf  8.515.767 km² 
+	    ```
+
+	8. Implementieren Sie die Methode `durchschnittlicheDichte(List<Land> laender)`. Diese Methode berechnet für jedes Land aus `laender` die Bevölkerungsdichte (`einwohner / flaeche` als `double`) und gibt den **Durchschnitt** dieser Dichten als `double` zurück. 
+
+	    --> siehe `testDurchschnittlicheDichte()` in `KlausurTest` (Anzeige `durchschnittlicheDichte()`)
+
+	9. Rufen Sie die `durchschnittlicheDichte()`-Methode in `main` mit `meineLaender` auf und geben Sie das Ergebnis mit zwei Nachkommastellen aus (Zufallswert!):
+
+	    ```bash
+	    --------------- durchschnittlicheDichte(meineLaender) ---------------------
+
+	    durchschnittliche Dichte: 133,52 Einwohner/km2
+	    ```
+
+	10. Implementieren Sie für den `record Land` das `Comparable`-Interface so, dass eine Ordnung über den Kontinent (`kontinent`) entsteht. Bei gleichem Kontinent wird die Ordnung über die Einwohnerzahl (`einwohner`) **absteigend** (bevölkerungsreichstes Land zuerst) erweitert.
+
+	    **Tipp:** nutzen Sie die `compareTo()`-Methode des `enum Kontinent` sowie `Integer.compare()`.
+
+	    --> siehe `testLandIsComparable()` in `KlausurTest` (Anzeige `Land is Comparable`)
+
+	11. Erzeugen Sie in der `main`-Methode aus `meineLaender` eine sortierte Liste unter Verwendung von `compareTo()`. **Entfernen** Sie Duplikate! Geben Sie die sortierte Liste wie folgt aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- meineLaender sortiert (compareTo) ---------------------
+
+	    Nigeria         mit  237,5 Mio Einw. auf    923.768 km² 
+	    Aegypten        mit  118,4 Mio Einw. auf  1.001.449 km² 
+	    Indien          mit 1441,7 Mio Einw. auf  3.287.263 km² 
+	    China           mit 1409,7 Mio Einw. auf  9.596.961 km² 
+	    Australien      mit   26,7 Mio Einw. auf  7.692.024 km² 
+	    Deutschland     mit   84,5 Mio Einw. auf    357.588 km² 
+	    Frankreich      mit   68,5 Mio Einw. auf    551.695 km² 
+	    ```
+
+	12. Implementieren Sie die Methode `getLandMitName(List<Land> laender, String name)`. Diese Methode gibt das `Land` aus `laender` zurück, dessen `name` mit dem übergebenen Parameter übereinstimmt. Existiert kein solches Land, wird eine `IllegalArgumentException` mit der Nachricht `Land <name> nicht gefunden.` geworfen, wobei `<name>` durch den gesuchten Namen ersetzt wird.
+
+	    --> siehe `testGetLandMitNameGefunden()` und `testGetLandMitNameNichtGefunden()` in `KlausurTest` (Anzeige `getLandMitName() - gefunden` bzw. `getLandMitName() - nicht gefunden`)
+
+	13. Rufen Sie `getLandMitName(meineLaender, name)` in `main` für jeden Namen aus `namen` auf. Es wird entweder das gefundene Land ausgegeben, oder - falls eine Exception geworfen wird - deren Nachricht (Zufallswert für "Deutschland"!):
+
+	    ```bash
+	    --------------- getLandMitName(meineLaender, name) ---------------------
+
+	    Deutschland     mit   84,5 Mio Einw. auf    357.588 km² 
+	    Land Atlantis nicht gefunden.
+	    ```
+
+	14. Implementieren Sie die Methode `getLandMitNamePrefix(List<Land> laender, String prefix)`. Diese Methode gibt ein `Optional<Land>` zurück. Es wird nach dem **ersten** Land in `laender` gesucht, dessen `name` mit `prefix` beginnt. Existiert ein solches Land, wird es im `Optional` zurückgegeben, sonst wird ein leeres `Optional` zurückgegeben.
+
+	    --> *Tests schreiben Sie selbst (siehe 16.)*
+
+	15. Rufen Sie `getLandMitNamePrefix(meineLaender, prefix)` in `main` für jedes Präfix aus `praefixe` auf. Es wird entweder das im `Optional` enthaltene Land ausgegeben, oder eine Nachricht der Form `Kein Land mit Praefix <prefix> gefunden.`, wobei `<prefix>` durch das gesuchte Präfix ersetzt wird (Zufallswert für "De"!):
+
+	    ```bash
+	    --------------- getLandMitNamePrefix(meineLaender, prefix) ---------------------
+
+	    Deutschland     mit   84,5 Mio Einw. auf    357.588 km² 
+	    Kein Land mit Praefix Xy gefunden.
+	    ```
+
+	16. Erstellen Sie in der Klasse `KlausurTest` zwei Tests für die Methode `getLandMitNamePrefix(List<Land> laender, String prefix)`.
+
+	    - Der erste Test soll prüfen, ob ein Land korrekt aus `laenderListe` für ein gegebenes Präfix gefunden wird, wenn ein passendes Land existiert.
+	    - Der zweite Test soll prüfen, ob ein leeres `Optional` zurückgegeben wird, wenn kein passendes Land existiert.
+
+	17. Erstellen Sie ein *functional interface* `Kriterium<T>` mit der generischen Methode `erfuellt(T element)`. Diese Methode gibt ein `boolean` zurück. Entfernen Sie nach Erstellung des Interfaces die Kommentare um die Methode `filtereListe(List<T> elemente, Kriterium<T> kriterium)`.
+
+	    **Tipp:** `Kriterium<T>` ist generisch, damit es nicht nur für `Land`, sondern für beliebige Typen verwendet werden kann - genau wie die Methode `filtereListe()`. Die Methode müssen Sie dann aber einfach nur für `meineLaender` und für das von Ihnen unter 18. definierte `Kriterium<Land>` aufrufen. 
+
+	18. Erzeugen Sie in der `main`-Methode einen Lambda-Ausdruck vom Typ `Kriterium<Land>`, der für ein gegebenes Land prüft, ob dessen `flaeche` größer als `5.000.000 km2` ist. Rufen Sie die Methode `filtereListe(meineLaender, kriterium)` auf und geben Sie die zurückgegebene Liste aus (Zufallswerte!):
+
+	    ```bash
+	    --------------- Kriterium und filtereListe(meineLaender, kriterium) ---------------------
+
+	    USA             mit  341,8 Mio Einw. auf  9.525.067 km² 
+	    Kanada          mit   40,1 Mio Einw. auf  9.984.670 km² 
+	    China           mit 1409,7 Mio Einw. auf  9.596.961 km² 
+	    Brasilien       mit  216,4 Mio Einw. auf  8.515.767 km² 
+	    Australien      mit   26,7 Mio Einw. auf  7.692.024 km² 
+	    ```
+
+	19. Erstellen Sie aus `meineLaender` **zwei** Listen (ohne eigene Hilfsmethode, direkt in `main`):
+
+	    - Eine Liste aller Kontinente (als `String`, **ohne Duplikate**), die in `meineLaender` vorkommen, alphabetisch aufsteigend sortiert:
+
+	        ```bash
+	        ------ Liste aller Kontinente (keine Doppelungen) aus meineLaender alphabetisch sortiert ------
+
+	        AFRIKA
+	        ASIEN
+	        AUSTRALIEN
+	        EUROPA
+	        NORDAMERIKA
+	        SUEDAMERIKA
+	        ```
+
+	    - Eine Liste aller Ländernamen (**ohne Duplikate**) aus `meineLaender`, **absteigend** nach Bevölkerungsdichte (`einwohner / flaeche`) sortiert:
+
+	        ```bash
+	        ------ Liste aller Laendernamen aus meineLaender, absteigend nach Bevoelkerungsdichte sortiert ------
+
+	        Indien
+	        Nigeria
+	        Deutschland
+	        Italien
+	        China
+	        Frankreich
+	        Aegypten
+	        USA
+	        Brasilien
+	        Argentinien
+	        Kanada
+	        Australien
+	        ```
+
+
+??? success "mögliche Lösung für Probeklausur5"
+	
+	=== "Probeklausur5.java"
+		```java
+		package probeklausur5;
+
+		import java.util.*;
+		import java.util.stream.*;
+
+		public class Probeklausur5
+		{
+			static Random r = new Random();
+
+			// Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+			private static final List<Land> LAENDER = List.of(
+			        // AFRIKA
+			        new Land("Algerien", 47400000, 2381741, Kontinent.AFRIKA),
+			        new Land("Sudan", 48100000, 1861484, Kontinent.AFRIKA),
+			        new Land("DR Kongo", 112800000, 2344858, Kontinent.AFRIKA),
+			        new Land("Nigeria", 237500000, 923768, Kontinent.AFRIKA),
+			        new Land("Aethiopien", 132100000, 1104300, Kontinent.AFRIKA),
+			        new Land("Aegypten", 118400000, 1001449, Kontinent.AFRIKA),
+
+			        // NORDAMERIKA
+			        new Land("USA", 341800000, 9525067, Kontinent.NORDAMERIKA),
+			        new Land("Kanada", 40100000, 9984670, Kontinent.NORDAMERIKA),
+			        new Land("Mexiko", 130900000, 1972550, Kontinent.NORDAMERIKA),
+			        new Land("Kuba", 9400000, 109884, Kontinent.NORDAMERIKA),
+			        new Land("Nicaragua", 6900000, 130373, Kontinent.NORDAMERIKA),
+			        new Land("Guatemala", 18400000, 109021, Kontinent.NORDAMERIKA),
+
+			        // EUROPA
+			        new Land("Deutschland", 84500000, 357588, Kontinent.EUROPA),
+			        new Land("Frankreich", 68500000, 551695, Kontinent.EUROPA),
+			        new Land("Grossbritannien", 68300000, 243610, Kontinent.EUROPA),
+			        new Land("Italien", 58900000, 301340, Kontinent.EUROPA),
+			        new Land("Spanien", 48600000, 505990, Kontinent.EUROPA),
+			        new Land("Polen", 36700000, 312696, Kontinent.EUROPA),
+
+			        // ASIEN
+			        new Land("Indien", 1441700000, 3287263, Kontinent.ASIEN),
+			        new Land("China", 1409700000, 9596961, Kontinent.ASIEN),
+			        new Land("Indonesien", 281600000, 1904569, Kontinent.ASIEN),
+			        new Land("Pakistan", 245200000, 881913, Kontinent.ASIEN),
+			        new Land("Japan", 124500000, 377975, Kontinent.ASIEN),
+			        new Land("Suedkorea", 51700000, 100210, Kontinent.ASIEN),
+
+			        // SUEDAMERIKA
+			        new Land("Brasilien", 216400000, 8515767, Kontinent.SUEDAMERIKA),
+			        new Land("Kolumbien", 52600000, 1141748, Kontinent.SUEDAMERIKA),
+			        new Land("Argentinien", 46600000, 2780400, Kontinent.SUEDAMERIKA),
+			        new Land("Peru", 34400000, 1285216, Kontinent.SUEDAMERIKA),
+			        new Land("Chile", 19600000, 756102, Kontinent.SUEDAMERIKA),
+			        new Land("Ecuador", 18200000, 283561, Kontinent.SUEDAMERIKA),
+
+			        // AUSTRALIEN / OZEANIEN
+			        new Land("Australien", 26700000, 7692024, Kontinent.AUSTRALIEN),
+			        new Land("Papua-Neuguinea", 10300000, 462840, Kontinent.AUSTRALIEN),
+			        new Land("Neuseeland", 5300000, 270467, Kontinent.AUSTRALIEN),
+			        new Land("Fidschi", 940000, 18274, Kontinent.AUSTRALIEN)
+			    );
+
+		    // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+		    private static Land createLand()
+		    {
+		        return LAENDER.get(r.nextInt(LAENDER.size()));
+		    }
+
+		    // Hilfsmethode - bleibt unveraendert (koennen Sie zuklappen)
+		    private static List<Land> createLaenderListe(int anzahl)
+		    {
+		        List<Land> laender = new ArrayList<>();
+		        for (int i = 0; i < anzahl; i++)
+		        {
+		            laender.add(createLand());
+		        }
+		        return laender;
+		    }
+
+		    /*  TODO 3:
+		     *  Map erzeugen,
+		     *  Schluessel ist der Kontinent,
+		     *  Werte sind die Listen aller Laender dieses Kontinents aus laender
+		     */
+		    public static Map<Kontinent, List<Land>> gruppiereNachKontinent(List<Land> laender)
+		    {
+		    	Map<Kontinent, List<Land>> nachKontinent = laender
+		    			.stream()
+		    			.distinct()
+		    			.collect(Collectors.groupingBy(Land::kontinent));
+		        return nachKontinent; 
+		    }
+
+		    /*  TODO 6:
+		     *  Map erzeugen,
+		     *  Schluessel ist der Kontinent,
+		     *  Wert ist das (nach flaeche) groesste Land dieses Kontinents aus laender
+		     */
+		    public static Map<Kontinent, Land> groessterProKontinent(List<Land> laender)
+		    {
+		    	Map<Kontinent, List<Land>> nachKontinentAlleLaender = laender
+		    			.stream()
+		    			.distinct()
+		    			.collect(Collectors.groupingBy(Land::kontinent));
+		    	Map<Kontinent, Land> kontinentUndGroesstesLand = new HashMap<>();
+		        Set<Kontinent> keys = nachKontinentAlleLaender.keySet();
+		        keys.forEach( (k) -> {
+		        	List<Land> alleProKontinent = nachKontinentAlleLaender.get(k);
+		        	Land groesstes = alleProKontinent.get(0);
+		        	for(int i = 1; i < alleProKontinent.size(); i++)
+		        	{
+		        		if(alleProKontinent.get(i).flaeche() > groesstes.flaeche())
+		        		{
+		        			groesstes = alleProKontinent.get(i);
+		        		}
+		        	}
+		        	kontinentUndGroesstesLand.put(k, groesstes);
+		         });
+		        return kontinentUndGroesstesLand; 
+		    }
+
+		    /*  TODO 8:
+		     *  berechnet (mit einem Stream) den Durchschnitt der Bevoelkerungsdichten
+		     *  (einwohner / flaeche) aller Laender aus laender
+		     */
+		    public static double durchschnittlicheDichte(List<Land> laender)
+		    {
+		    	double summeDichten = 0.0;
+		    	for(int i = 0; i < laender.size(); i++)
+		    	{
+		    		Land l = laender.get(i);
+		    		double dichte = l.einwohner() / l.flaeche();
+		    		summeDichten += dichte;
+		    	}
+		        return summeDichten/laender.size(); 
+		    }
+
+		    /*  TODO 12:
+		     *  sucht in laender nach dem Land mit dem uebergebenen name.
+		     *  Existiert kein solches Land, wird eine IllegalArgumentException mit
+		     *  der Nachricht "Land <name> nicht gefunden." geworfen
+		     */
+		    public static Land getLandMitName(List<Land> laender, String name)
+		    {
+		    	for(int i = 0; i < laender.size(); i++)
+		    	{
+		    		if(laender.get(i).name().equals(name))
+		    		{
+		    			return laender.get(i);
+		    		}
+		    	}
+		        throw new IllegalArgumentException("Land " + name + " nicht gefunden.");
+		    }
+
+		    /*  TODO 14:
+		     *  sucht in laender nach dem ersten Land, dessen name mit prefix beginnt.
+		     *  Existiert ein solches Land, wird es im Optional zurueckgegeben,
+		     *  sonst wird ein leeres Optional zurueckgegeben
+		     */
+		    public static Optional<Land> getLandMitNamePrefix(List<Land> laender, String prefix)
+		    {
+		        return laender.stream()
+		                .filter(l -> l.name().startsWith(prefix))
+		                .findFirst();
+		    }
+
+		    /*
+		     * folgende Methode auskommentieren, nachdem Sie das Interface Kriterium erstellt haben
+		     * siehe TODO 17 und 18
+		     */
+		    
+		    public static <T> List<T> filtereListe(List<T> elemente, Kriterium<T> kriterium)
+		    {
+		        return elemente.stream()
+		                .filter(kriterium::erfuellt)
+		                .collect(Collectors.toList());
+		    }
+		    
+
+		    public static void main(String[] args)
+		    {
+		        // --------------- Vorbereitung - bleibt so ---------->
+		        List<Land> meineLaender = createLaenderListe(15);
+		        System.out.printf("%n%n--------------- meineLaender ---------------------%n%n");
+		        meineLaender.forEach(System.out::println);
+		        // <--------------- Vorbereitung - bleibt so ----------
+
+		        System.out.printf("%n%n--------------- gruppiereNachKontinent(meineLaender) ---------------------%n%n");
+		        Map<Kontinent, List<Land>> map1 = gruppiereNachKontinent(meineLaender);
+		        map1.forEach( (k,v) -> {
+		            System.out.println("Kontinent : " + k);
+		            System.out.println("--------------------");
+		            for(Land l : v)
+		            {
+		                System.out.printf("%s %n", l.toString());
+		            }
+		            System.out.println("--------------------");
+		            System.out.println();
+		        });
+
+		        System.out.printf("%n%n----------- gruppiereNachKontinent(meineLaender) sortiert ------------------%n%n");
+		        Map<Kontinent, List<Land>> map2 = gruppiereNachKontinent(meineLaender);
+		        List<Kontinent> keys = map2.keySet()
+		        		.stream()
+		        		.sorted(Comparator.comparing(Kontinent::name))
+		        		.toList();
+		        keys.forEach( (k) -> {
+		            System.out.println("Kontinent : " + k);
+		            System.out.println("--------------------");
+		            List<Land> laender = map2.get(k);
+		            List<Land> laenderSorted = laender.stream().sorted(Comparator.comparing(Land::einwohner).reversed()).toList();
+		            for(Land l : laenderSorted)
+		            {
+		                System.out.printf("%s %n", l.toString());
+		            }
+		            System.out.println("--------------------");
+		            System.out.println();
+		        });
+		        
+		        System.out.printf("%n%n--------------- groessterProKontinent(meineLaender) ---------------------%n%n");
+		        Map<Kontinent, Land> map3 = groessterProKontinent(meineLaender);
+		        map3.forEach( (k,v) -> {
+		            System.out.printf("%-15s : %-30s %n", k, v);
+		        });
+
+		        System.out.printf("%n%n--------------- durchschnittlicheDichte(meineLaender) ---------------------%n%n");
+		        double durchschnittlicheDichte = durchschnittlicheDichte(meineLaender);
+		        System.out.printf("durchschnittliche Dichte: %.2f Einwohner/km%c %n", 
+		        		durchschnittlicheDichte, 
+		        		'\u00b2');
+
+		        System.out.printf("%n%n--------------- meineLaender sortiert (compareTo) ---------------------%n%n");
+		        meineLaender.stream()
+		        			.distinct()
+		        			.sorted()
+		        			.forEach(System.out::println);
+
+		        System.out.printf("%n%n--------------- getLandMitName(meineLaender, name) ---------------------%n%n");
+		        String[] namen = {"Deutschland", "Atlantis"};
+		        for (String name : namen)
+		        {
+		            try {
+		                Land l = getLandMitName(meineLaender, name);
+		                System.out.println(l);
+		            }
+		            catch(IllegalArgumentException e) {
+		                System.out.println(e.getMessage());
+		            }
+		        }
+
+		        System.out.printf("%n%n--------------- getLandMitNamePrefix(meineLaender, prefix) ---------------------%n%n");
+		        String[] praefixe = {"De", "Xy"};
+		        for (String prefix : praefixe)
+		        {
+		        	Optional<Land> opt = getLandMitNamePrefix(meineLaender, prefix);
+		            if(opt.isPresent())
+		            {
+		                System.out.println(opt.get());
+		            }
+		            else
+		            {
+		                System.out.println("Kein Land mit Praefix " + prefix + " gefunden.");
+		            }
+		        }
+
+		        System.out.printf("%n%n--------------- Kriterium und filtereListe(meineLaender, kriterium) ---------------------%n%n");
+		        // vorher Kommentare von Methode filtereListe(List<T> elemente, Kriterium<T> kriterium) entfernen!
+		        
+		        Kriterium<Land> groesserAls5Mio = (l -> l.flaeche() > 5000000);
+		        List<Land> laenderGroesser5Mio = filtereListe(meineLaender, groesserAls5Mio);
+		        laenderGroesser5Mio.forEach(System.out::println);
+		        
+		        System.out.printf("%n%n------ Liste aller Kontinente (keine Doppelungen) aus meineLaender alphabetisch sortiert ------%n%n");
+		        meineLaender.stream()
+					        .map(l -> l.kontinent().name())
+					        .distinct()
+					        .sorted()
+					        .forEach(System.out::println);
+
+		        System.out.printf("%n%n------ Liste aller Laendernamen aus meineLaender, absteigend nach Bevoelkerungsdichte sortiert ------%n%n");
+		        meineLaender.stream()
+					        .distinct()
+					        .sorted(Comparator.comparingDouble((Land l) -> (double) l.einwohner() / l.flaeche()).reversed())
+					        .map(Land::name)
+					        .forEach(System.out::println);
+		    }
+		}
+		```
+
+	=== "Land.java"
+		```java
+		package probeklausur5;
+
+		public record Land(String name, int einwohner, int flaeche, Kontinent kontinent) 
+		implements Comparable<Land>
+		{
+			@Override
+			public String toString()
+			{
+				return String.format("%-15s mit %6.1f Mio Einw. auf %,10d km%c ", 
+						this.name,
+						(this.einwohner / 1000000.0),
+						this.flaeche,
+						'\u00b2');
+			}
+
+			@Override
+			public int compareTo(Land o)
+			{
+				int kontinentGleich = this.kontinent.compareTo(o.kontinent);
+				return (kontinentGleich == 0) ? o.einwohner - this.einwohner : kontinentGleich;
+			}
+		}
+		```
+
+	=== "Kriterium.java"
+		```java
+		package probeklausur5;
+
+		@FunctionalInterface
+		public interface Kriterium<T>
+		{
+		    boolean erfuellt(T element);
+		}
+		```
+
+	=== "Probeklausur5Test.java"
+		```java
+		package probeklausur5;
+
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.DisplayName;
+		import org.junit.jupiter.api.Test;
+
+		import java.util.*;
+
+		import static org.junit.jupiter.api.Assertions.*;
+
+		public class KlausurTest
+		{
+		    static Land l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12;
+		    static List<Land> laenderListe, laenderListeDoppel;
+
+		    @BeforeAll
+		    public static void setUp()
+		    {
+		        l1 = new Land("Deutschland", 84500000, 357588, Kontinent.EUROPA);
+		        l2 = new Land("Frankreich", 68500000, 551695, Kontinent.EUROPA);
+		        l3 = new Land("Italien", 58900000, 301340, Kontinent.EUROPA);
+		        l4 = new Land("USA", 341800000, 9525067, Kontinent.NORDAMERIKA);
+		        l5 = new Land("Kanada", 40100000, 9984670, Kontinent.NORDAMERIKA);
+		        l6 = new Land("Indien", 1441700000, 3287263, Kontinent.ASIEN);
+		        l7 = new Land("China", 1409700000, 9596961, Kontinent.ASIEN);
+		        l8 = new Land("Brasilien", 216400000, 8515767, Kontinent.SUEDAMERIKA);
+		        l9 = new Land("Argentinien", 46600000, 2780400, Kontinent.SUEDAMERIKA);
+		        l10 = new Land("Nigeria", 237500000, 923768, Kontinent.AFRIKA);
+		        l11 = new Land("Aegypten", 118400000, 1001449, Kontinent.AFRIKA);
+		        l12 = new Land("Australien", 26700000, 7692024, Kontinent.AUSTRALIEN);
+
+		        laenderListe = List.of(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12);
+		        laenderListeDoppel = List.of(l1, l1, l2, l3, l4, l5, l6, l7, l7, l8, l9, l10, l11, l11, l12);
+		    }
+
+		    @Test
+		    @DisplayName("gruppiereNachKontinent()")
+		    public void testGruppiereNachKontinent()
+		    {
+		        // given
+		        Map<Kontinent, List<Land>> expected = new HashMap<>();
+		        expected.put(Kontinent.EUROPA, List.of(l1, l2, l3));
+		        expected.put(Kontinent.NORDAMERIKA, List.of(l4, l5));
+		        expected.put(Kontinent.ASIEN, List.of(l6, l7));
+		        expected.put(Kontinent.SUEDAMERIKA, List.of(l8, l9));
+		        expected.put(Kontinent.AFRIKA, List.of(l10, l11));
+		        expected.put(Kontinent.AUSTRALIEN, List.of(l12));
+
+		        // when
+		        Map<Kontinent, List<Land>> result = Probeklausur5.gruppiereNachKontinent(laenderListe);
+		        Map<Kontinent, List<Land>> resultDoppel = Probeklausur5.gruppiereNachKontinent(laenderListeDoppel);
+		        
+		        // then
+		        assertEquals(expected, result, "gruppiereNachKontinent() scheint noch nicht richtig zu funktionieren");
+		        assertEquals(expected, resultDoppel, "gruppiereNachKontinent() filtert doppelte Laender nicht raus");
+		    }
+
+		    @Test
+		    @DisplayName("groessterProKontinent()")
+		    public void testGroessterProKontinent()
+		    {
+		        // given
+		        Map<Kontinent, Land> expected = new HashMap<>();
+		        expected.put(Kontinent.EUROPA, l2);
+		        expected.put(Kontinent.NORDAMERIKA, l5);
+		        expected.put(Kontinent.ASIEN, l7);
+		        expected.put(Kontinent.SUEDAMERIKA, l8);
+		        expected.put(Kontinent.AFRIKA, l11);
+		        expected.put(Kontinent.AUSTRALIEN, l12);
+
+		        // when
+		        Map<Kontinent, Land> result = Probeklausur5.groessterProKontinent(laenderListe);
+
+		        // then
+		        assertEquals(expected, result, "groessterProKontinent() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("durchschnittlicheDichte()")
+		    public void testDurchschnittlicheDichte()
+		    {
+		        // given laenderListe
+
+		        // when
+		        double result = Probeklausur5.durchschnittlicheDichte(laenderListe);
+
+		        // then
+		        assertEquals(133.52, result, 0.01, "durchschnittlicheDichte() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("Land is Comparable")
+		    public void testLandIsComparable()
+		    {
+		        // given
+		        List<Land> unsorted = new ArrayList<>(List.of(l2, l4, l1, l10, l6, l12));
+		        List<Land> expected = List.of(l10, l6, l12, l1, l2, l4);
+
+		        Object o = l1;
+		        if (o instanceof Comparable)
+		        {
+		            // when
+		            Collections.sort((List) unsorted);
+
+		            // then
+		            assertEquals(expected, unsorted, "compareTo() von Land scheint noch nicht richtig zu funktionieren");
+		        }
+		        else
+		        {
+		            fail("Land ist noch nicht Comparable");
+		        }
+		    }
+
+		    @Test
+		    @DisplayName("getLandMitName() - gefunden")
+		    public void testGetLandMitNameGefunden()
+		    {
+		        assertEquals(l1, Probeklausur5.getLandMitName(laenderListe, "Deutschland"),
+		                "getLandMitName() scheint noch nicht richtig zu funktionieren");
+		    }
+
+		    @Test
+		    @DisplayName("getLandMitName() - nicht gefunden")
+		    public void testGetLandMitNameNichtGefunden()
+		    {
+		        Exception e = assertThrows(IllegalArgumentException.class,
+		                () -> Probeklausur5.getLandMitName(laenderListe, "Atlantis"));
+		        assertEquals("Land Atlantis nicht gefunden.", e.getMessage());
+		    }
+
+		    /*
+		     * Schreiben Sie hinter diesem Kommentar Ihre beiden Testfaelle fuer getLandMitNamePrefix() (siehe 16.)
+		     */
+
+		    @Test
+		    @DisplayName("getLandMitNamePrefix() - gefunden")
+		    public void testGetLandMitNamePrefixGefunden()
+		    {
+		        // given
+		        // laenderListe
+
+		        // when
+		        Optional<Land> opt = Probeklausur5.getLandMitNamePrefix(laenderListe, "De");
+
+		        // then
+		        assertEquals(l1, opt.get(), "De nicht gefunden");
+		    }
+
+		    @Test
+		    @DisplayName("getLandMitNamePrefix() - nicht gefunden")
+		    public void testGetLandMitNamePrefixNichtGefunden()
+		    {
+		        // given
+		        // laenderListe
+
+		        // when
+		        Optional<Land> opt = Probeklausur5.getLandMitNamePrefix(laenderListe, "No");
+
+		        // then
+		        assertEquals(Optional.empty(), opt, "für No nicht leer");
+		    }
+		}
+		```
+
+	=== "Kontinent.java"
+		```java
+		package probeklausur5;
+
+		public enum Kontinent
+		{
+			AFRIKA, ANTARKTIKA, ASIEN, AUSTRALIEN, EUROPA, NORDAMERIKA, SUEDAMERIKA
 		}
 		```
 
